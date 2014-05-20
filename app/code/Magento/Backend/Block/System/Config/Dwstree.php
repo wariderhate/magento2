@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -60,7 +58,7 @@ class Dwstree extends \Magento\Backend\Block\Widget\Tabs
             )
         );
 
-        /** @var $website \Magento\Core\Model\Website */
+        /** @var $website \Magento\Store\Model\Website */
         foreach ($this->_storeManager->getWebsites(true) as $website) {
             $wCode = $website->getCode();
             $wName = $website->getName();
@@ -73,7 +71,7 @@ class Dwstree extends \Magento\Backend\Block\Widget\Tabs
                     $this->_addBreadcrumb($wName);
                 }
             }
-            /** @var $store \Magento\Core\Model\Store */
+            /** @var $store \Magento\Store\Model\Store */
             foreach ($website->getStores() as $store) {
                 $sCode = $store->getCode();
                 $sName = $store->getName();

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Connect
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Class block for package
  *
- * @category    Magento
- * @package     Magento_Connect
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Connect\Block\Adminhtml\Extension\Custom\Edit\Tab;
@@ -44,7 +40,7 @@ class Package extends \Magento\Connect\Block\Adminhtml\Extension\Custom\Edit\Tab
     {
         parent::_prepareForm();
 
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
         $form->setHtmlIdPrefix('_package');
 
@@ -70,8 +66,8 @@ class Package extends \Magento\Connect\Block\Adminhtml\Extension\Custom\Edit\Tab
         );
 
         $versionsInfo = array(
-            array('label' => __('1.5.0.0 & later'), 'value' => \Magento\Connect\Package::PACKAGE_VERSION_2X),
-            array('label' => __('Pre-1.5.0.0'), 'value' => \Magento\Connect\Package::PACKAGE_VERSION_1X)
+            array('label' => __('1.5.0.0 & later'), 'value' => \Magento\Framework\Connect\Package::PACKAGE_VERSION_2X),
+            array('label' => __('Pre-1.5.0.0'), 'value' => \Magento\Framework\Connect\Package::PACKAGE_VERSION_1X)
         );
         $fieldset->addField(
             'version_ids',

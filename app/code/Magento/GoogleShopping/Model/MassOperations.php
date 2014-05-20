@@ -18,21 +18,17 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\GoogleShopping\Model;
 
-use Magento\Model\Exception as CoreException;
+use Magento\Framework\Model\Exception as CoreException;
 use Magento\GoogleShopping\Model\Resource\Item\Collection as ItemCollection;
 
 /**
  * Controller for mass opertions with items
  *
- * @category   Magento
- * @package    Magento_GoogleShopping
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class MassOperations
@@ -54,7 +50,7 @@ class MassOperations
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -91,8 +87,8 @@ class MassOperations
      * @param \Magento\GoogleShopping\Model\ItemFactory $itemFactory
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\AdminNotification\Model\InboxFactory $inboxFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Logger $logger
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\GoogleShopping\Helper\Data $gleShoppingData
      * @param \Magento\GoogleShopping\Helper\Category $gleShoppingCategory
      * @param array $data
@@ -102,8 +98,8 @@ class MassOperations
         \Magento\GoogleShopping\Model\ItemFactory $itemFactory,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\AdminNotification\Model\InboxFactory $inboxFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Logger $logger,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Logger $logger,
         \Magento\GoogleShopping\Helper\Data $gleShoppingData,
         \Magento\GoogleShopping\Helper\Category $gleShoppingCategory,
         array $data = array()
@@ -142,7 +138,7 @@ class MassOperations
     /**
      * Logger
      *
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
@@ -264,7 +260,7 @@ class MassOperations
                     $item->save();
                     // The item was updated successfully
                     $totalUpdated++;
-                } catch (\Magento\Gdata\Gshopping\HttpException $e) {
+                } catch (\Magento\Framework\Gdata\Gshopping\HttpException $e) {
                     if (in_array('notfound', $e->getCodes())) {
                         $item->delete();
                         $totalDeleted++;

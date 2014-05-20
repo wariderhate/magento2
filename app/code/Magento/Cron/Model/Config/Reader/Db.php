@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cron
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,18 +36,18 @@ class Db
     protected $_converter;
 
     /**
-     * @var \Magento\App\Config\Scope\ReaderInterface
+     * @var \Magento\Framework\App\Config\Scope\ReaderInterface
      */
     protected $_reader;
 
     /**
      * Initialize parameters
      *
-     * @param \Magento\App\Config\Scope\ReaderInterface $defaultReader
+     * @param \Magento\Framework\App\Config\Scope\ReaderInterface $defaultReader
      * @param \Magento\Cron\Model\Config\Converter\Db $converter
      */
     public function __construct(
-        \Magento\App\Config\Scope\ReaderInterface $defaultReader,
+        \Magento\Framework\App\Config\Scope\ReaderInterface $defaultReader,
         \Magento\Cron\Model\Config\Converter\Db $converter
     ) {
         $this->_reader = $defaultReader;

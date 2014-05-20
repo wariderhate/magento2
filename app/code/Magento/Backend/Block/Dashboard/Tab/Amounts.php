@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Adminhtml dashboard order amounts diagram
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Backend\Block\Dashboard\Tab;
@@ -39,7 +35,7 @@ class Amounts extends \Magento\Backend\Block\Dashboard\Graph
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Reports\Model\Resource\Order\CollectionFactory $collectionFactory
      * @param \Magento\Backend\Helper\Dashboard\Data $dashboardData
-     * @param \Magento\Locale\ListsInterface $localeLists
+     * @param \Magento\Framework\Locale\ListsInterface $localeLists
      * @param \Magento\Backend\Helper\Dashboard\Order $dataHelper
      * @param array $data
      */
@@ -47,7 +43,7 @@ class Amounts extends \Magento\Backend\Block\Dashboard\Graph
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Reports\Model\Resource\Order\CollectionFactory $collectionFactory,
         \Magento\Backend\Helper\Dashboard\Data $dashboardData,
-        \Magento\Locale\ListsInterface $localeLists,
+        \Magento\Framework\Locale\ListsInterface $localeLists,
         \Magento\Backend\Helper\Dashboard\Order $dataHelper,
         array $data = array()
     ) {

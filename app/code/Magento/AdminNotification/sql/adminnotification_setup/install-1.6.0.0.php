@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,12 +25,10 @@
 /**
  * AdminNotification install
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 $installer = $this;
-/* @var $installer \Magento\Core\Model\Resource\Setup */
+/* @var $installer \Magento\Framework\Module\Setup */
 
 $installer->startSetup();
 /**
@@ -42,49 +38,49 @@ $table = $installer->getConnection()->newTable(
     $installer->getTable('adminnotification_inbox')
 )->addColumn(
     'notification_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true),
     'Notification id'
 )->addColumn(
     'severity',
-    \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
     null,
     array('unsigned' => true, 'nullable' => false, 'default' => '0'),
     'Problem type'
 )->addColumn(
     'date_added',
-    \Magento\DB\Ddl\Table::TYPE_TIMESTAMP,
+    \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
     null,
     array('nullable' => false),
     'Create date'
 )->addColumn(
     'title',
-    \Magento\DB\Ddl\Table::TYPE_TEXT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
     255,
     array('nullable' => false),
     'Title'
 )->addColumn(
     'description',
-    \Magento\DB\Ddl\Table::TYPE_TEXT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
     '64k',
     array(),
     'Description'
 )->addColumn(
     'url',
-    \Magento\DB\Ddl\Table::TYPE_TEXT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
     255,
     array(),
     'Url'
 )->addColumn(
     'is_read',
-    \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
     null,
     array('unsigned' => true, 'nullable' => false, 'default' => '0'),
     'Flag if notification read'
 )->addColumn(
     'is_remove',
-    \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
     null,
     array('unsigned' => true, 'nullable' => false, 'default' => '0'),
     'Flag if notification might be removed'

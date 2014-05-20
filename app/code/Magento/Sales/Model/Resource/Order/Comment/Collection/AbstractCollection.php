@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Model\Resource\Order\Comment\Collection;
 /**
  * Flat sales order abstract comments collection, used as parent for: invoice, shipment, creditmemo
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class AbstractCollection extends \Magento\Sales\Model\Resource\Collection\AbstractCollection
@@ -37,12 +33,12 @@ abstract class AbstractCollection extends \Magento\Sales\Model\Resource\Collecti
     /**
      * Set filter on comments by their parent item
      *
-     * @param \Magento\Model\AbstractModel|int $parent
+     * @param \Magento\Framework\Model\AbstractModel|int $parent
      * @return $this
      */
     public function setParentFilter($parent)
     {
-        if ($parent instanceof \Magento\Model\AbstractModel) {
+        if ($parent instanceof \Magento\Framework\Model\AbstractModel) {
             $parent = $parent->getId();
         }
         return $this->addFieldToFilter('parent_id', $parent);

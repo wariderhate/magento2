@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,12 +28,12 @@ namespace Magento\Catalog\Model\Resource\Product\Option;
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
-class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -48,23 +46,23 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Catalog\Model\Resource\Product\Option\Value\CollectionFactory $optionValueCollectionFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Zend_Db_Adapter_Abstract $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Catalog\Model\Resource\Product\Option\Value\CollectionFactory $optionValueCollectionFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
         $this->_optionValueCollectionFactory = $optionValueCollectionFactory;
         $this->_storeManager = $storeManager;
@@ -123,7 +121,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
             array('store_title' => 'title', 'title' => $titleExpr)
         )->where(
             'default_option_title.store_id = ?',
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
         );
 
         return $this;
@@ -154,7 +152,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
             array('default_option_price' => $productOptionPriceTable),
             'default_option_price.option_id = main_table.option_id AND ' . $adapter->quoteInto(
                 'default_option_price.store_id = ?',
-                \Magento\Core\Model\Store::DEFAULT_STORE_ID
+                \Magento\Store\Model\Store::DEFAULT_STORE_ID
             ),
             array('default_price' => 'price', 'default_price_type' => 'price_type')
         )->joinLeft(

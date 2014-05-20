@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -50,7 +48,7 @@ namespace Magento\Sales\Model\Order\Shipment;
  * @method string getSku()
  * @method \Magento\Sales\Model\Order\Shipment\Item setSku(string $value)
  */
-class Item extends \Magento\Model\AbstractModel
+class Item extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * @var string
@@ -78,19 +76,19 @@ class Item extends \Magento\Model\AbstractModel
     protected $_orderItemFactory;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Sales\Model\Order\ItemFactory $orderItemFactory
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\Sales\Model\Order\ItemFactory $orderItemFactory,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
@@ -164,7 +162,7 @@ class Item extends \Magento\Model\AbstractModel
      *
      * @param float $qty
      * @return \Magento\Sales\Model\Order\Invoice\Item
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function setQty($qty)
     {
@@ -180,7 +178,7 @@ class Item extends \Magento\Model\AbstractModel
         if ($qty <= $this->getOrderItem()->getQtyToShip() || $this->getOrderItem()->isDummy(true)) {
             $this->setData('qty', $qty);
         } else {
-            throw new \Magento\Model\Exception(__('We found an invalid qty to ship for item "%1".', $this->getName()));
+            throw new \Magento\Framework\Model\Exception(__('We found an invalid qty to ship for item "%1".', $this->getName()));
         }
         return $this;
     }

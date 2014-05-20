@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,14 +32,15 @@ class HeadTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\State')->setAreaCode('frontend');
+        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\Framework\App\State')
+            ->setAreaCode('frontend');
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\DesignInterface'
+            'Magento\Framework\View\DesignInterface'
         )->setDesignTheme(
-            'magento_blank'
+            'Magento/blank'
         );
         $this->_block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         )->createBlock(
             'Magento\Theme\Block\Html\Head'
         );
@@ -102,14 +100,14 @@ class HeadTest extends \PHPUnit_Framework_TestCase
             '<script type="text/javascript" src="http://localhost/pub/lib/varien/js.js"></script>' .
             "\n" .
             '<script type="text/javascript" ' .
-            'src="http://localhost/pub/static/frontend/magento_blank/en_US/Magento_Bundle/bundle.js">' .
+            'src="http://localhost/pub/static/frontend/Magento/blank/en_US/Magento_Bundle/bundle.js">' .
             '</script>' .
             "\n" .
             '<link rel="stylesheet" type="text/css" media="all"' .
             ' href="http://localhost/pub/lib/tiny_mce/themes/advanced/skins/default/ui.css" />' .
             "\n" .
             '<link rel="stylesheet" type="text/css" media="print" ' .
-            'href="http://localhost/pub/static/frontend/magento_blank/en_US/css/styles.css" />' .
+            'href="http://localhost/pub/static/frontend/Magento/blank/en_US/css/styles.css" />' .
             "\n" .
             '<link rel="next" href="http://localhost/index.php/category.html" />' .
             "\n" .
@@ -201,7 +199,7 @@ class HeadTest extends \PHPUnit_Framework_TestCase
             ' href="http://localhost/index.php/core/index/notfound" />' .
             "\n" .
             '<link rel="stylesheet" type="text/css" media="print"' .
-            ' href="http://localhost/pub/static/frontend/magento_blank/en_US/css/styles.css" />' .
+            ' href="http://localhost/pub/static/frontend/Magento/blank/en_US/css/styles.css" />' .
             "\n",
             $this->_block->getCssJsHtml()
         );

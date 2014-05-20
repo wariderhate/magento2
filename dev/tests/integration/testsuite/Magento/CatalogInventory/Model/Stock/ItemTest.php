@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -133,11 +130,11 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     public function testSetGetProduct()
     {
         $this->assertNull($this->_model->getProduct());
-        $productOne = new \Magento\Object();
+        $productOne = new \Magento\Framework\Object();
         $this->_model->setData('product', $productOne);
         $this->assertSame($productOne, $this->_model->getProduct());
 
-        $productTwo = new \Magento\Object();
+        $productTwo = new \Magento\Framework\Object();
         $this->_model->setProduct($productTwo);
         $this->assertSame($productTwo, $this->_model->getProduct());
     }

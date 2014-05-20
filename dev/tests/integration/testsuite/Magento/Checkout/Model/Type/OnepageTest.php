@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  */
 namespace Magento\Checkout\Model\Type;
 
@@ -562,7 +560,7 @@ class OnepageTest extends \PHPUnit_Framework_TestCase
             'firstname' => 'John',
             'lastname' => 'Smith',
             'email' => 'John.Smith@example.com',
-            'street' => array(0 => '6131 Monterey Rd, Apt 1', 1 => ''),
+            'street' => ['6131 Monterey Rd, Apt 1', ''],
             'city' => 'Los Angeles',
             'postcode' => '90042',
             'country_id' => 'US',

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Order;
 /**
  * Adminhtml order totals block
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Totals extends \Magento\Sales\Block\Adminhtml\Totals//\Magento\Sales\Block\Adminhtml\Order\AbstractOrder
@@ -42,7 +38,7 @@ class Totals extends \Magento\Sales\Block\Adminhtml\Totals//\Magento\Sales\Block
     protected function _initTotals()
     {
         parent::_initTotals();
-        $this->_totals['paid'] = new \Magento\Object(
+        $this->_totals['paid'] = new \Magento\Framework\Object(
             array(
                 'code' => 'paid',
                 'strong' => true,
@@ -52,7 +48,7 @@ class Totals extends \Magento\Sales\Block\Adminhtml\Totals//\Magento\Sales\Block
                 'area' => 'footer'
             )
         );
-        $this->_totals['refunded'] = new \Magento\Object(
+        $this->_totals['refunded'] = new \Magento\Framework\Object(
             array(
                 'code' => 'refunded',
                 'strong' => true,
@@ -62,7 +58,7 @@ class Totals extends \Magento\Sales\Block\Adminhtml\Totals//\Magento\Sales\Block
                 'area' => 'footer'
             )
         );
-        $this->_totals['due'] = new \Magento\Object(
+        $this->_totals['due'] = new \Magento\Framework\Object(
             array(
                 'code' => 'due',
                 'strong' => true,

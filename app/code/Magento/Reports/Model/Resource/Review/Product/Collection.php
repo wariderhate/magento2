@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Report Products Review collection
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource\Review\Product;
@@ -118,13 +114,13 @@ class Collection extends \Magento\Catalog\Model\Resource\Product\Collection
     /**
      * Get select count sql
      *
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     public function getSelectCountSql()
     {
         $this->_renderFilters();
 
-        /* @var \Magento\DB\Select $select */
+        /* @var \Magento\Framework\DB\Select $select */
         $select = clone $this->getSelect();
         $select->reset(\Zend_Db_Select::ORDER);
         $select->reset(\Zend_Db_Select::LIMIT_COUNT);
@@ -133,7 +129,7 @@ class Collection extends \Magento\Catalog\Model\Resource\Product\Collection
         $select->resetJoinLeft();
         $select->columns(new \Zend_Db_Expr('1'));
 
-        /* @var \Magento\DB\Select $countSelect */
+        /* @var \Magento\Framework\DB\Select $countSelect */
         $countSelect = clone $select;
         $countSelect->reset();
         $countSelect->from($select, "COUNT(*)");

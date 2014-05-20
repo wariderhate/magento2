@@ -18,34 +18,30 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Email
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Email\Model\Resource;
 
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Template db resource
  *
- * @category    Magento
- * @package     Magento_Email
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Template extends \Magento\Model\Resource\Db\AbstractDb
+class Template extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      */
-    public function __construct(\Magento\App\Resource $resource, \Magento\Stdlib\DateTime $dateTime)
+    public function __construct(\Magento\Framework\App\Resource $resource, \Magento\Framework\Stdlib\DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
         parent::__construct($resource);
@@ -116,7 +112,7 @@ class Template extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Set template type, added at and modified at time
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _beforeSave(AbstractModel $object)

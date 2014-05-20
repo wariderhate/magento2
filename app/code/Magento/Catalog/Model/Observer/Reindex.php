@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Observer;
 /**
  * Catalog Observer Reindex
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Reindex
@@ -37,16 +33,16 @@ class Reindex
     /**
      * Object manager
      *
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
     /**
      * Constructor
      *
-     * @param \Magento\ObjectManager $objectManager
+     * @param \Magento\Framework\ObjectManager $objectManager
      */
-    public function __construct(\Magento\ObjectManager $objectManager)
+    public function __construct(\Magento\Framework\ObjectManager $objectManager)
     {
         $this->_objectManager = $objectManager;
     }
@@ -54,10 +50,10 @@ class Reindex
     /**
      * Reindex fulltext
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
-    public function fulltextReindex(\Magento\Event\Observer $observer)
+    public function fulltextReindex(\Magento\Framework\Event\Observer $observer)
     {
         /** @var $category \Magento\Catalog\Model\Category */
         $category = $observer->getDataObject();

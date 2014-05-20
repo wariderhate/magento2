@@ -31,12 +31,17 @@
                 <argument name="file" xsi:type="string">Magento_GroupedProduct::css/grouped-product.css</argument>
             </arguments>
         </block>
+        <block class="Magento\Theme\Block\Html\Head\Script" name="magento-grouped-product-js">
+            <arguments>
+                <argument name="file" xsi:type="string">Magento_GroupedProduct::js/grouped-product.js</argument>
+            </arguments>
+        </block>
     </referenceBlock>
     <referenceBlock name="product_tabs">
         <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts" name="catalog.product.edit.grouped.container" template="product/grouped/container.phtml">
-            <block class="Magento\View\Element\Template" name="catalog.product.edit.tab.super.container" template="Magento_GroupedProduct::product/grouped/grouped.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="catalog.product.edit.tab.super.container" template="Magento_GroupedProduct::product/grouped/grouped.phtml">
                 <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts\ListAssociatedProducts" name="catalog.product.edit.tab.super.list" as="list" template="product/grouped/list.phtml" />
-                <block class="Magento\View\Element\Template" name="catalog.product.edit.tab.super.grid.popup.container" as="catalog.product.group.grid.popup.container"/>
+                <block class="Magento\Framework\View\Element\Template" name="catalog.product.edit.tab.super.grid.popup.container" as="catalog.product.group.grid.popup.container"/>
             </block>
         </block>
         <action method="addTab">

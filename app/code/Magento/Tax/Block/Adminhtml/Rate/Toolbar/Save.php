@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Admin tax rate save toolbar
  *
- * @category   Magento
- * @package     Magento_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Tax\Block\Adminhtml\Rate\Toolbar;
@@ -54,7 +50,7 @@ class Save extends \Magento\Backend\Block\Template
      */
     protected function _prepareLayout()
     {
-        $this->addChild(
+        $this->getToolbar()->addChild(
             'backButton',
             'Magento\Backend\Block\Widget\Button',
             array(
@@ -64,72 +60,42 @@ class Save extends \Magento\Backend\Block\Template
             )
         );
 
-        $this->addChild(
+        $this->getToolbar()->addChild(
             'resetButton',
             'Magento\Backend\Block\Widget\Button',
-            array('label' => __('Reset'), 'onclick' => 'window.location.reload()')
+            array('label' => __('Reset'), 'onclick' => 'window.location.reload()', 'class' => 'reset')
         );
 
-        $this->addChild(
+        $rate = intval($this->getRequest()->getParam('rate'));
+        if ($rate) {
+            $this->getToolbar()->addChild(
+                'deleteButton',
+                'Magento\Backend\Block\Widget\Button',
+                array(
+                    'label' => __('Delete Rate'),
+                    'onclick' => 'deleteConfirm(\'' . __(
+                        'Are you sure you want to do this?'
+                    ) . '\', \'' . $this->getUrl(
+                        'tax/*/delete',
+                        array('rate' => $rate)
+                    ) . '\')',
+                    'class' => 'delete'
+                )
+            );
+        }
+
+        $this->getToolbar()->addChild(
             'saveButton',
             'Magento\Backend\Block\Widget\Button',
-            array('label' => __('Save Rate'), 'class' => 'save')
-        );
-
-        $this->addChild(
-            'deleteButton',
-            'Magento\Backend\Block\Widget\Button',
             array(
-                'label' => __('Delete Rate'),
-                'onclick' => 'deleteConfirm(\'' . __(
-                    'Are you sure you want to do this?'
-                ) . '\', \'' . $this->getUrl(
-                    'tax/*/delete',
-                    array('rate' => $this->getRequest()->getParam('rate'))
-                ) . '\')',
-                'class' => 'delete'
+                'label' => __('Save Rate'),
+                'class' => 'save primary save-rate',
+                'data_attribute' => array(
+                    'mage-init' => array('button' => array('event' => 'save', 'target' => '#rate-form'))
+                )
             )
         );
+
         return parent::_prepareLayout();
-    }
-
-    /**
-     * @return string
-     */
-    public function getBackButtonHtml()
-    {
-        return $this->getChildHtml('backButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getResetButtonHtml()
-    {
-        return $this->getChildHtml('resetButton');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSaveButtonHtml()
-    {
-        $formId = $this->getLayout()->getBlock('tax_rate_form')->getDestElementId();
-        $button = $this->getChildBlock('saveButton');
-        $button->setDataAttribute(
-            array('mage-init' => array('button' => array('event' => 'save', 'target' => '#' . $formId)))
-        );
-        return $this->getChildHtml('saveButton');
-    }
-
-    /**
-     * @return string|void
-     */
-    public function getDeleteButtonHtml()
-    {
-        if (intval($this->getRequest()->getParam('rate')) == 0) {
-            return;
-        }
-        return $this->getChildHtml('deleteButton');
     }
 }

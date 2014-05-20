@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -201,7 +199,7 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     );
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -211,38 +209,38 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     protected $_configFactory;
 
     /**
-     * @var \Magento\Math\Random
+     * @var \Magento\Framework\Math\Random
      */
     protected $mathRandom;
 
     /**
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Payment\Helper\Data $paymentData
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Logger\AdapterFactory $logAdapterFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Module\ModuleListInterface $moduleList
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\Logger\AdapterFactory $logAdapterFactory
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Module\ModuleListInterface $moduleList
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param \Magento\Centinel\Model\Service $centinelService
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Paypal\Model\ConfigFactory $configFactory
-     * @param \Magento\Math\Random $mathRandom
+     * @param \Magento\Framework\Math\Random $mathRandom
      * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Payment\Helper\Data $paymentData,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\Logger\AdapterFactory $logAdapterFactory,
-        \Magento\Logger $logger,
-        \Magento\Module\ModuleListInterface $moduleList,
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\Logger\AdapterFactory $logAdapterFactory,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Module\ModuleListInterface $moduleList,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Centinel\Model\Service $centinelService,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Paypal\Model\ConfigFactory $configFactory,
-        \Magento\Math\Random $mathRandom,
+        \Magento\Framework\Math\Random $mathRandom,
         array $data = array()
     ) {
         $this->_storeManager = $storeManager;
@@ -251,7 +249,7 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
         parent::__construct(
             $eventManager,
             $paymentData,
-            $coreStoreConfig,
+            $scopeConfig,
             $logAdapterFactory,
             $logger,
             $moduleList,
@@ -299,11 +297,11 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Authorize payment
      *
-     * @param \Magento\Object|Payment $payment
+     * @param \Magento\Framework\Object|Payment $payment
      * @param float $amount
      * @return $this
      */
-    public function authorize(\Magento\Object $payment, $amount)
+    public function authorize(\Magento\Framework\Object $payment, $amount)
     {
         $request = $this->_buildPlaceRequest($payment, $amount);
         $request->setTrxtype(self::TRXTYPE_AUTH_ONLY);
@@ -343,11 +341,11 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Capture payment
      *
-     * @param \Magento\Object|Payment $payment
+     * @param \Magento\Framework\Object|Payment $payment
      * @param float $amount
      * @return $this
      */
-    public function capture(\Magento\Object $payment, $amount)
+    public function capture(\Magento\Framework\Object $payment, $amount)
     {
         if ($payment->getReferenceTransactionId()) {
             $request = $this->_buildPlaceRequest($payment, $amount);
@@ -388,10 +386,10 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Void payment
      *
-     * @param \Magento\Object|Payment $payment
+     * @param \Magento\Framework\Object|Payment $payment
      * @return $this
      */
-    public function void(\Magento\Object $payment)
+    public function void(\Magento\Framework\Object $payment)
     {
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_DELAYED_VOID);
@@ -415,10 +413,10 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Check void availability
      *
-     * @param   \Magento\Object $payment
+     * @param   \Magento\Framework\Object $payment
      * @return  bool
      */
-    public function canVoid(\Magento\Object $payment)
+    public function canVoid(\Magento\Framework\Object $payment)
     {
         if ($payment instanceof \Magento\Sales\Model\Order\Invoice ||
             $payment instanceof \Magento\Sales\Model\Order\Creditmemo
@@ -435,10 +433,10 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Attempt to void the authorization on cancelling
      *
-     * @param \Magento\Object $payment
+     * @param \Magento\Framework\Object $payment
      * @return $this
      */
-    public function cancel(\Magento\Object $payment)
+    public function cancel(\Magento\Framework\Object $payment)
     {
         if (!$payment->getOrder()->getInvoiceCollection()->count()) {
             return $this->void($payment);
@@ -450,11 +448,11 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Refund capture
      *
-     * @param \Magento\Object|Payment $payment
+     * @param \Magento\Framework\Object|Payment $payment
      * @param float $amount
      * @return $this
      */
-    public function refund(\Magento\Object $payment, $amount)
+    public function refund(\Magento\Framework\Object $payment, $amount)
     {
         $request = $this->_buildBasicRequest($payment);
         $request->setTrxtype(self::TRXTYPE_CREDIT);
@@ -531,16 +529,16 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Post request to gateway and return response
      *
-     * @param \Magento\Object $request
-     * @return \Magento\Object
+     * @param \Magento\Framework\Object $request
+     * @return \Magento\Framework\Object
      * @throws \Exception
      */
-    protected function _postRequest(\Magento\Object $request)
+    protected function _postRequest(\Magento\Framework\Object $request)
     {
         $debugData = array('request' => $request->getData());
 
-        $client = new \Magento\HTTP\ZendClient();
-        $result = new \Magento\Object();
+        $client = new \Magento\Framework\HTTP\ZendClient();
+        $result = new \Magento\Framework\Object();
 
         $_config = array('maxredirects' => 5, 'timeout' => 30, 'verifypeer' => $this->getConfigData('verify_peer'));
 
@@ -609,11 +607,11 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Return request object with information for 'authorization' or 'sale' action
      *
-     * @param \Magento\Object|Payment $payment
+     * @param \Magento\Framework\Object|Payment $payment
      * @param float $amount
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
-    protected function _buildPlaceRequest(\Magento\Object $payment, $amount)
+    protected function _buildPlaceRequest(\Magento\Framework\Object $payment, $amount)
     {
         $request = $this->_buildBasicRequest($payment);
         $request->setAmt(round($amount, 2));
@@ -624,7 +622,7 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
         if ($this->getIsCentinelValidationEnabled()) {
             $params = array();
             $params = $this->getCentinelValidator()->exportCmpiData($params);
-            $request = \Magento\Object\Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
+            $request = \Magento\Framework\Object\Mapper::accumulateByMap($params, $request, $this->_centinelFieldMap);
         }
 
         $order = $payment->getOrder();
@@ -656,7 +654,6 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
             }
             $shipping = $order->getShippingAddress();
             if (!empty($shipping)) {
-                $this->_applyCountryWorkarounds($shipping);
                 $request->setShiptofirstname(
                     $shipping->getFirstname()
                 )->setShiptolastname(
@@ -680,12 +677,12 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * Return request object with basic information for gateway request
      *
-     * @param \Magento\Object|Payment $payment
-     * @return \Magento\Object
+     * @param \Magento\Framework\Object|Payment $payment
+     * @return \Magento\Framework\Object
      */
-    protected function _buildBasicRequest(\Magento\Object $payment)
+    protected function _buildBasicRequest(\Magento\Framework\Object $payment)
     {
-        $request = new \Magento\Object();
+        $request = new \Magento\Framework\Object();
         $request->setUser(
             $this->getConfigData('user')
         )->setVendor(
@@ -717,44 +714,29 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc
     /**
      * If response is failed throw exception
      *
-     * @param \Magento\Object $response
+     * @param \Magento\Framework\Object $response
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
-    protected function _processErrors(\Magento\Object $response)
+    protected function _processErrors(\Magento\Framework\Object $response)
     {
         if ($response->getResultCode() == self::RESPONSE_CODE_VOID_ERROR) {
             throw new \Magento\Paypal\Exception(__('You cannot void a verification transaction.'));
         } elseif ($response->getResultCode() != self::RESPONSE_CODE_APPROVED &&
             $response->getResultCode() != self::RESPONSE_CODE_FRAUDSERVICE_FILTER
         ) {
-            throw new \Magento\Model\Exception($response->getRespmsg());
-        }
-    }
-
-    /**
-     * Adopt specified address object to be compatible with Paypal
-     * Puerto Rico should be as state of USA and not as a country
-     *
-     * @param \Magento\Object $address
-     * @return void
-     */
-    protected function _applyCountryWorkarounds(\Magento\Object $address)
-    {
-        if ($address->getCountry() == 'PR') {
-            $address->setCountry('US');
-            $address->setRegionCode('PR');
+            throw new \Magento\Framework\Model\Exception($response->getRespmsg());
         }
     }
 
     /**
      * Set reference transaction data into request
      *
-     * @param \Magento\Object $payment
-     * @param \Magento\Object $request
+     * @param \Magento\Framework\Object $payment
+     * @param \Magento\Framework\Object $request
      * @return $this
      */
-    protected function _setReferenceTransaction(\Magento\Object $payment, $request)
+    protected function _setReferenceTransaction(\Magento\Framework\Object $payment, $request)
     {
         return $this;
     }

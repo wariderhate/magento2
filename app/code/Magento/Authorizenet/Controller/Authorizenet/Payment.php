@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Authorizenet
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Authorizenet\Controller\Authorizenet;
 
-class Payment extends \Magento\App\Action\Action
+class Payment extends \Magento\Framework\App\Action\Action
 {
     /**
      * Checkout session
@@ -35,10 +33,10 @@ class Payment extends \Magento\App\Action\Action
     protected $_session;
 
     /**
-     * @param \Magento\App\Action\Context $context
+     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Checkout\Model\Session $session
      */
-    public function __construct(\Magento\App\Action\Context $context, \Magento\Checkout\Model\Session $session)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Checkout\Model\Session $session)
     {
         $this->_session = $session;
         parent::__construct($context);
@@ -67,11 +65,11 @@ class Payment extends \Magento\App\Action\Action
             )->getPaymentMethodsHtml(
                 $this->_view
             );
-        } catch (\Magento\Model\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+        } catch (\Magento\Framework\Model\Exception $e) {
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $result['error_message'] = $e->getMessage();
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $result['error_message'] = __(
                 'There was an error canceling transactions. Please contact us or try again later.'
             );

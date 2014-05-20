@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,14 +26,12 @@ namespace Magento\Customer\Block\Adminhtml\Form\Element;
 /**
  * Customer Widget Form File Element Block
  *
- * @category    Magento
- * @package     Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class File extends \Magento\Data\Form\Element\AbstractElement
+class File extends \Magento\Framework\Data\Form\Element\AbstractElement
 {
     /**
-     * @var \Magento\View\Url
+     * @var \Magento\Framework\View\Url
      */
     protected $_viewUrl;
 
@@ -47,19 +43,19 @@ class File extends \Magento\Data\Form\Element\AbstractElement
     protected $_adminhtmlData = null;
 
     /**
-     * @param \Magento\Data\Form\Element\Factory $factoryElement
-     * @param \Magento\Data\Form\Element\CollectionFactory $factoryCollection
-     * @param \Magento\Escaper $escaper
+     * @param \Magento\Framework\Data\Form\Element\Factory $factoryElement
+     * @param \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection
+     * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Backend\Helper\Data $adminhtmlData
-     * @param \Magento\View\Url $viewUrl
+     * @param \Magento\Framework\View\Url $viewUrl
      * @param array $data
      */
     public function __construct(
-        \Magento\Data\Form\Element\Factory $factoryElement,
-        \Magento\Data\Form\Element\CollectionFactory $factoryCollection,
-        \Magento\Escaper $escaper,
+        \Magento\Framework\Data\Form\Element\Factory $factoryElement,
+        \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection,
+        \Magento\Framework\Escaper $escaper,
         \Magento\Backend\Helper\Data $adminhtmlData,
-        \Magento\View\Url $viewUrl,
+        \Magento\Framework\View\Url $viewUrl,
         $data = array()
     ) {
         $this->_adminhtmlData = $adminhtmlData;

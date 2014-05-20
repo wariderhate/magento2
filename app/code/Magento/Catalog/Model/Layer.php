@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ namespace Magento\Catalog\Model;
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
-class Layer extends \Magento\Object
+class Layer extends \Magento\Framework\Object
 {
     /**
      * Product collections array
@@ -49,14 +47,14 @@ class Layer extends \Magento\Object
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $registry = null;
 
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -109,8 +107,8 @@ class Layer extends \Magento\Object
      * @param CategoryFactory $categoryFactory
      * @param Resource\Product\Attribute\CollectionFactory $attributeCollectionFactory
      * @param Resource\Product $catalogProduct
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Registry $registry
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
@@ -119,8 +117,8 @@ class Layer extends \Magento\Object
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Catalog\Model\Resource\Product\Attribute\CollectionFactory $attributeCollectionFactory,
         \Magento\Catalog\Model\Resource\Product $catalogProduct,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Registry $registry,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_layerStateFactory = $layerStateFactory;
@@ -226,7 +224,7 @@ class Layer extends \Magento\Object
      *
      * @param mixed $category
      * @return \Magento\Catalog\Model\Layer
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function setCurrentCategory($category)
     {
@@ -234,12 +232,12 @@ class Layer extends \Magento\Object
             $category = $this->_categoryFactory->create()->load($category);
         }
         if (!$category instanceof \Magento\Catalog\Model\Category) {
-            throw new \Magento\Model\Exception(
+            throw new \Magento\Framework\Model\Exception(
                 __('The category must be an instance of \Magento\Catalog\Model\Category.')
             );
         }
         if (!$category->getId()) {
-            throw new \Magento\Model\Exception(__('Please correct the category.'));
+            throw new \Magento\Framework\Model\Exception(__('Please correct the category.'));
         }
 
         if ($category->getId() != $this->getCurrentCategory()->getId()) {
@@ -252,7 +250,7 @@ class Layer extends \Magento\Object
     /**
      * Retrieve current store model
      *
-     * @return \Magento\Core\Model\Store
+     * @return \Magento\Store\Model\Store
      */
     public function getCurrentStore()
     {
@@ -268,10 +266,10 @@ class Layer extends \Magento\Object
     {
         $state = $this->getData('state');
         if (is_null($state)) {
-            \Magento\Profiler::start(__METHOD__);
+            \Magento\Framework\Profiler::start(__METHOD__);
             $state = $this->_layerStateFactory->create();
             $this->setData('state', $state);
-            \Magento\Profiler::stop(__METHOD__);
+            \Magento\Framework\Profiler::stop(__METHOD__);
         }
 
         return $state;

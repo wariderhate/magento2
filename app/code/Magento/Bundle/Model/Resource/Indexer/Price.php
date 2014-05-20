@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Bundle\Model\Resource\Indexer;
 /**
  * Bundle products Price indexer resource model
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Price extends \Magento\Catalog\Model\Resource\Product\Indexer\Price\DefaultPrice
@@ -613,7 +609,7 @@ class Price extends \Magento\Catalog\Model\Resource\Product\Indexer\Price\Defaul
             'tp.all_groups = 1 OR (tp.all_groups = 0 AND tp.customer_group_id = cg.customer_group_id)',
             array('customer_group_id')
         )->join(
-            array('cw' => $this->getTable('core_website')),
+            array('cw' => $this->getTable('store_website')),
             'tp.website_id = 0 OR tp.website_id = cw.website_id',
             array('website_id')
         )->where(
@@ -674,7 +670,7 @@ class Price extends \Magento\Catalog\Model\Resource\Product\Indexer\Price\Defaul
             'gp.all_groups = 1 OR (gp.all_groups = 0 AND gp.customer_group_id = cg.customer_group_id)',
             array('customer_group_id')
         )->join(
-            array('cw' => $this->getTable('core_website')),
+            array('cw' => $this->getTable('store_website')),
             'gp.website_id = 0 OR gp.website_id = cw.website_id',
             array('website_id')
         )->where(

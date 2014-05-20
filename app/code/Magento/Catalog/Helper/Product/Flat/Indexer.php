@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,10 +26,8 @@ namespace Magento\Catalog\Helper\Product\Flat;
 /**
  * Catalog Product Flat Indexer Helper
  *
- * @category   Magento
- * @package    Magento_Catalog
  */
-class Indexer extends \Magento\App\Helper\AbstractHelper
+class Indexer extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Path to list of attributes used for flat indexer
@@ -46,7 +42,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
     /**
      * Resource instance
      *
-     * @var \Magento\App\Resource
+     * @var \Magento\Framework\App\Resource
      */
     protected $_resource;
 
@@ -121,7 +117,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
     protected $_attributeFactory;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -136,32 +132,32 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
     protected $_addChildData;
 
     /**
-     * @var \Magento\Mview\View\Changelog
+     * @var \Magento\Framework\Mview\View\Changelog
      */
     protected $_changelog;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param \Magento\Catalog\Model\Attribute\Config $attributeConfig
      * @param \Magento\Catalog\Model\Resource\ConfigFactory $configFactory
      * @param \Magento\Eav\Model\Entity\AttributeFactory $attributeFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Mview\View\Changelog $changelog
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Mview\View\Changelog $changelog
      * @param bool $addFilterableAttrs
      * @param bool $addChildData
      * @param array $flatAttributeGroups
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\Catalog\Model\Attribute\Config $attributeConfig,
         \Magento\Catalog\Model\Resource\ConfigFactory $configFactory,
         \Magento\Eav\Model\Entity\AttributeFactory $attributeFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Mview\View\Changelog $changelog,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Mview\View\Changelog $changelog,
         $addFilterableAttrs = false,
         $addChildData = false,
         $flatAttributeGroups = array()
@@ -188,7 +184,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
     {
         $columns = array();
         $columns['entity_id'] = array(
-            'type' => \Magento\DB\Ddl\Table::TYPE_INTEGER,
+            'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             'length' => null,
             'unsigned' => true,
             'nullable' => false,
@@ -198,7 +194,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
         );
         if ($this->isAddChildData()) {
             $columns['child_id'] = array(
-                'type' => \Magento\DB\Ddl\Table::TYPE_INTEGER,
+                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
                 'length' => null,
                 'unsigned' => true,
                 'nullable' => true,
@@ -207,7 +203,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
                 'comment' => 'Child Id'
             );
             $columns['is_child'] = array(
-                'type' => \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
                 'length' => 1,
                 'unsigned' => true,
                 'nullable' => false,
@@ -216,7 +212,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
             );
         }
         $columns['attribute_set_id'] = array(
-            'type' => \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+            'type' => \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             'length' => 5,
             'unsigned' => true,
             'nullable' => false,
@@ -224,7 +220,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
             'comment' => 'Attribute Set Id'
         );
         $columns['type_id'] = array(
-            'type' => \Magento\DB\Ddl\Table::TYPE_TEXT,
+            'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             'length' => 32,
             'unsigned' => false,
             'nullable' => false,
@@ -397,29 +393,29 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
             $this->_indexes = array();
             if ($this->isAddChildData()) {
                 $this->_indexes['PRIMARY'] = array(
-                    'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_PRIMARY,
+                    'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_PRIMARY,
                     'fields' => array('entity_id', 'child_id')
                 );
                 $this->_indexes['IDX_CHILD'] = array(
-                    'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
+                    'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
                     'fields' => array('child_id')
                 );
                 $this->_indexes['IDX_IS_CHILD'] = array(
-                    'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
+                    'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
                     'fields' => array('entity_id', 'is_child')
                 );
             } else {
                 $this->_indexes['PRIMARY'] = array(
-                    'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_PRIMARY,
+                    'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_PRIMARY,
                     'fields' => array('entity_id')
                 );
             }
             $this->_indexes['IDX_TYPE_ID'] = array(
-                'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
+                'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
                 'fields' => array('type_id')
             );
             $this->_indexes['IDX_ATTRIBUTE_SET'] = array(
-                'type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
+                'type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_INDEX,
                 'fields' => array('attribute_set_id')
             );
 
@@ -485,7 +481,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
      * Retrieve loaded attribute by code
      *
      * @param string $attributeCode
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      * @return \Magento\Eav\Model\Entity\Attribute
      */
     public function getAttribute($attributeCode)
@@ -495,7 +491,7 @@ class Indexer extends \Magento\App\Helper\AbstractHelper
             $attribute = $this->_attributeFactory->create();
             $attribute->loadByCode($this->getEntityTypeId(), $attributeCode);
             if (!$attribute->getId()) {
-                throw new \Magento\Model\Exception(__('Invalid attribute %1', $attributeCode));
+                throw new \Magento\Framework\Model\Exception(__('Invalid attribute %1', $attributeCode));
             }
             $entity = $this->_eavConfig->getEntityType($this->getEntityType())->getEntity();
             $attribute->setEntity($entity);

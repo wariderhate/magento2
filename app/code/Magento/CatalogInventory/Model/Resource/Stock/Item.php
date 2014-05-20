@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,28 +26,28 @@
 /**
  * Stock item resource model
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogInventory\Model\Resource\Stock;
 
-class Item extends \Magento\Model\Resource\Db\AbstractDb
+class Item extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
-    public function __construct(\Magento\App\Resource $resource, \Magento\Core\Model\Store\Config $coreStoreConfig)
-    {
-        $this->_coreStoreConfig = $coreStoreConfig;
+    public function __construct(
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+    ) {
+        $this->_scopeConfig = $scopeConfig;
         parent::__construct($resource);
     }
 
@@ -87,7 +85,7 @@ class Item extends \Magento\Model\Resource\Db\AbstractDb
      * @param string $field
      * @param int $value
      * @param \Magento\CatalogInventory\Model\Stock\Item $object
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -114,8 +112,9 @@ class Item extends \Magento\Model\Resource\Db\AbstractDb
     {
         if ($columns === null) {
             $adapter = $this->_getReadAdapter();
-            $isManageStock = (int)$this->_coreStoreConfig->getConfig(
-                \Magento\CatalogInventory\Model\Stock\Item::XML_PATH_MANAGE_STOCK
+            $isManageStock = (int)$this->_scopeConfig->getValue(
+                \Magento\CatalogInventory\Model\Stock\Item::XML_PATH_MANAGE_STOCK,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
             $stockExpr = $adapter->getCheckSql(
                 'cisi.use_config_manage_stock = 1',
@@ -140,11 +139,11 @@ class Item extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Use qty correction for qty column update
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @param string $table
      * @return array
      */
-    protected function _prepareDataForTable(\Magento\Object $object, $table)
+    protected function _prepareDataForTable(\Magento\Framework\Object $object, $table)
     {
         $data = parent::_prepareDataForTable($object, $table);
         $ifNullSql = $this->_getWriteAdapter()->getIfNullSql('qty');

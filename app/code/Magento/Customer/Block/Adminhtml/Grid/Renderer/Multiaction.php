@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Customer\Block\Adminhtml\Grid\Renderer;
 /**
  * Adminhtml customers wishlist grid item action renderer for few action controls in one cell
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Multiaction extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Action
@@ -37,10 +33,10 @@ class Multiaction extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Act
     /**
      * Renders column
      *
-     * @param  \Magento\Object $row
+     * @param  \Magento\Framework\Object $row
      * @return string
      */
-    public function render(\Magento\Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         $html = '';
         $actions = $this->getColumn()->getActions();
@@ -68,10 +64,10 @@ class Multiaction extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Act
      * Render single action as link html
      *
      * @param  array $action
-     * @param  \Magento\Object $row
+     * @param  \Magento\Framework\Object $row
      * @return string|false
      */
-    protected function _toLinkHtml($action, \Magento\Object $row)
+    protected function _toLinkHtml($action, \Magento\Framework\Object $row)
     {
         $product = $row->getProduct();
 

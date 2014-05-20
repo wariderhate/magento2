@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,15 +27,15 @@
  */
 namespace Magento\Directory\Controller;
 
-class Currency extends \Magento\App\Action\Action
+class Currency extends \Magento\Framework\App\Action\Action
 {
     /**
      * @return void
      */
     public function switchAction()
     {
-        /** @var \Magento\Core\Model\StoreManagerInterface $storeManager */
-        $storeManager = $this->_objectManager->get('Magento\Core\Model\StoreManagerInterface');
+        /** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
+        $storeManager = $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface');
         $currency = (string)$this->getRequest()->getParam('currency');
         if ($currency) {
             $storeManager->getStore()->setCurrentCurrencyCode($currency);

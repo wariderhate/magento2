@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Wishlist
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,7 @@ namespace Magento\Wishlist\Block\Customer\Wishlist\Item;
 class ColumnTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\View\LayoutInterface
+     * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout = null;
 
@@ -41,10 +38,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         );
         $this->_block = $this->_layout->addBlock('Magento\Wishlist\Block\Customer\Wishlist\Item\Column', 'test');
-        $this->_layout->addBlock('Magento\View\Element\Text', 'child', 'test');
+        $this->_layout->addBlock('Magento\Framework\View\Element\Text', 'child', 'test');
     }
 
     /**

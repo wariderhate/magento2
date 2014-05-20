@@ -18,40 +18,36 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Eav\Model\Attribute\Data;
 
-use Magento\App\RequestInterface;
+use Magento\Framework\App\RequestInterface;
 
 /**
  * EAV Entity Attribute Text Data Model
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Text extends \Magento\Eav\Model\Attribute\Data\AbstractData
 {
     /**
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $_string;
 
     /**
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
-     * @param \Magento\Logger $logger
-     * @param \Magento\Locale\ResolverInterface $localeResolver
-     * @param \Magento\Stdlib\String $stringHelper
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\Stdlib\String $stringHelper
      */
     public function __construct(
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
-        \Magento\Logger $logger,
-        \Magento\Locale\ResolverInterface $localeResolver,
-        \Magento\Stdlib\String $stringHelper
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver,
+        \Magento\Framework\Stdlib\String $stringHelper
     ) {
         parent::__construct($localeDate, $logger, $localeResolver);
         $this->_string = $stringHelper;

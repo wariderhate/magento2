@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -65,7 +63,7 @@ class Observer
     /**
      * Set forced canCreditmemo flag
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
     public function salesOrderBeforeSave($observer)
@@ -93,10 +91,10 @@ class Observer
     }
 
     /**
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return void
      */
-    public function updateOrderStatusForPaymentMethods(\Magento\Event\Observer $observer)
+    public function updateOrderStatusForPaymentMethods(\Magento\Framework\Event\Observer $observer)
     {
         if ($observer->getEvent()->getState() !== \Magento\Sales\Model\Order::STATE_NEW) {
             return;

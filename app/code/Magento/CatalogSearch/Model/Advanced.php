@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -45,8 +43,6 @@
  * @method string getUpdatedAt()
  * @method \Magento\CatalogSearch\Model\Advanced setUpdatedAt(string $value)
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogSearch\Model;
@@ -55,23 +51,20 @@ use Magento\Catalog\Model\Config;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Catalog\Model\Resource\Eav\Attribute;
-use Magento\Catalog\Model\Resource\Eav\Resource\Product\Attribute\Collection as AttributeCollection;
 use Magento\Catalog\Model\Resource\Product\Attribute\CollectionFactory;
 use Magento\CatalogSearch\Helper\Data;
-use Magento\CatalogSearch\Model\Advanced as ModelAdvanced;
 use Magento\CatalogSearch\Model\Resource\Advanced\Collection;
 use Magento\CatalogSearch\Model\Resource\EngineInterface;
 use Magento\CatalogSearch\Model\Resource\EngineProvider;
-use Magento\Model\Exception;
-use Magento\Model\AbstractModel;
-use Magento\Model\Context;
-use Magento\Registry;
-use Magento\Core\Model\StoreManagerInterface;
+use Magento\Framework\Model\Exception;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Directory\Model\Currency;
 use Magento\Directory\Model\CurrencyFactory;
 use Magento\Eav\Model\Entity\Attribute as EntityAttribute;
 
-class Advanced extends AbstractModel
+class Advanced extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * User friendly search criteria list
@@ -187,7 +180,6 @@ class Advanced extends AbstractModel
      */
     public function getAttributes()
     {
-        /* @var $attributes AttributeCollection */
         $attributes = $this->getData('attributes');
         if (is_null($attributes)) {
             $product = $this->_productFactory->create();
@@ -211,7 +203,7 @@ class Advanced extends AbstractModel
      *
      * @param   array $values
      * @return  $this
-     * @throws Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function addFilters($values)
     {
@@ -282,7 +274,7 @@ class Advanced extends AbstractModel
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } else if (!$hasConditions) {
-            throw new Exception(__('Please specify at least one search term.'));
+            throw new \Magento\Framework\Model\Exception(__('Please specify at least one search term.'));
         }
 
         return $this;

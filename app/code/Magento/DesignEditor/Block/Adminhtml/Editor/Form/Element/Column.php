@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ namespace Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element;
  *
  * @method \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element\Column setClass($class)
  */
-class Column extends \Magento\Data\Form\Element\Fieldset implements
+class Column extends \Magento\Framework\Data\Form\Element\Fieldset implements
     \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element\ContainerInterface
 {
     /**
@@ -100,12 +98,12 @@ class Column extends \Magento\Data\Form\Element\Fieldset implements
 
     /**
      * @return \Magento\DesignEditor\Model\Editor\Tools\QuickStyles\Form\Renderer\Factory
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getRendererFactory()
     {
         if (!$this->_rendererFactory) {
-            throw new \Magento\Model\Exception('Renderer factory was not set');
+            throw new \Magento\Framework\Model\Exception('Renderer factory was not set');
         }
         return $this->_rendererFactory;
     }
@@ -122,12 +120,12 @@ class Column extends \Magento\Data\Form\Element\Fieldset implements
 
     /**
      * @return \Magento\DesignEditor\Model\Editor\Tools\QuickStyles\Form\Element\Factory
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getElementsFactory()
     {
         if (!$this->_elementsFactory) {
-            throw new \Magento\Model\Exception('Form elements factory was not set');
+            throw new \Magento\Framework\Model\Exception('Form elements factory was not set');
         }
         return $this->_elementsFactory;
     }
@@ -140,14 +138,14 @@ class Column extends \Magento\Data\Form\Element\Fieldset implements
      * @param array $config
      * @param boolean $after
      * @param boolean $isAdvanced
-     * @return \Magento\Data\Form\Element\AbstractElement
+     * @return \Magento\Framework\Data\Form\Element\AbstractElement
      */
     public function addField($elementId, $type, $config, $after = false, $isAdvanced = false)
     {
         if (isset($this->_types[$type])) {
             $className = $this->_types[$type];
         } else {
-            $className = 'Magento\\Data\\Form\\Element\\' . ucfirst(strtolower($type));
+            $className = 'Magento\\Framework\\Data\\Form\\Element\\' . ucfirst(strtolower($type));
         }
         $element = $this->getElementsFactory()->create($className, $config);
         $element->setId($elementId);

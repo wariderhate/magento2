@@ -42,15 +42,15 @@ class Xml implements \Magento\Webapi\Controller\Rest\Response\RendererInterface
      */
     const DEFAULT_ENTITY_ITEM_NAME = 'item';
 
-    /** @var \Magento\Xml\Generator */
+    /** @var \Magento\Framework\Xml\Generator */
     protected $_xmlGenerator;
 
     /**
      * Initialize dependencies.
      *
-     * @param \Magento\Xml\Generator $xmlGenerator
+     * @param \Magento\Framework\Xml\Generator $xmlGenerator
      */
-    public function __construct(\Magento\Xml\Generator $xmlGenerator)
+    public function __construct(\Magento\Framework\Xml\Generator $xmlGenerator)
     {
         $this->_xmlGenerator = $xmlGenerator;
     }
@@ -68,7 +68,7 @@ class Xml implements \Magento\Webapi\Controller\Rest\Response\RendererInterface
     /**
      * Format object|array to valid XML.
      *
-     * @param array|\Magento\Object $data
+     * @param array|\Magento\Framework\Object $data
      * @return string
      */
     public function render($data)
@@ -85,7 +85,7 @@ class Xml implements \Magento\Webapi\Controller\Rest\Response\RendererInterface
      *
      * This method is recursive.
      *
-     * @param array|\Magento\Object $data
+     * @param array|\Magento\Framework\Object $data
      * @param bool $isRoot
      * @return array
      * @throws \InvalidArgumentException
@@ -94,9 +94,9 @@ class Xml implements \Magento\Webapi\Controller\Rest\Response\RendererInterface
     {
         if (!is_array($data) && !is_object($data)) {
             if ($isRoot) {
-                $data = array($data);
+                return $this->_formatValue($data);
             }
-        } elseif ($data instanceof \Magento\Object) {
+        } elseif ($data instanceof \Magento\Framework\Object) {
             $data = $data->toArray();
         } else {
             $data = (array)$data;
@@ -123,6 +123,10 @@ class Xml implements \Magento\Webapi\Controller\Rest\Response\RendererInterface
      */
     protected function _formatValue($value)
     {
+        if (is_bool($value)) {
+            /** Without the following transformation boolean values are rendered incorrectly */
+            $value = $value ? 'true' : 'false';
+        }
         $replacementMap = array('&' => '&amp;');
         return str_replace(array_keys($replacementMap), array_values($replacementMap), $value);
     }

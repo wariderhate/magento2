@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -172,7 +170,7 @@ class Edit extends \Magento\Backend\Block\Widget\Button\SplitButton
         $sourceChange->loadByThemeId($this->_themeContext->getEditableTheme()->getId());
         $dateMessage = $this->_localeDate->date(
             $sourceChange->getChangeTime(),
-            \Magento\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
+            \Magento\Framework\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
         )->toString();
         $message = __('Do you want to restore the version saved at %1?', $dateMessage);
 
@@ -239,13 +237,13 @@ class Edit extends \Magento\Backend\Block\Widget\Button\SplitButton
     /**
      * Checks themes for changes by time
      *
-     * @param \Magento\View\Design\ThemeInterface $sourceTheme
-     * @param \Magento\View\Design\ThemeInterface $targetTheme
+     * @param \Magento\Framework\View\Design\ThemeInterface $sourceTheme
+     * @param \Magento\Framework\View\Design\ThemeInterface $targetTheme
      * @return bool
      */
     protected function _hasThemeChanged(
-        \Magento\View\Design\ThemeInterface $sourceTheme,
-        \Magento\View\Design\ThemeInterface $targetTheme
+        \Magento\Framework\View\Design\ThemeInterface $sourceTheme,
+        \Magento\Framework\View\Design\ThemeInterface $targetTheme
     ) {
         $sourceChange = $this->_changeFactory->create();
         $sourceChange->loadByThemeId($sourceTheme->getId());

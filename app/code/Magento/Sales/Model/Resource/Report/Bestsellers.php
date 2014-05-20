@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -56,23 +54,23 @@ class Bestsellers extends AbstractReport
     );
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Logger $logger
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param \Magento\Reports\Model\FlagFactory $reportsFlagFactory
-     * @param \Magento\Stdlib\DateTime $dateTime
-     * @param \Magento\Stdlib\DateTime\Timezone\Validator $timezoneValidator
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Stdlib\DateTime\Timezone\Validator $timezoneValidator
      * @param \Magento\Catalog\Model\Resource\Product $productResource
      * @param \Magento\Sales\Model\Resource\Helper $salesResourceHelper
      * @param array $ignoredProductTypes
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Logger $logger,
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Reports\Model\FlagFactory $reportsFlagFactory,
-        \Magento\Stdlib\DateTime $dateTime,
-        \Magento\Stdlib\DateTime\Timezone\Validator $timezoneValidator,
+        \Magento\Framework\Stdlib\DateTime $dateTime,
+        \Magento\Framework\Stdlib\DateTime\Timezone\Validator $timezoneValidator,
         \Magento\Catalog\Model\Resource\Product $productResource,
         \Magento\Sales\Model\Resource\Helper $salesResourceHelper,
         array $ignoredProductTypes = array()
@@ -249,7 +247,7 @@ class Bestsellers extends AbstractReport
 
             $columns = array(
                 'period' => 'period',
-                'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+                'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
                 'product_id' => 'product_id',
                 'product_name' => new \Zend_Db_Expr('MIN(product_name)'),
                 'product_price' => new \Zend_Db_Expr('MIN(product_price)'),
@@ -262,7 +260,7 @@ class Bestsellers extends AbstractReport
                 $columns
             )->where(
                 'store_id <> ?',
-                \Magento\Core\Model\Store::DEFAULT_STORE_ID
+                \Magento\Store\Model\Store::DEFAULT_STORE_ID
             );
 
             if ($subSelect !== null) {

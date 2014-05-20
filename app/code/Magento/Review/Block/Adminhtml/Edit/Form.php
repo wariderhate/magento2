@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Review
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -53,15 +51,15 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Core system store model
      *
-     * @var \Magento\Core\Model\System\Store
+     * @var \Magento\Store\Model\System\Store
      */
     protected $_systemStore;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
-     * @param \Magento\Core\Model\System\Store $systemStore
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
+     * @param \Magento\Store\Model\System\Store $systemStore
      * @param \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerAccount
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\Review\Helper\Data $reviewData
@@ -69,9 +67,9 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
-        \Magento\Core\Model\System\Store $systemStore,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
+        \Magento\Store\Model\System\Store $systemStore,
         \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerAccount,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\Review\Helper\Data $reviewData,
@@ -94,7 +92,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $review = $this->_coreRegistry->registry('review_data');
         $product = $this->_productFactory->create()->load($review->getEntityPkValue());
 
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create(
             array(
                 'data' => array(
@@ -139,8 +137,8 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 $this->escapeHtml($customer->getLastname()),
                 $this->escapeHtml($customer->getEmail())
             );
-        } catch (\Magento\Exception\NoSuchEntityException $e) {
-            $customerText = ($review->getStoreId() == \Magento\Core\Model\Store::DEFAULT_STORE_ID)
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            $customerText = ($review->getStoreId() == \Magento\Store\Model\Store::DEFAULT_STORE_ID)
                 ? __('Administrator') : __('Guest');
         }
 

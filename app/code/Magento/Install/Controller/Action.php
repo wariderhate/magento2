@@ -18,20 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Install\Controller;
 
-class Action extends \Magento\App\Action\Action
+class Action extends \Magento\Framework\App\Action\Action
 {
     /**
-     * @param \Magento\App\Action\Context $context
-     * @param \Magento\Config\Scope $configScope
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Config\Scope $configScope
      */
-    public function __construct(\Magento\App\Action\Context $context, \Magento\Config\Scope $configScope)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\Config\Scope $configScope)
     {
         parent::__construct($context);
         $configScope->setCurrentScope('install');

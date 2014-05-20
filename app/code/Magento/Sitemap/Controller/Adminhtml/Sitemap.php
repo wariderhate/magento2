@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,15 +33,15 @@ class Sitemap extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -174,11 +172,11 @@ class Sitemap extends \Magento\Backend\App\Action
                 }
             }
 
-            /** @var \Magento\Filesystem\Directory\Write $directory */
+            /** @var \Magento\Framework\Filesystem\Directory\Write $directory */
             $directory = $this->_objectManager->get(
-                'Magento\App\Filesystem'
+                'Magento\Framework\App\Filesystem'
             )->getDirectoryWrite(
-                \Magento\App\Filesystem::ROOT_DIR
+                \Magento\Framework\App\Filesystem::ROOT_DIR
             );
 
             if ($this->getRequest()->getParam('sitemap_id')) {
@@ -238,11 +236,11 @@ class Sitemap extends \Magento\Backend\App\Action
      */
     public function deleteAction()
     {
-        /** @var \Magento\Filesystem\Directory\Write $directory */
+        /** @var \Magento\Framework\Filesystem\Directory\Write $directory */
         $directory = $this->_objectManager->get(
-            'Magento\App\Filesystem'
+            'Magento\Framework\App\Filesystem'
         )->getDirectoryWrite(
-            \Magento\App\Filesystem::ROOT_DIR
+            \Magento\Framework\App\Filesystem::ROOT_DIR
         );
 
         // check if we know what should be deleted
@@ -301,7 +299,7 @@ class Sitemap extends \Magento\Backend\App\Action
                 $this->messageManager->addSuccess(
                     __('The sitemap "%1" has been generated.', $sitemap->getSitemapFilename())
                 );
-            } catch (\Magento\Model\Exception $e) {
+            } catch (\Magento\Framework\Model\Exception $e) {
                 $this->messageManager->addError($e->getMessage());
             } catch (\Exception $e) {
                 $this->messageManager->addException($e, __('Something went wrong generating the sitemap.'));

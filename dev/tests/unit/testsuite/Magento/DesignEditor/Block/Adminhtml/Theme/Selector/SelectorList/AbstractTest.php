@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -90,8 +88,8 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        /** @var $layoutMock \Magento\View\LayoutInterface */
-        $layoutMock = $this->getMock('Magento\Core\Model\Layout', array('createBlock'), array(), '', false);
+        /** @var $layoutMock \Magento\Framework\View\LayoutInterface */
+        $layoutMock = $this->getMock('Magento\Framework\View\Layout', array('createBlock'), array(), '', false);
         /** @var $buttonMock \Magento\Backend\Block\Widget\Button */
         $buttonMock = $this->getMock('Magento\Backend\Block\Widget\Button', array(), array(), '', false);
 

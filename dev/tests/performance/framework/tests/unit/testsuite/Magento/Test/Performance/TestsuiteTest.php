@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     performance_tests
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,6 @@ namespace Magento\Test\Performance;
 /**
  * Class TestsuiteTest
  *
- * @package Magento\Test\Performance
  */
 class TestsuiteTest extends \PHPUnit_Framework_TestCase
 {
@@ -76,7 +72,7 @@ class TestsuiteTest extends \PHPUnit_Framework_TestCase
         $this->_fixtureDir = __DIR__ . '/_files';
         $fixtureConfigData = include $this->_fixtureDir . '/config_data.php';
 
-        $shell = $this->getMock('Magento\Shell', array('execute'), array(), '', false);
+        $shell = $this->getMock('Magento\Framework\Shell', array('execute'), array(), '', false);
         $this->_config = new \Magento\TestFramework\Performance\Config(
             $fixtureConfigData,
             $this->_fixtureDir,

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Centinel
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Centinel\Model;
 /**
  * 3D Secure Validation Model
  */
-class Service extends \Magento\Object
+class Service extends \Magento\Framework\Object
 {
     /**
      * Cmpi public keys
@@ -74,14 +72,14 @@ class Service extends \Magento\Object
     /**
      * Backend url
      *
-     * @var \Magento\UrlInterface
+     * @var \Magento\Framework\UrlInterface
      */
     protected $_url;
 
     /**
      * Centinel session
      *
-     * @var \Magento\Session\SessionManagerInterface
+     * @var \Magento\Framework\Session\SessionManagerInterface
      */
     protected $_centinelSession;
 
@@ -107,27 +105,27 @@ class Service extends \Magento\Object
     protected $_urlPrefix;
 
     /**
-     * @var \Magento\Data\Form\FormKey
+     * @var \Magento\Framework\Data\Form\FormKey
      */
     protected $formKey;
 
     /**
      * @param \Magento\Centinel\Model\Config $config
      * @param \Magento\Centinel\Model\ApiFactory $apiFactory
-     * @param \Magento\UrlInterface $url
-     * @param \Magento\Session\SessionManagerInterface $centinelSession
+     * @param \Magento\Framework\UrlInterface $url
+     * @param \Magento\Framework\Session\SessionManagerInterface $centinelSession
      * @param \Magento\Centinel\Model\StateFactory $stateFactory
-     * @param \Magento\Data\Form\FormKey $formKey
+     * @param \Magento\Framework\Data\Form\FormKey $formKey
      * @param string $urlPrefix
      * @param array $data
      */
     public function __construct(
         \Magento\Centinel\Model\Config $config,
         \Magento\Centinel\Model\ApiFactory $apiFactory,
-        \Magento\UrlInterface $url,
-        \Magento\Session\SessionManagerInterface $centinelSession,
+        \Magento\Framework\UrlInterface $url,
+        \Magento\Framework\Session\SessionManagerInterface $centinelSession,
         \Magento\Centinel\Model\StateFactory $stateFactory,
-        \Magento\Data\Form\FormKey $formKey,
+        \Magento\Framework\Data\Form\FormKey $formKey,
         $urlPrefix = 'centinel/index/',
         array $data = array()
     ) {
@@ -275,7 +273,7 @@ class Service extends \Magento\Object
     /**
      * Process lookup validation and init new validation state model
      *
-     * @param \Magento\Object $data
+     * @param \Magento\Framework\Object $data
      * @return void
      */
     public function lookup($data)
@@ -300,7 +298,7 @@ class Service extends \Magento\Object
     /**
      * Process authenticate validation
      *
-     * @param \Magento\Object $data
+     * @param \Magento\Framework\Object $data
      * @return void
      * @throws \Exception
      */
@@ -325,9 +323,9 @@ class Service extends \Magento\Object
      * This check is performed on payment information submission, as well as on placing order.
      * Workflow state is stored validation state model
      *
-     * @param \Magento\Object $data
+     * @param \Magento\Framework\Object $data
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function validate($data)
     {
@@ -350,12 +348,12 @@ class Service extends \Magento\Object
         // check whether is authenticated before placing order
         if ($this->getIsPlaceOrder()) {
             if ($validationState->getChecksum() != $newChecksum) {
-                throw new \Magento\Model\Exception(__('Payment information error. Please start over.'));
+                throw new \Magento\Framework\Model\Exception(__('Payment information error. Please start over.'));
             }
             if ($validationState->isAuthenticateSuccessful()) {
                 return;
             }
-            throw new \Magento\Model\Exception(
+            throw new \Magento\Framework\Model\Exception(
                 __('Please verify the card with the issuer bank before placing the order.')
             );
         } else {
@@ -366,7 +364,7 @@ class Service extends \Magento\Object
             if ($validationState->isLookupSuccessful()) {
                 return;
             }
-            throw new \Magento\Model\Exception(__('This card has failed validation and cannot be used.'));
+            throw new \Magento\Framework\Model\Exception(__('This card has failed validation and cannot be used.'));
         }
     }
 
@@ -456,7 +454,7 @@ class Service extends \Magento\Object
             $map = $this->_cmpiMap;
         }
         if ($validationState = $this->_getValidationState()) {
-            $to = \Magento\Object\Mapper::accumulateByMap($validationState, $to, $map);
+            $to = \Magento\Framework\Object\Mapper::accumulateByMap($validationState, $to, $map);
         }
         return $to;
     }

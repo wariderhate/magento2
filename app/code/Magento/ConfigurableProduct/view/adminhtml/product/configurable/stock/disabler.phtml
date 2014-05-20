@@ -23,12 +23,11 @@
  */
 ?>
 <script type="text/javascript">
-jQuery(function($) {
-    $('#product_info_tabs_product-details_content').on('stockbeforedisable', function(e) {
-        if (e.productType === 'configurable' && $('[data-panel=product-variations]').is('.opened')) {
-            e.stopImmediatePropagation();
+(function($) {
+    $('[data-tab-panel=product-details]').on('stockbeforedisable', function(e) {
+        if ($('[data-panel=product-variations]').is('.opened')) {
             return false;
         }
     });
- });
+})(jQuery);
 </script>

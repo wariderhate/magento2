@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\DesignEditor\Model\Url;
 /**
  * Navigation mode design editor url model
  */
-class NavigationMode extends \Magento\Url
+class NavigationMode extends \Magento\Framework\Url
 {
     /**
      * VDE helper
@@ -52,27 +50,31 @@ class NavigationMode extends \Magento\Url
     protected $_themeId;
 
     /**
-     * @param \Magento\App\Route\ConfigInterface $routeConfig
-     * @param \Magento\App\RequestInterface $request
-     * @param \Magento\Url\SecurityInfoInterface $urlSecurityInfo
-     * @param \Magento\Url\ScopeResolverInterface $scopeResolver
-     * @param \Magento\Session\Generic $session
-     * @param \Magento\Session\SidResolverInterface $sidResolver
-     * @param \Magento\Url\RouteParamsResolverFactory $routeParamsResolver
-     * @param \Magento\Url\QueryParamsResolverInterface $queryParamsResolver
+     * @param \Magento\Framework\App\Route\ConfigInterface $routeConfig
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @param \Magento\Framework\Url\SecurityInfoInterface $urlSecurityInfo
+     * @param \Magento\Framework\Url\ScopeResolverInterface $scopeResolver
+     * @param \Magento\Framework\Session\Generic $session
+     * @param \Magento\Framework\Session\SidResolverInterface $sidResolver
+     * @param \Magento\Framework\Url\RouteParamsResolverFactory $routeParamsResolver
+     * @param \Magento\Framework\Url\QueryParamsResolverInterface $queryParamsResolver
      * @param \Magento\DesignEditor\Helper\Data $helper
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param string $scopeType
      * @param array $data
      */
     public function __construct(
-        \Magento\App\Route\ConfigInterface $routeConfig,
-        \Magento\App\RequestInterface $request,
-        \Magento\Url\SecurityInfoInterface $urlSecurityInfo,
-        \Magento\Url\ScopeResolverInterface $scopeResolver,
-        \Magento\Session\Generic $session,
-        \Magento\Session\SidResolverInterface $sidResolver,
-        \Magento\Url\RouteParamsResolverFactory $routeParamsResolver,
-        \Magento\Url\QueryParamsResolverInterface $queryParamsResolver,
+        \Magento\Framework\App\Route\ConfigInterface $routeConfig,
+        \Magento\Framework\App\RequestInterface $request,
+        \Magento\Framework\Url\SecurityInfoInterface $urlSecurityInfo,
+        \Magento\Framework\Url\ScopeResolverInterface $scopeResolver,
+        \Magento\Framework\Session\Generic $session,
+        \Magento\Framework\Session\SidResolverInterface $sidResolver,
+        \Magento\Framework\Url\RouteParamsResolverFactory $routeParamsResolver,
+        \Magento\Framework\Url\QueryParamsResolverInterface $queryParamsResolver,
         \Magento\DesignEditor\Helper\Data $helper,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        $scopeType,
         array $data = array()
     ) {
         $this->_helper = $helper;
@@ -92,6 +94,8 @@ class NavigationMode extends \Magento\Url
             $sidResolver,
             $routeParamsResolver,
             $queryParamsResolver,
+            $scopeConfig,
+            $scopeType,
             $data
         );
     }

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend;
 /**
  * Product image attribute backend
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Image extends AbstractBackend
@@ -39,7 +35,7 @@ class Image extends AbstractBackend
     /**
      * Filesystem facade
      *
-     * @var \Magento\App\Filesystem
+     * @var \Magento\Framework\App\Filesystem
      */
     protected $_filesystem;
 
@@ -51,13 +47,13 @@ class Image extends AbstractBackend
     protected $_fileUploaderFactory;
 
     /**
-     * @param \Magento\Logger $logger
-     * @param \Magento\App\Filesystem $filesystem
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\App\Filesystem $filesystem
      * @param \Magento\Core\Model\File\UploaderFactory $fileUploaderFactory
      */
     public function __construct(
-        \Magento\Logger $logger,
-        \Magento\App\Filesystem $filesystem,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\App\Filesystem $filesystem,
         \Magento\Core\Model\File\UploaderFactory $fileUploaderFactory
     ) {
         $this->_filesystem = $filesystem;
@@ -68,7 +64,7 @@ class Image extends AbstractBackend
     /**
      * After save
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this|void
      */
     public function afterSave($object)
@@ -91,7 +87,7 @@ class Image extends AbstractBackend
             return $this;
         }
         $path = $this->_filesystem->getDirectoryRead(
-            \Magento\App\Filesystem::MEDIA_DIR
+            \Magento\Framework\App\Filesystem::MEDIA_DIR
         )->getAbsolutePath(
             'catalog/product/'
         );

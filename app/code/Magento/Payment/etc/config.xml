@@ -19,8 +19,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -35,8 +33,12 @@
                 <title>No Payment Information Required</title>
                 <allowspecific>0</allowspecific>
                 <sort_order>1</sort_order>
-                <group>offline</group>
             </free>
+            <substitution>
+                <active>0</active>
+                <model>Magento\Payment\Model\Method\Substitution</model>
+                <allowspecific>0</allowspecific>
+            </substitution>
         </payment>
     </default>
 </config>

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\Widget\Grid\Massaction;
 /**
  * Grid widget massaction single action item
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Item extends \Magento\Backend\Block\Widget
@@ -64,9 +60,9 @@ class Item extends \Magento\Backend\Block\Widget
     /**
      * Set additional action block for this item
      *
-     * @param string|\Magento\View\Element\AbstractBlock $block
+     * @param string|\Magento\Framework\View\Element\AbstractBlock $block
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function setAdditionalActionBlock($block)
     {
@@ -74,8 +70,8 @@ class Item extends \Magento\Backend\Block\Widget
             $block = $this->getLayout()->createBlock($block);
         } elseif (is_array($block)) {
             $block = $this->_createFromConfig($block);
-        } elseif (!$block instanceof \Magento\View\Element\AbstractBlock) {
-            throw new \Magento\Model\Exception('Unknown block type');
+        } elseif (!$block instanceof \Magento\Framework\View\Element\AbstractBlock) {
+            throw new \Magento\Framework\Model\Exception('Unknown block type');
         }
 
         $this->setChild('additional_action', $block);
@@ -84,7 +80,7 @@ class Item extends \Magento\Backend\Block\Widget
 
     /**
      * @param array $config
-     * @return \Magento\View\Element\BlockInterface
+     * @return \Magento\Framework\View\Element\BlockInterface
      */
     protected function _createFromConfig(array $config)
     {
@@ -103,7 +99,7 @@ class Item extends \Magento\Backend\Block\Widget
     /**
      * Retrieve additional action block for this item
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     public function getAdditionalActionBlock()
     {

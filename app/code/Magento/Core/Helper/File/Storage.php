@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,13 +25,11 @@
 /**
  * File storage helper
  *
- * @category    Magento
- * @package     Magento_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Core\Helper\File;
 
-class Storage extends \Magento\App\Helper\AbstractHelper
+class Storage extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Current storage code
@@ -69,23 +65,23 @@ class Storage extends \Magento\App\Helper\AbstractHelper
     protected $_filesystemStorage;
 
     /**
-     * @var \Magento\App\ConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $config;
 
     /**
-     * @param \Magento\App\Helper\Context $context
+     * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb
      * @param \Magento\Core\Model\File\Storage $storage
      * @param \Magento\Core\Model\File\Storage\File $filesystemStorage
-     * @param \Magento\App\ConfigInterface $config
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
+        \Magento\Framework\App\Helper\Context $context,
         \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb,
         \Magento\Core\Model\File\Storage $storage,
         \Magento\Core\Model\File\Storage\File $filesystemStorage,
-        \Magento\App\ConfigInterface $config
+        \Magento\Framework\App\Config\ScopeConfigInterface $config
     ) {
         $this->_filesystemStorage = $filesystemStorage;
         $this->_coreFileStorageDb = $coreFileStorageDb;
@@ -139,7 +135,7 @@ class Storage extends \Magento\App\Helper\AbstractHelper
      *
      * @param  int|null $storage
      * @param  array $params
-     * @return \Magento\Model\AbstractModel|bool
+     * @return \Magento\Framework\Model\AbstractModel|bool
      */
     public function getStorageModel($storage = null, $params = array())
     {

@@ -18,23 +18,19 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Core\Model\Resource;
 
-use Magento\Stdlib\DateTime;
+use Magento\Framework\Stdlib\DateTime;
 
 /**
  * Core Design Resource Model
  *
- * @category    Magento
- * @package     Magento_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Design extends \Magento\Model\Resource\Db\AbstractDb
+class Design extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * @var DateTime
@@ -42,10 +38,10 @@ class Design extends \Magento\Model\Resource\Db\AbstractDb
     protected $dateTime;
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param DateTime $dateTime
      */
-    public function __construct(\Magento\App\Resource $resource, DateTime $dateTime)
+    public function __construct(\Magento\Framework\App\Resource $resource, DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
         parent::__construct($resource);
@@ -64,11 +60,11 @@ class Design extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Perform actions before object save
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
-    public function _beforeSave(\Magento\Model\AbstractModel $object)
+    public function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
         if ($date = $object->getDateFrom()) {
             $object->setDateFrom($this->dateTime->formatDate($date));
@@ -92,7 +88,7 @@ class Design extends \Magento\Model\Resource\Db\AbstractDb
             $object->getDateTo()
         )
         ) {
-            throw new \Magento\Model\Exception(__('Start date cannot be greater than end date.'));
+            throw new \Magento\Framework\Model\Exception(__('Start date cannot be greater than end date.'));
         }
 
         $check = $this->_checkIntersection(
@@ -103,7 +99,7 @@ class Design extends \Magento\Model\Resource\Db\AbstractDb
         );
 
         if ($check) {
-            throw new \Magento\Model\Exception(
+            throw new \Magento\Framework\Model\Exception(
                 __(
                     'Your design change for the specified store intersects with another one, please specify another date range.'
                 )

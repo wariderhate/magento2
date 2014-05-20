@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -75,10 +73,10 @@ class Nominal extends \Magento\Checkout\Block\Total\DefaultTotal
     /**
      * Getter for details row label
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function getItemDetailsRowLabel(\Magento\Object $row)
+    public function getItemDetailsRowLabel(\Magento\Framework\Object $row)
     {
         return $row->getLabel();
     }
@@ -86,10 +84,10 @@ class Nominal extends \Magento\Checkout\Block\Total\DefaultTotal
     /**
      * Getter for details row amount
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function getItemDetailsRowAmount(\Magento\Object $row)
+    public function getItemDetailsRowAmount(\Magento\Framework\Object $row)
     {
         return $row->getAmount();
     }
@@ -97,10 +95,10 @@ class Nominal extends \Magento\Checkout\Block\Total\DefaultTotal
     /**
      * Getter for details row compounded state
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return bool
      */
-    public function getItemDetailsRowIsCompounded(\Magento\Object $row)
+    public function getItemDetailsRowIsCompounded(\Magento\Framework\Object $row)
     {
         return $row->getIsCompounded();
     }

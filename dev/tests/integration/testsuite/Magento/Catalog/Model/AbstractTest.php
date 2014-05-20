@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -158,7 +155,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             $store,
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\Core\Model\StoreManagerInterface'
+                'Magento\Store\Model\StoreManagerInterface'
             )->getStore()
         );
     }
@@ -167,7 +164,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $ids = $this->_model->getWebsiteStoreIds();
         $storeId = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->getStore()->getId();
         $this->assertEquals(array($storeId => $storeId), $ids);
     }

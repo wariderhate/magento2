@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +27,7 @@
  */
 namespace Magento\Backend\Model\Config\Backend\Admin;
 
-class Usesecretkey extends \Magento\Core\Model\Config\Value
+class Usesecretkey extends \Magento\Framework\App\Config\Value
 {
     /**
      * @var \Magento\Backend\Model\UrlInterface
@@ -37,27 +35,25 @@ class Usesecretkey extends \Magento\Core\Model\Config\Value
     protected $_backendUrl;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\ConfigInterface $config
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
      * @param \Magento\Backend\Model\UrlInterface $backendUrl
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\ConfigInterface $config,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Backend\Model\UrlInterface $backendUrl,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_backendUrl = $backendUrl;
-        parent::__construct($context, $registry, $storeManager, $config, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $resource, $resourceCollection, $data);
     }
 
     /**

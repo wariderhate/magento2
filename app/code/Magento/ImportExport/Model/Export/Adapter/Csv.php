@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ImportExport\Model\Export\Adapter;
 /**
  * Export adapter csv.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Csv extends \Magento\ImportExport\Model\Export\Adapter\AbstractAdapter
@@ -51,7 +47,7 @@ class Csv extends \Magento\ImportExport\Model\Export\Adapter\AbstractAdapter
     /**
      * Source file handler.
      *
-     * @var \Magento\Filesystem\File\Write
+     * @var \Magento\Framework\Filesystem\File\Write
      */
     protected $_fileHandler;
 
@@ -106,7 +102,7 @@ class Csv extends \Magento\ImportExport\Model\Export\Adapter\AbstractAdapter
     public function setHeaderCols(array $headerColumns)
     {
         if (null !== $this->_headerCols) {
-            throw new \Magento\Model\Exception(__('Header column names already set'));
+            throw new \Magento\Framework\Model\Exception(__('Header column names already set'));
         }
         if ($headerColumns) {
             foreach ($headerColumns as $columnName) {

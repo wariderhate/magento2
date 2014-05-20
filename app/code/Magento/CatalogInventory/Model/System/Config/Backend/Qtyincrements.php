@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,15 +28,15 @@
  */
 namespace Magento\CatalogInventory\Model\System\Config\Backend;
 
-use Magento\Model\Exception;
+use Magento\Framework\Model\Exception;
 
-class Qtyincrements extends \Magento\Core\Model\Config\Value
+class Qtyincrements extends \Magento\Framework\App\Config\Value
 {
     /**
      * Validate data before save
      *
      * @return void
-     * @throws Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _beforeSave()
     {

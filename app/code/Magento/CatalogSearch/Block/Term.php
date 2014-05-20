@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,17 +25,15 @@
 /**
  * Catalogsearch term block
  *
- * @category   Magento
- * @package    Magento_CatalogSearch
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogSearch\Block;
 
 use Magento\CatalogSearch\Model\Resource\Query\CollectionFactory;
-use Magento\UrlFactory;
-use Magento\UrlInterface;
-use Magento\View\Element\Template;
-use Magento\View\Element\Template\Context;
+use Magento\Framework\UrlFactory;
+use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
 
 class Term extends Template
 {
@@ -138,7 +134,7 @@ class Term extends Template
     }
 
     /**
-     * @param /Magento/Object $obj
+     * @param \Magento\Framework\Object $obj
      * @return string
      */
     public function getSearchUrl($obj)

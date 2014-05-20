@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -140,12 +138,12 @@ abstract class AbstractTotal
      * Get quote address object
      *
      * @return  \Magento\Sales\Model\Quote\Address
-     * @throws   \Magento\Model\Exception if address not declared
+     * @throws   \Magento\Framework\Model\Exception if address not declared
      */
     protected function _getAddress()
     {
         if ($this->_address === null) {
-            throw new \Magento\Model\Exception(__('The address model is not defined.'));
+            throw new \Magento\Framework\Model\Exception(__('The address model is not defined.'));
         }
         return $this->_address;
     }

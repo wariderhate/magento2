@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,13 +28,13 @@ use Magento\Sales\Model\Order\Creditmemo;
 class Totals extends \Magento\Sales\Block\Order\Totals
 {
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         parent::__construct($context, $registry, $data);
@@ -95,7 +93,7 @@ class Totals extends \Magento\Sales\Block\Order\Totals
         parent::_initTotals();
         $this->removeTotal('base_grandtotal');
         if ((double)$this->getSource()->getAdjustmentPositive()) {
-            $total = new \Magento\Object(
+            $total = new \Magento\Framework\Object(
                 array(
                     'code' => 'adjustment_positive',
                     'value' => $this->getSource()->getAdjustmentPositive(),
@@ -105,7 +103,7 @@ class Totals extends \Magento\Sales\Block\Order\Totals
             $this->addTotal($total);
         }
         if ((double)$this->getSource()->getAdjustmentNegative()) {
-            $total = new \Magento\Object(
+            $total = new \Magento\Framework\Object(
                 array(
                     'code' => 'adjustment_negative',
                     'value' => $this->getSource()->getAdjustmentNegative(),

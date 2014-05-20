@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Tax\Model\Resource\Calculation\Rule;
 /**
  * Tax rule collection
  *
- * @category    Magento
- * @package     Magento_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
     /**
      * Resource initialization
@@ -151,7 +147,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
      * @param string $type
      * @param int $id
      * @return \Magento\Tax\Model\Resource\Calculation\Rule\Collection
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function setClassTypeFilter($type, $id)
     {
@@ -163,7 +159,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
                 $field = 'cd.customer_tax_class_id';
                 break;
             default:
-                throw new \Magento\Model\Exception('Invalid type supplied');
+                throw new \Magento\Framework\Model\Exception('Invalid type supplied');
         }
 
         $this->joinCalculationData('cd');

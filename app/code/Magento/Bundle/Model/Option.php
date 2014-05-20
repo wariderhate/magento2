@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Bundle\Model;
 /**
  * Bundle Option Model
  *
- * @method \Magento\Bundle\Model\Resource\Option _getResource()
- * @method \Magento\Bundle\Model\Resource\Option getResource()
  * @method int getParentId()
  * @method \Magento\Bundle\Model\Option setParentId(int $value)
  * @method int getRequired()
@@ -38,12 +34,9 @@ namespace Magento\Bundle\Model;
  * @method \Magento\Bundle\Model\Option setPosition(int $value)
  * @method string getType()
  * @method \Magento\Bundle\Model\Option setType(string $value)
- *
- * @category    Magento
- * @package     Magento_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
+ * @method \Magento\Catalog\Model\Product[] getSelections()
  */
-class Option extends \Magento\Model\AbstractModel
+class Option extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Default selection object
@@ -94,7 +87,7 @@ class Option extends \Magento\Model\AbstractModel
                     $saleable++;
                 }
             }
-            return (bool)$saleable;
+            return (bool) $saleable;
         } else {
             return false;
         }
@@ -152,12 +145,11 @@ class Option extends \Magento\Model\AbstractModel
      */
     public function getSelectionById($selectionId)
     {
-        $selections = $this->getSelections();
-        $i = count($selections);
-
-        while ($i-- && $selections[$i]->getSelectionId() != $selectionId) {
+        foreach ($this->getSelections() as $option) {
+            if ($option->getSelectionId() == $selectionId) {
+                return $option;
+            }
         }
-
-        return $i == -1 ? false : $selections[$i];
+        return false;
     }
 }

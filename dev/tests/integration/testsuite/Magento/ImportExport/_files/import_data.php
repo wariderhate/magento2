@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -134,5 +131,5 @@ foreach ($bunches as $bunch) {
 
 /** @var $objectManager \Magento\TestFramework\ObjectManager */
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-$objectManager->get('Magento\Registry')->unregister('_fixture/Magento_ImportExport_Import_Data');
-$objectManager->get('Magento\Registry')->register('_fixture/Magento_ImportExport_Import_Data', $bunches);
+$objectManager->get('Magento\Framework\Registry')->unregister('_fixture/Magento_ImportExport_Import_Data');
+$objectManager->get('Magento\Framework\Registry')->register('_fixture/Magento_ImportExport_Import_Data', $bunches);

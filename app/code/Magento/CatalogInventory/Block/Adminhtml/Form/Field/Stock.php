@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,16 +27,16 @@
  */
 namespace Magento\CatalogInventory\Block\Adminhtml\Form\Field;
 
-use Magento\Data\Form;
+use Magento\Framework\Data\Form;
 
-class Stock extends \Magento\Data\Form\Element\Select
+class Stock extends \Magento\Framework\Data\Form\Element\Select
 {
     const QUANTITY_FIELD_HTML_ID = 'qty';
 
     /**
      * Quantity field element
      *
-     * @var \Magento\Data\Form\Element\Text
+     * @var \Magento\Framework\Data\Form\Element\Text
      */
     protected $_qty;
 
@@ -52,22 +50,22 @@ class Stock extends \Magento\Data\Form\Element\Select
     /**
      * Text element factory
      *
-     * @var \Magento\Data\Form\Element\TextFactory
+     * @var \Magento\Framework\Data\Form\Element\TextFactory
      */
     protected $_factoryText;
 
     /**
-     * @param \Magento\Data\Form\Element\Factory $factoryElement
-     * @param \Magento\Data\Form\Element\CollectionFactory $factoryCollection
-     * @param \Magento\Escaper $escaper
-     * @param \Magento\Data\Form\Element\TextFactory $factoryText
+     * @param \Magento\Framework\Data\Form\Element\Factory $factoryElement
+     * @param \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection
+     * @param \Magento\Framework\Escaper $escaper
+     * @param \Magento\Framework\Data\Form\Element\TextFactory $factoryText
      * @param array $data
      */
     public function __construct(
-        \Magento\Data\Form\Element\Factory $factoryElement,
-        \Magento\Data\Form\Element\CollectionFactory $factoryCollection,
-        \Magento\Escaper $escaper,
-        \Magento\Data\Form\Element\TextFactory $factoryText,
+        \Magento\Framework\Data\Form\Element\Factory $factoryElement,
+        \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection,
+        \Magento\Framework\Escaper $escaper,
+        \Magento\Framework\Data\Form\Element\TextFactory $factoryText,
         array $data = array()
     ) {
         $this->_factoryText = $factoryText;
@@ -80,11 +78,11 @@ class Stock extends \Magento\Data\Form\Element\Select
     /**
      * Create quantity field
      *
-     * @return \Magento\Data\Form\Element\Text
+     * @return \Magento\Framework\Data\Form\Element\Text
      */
     protected function _createQtyElement()
     {
-        /** @var \Magento\Data\Form\Element\Text $element */
+        /** @var \Magento\Framework\Data\Form\Element\Text $element */
         $element = $this->_factoryText->create();
         $element->setId(self::QUANTITY_FIELD_HTML_ID)->setName('qty')->addClass('validate-number input-text');
         return $element;
@@ -185,7 +183,7 @@ class Stock extends \Magento\Data\Form\Element\Select
     protected function _getJs($quantityFieldId, $inStockFieldId)
     {
         // @codingStandardsIgnoreStart
-        return "\n            <script>\n                jQuery(function(\$) {\n                    var qty = \$('#{$quantityFieldId}'),\n                        productType = \$('#product_type_id').val(),\n                        stockAvailabilityField = \$('#{$inStockFieldId}'),\n                        manageStockField = \$('#inventory_manage_stock'),\n                        useConfigManageStockField = \$('#inventory_use_config_manage_stock');\n\n                    var disabler = function(event) {\n                        var stockBeforeDisable = \$.Event('stockbeforedisable', {productType: productType});\n                        \$('#product_info_tabs_product-details_content').trigger(stockBeforeDisable);\n                        if (stockBeforeDisable.result !== false) {\n                            var manageStockValue = (qty.val() === '') ? 0 : 1;\n                            stockAvailabilityField.prop('disabled', !manageStockValue);\n                            if (manageStockField.val() != manageStockValue && !(event && event.type == 'keyup')) {\n                                if (useConfigManageStockField.val() == 1) {\n                                    useConfigManageStockField.removeAttr('checked').val(0);\n                                }\n                                manageStockField.toggleClass('disabled', false).prop('disabled', false);\n                                manageStockField.val(manageStockValue);\n                            }\n                        }\n                    };\n\n                    //Associated fields\n                    var fieldsAssociations = {\n                        '{$quantityFieldId}' : 'inventory_qty',\n                        '{$inStockFieldId}'  : 'inventory_stock_availability'\n                    };\n                    //Fill corresponding field\n                    var filler = function() {\n                        var id = \$(this).attr('id');\n                        if ('undefined' !== typeof fieldsAssociations[id]) {\n                            \$('#' + fieldsAssociations[id]).val(\$(this).val());\n                        } else {\n                            \$('#' + getKeyByValue(fieldsAssociations, id)).val(\$(this).val());\n                        }\n\n                        if (\$('#inventory_manage_stock').length) {\n                            fireEvent(\$('#inventory_manage_stock').get(0), 'change');\n                        }\n                    };\n                    //Get key by value from object\n                    var getKeyByValue = function(object, value) {\n                        var returnVal = false;\n                        \$.each(object, function(objKey, objValue){\n                            if (value === objValue) {\n                                returnVal = objKey;\n                            }\n                        });\n                        return returnVal;\n                    };\n                    \$.each(fieldsAssociations, function(generalTabField, advancedTabField) {\n                        \$('#' + generalTabField + ', #' + advancedTabField)\n                            .bind('focus blur change keyup click', filler)\n                            .bind('keyup change blur', disabler);\n                        filler.call(\$('#' + generalTabField));\n                        filler.call(\$('#' + advancedTabField));\n                    });\n                    disabler();\n                });\n            </script>\n        ";
+        return "\n            <script>\n                jQuery(function(\$) {\n                    var qty = \$('#{$quantityFieldId}'),\n                        productType = \$('#product_type_id').val(),\n                        stockAvailabilityField = \$('#{$inStockFieldId}'),\n                        manageStockField = \$('#inventory_manage_stock'),\n                        useConfigManageStockField = \$('#inventory_use_config_manage_stock');\n\n                    var disabler = function(event) {\n                        var stockBeforeDisable = \$.Event('stockbeforedisable', {productType: productType});\n                        \$('[data-tab-panel=product-details]').trigger(stockBeforeDisable);\n                        if (stockBeforeDisable.result !== false) {\n                            var manageStockValue = (qty.val() === '') ? 0 : 1;\n                            stockAvailabilityField.prop('disabled', !manageStockValue);\n                            if (manageStockField.val() != manageStockValue && !(event && event.type == 'keyup')) {\n                                if (useConfigManageStockField.val() == 1) {\n                                    useConfigManageStockField.removeAttr('checked').val(0);\n                                }\n                                manageStockField.toggleClass('disabled', false).prop('disabled', false);\n                                manageStockField.val(manageStockValue);\n                            }\n                        }\n                    };\n\n                    //Associated fields\n                    var fieldsAssociations = {\n                        '{$quantityFieldId}' : 'inventory_qty',\n                        '{$inStockFieldId}'  : 'inventory_stock_availability'\n                    };\n                    //Fill corresponding field\n                    var filler = function() {\n                        var id = \$(this).attr('id');\n                        if ('undefined' !== typeof fieldsAssociations[id]) {\n                            \$('#' + fieldsAssociations[id]).val(\$(this).val());\n                        } else {\n                            \$('#' + getKeyByValue(fieldsAssociations, id)).val(\$(this).val());\n                        }\n\n                        if (\$('#inventory_manage_stock').length) {\n                            fireEvent(\$('#inventory_manage_stock').get(0), 'change');\n                        }\n                    };\n                    //Get key by value from object\n                    var getKeyByValue = function(object, value) {\n                        var returnVal = false;\n                        \$.each(object, function(objKey, objValue){\n                            if (value === objValue) {\n                                returnVal = objKey;\n                            }\n                        });\n                        return returnVal;\n                    };\n                    \$.each(fieldsAssociations, function(generalTabField, advancedTabField) {\n                        \$('#' + generalTabField + ', #' + advancedTabField)\n                            .bind('focus blur change keyup click', filler)\n                            .bind('keyup change blur', disabler);\n                        filler.call(\$('#' + generalTabField));\n                        filler.call(\$('#' + advancedTabField));\n                    });\n                    disabler();\n                });\n            </script>\n        ";
         // @codingStandardsIgnoreEnd
     }
 }

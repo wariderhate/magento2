@@ -61,7 +61,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
     /**
      * Core event manager proxy
      *
-     * @var \Magento\Event\ManagerInterface
+     * @var \Magento\Framework\Event\ManagerInterface
      */
     protected $_eventManager;
 
@@ -75,7 +75,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -94,20 +94,20 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
     protected $_categoryFactory;
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Catalog\Model\CategoryFactory $categoryFactory
      * @param \Magento\Catalog\Model\Resource\Category\CollectionFactory $categoryCollectionFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Catalog\Model\Config $catalogConfig
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Catalog\Model\Resource\Category\CollectionFactory $categoryCollectionFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\Config $catalogConfig,
-        \Magento\Event\ManagerInterface $eventManager
+        \Magento\Framework\Event\ManagerInterface $eventManager
     ) {
         $this->_categoryFactory = $categoryFactory;
         $this->_categoryCollectionFactory = $categoryCollectionFactory;
@@ -168,7 +168,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      * @param integer $storeId
      * @return string
      */
-    public function getMainStoreTable($storeId = \Magento\Core\Model\Store::DEFAULT_STORE_ID)
+    public function getMainStoreTable($storeId = \Magento\Store\Model\Store::DEFAULT_STORE_ID)
     {
         if (is_string($storeId)) {
             $storeId = intval($storeId);
@@ -231,9 +231,10 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      * @param \Magento\Catalog\Model\Category|int $parentNode
      * @param integer $recursionLevel
      * @param integer $storeId
+     * @param bool $skipMenuFilter
      * @return array
      */
-    protected function _loadNodes($parentNode = null, $recursionLevel = 0, $storeId = 0)
+    protected function _loadNodes($parentNode = null, $recursionLevel = 0, $storeId = 0, $skipMenuFilter = false)
     {
         $_conn = $this->_getReadAdapter();
         $startLevel = 1;
@@ -279,12 +280,13 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
         )->where(
             'main_table.is_active = ?',
             '1'
-        )->where(
-            'main_table.include_in_menu = ?',
-            '1'
-        )->order(
-            'main_table.position'
         );
+
+        if (false == $skipMenuFilter) {
+            $select->where('main_table.include_in_menu = ?', '1');
+        }
+
+        $select->order('main_table.position');
 
         if ($parentPath) {
             $select->where($_conn->quoteInto("main_table.path like ?", "{$parentPath}/%"));
@@ -318,7 +320,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      *
      * @param array $children
      * @param string $path
-     * @param \Magento\Object $parent
+     * @param \Magento\Framework\Object $parent
      * @return void
      */
     public function addChildNodes($children, $path, $parent)
@@ -399,7 +401,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      * @param boolean|string $sorted
      * @param boolean $asCollection
      * @param boolean $toLoad
-     * @return array|\Magento\Data\Collection
+     * @return array|\Magento\Framework\Data\Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
@@ -435,7 +437,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      *
      * @param integer $nodeId
      * @param array $nodes
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getNodeById($nodeId, $nodes = null)
     {
@@ -587,7 +589,7 @@ class Flat extends \Magento\Index\Model\Resource\AbstractResource
      */
     public function getChildrenCategories($category)
     {
-        $categories = $this->_loadNodes($category, 1, $category->getStoreId());
+        $categories = $this->_loadNodes($category, 1, $category->getStoreId(), true);
         return $categories;
     }
 

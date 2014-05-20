@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    tests
- * @package     static
- * @subpackage  Legacy
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -53,6 +50,8 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
 
     protected static $_namespaces = array();
 
+    protected static $_paths = array();
+
     /**#@-*/
 
     /**
@@ -64,6 +63,7 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
         self::_populateList(self::$_classes, $errors, 'obsolete_classes*.php', false);
         self::_populateList(self::$_constants, $errors, 'obsolete_constants*.php');
         self::_populateList(self::$_methods, $errors, 'obsolete_methods*.php');
+        self::_populateList(self::$_paths, $errors, 'obsolete_paths*.php', false);
         self::_populateList(self::$_namespaces, $errors, 'obsolete_namespaces*.php', false);
         self::_populateList(self::$_attributes, $errors, 'obsolete_properties*.php');
         if ($errors) {
@@ -123,7 +123,7 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     /**
      * Isolate including a file into a method to reduce scope
      *
-     * @param $file
+     * @param string $file
      * @return array
      */
     protected static function _readList($file)
@@ -135,12 +135,10 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     {
         $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
         $invoker(
-            /**
-             * @param string $file
-             */
             function ($file) {
                 $content = file_get_contents($file);
                 $this->_testObsoleteClasses($content);
+                $this->_testObsoleteNamespaces($content);
                 $this->_testObsoleteMethods($content, $file);
                 $this->_testGetChildSpecialCase($content, $file);
                 $this->_testGetOptionsSpecialCase($content);
@@ -149,9 +147,19 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
                 $this->_testObsoleteActions($content);
                 $this->_testObsoleteConstants($content);
                 $this->_testObsoletePropertySkipCalculate($content);
-                $this->_testObsoleteNamespace($file);
             },
             \Magento\TestFramework\Utility\Files::init()->getPhpFiles()
+        );
+    }
+
+    public function testClassFiles()
+    {
+        $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
+        $invoker(
+            function ($file) {
+                $this->_testObsoletePaths($file);
+            },
+            \Magento\TestFramework\Utility\Files::init()->getClassFiles()
         );
     }
 
@@ -159,9 +167,6 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     {
         $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
         $invoker(
-            /**
-             * @param string $file
-             */
             function ($file) {
                 $content = file_get_contents($file);
                 $this->_assertNotRegExp(
@@ -178,13 +183,11 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     {
         $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
         $invoker(
-            /**
-             * @param string $file
-             */
             function ($file) {
                 $content = file_get_contents($file);
                 $this->_testObsoleteClasses($content, $file);
-                $this->_testObsoleteNamespace($file);
+                $this->_testObsoleteNamespaces($content);
+                $this->_testObsoletePaths($file);
             },
             \Magento\TestFramework\Utility\Files::init()->getXmlFiles()
         );
@@ -194,9 +197,6 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     {
         $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
         $invoker(
-            /**
-             * @param string $file
-             */
             function ($file) {
                 $content = file_get_contents($file);
                 $this->_testObsoletePropertySkipCalculate($content);
@@ -220,6 +220,28 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
                 '/[^a-z\d_]' . preg_quote($class, '/') . '[^a-z\d_\\\\]/iS',
                 $content,
                 $this->_suggestReplacement(sprintf("Class '%s' is obsolete.", $class), $replacement)
+            );
+        }
+    }
+
+    /**
+     * Assert that obsolete classes are not used in the content
+     *
+     * @param string $content
+     */
+    protected function _testObsoleteNamespaces($content)
+    {
+        foreach (self::$_namespaces as $row) {
+            list($namespace, , $replacement) = $row;
+            $this->_assertNotRegExp(
+                '/namespace\s+' . preg_quote($namespace, '/') . ';/iS',
+                $content,
+                $this->_suggestReplacement(sprintf("Namespace '%s' is obsolete.", $namespace), $replacement)
+            );
+            $this->_assertNotRegExp(
+                '/[^a-z\d_]' . preg_quote($namespace . '\\', '/') . '/iS',
+                $content,
+                $this->_suggestReplacement(sprintf("Namespace '%s' is obsolete.", $namespace), $replacement)
             );
         }
     }
@@ -284,24 +306,27 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Assert that obsolete namespaces are not used in the content
+     * Assert that obsolete pathes are not used in the content
      *
      * This method will search the content for references to class
      * that start with obsolete namespace
      *
      * @param string $file
      */
-    protected function _testObsoleteNamespace($file)
+    protected function _testObsoletePaths($file)
     {
-        foreach (self::$_namespaces as $row) {
-            list($namespacePath, , $replacementPath) = $row;
+        foreach (self::$_paths as $row) {
+            list($obsoletePath, , $replacementPath) = $row;
             $relativePath = str_replace(\Magento\TestFramework\Utility\Files::init()->getPathToSource(), "", $file);
-            $namespacePathArray = explode('/', $namespacePath);
-            $namespace = $namespacePathArray[4];
-            $replacementPathArray = explode('/', $replacementPath);
-            $replacement = $replacementPathArray[3];
-            $message = $this->_suggestReplacement("Namespace '{$namespace}' is obsolete.", $replacement);
-            $this->assertStringStartsNotWith($namespace, $relativePath, $message);
+            $message = $this->_suggestReplacement(
+                "Path '{$obsoletePath}' is obsolete.",
+                $replacementPath
+            );
+            $this->assertStringStartsNotWith($obsoletePath . '/', $relativePath, $message);
+            $this->assertStringStartsNotWith($obsoletePath . '.', $relativePath, $message);
+            $this->assertStringStartsNotWith($obsoletePath . 'Factory.', $relativePath, $message);
+            $this->assertStringStartsNotWith($obsoletePath . 'Interface.', $relativePath, $message);
+            $this->assertStringStartsNotWith($obsoletePath . 'Test.', $relativePath, $message);
         }
     }
 
@@ -321,7 +346,7 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
                 '/[^a-z\d_]getChild\s*\(/iS',
                 $content,
                 'Block method getChild() is obsolete. ' .
-                'Replacement suggestion: \Magento\View\Element\AbstractBlock::getChildBlock()'
+                'Replacement suggestion: \Magento\Framework\View\Element\AbstractBlock::getChildBlock()'
             );
         }
     }
@@ -337,7 +362,8 @@ class ObsoleteCodeTest extends \PHPUnit_Framework_TestCase
             '/getOptions\(\)\s*->get(Base|App|Code|Design|Etc|Lib|Locale|Js|Media' .
             '|Var|Tmp|Cache|Log|Session|Upload|Export)?Dir\(/S',
             $content,
-            'The class \Magento\Core\Model\Config\Options is obsolete. Replacement suggestion: \Magento\App\Filesystem'
+            'The class \Magento\Core\Model\Config\Options is obsolete. '
+            . 'Replacement suggestion: \Magento\Framework\App\Filesystem'
         );
     }
 

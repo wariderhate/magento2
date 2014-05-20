@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,20 +25,18 @@
 /**
  * Advanced search form
  *
- * @category   Magento
- * @package    Magento_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogSearch\Block\Advanced;
 
 use Magento\CatalogSearch\Model\Advanced;
-use Magento\Data\Collection\Db;
+use Magento\Framework\Data\Collection\Db;
 use Magento\Directory\Model\CurrencyFactory;
 use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
-use Magento\View\Element\AbstractBlock;
-use Magento\View\Element\BlockInterface;
-use Magento\View\Element\Template;
-use Magento\View\Element\Template\Context;
+use Magento\Framework\View\Element\AbstractBlock;
+use Magento\Framework\View\Element\BlockInterface;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
 
 class Form extends Template
 {
@@ -318,7 +314,7 @@ class Form extends Template
     {
         $block = $this->getData('_select_block');
         if (is_null($block)) {
-            $block = $this->getLayout()->createBlock('Magento\View\Element\Html\Select');
+            $block = $this->getLayout()->createBlock('Magento\Framework\View\Element\Html\Select');
             $this->setData('_select_block', $block);
         }
         return $block;
@@ -331,7 +327,7 @@ class Form extends Template
     {
         $block = $this->getData('_date_block');
         if (is_null($block)) {
-            $block = $this->getLayout()->createBlock('Magento\View\Element\Html\Date');
+            $block = $this->getLayout()->createBlock('Magento\Framework\View\Element\Html\Date');
             $this->setData('_date_block', $block);
         }
         return $block;
@@ -380,7 +376,7 @@ class Form extends Template
         )->setImage(
             $this->getViewFileUrl('Magento_Core::calendar.gif')
         )->setDateFormat(
-            $this->_localeDate->getDateFormat(\Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT)
+            $this->_localeDate->getDateFormat(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT)
         )->setClass(
             'input-text'
         )->getHtml();

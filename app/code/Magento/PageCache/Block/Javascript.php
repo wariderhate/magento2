@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_PageCache
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,9 +25,8 @@ namespace Magento\PageCache\Block;
 
 /**
  * Class Form
- * @package Magento\PageCache\Block
  */
-class Javascript extends \Magento\View\Element\Template
+class Javascript extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Magento\PageCache\Helper\Data
@@ -39,12 +36,12 @@ class Javascript extends \Magento\View\Element\Template
     /**
      * Constructor
      *
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\PageCache\Helper\Data         $helper
      * @param array                                  $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\PageCache\Helper\Data $helper,
         array $data = array()
     ) {
@@ -62,7 +59,7 @@ class Javascript extends \Magento\View\Element\Template
         $params = array(
             'url' => $this->getUrl('page_cache/block/render/'),
             'handles' => $this->helper->getActualHandles(),
-            'versionCookieName' => \Magento\App\PageCache\Version::COOKIE_NAME
+            'versionCookieName' => \Magento\Framework\App\PageCache\Version::COOKIE_NAME
         );
         return json_encode($params);
     }

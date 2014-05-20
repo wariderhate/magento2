@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,20 +31,20 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     protected $model;
 
     /**
-     * @var \Magento\Filter\FilterManager|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Filter\FilterManager|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $filter;
 
     protected function setUp()
     {
         $this->filter = $this->getMockBuilder(
-            'Magento\Filter\FilterManager'
+            'Magento\Framework\Filter\FilterManager'
         )->disableOriginalConstructor()->setMethods(
             array('translitUrl')
         )->getMock();
 
         $rewriteFactory = $this->getMockBuilder(
-            'Magento\Core\Model\Url\RewriteFactory'
+            'Magento\UrlRewrite\Model\UrlRewriteFactory'
         )->disableOriginalConstructor()->setMethods(
             array('create')
         )->getMock();

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ namespace Magento\Backend\Block\Widget\Grid\Massaction;
  *
  * @method \Magento\Sales\Model\Quote setHideFormElement(boolean $value) Hide Form element to prevent IE errors
  * @method boolean getHideFormElement()
- * @category   Magento
- * @package    Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  * @deprecated support Magento 1.x grid massaction implementation
  */
@@ -59,19 +55,19 @@ class Extended extends \Magento\Backend\Block\Widget
     protected $_backendData = null;
 
     /**
-     * @var \Magento\Json\EncoderInterface
+     * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $_jsonEncoder;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Json\EncoderInterface $jsonEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      * @param \Magento\Backend\Helper\Data $backendData
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\Backend\Helper\Data $backendData,
         array $data = array()
     ) {
@@ -100,7 +96,7 @@ class Extended extends \Magento\Backend\Block\Widget
      *      'complete' => string, // Only for ajax enabled grid (optional)
      *      'url'      => string,
      *      'confirm'  => string, // text of confirmation of this action (optional)
-     *      'additional' => string|array|\Magento\View\Element\AbstractBlock // (optional)
+     *      'additional' => string|array|\Magento\Framework\View\Element\AbstractBlock // (optional)
      * );
      *
      * @param string $itemId

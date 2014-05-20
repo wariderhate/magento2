@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -64,15 +61,15 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
     protected $_currencyMock;
 
     /**
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_row;
 
     protected function setUp()
     {
-        $this->_storeManagerMock = $this->getMock('Magento\Core\Model\StoreManagerInterface');
-        $this->_localeMock = $this->getMock('Magento\Locale\CurrencyInterface');
-        $this->_requestMock = $this->getMock('Magento\App\RequestInterface');
+        $this->_storeManagerMock = $this->getMock('Magento\Store\Model\StoreManagerInterface');
+        $this->_localeMock = $this->getMock('Magento\Framework\Locale\CurrencyInterface');
+        $this->_requestMock = $this->getMock('Magento\Framework\App\RequestInterface');
 
         $this->_curLocatorMock = $this->getMock(
             'Magento\Directory\Model\Currency\DefaultLocator',
@@ -101,7 +98,7 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
         );
         $currencyFactoryMock->expects($this->any())->method('create')->will($this->returnValue($this->_currencyMock));
 
-        $this->_row = new \Magento\Object(array('columnIndex' => '10'));
+        $this->_row = new \Magento\Framework\Object(array('columnIndex' => '10'));
 
         $helper = new \Magento\TestFramework\Helper\ObjectManager($this);
         $this->_blockCurrency = $helper->getObject(

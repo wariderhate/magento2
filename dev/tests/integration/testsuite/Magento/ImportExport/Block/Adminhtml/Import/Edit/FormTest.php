@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -60,7 +57,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     public function testPrepareForm()
     {
         $formBlock = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         )->createBlock(
             'Magento\ImportExport\Block\Adminhtml\Import\Edit\Form'
         );
@@ -70,21 +67,25 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
         // check form
         $form = $formBlock->getForm();
-        $this->assertInstanceOf('Magento\Data\Form', $form, 'Incorrect import form class.');
+        $this->assertInstanceOf('Magento\Framework\Data\Form', $form, 'Incorrect import form class.');
         $this->assertTrue($form->getUseContainer(), 'Form should use container.');
 
         // check form fieldsets
         $formFieldsets = array();
         $formElements = $form->getElements();
         foreach ($formElements as $element) {
-            /** @var $element \Magento\Data\Form\Element\AbstractElement */
+            /** @var $element \Magento\Framework\Data\Form\Element\AbstractElement */
             if (in_array($element->getId(), $this->_expectedFieldsets)) {
                 $formFieldsets[] = $element;
             }
         }
         $this->assertSameSize($this->_expectedFieldsets, $formFieldsets);
         foreach ($formFieldsets as $fieldset) {
-            $this->assertInstanceOf('Magento\Data\Form\Element\Fieldset', $fieldset, 'Incorrect fieldset class.');
+            $this->assertInstanceOf(
+                'Magento\Framework\Data\Form\Element\Fieldset',
+                $fieldset,
+                'Incorrect fieldset class.'
+            );
         }
     }
 }

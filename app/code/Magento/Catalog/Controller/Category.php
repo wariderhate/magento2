@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,16 +26,14 @@ namespace Magento\Catalog\Controller;
 /**
  * Category controller
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Category extends \Magento\App\Action\Action
+class Category extends \Magento\Framework\App\Action\Action
 {
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
@@ -63,25 +59,25 @@ class Category extends \Magento\App\Action\Action
     protected $_categoryFactory;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\App\Action\Context $context
+     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Catalog\Model\CategoryFactory $categoryFactory
      * @param \Magento\Catalog\Model\Design $catalogDesign
      * @param \Magento\Catalog\Model\Session $catalogSession
-     * @param \Magento\Registry $coreRegistry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\App\Action\Context $context,
+        \Magento\Framework\App\Action\Context $context,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Catalog\Model\Design $catalogDesign,
         \Magento\Catalog\Model\Session $catalogSession,
-        \Magento\Registry $coreRegistry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Framework\Registry $coreRegistry,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_storeManager = $storeManager;
         $this->_categoryFactory = $categoryFactory;
@@ -120,8 +116,8 @@ class Category extends \Magento\App\Action\Action
                 'catalog_controller_category_init_after',
                 array('category' => $category, 'controller_action' => $this)
             );
-        } catch (\Magento\Model\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+        } catch (\Magento\Framework\Model\Exception $e) {
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             return false;
         }
 
@@ -135,7 +131,7 @@ class Category extends \Magento\App\Action\Action
      */
     public function viewAction()
     {
-        if ($this->_request->getParam(\Magento\App\Action\Action::PARAM_NAME_URL_ENCODED)) {
+        if ($this->_request->getParam(\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED)) {
             $this->getResponse()->setRedirect($this->_redirect->getRedirectUrl());
             return;
         }
@@ -164,6 +160,11 @@ class Category extends \Magento\App\Action\Action
                 $this->_view->addPageLayoutHandles(array('type' => $parentType));
             }
             $this->_view->addPageLayoutHandles(array('type' => $type, 'id' => $category->getId()));
+
+            // apply custom layout (page) template once the blocks are generated
+            if ($settings->getPageLayout()) {
+                $this->_objectManager->get('Magento\Theme\Helper\Layout')->applyHandle($settings->getPageLayout());
+            }
             $this->_view->loadLayoutUpdates();
 
             // apply custom layout update once layout is loaded
@@ -176,10 +177,6 @@ class Category extends \Magento\App\Action\Action
 
             $this->_view->generateLayoutXml();
             $this->_view->generateLayoutBlocks();
-            // apply custom layout (page) template once the blocks are generated
-            if ($settings->getPageLayout()) {
-                $this->_objectManager->get('Magento\Theme\Helper\Layout')->applyTemplate($settings->getPageLayout());
-            }
 
             $root = $this->_view->getLayout()->getBlock('root');
             if ($root) {

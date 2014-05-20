@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,22 +45,22 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     protected $_request;
 
     /**
-     * @var \Magento\Event\ManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Event\ManagerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $eventManager;
 
     /**
-     * @var \Magento\App\ViewInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\ViewInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $view;
 
     protected function setUp()
     {
-        $this->_objectManagerMock = $this->getMock('Magento\ObjectManager', array(), array(), '', false);
+        $this->_objectManagerMock = $this->getMock('Magento\Framework\ObjectManager', array(), array(), '', false);
 
-        $this->_request = $this->getMock('Magento\App\Request\Http', array(), array(), '', false);
-        $this->eventManager = $this->getMock('\Magento\Event\ManagerInterface', array(), array(), '', false);
-        $this->view = $this->getMock('\Magento\App\ViewInterface', array(), array(), '', false);
+        $this->_request = $this->getMock('Magento\Framework\App\Request\Http', array(), array(), '', false);
+        $this->eventManager = $this->getMock('\Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
+        $this->view = $this->getMock('\Magento\Framework\App\ViewInterface', array(), array(), '', false);
 
         $helper = new \Magento\TestFramework\Helper\ObjectManager($this);
         $this->_model = $helper->getObject(
@@ -71,7 +68,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
             array(
                 'request' => $this->_request,
                 'objectManager' => $this->_objectManagerMock,
-                'response' => $this->getMock('Magento\App\Response\Http', array(), array(), '', false),
+                'response' => $this->getMock('Magento\Framework\App\Response\Http', array(), array(), '', false),
                 'eventManager' => $this->eventManager,
                 'view' => $this->view,
             )
@@ -150,7 +147,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $themeMock->expects($this->any())->method('getThemeImage')->will($this->returnValue($themeImage));
 
         $themeFactory = $this->getMock(
-            'Magento\View\Design\Theme\FlyweightFactory',
+            'Magento\Framework\View\Design\Theme\FlyweightFactory',
             array('create'),
             array(),
             '',
@@ -163,7 +160,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         )->method(
                 'get'
             )->with(
-                'Magento\View\Design\Theme\FlyweightFactory'
+                'Magento\Framework\View\Design\Theme\FlyweightFactory'
             )->will(
                 $this->returnValue($themeFactory)
             );
@@ -204,7 +201,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
             ->method('getMenuModel')
             ->will($this->returnValue($menuModel));
 
-        $layout = $this->getMock('\Magento\View\LayoutInterface', array(), array(), '', false);
+        $layout = $this->getMock('\Magento\Framework\View\LayoutInterface', array(), array(), '', false);
         $layout->expects($this->any())
             ->method('getBlock')
             ->with($this->equalTo('menu'))

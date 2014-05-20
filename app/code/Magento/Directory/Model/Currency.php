@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Currency model
  *
- * @category   Magento
- * @package    Magento_Directory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Directory\Model;
@@ -36,7 +32,7 @@ namespace Magento\Directory\Model;
 use Magento\Directory\Exception;
 use Magento\Directory\Model\Currency\Filter;
 
-class Currency extends \Magento\Model\AbstractModel
+class Currency extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * CONFIG path constants
@@ -60,12 +56,12 @@ class Currency extends \Magento\Model\AbstractModel
     protected $_rates;
 
     /**
-     * @var \Magento\Locale\FormatInterface
+     * @var \Magento\Framework\Locale\FormatInterface
      */
     protected $_localeFormat;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -80,32 +76,32 @@ class Currency extends \Magento\Model\AbstractModel
     protected $_currencyFilterFactory;
 
     /**
-     * @var \Magento\Locale\CurrencyInterface
+     * @var \Magento\Framework\Locale\CurrencyInterface
      */
     protected $_localeCurrency;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Locale\FormatInterface $localeFormat
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Directory\Helper\Data $directoryHelper
      * @param Currency\FilterFactory $currencyFilterFactory
-     * @param \Magento\Locale\CurrencyInterface $localeCurrency
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Locale\CurrencyInterface $localeCurrency
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Locale\FormatInterface $localeFormat,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Directory\Helper\Data $directoryHelper,
         \Magento\Directory\Model\Currency\FilterFactory $currencyFilterFactory,
-        \Magento\Locale\CurrencyInterface $localeCurrency,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Locale\CurrencyInterface $localeCurrency,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
@@ -328,7 +324,7 @@ class Currency extends \Magento\Model\AbstractModel
     public function getOutputFormat()
     {
         $formatted = $this->formatTxt(0);
-        $number = $this->formatTxt(0, array('display' => \Magento\Currency::NO_SYMBOL));
+        $number = $this->formatTxt(0, array('display' => \Magento\Framework\Currency::NO_SYMBOL));
         return str_replace($number, '%s', $formatted);
     }
 

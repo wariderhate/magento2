@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Weee
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Weee\Model\Attribute\Backend\Weee;
 
-use Magento\Model\Exception;
+use Magento\Framework\Model\Exception;
 
 class Tax extends \Magento\Catalog\Model\Product\Attribute\Backend\Price
 {
@@ -35,7 +33,7 @@ class Tax extends \Magento\Catalog\Model\Product\Attribute\Backend\Price
     protected $_attributeTax;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -45,20 +43,20 @@ class Tax extends \Magento\Catalog\Model\Product\Attribute\Backend\Price
     protected $_directoryHelper;
 
     /**
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Catalog\Helper\Data $catalogData
-     * @param \Magento\App\ConfigInterface $config
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
      * @param \Magento\Directory\Helper\Data $directoryHelper
      * @param \Magento\Weee\Model\Resource\Attribute\Backend\Weee\Tax $attributeTax
      */
     public function __construct(
-        \Magento\Logger $logger,
+        \Magento\Framework\Logger $logger,
         \Magento\Directory\Model\CurrencyFactory $currencyFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Helper\Data $catalogData,
-        \Magento\App\ConfigInterface $config,
+        \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Directory\Helper\Data $directoryHelper,
         \Magento\Weee\Model\Resource\Attribute\Backend\Weee\Tax $attributeTax
     ) {
@@ -100,7 +98,9 @@ class Tax extends \Magento\Catalog\Model\Product\Attribute\Backend\Price
             $key1 = implode('-', array($tax['website_id'], $tax['country'], $state));
 
             if (!empty($dup[$key1])) {
-                throw new Exception(__('We found a duplicate website, country, and state tax.'));
+                throw new Exception(
+                    __('We found a duplicate of website, country and state fields for a fixed product tax')
+                );
             }
             $dup[$key1] = 1;
         }

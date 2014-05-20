@@ -18,18 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer \Magento\Core\Model\Resource\Setup */
+/* @var $installer \Magento\Framework\Module\Setup */
 $installer = $this;
 $connection = $installer->getConnection();
 
 $rulesTable = $installer->getTable('salesrule');
-$websitesTable = $installer->getTable('core_website');
+$websitesTable = $installer->getTable('store_website');
 $customerGroupsTable = $installer->getTable('customer_group');
 $rulesWebsitesTable = $installer->getTable('salesrule_website');
 $rulesCustomerGroupsTable = $installer->getTable('salesrule_customer_group');
@@ -43,13 +41,13 @@ $table = $connection->newTable(
     $rulesWebsitesTable
 )->addColumn(
     'rule_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('unsigned' => true, 'nullable' => false, 'primary' => true),
     'Rule Id'
 )->addColumn(
     'website_id',
-    \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
     null,
     array('unsigned' => true, 'nullable' => false, 'primary' => true),
     'Website Id'
@@ -64,15 +62,15 @@ $table = $connection->newTable(
     'rule_id',
     $rulesTable,
     'rule_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->addForeignKey(
     $installer->getFkName('salesrule_website', 'website_id', 'core/website', 'website_id'),
     'website_id',
     $websitesTable,
     'website_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->setComment(
     'Sales Rules To Websites Relations'
 );
@@ -88,13 +86,13 @@ $table = $connection->newTable(
     $rulesCustomerGroupsTable
 )->addColumn(
     'rule_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('unsigned' => true, 'nullable' => false, 'primary' => true),
     'Rule Id'
 )->addColumn(
     'customer_group_id',
-    \Magento\DB\Ddl\Table::TYPE_SMALLINT,
+    \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
     null,
     array('unsigned' => true, 'nullable' => false, 'primary' => true),
     'Customer Group Id'
@@ -109,15 +107,15 @@ $table = $connection->newTable(
     'rule_id',
     $rulesTable,
     'rule_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->addForeignKey(
     $installer->getFkName('salesrule_customer_group', 'customer_group_id', 'customer_group', 'customer_group_id'),
     'customer_group_id',
     $customerGroupsTable,
     'customer_group_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->setComment(
     'Sales Rules To Customer Groups Relations'
 );
@@ -170,13 +168,13 @@ $connection->dropColumn($rulesTable, 'customer_group_ids');
 $connection->modifyColumn(
     $rulesTable,
     'from_date',
-    array('type' => \Magento\DB\Ddl\Table::TYPE_DATE, 'nullable' => true, 'default' => null)
+    array('type' => \Magento\Framework\DB\Ddl\Table::TYPE_DATE, 'nullable' => true, 'default' => null)
 );
 
 $connection->modifyColumn(
     $rulesTable,
     'to_date',
-    array('type' => \Magento\DB\Ddl\Table::TYPE_DATE, 'nullable' => true, 'default' => null)
+    array('type' => \Magento\Framework\DB\Ddl\Table::TYPE_DATE, 'nullable' => true, 'default' => null)
 );
 
 $installer->endSetup();

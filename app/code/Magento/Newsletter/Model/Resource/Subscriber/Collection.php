@@ -18,23 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Newsletter
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Newsletter\Model\Resource\Subscriber;
 
 use Magento\Newsletter\Model\Queue as ModelQueue;
+use Magento\Customer\Service\V1\CustomerMetadataServiceInterface as CustomerMetadataService;
 
 /**
  * Newsletter subscribers collection
  *
- * @category    Magento
- * @package     Magento_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
     /**
      * Queue link table name
@@ -72,32 +69,31 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     protected $_countFilterPart = array();
 
     /**
-     * Customer factory
+     * Customer Eav data
      *
-     * @var \Magento\Customer\Model\CustomerFactory
+     * @var   \Magento\Eav\Helper\Data
      */
-    protected $_customerFactory;
+    protected $_customerHelperData;
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
-     * @param \Magento\Customer\Model\CustomerFactory $customerFactory
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Eav\Helper\Data $customerHelperData
      * @param null|\Zend_Db_Adapter_Abstract $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
+        \Magento\Eav\Helper\Data $customerHelperData,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
-        // _customerFactory is used in parent class constructor
-        $this->_customerFactory = $customerFactory;
+        $this->_customerHelperData = $customerHelperData;
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
     }
 
@@ -112,7 +108,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
         parent::_construct();
         $this->_init('Magento\Newsletter\Model\Subscriber', 'Magento\Newsletter\Model\Resource\Subscriber');
         $this->_queueLinkTable = $this->getTable('newsletter_queue_link');
-        $this->_storeTable = $this->getTable('core_store');
+        $this->_storeTable = $this->getTable('store');
 
 
         // defining mapping for fields represented in several tables
@@ -170,28 +166,35 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     public function showCustomerInfo()
     {
         $adapter = $this->getConnection();
-        /** @var \Magento\Customer\Model\Customer $customer */
-        $customer = $this->_customerFactory->create();
-        $firstname = $customer->getAttribute('firstname');
-        $lastname = $customer->getAttribute('lastname');
 
-        $this->getSelect()->joinLeft(
-            array('customer_lastname_table' => $lastname->getBackend()->getTable()),
-            $adapter->quoteInto(
-                'customer_lastname_table.entity_id=main_table.customer_id
-                 AND customer_lastname_table.attribute_id = ?',
-                (int)$lastname->getAttributeId()
-            ),
-            array('customer_lastname' => 'value')
-        )->joinLeft(
-            array('customer_firstname_table' => $firstname->getBackend()->getTable()),
-            $adapter->quoteInto(
-                'customer_firstname_table.entity_id=main_table.customer_id
-                 AND customer_firstname_table.attribute_id = ?',
-                (int)$firstname->getAttributeId()
-            ),
-            array('customer_firstname' => 'value')
+        $lastNameData = $this->_customerHelperData->getAttributeMetadata(
+            CustomerMetadataService::ENTITY_TYPE_CUSTOMER,
+            'lastname'
         );
+        $firstNameData = $this->_customerHelperData->getAttributeMetadata(
+            CustomerMetadataService::ENTITY_TYPE_CUSTOMER,
+            'firstname'
+        );
+
+        $this->getSelect()
+            ->joinLeft(
+                array('customer_lastname_table' => $lastNameData['attribute_table']),
+                $adapter->quoteInto(
+                    'customer_lastname_table.entity_id=main_table.customer_id
+                                     AND customer_lastname_table.attribute_id = ?',
+                    (int)$lastNameData['attribute_id']
+                ),
+                array('customer_lastname' => 'value')
+            )
+            ->joinLeft(
+                array('customer_firstname_table' => $firstNameData['attribute_table']),
+                $adapter->quoteInto(
+                    'customer_firstname_table.entity_id=main_table.customer_id
+                                     AND customer_firstname_table.attribute_id = ?',
+                    (int)$firstNameData['attribute_id']
+                ),
+                array('customer_firstname' => 'value')
+            );
 
         return $this;
     }

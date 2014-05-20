@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +27,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider setDesignConfigExceptionDataProvider
-     * @expectedException \Magento\Exception
+     * @expectedException \Magento\Framework\Exception
      */
     public function testSetDesignConfigException($config)
     {
@@ -42,7 +39,7 @@ class TemplateTest extends \PHPUnit_Framework_TestCase
     public function setDesignConfigExceptionDataProvider()
     {
         $storeId = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->getStore()->getId();
         return array(array(array()), array(array('area' => 'frontend')), array(array('store' => $storeId)));
     }

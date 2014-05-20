@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Reports quote collection
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource\Quote;
@@ -69,23 +65,23 @@ class Collection extends \Magento\Sales\Model\Resource\Quote\Collection
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Catalog\Model\Resource\Product\Collection $productResource
      * @param \Magento\Customer\Model\Resource\Customer $customerResource
      * @param null $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Catalog\Model\Resource\Product\Collection $productResource,
         \Magento\Customer\Model\Resource\Customer $customerResource,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->_productResource = $productResource;
@@ -172,7 +168,7 @@ class Collection extends \Magento\Sales\Model\Resource\Quote\Collection
         )->joinInner(
             array('product_name' => $productAttrNameTable),
             "product_name.entity_id = e.entity_id\n                AND product_name.attribute_id = {$productAttrNameId}\n                AND product_name.store_id = " .
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID,
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID,
             array('name' => 'product_name.value')
         )->joinInner(
             array('product_price' => $productAttrPriceTable),

@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\SalesRule\Model\Resource;
 
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Sales Rule resource model
@@ -53,7 +51,7 @@ class Rule extends \Magento\Rule\Model\Resource\AbstractResource
     /**
      * Magento string lib
      *
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $string;
 
@@ -63,13 +61,13 @@ class Rule extends \Magento\Rule\Model\Resource\AbstractResource
     protected $_resourceCoupon;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\String $string
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\String $string
      * @param \Magento\SalesRule\Model\Resource\Coupon $resourceCoupon
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Stdlib\String $string,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Stdlib\String $string,
         \Magento\SalesRule\Model\Resource\Coupon $resourceCoupon
     ) {
         $this->string = $string;
@@ -105,7 +103,7 @@ class Rule extends \Magento\Rule\Model\Resource\AbstractResource
     /**
      * Prepare sales rule's discount quantity
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     public function _beforeSave(AbstractModel $object)
@@ -123,7 +121,7 @@ class Rule extends \Magento\Rule\Model\Resource\AbstractResource
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _afterSave(AbstractModel $object)
@@ -266,13 +264,11 @@ class Rule extends \Magento\Rule\Model\Resource\AbstractResource
     }
 
     /**
-     * Return codes of all product attributes currently used in promo rules for specified customer group and website
+     * Return codes of all product attributes currently used in promo rules
      *
-     * @param mixed $websiteId
-     * @param int $customerGroupId
-     * @return mixed
+     * @return array
      */
-    public function getActiveAttributes($websiteId, $customerGroupId)
+    public function getActiveAttributes()
     {
         $read = $this->_getReadAdapter();
         $select = $read->select()->from(

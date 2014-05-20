@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -154,7 +151,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
         $this->_targetTheme->setId(123);
 
         $this->_customizationPath = $this->getMock(
-            'Magento\View\Design\Theme\Customization\Path',
+            'Magento\Framework\View\Design\Theme\Customization\Path',
             array(),
             array(),
             '',
@@ -162,15 +159,16 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->_fileFactory = $this->getMock(
-            'Magento\View\Design\Theme\FileFactory',
+            'Magento\Framework\View\Design\Theme\FileFactory',
             array('create'),
             array(),
             '',
             false
         );
-        $this->_filesystem = $this->getMock('Magento\App\Filesystem', array('getDirectoryWrite'), array(), '', false);
+        $this->_filesystem =
+            $this->getMock('Magento\Framework\App\Filesystem', array('getDirectoryWrite'), array(), '', false);
         $this->_dirWriteMock = $this->getMock(
-            'Magento\Filesystem\Directory\Write',
+            'Magento\Framework\Filesystem\Directory\Write',
             array('isDirectory', 'search', 'copy', 'delete', 'read', 'copyFile', 'isExist'),
             array(),
             '',
@@ -181,7 +179,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
         )->method(
             'getDirectoryWrite'
         )->with(
-            \Magento\App\Filesystem::MEDIA_DIR
+            \Magento\Framework\App\Filesystem::MEDIA_DIR
         )->will(
             $this->returnValue($this->_dirWriteMock)
         );
@@ -234,7 +232,13 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
         );
         $this->_link->expects($this->any())->method('getCollection')->will($this->returnValue($this->_linkCollection));
 
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array('dispatch'), array(), '', false);
+        $eventManager = $this->getMock(
+            'Magento\Framework\Event\ManagerInterface',
+            array('dispatch'),
+            array(),
+            '',
+            false
+        );
 
         $this->_object = new \Magento\Theme\Model\CopyService(
             $this->_filesystem,
@@ -267,7 +271,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
     public function testCopyLayoutUpdates()
     {
         $customization = $this->getMock(
-            'Magento\View\Design\Theme\Customization',
+            'Magento\Framework\View\Design\Theme\Customization',
             array('getFiles'),
             array(),
             '',
@@ -351,7 +355,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
     public function testCopyDatabaseCustomization()
     {
         $sourceCustom = $this->getMock(
-            'Magento\View\Design\Theme\Customization',
+            'Magento\Framework\View\Design\Theme\Customization',
             array('getFiles'),
             array(),
             '',
@@ -372,7 +376,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
             $this->returnValue($sourceCustom)
         );
         $targetCustom = $this->getMock(
-            'Magento\View\Design\Theme\Customization',
+            'Magento\Framework\View\Design\Theme\Customization',
             array('getFiles'),
             array(),
             '',
@@ -473,7 +477,7 @@ class CopyServiceTest extends \PHPUnit_Framework_TestCase
     public function testCopyFilesystemCustomization()
     {
         $customization = $this->getMock(
-            'Magento\View\Design\Theme\Customization',
+            'Magento\Framework\View\Design\Theme\Customization',
             array('getFiles'),
             array(),
             '',

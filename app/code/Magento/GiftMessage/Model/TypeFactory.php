@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GiftMessage
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,14 +46,14 @@ class TypeFactory
     /**
      * Object manager
      *
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
     /**
-     * @param \Magento\ObjectManager $objectManager
+     * @param \Magento\Framework\ObjectManager $objectManager
      */
-    public function __construct(\Magento\ObjectManager $objectManager)
+    public function __construct(\Magento\Framework\ObjectManager $objectManager)
     {
         $this->_objectManager = $objectManager;
     }
@@ -65,13 +63,13 @@ class TypeFactory
      *
      * @param string $eavType
      * @return mixed
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function createType($eavType)
     {
         $types = $this->_allowedEntityTypes;
         if (!isset($types[$eavType])) {
-            throw new \Magento\Model\Exception(__('Unknown entity type'));
+            throw new \Magento\Framework\Model\Exception(__('Unknown entity type'));
         }
         return $this->_objectManager->create($types[$eavType]);
     }

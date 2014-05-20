@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,7 +36,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Config\ScopeInterface'
+            'Magento\Framework\Config\ScopeInterface'
         )->setCurrentScope(
             \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE
         );
@@ -54,7 +51,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetConfig()
     {
         $config = $this->_model->getConfig();
-        $this->assertInstanceOf('Magento\Object', $config);
+        $this->assertInstanceOf('Magento\Framework\Object', $config);
     }
 
     /**

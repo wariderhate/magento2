@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Backend\App\Action;
 /**
  * Adminhtml sales orders creation process controller
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Create extends \Magento\Backend\App\Action
@@ -299,7 +295,7 @@ class Create extends \Magento\Backend\App\Action
                 $this->messageManager->addError(
                     __(
                         '"%1" coupon code is not valid.',
-                        $this->_objectManager->get('Magento\Escaper')->escapeHtml($couponCode)
+                        $this->_objectManager->get('Magento\Framework\Escaper')->escapeHtml($couponCode)
                     )
                 );
             } else {
@@ -321,7 +317,7 @@ class Create extends \Magento\Backend\App\Action
         /* @var $productHelper \Magento\Catalog\Helper\Product */
         $productHelper = $this->_objectManager->get('Magento\Catalog\Helper\Product');
         foreach ($items as $id => $item) {
-            $buyRequest = new \Magento\Object($item);
+            $buyRequest = new \Magento\Framework\Object($item);
             $params = array('files_prefix' => 'item_' . $id . '_');
             $buyRequest = $productHelper->addParamsToBuyRequest($buyRequest, $params);
             if ($buyRequest->hasData()) {
@@ -391,7 +387,7 @@ class Create extends \Magento\Backend\App\Action
         $request = $this->getRequest();
         try {
             $this->_initSession()->_processData();
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $this->_reloadQuote();
             $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
@@ -448,7 +444,7 @@ class Create extends \Magento\Backend\App\Action
         }
 
         // Form result for client javascript
-        $updateResult = new \Magento\Object();
+        $updateResult = new \Magento\Framework\Object();
         if ($errorMessage) {
             $updateResult->setError(true);
             $updateResult->setMessage($errorMessage);
@@ -496,6 +492,14 @@ class Create extends \Magento\Backend\App\Action
     public function saveAction()
     {
         try {
+            // check if the creation of a new customer is allowed
+            if (!$this->_authorization->isAllowed('Magento_Customer::manage')
+                && !$this->_getSession()->getCustomerId()
+                && !$this->_getSession()->getQuote()->getCustomerIsGuest()
+            ) {
+                $this->_forward('denied');
+                return;
+            }
             $this->_processActionData('save');
             $paymentData = $this->getRequest()->getPost('payment');
             if ($paymentData) {
@@ -530,7 +534,7 @@ class Create extends \Magento\Backend\App\Action
                 $this->messageManager->addError($message);
             }
             $this->_redirect('sales/*/');
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $message = $e->getMessage();
             if (!empty($message)) {
                 $this->messageManager->addError($message);
@@ -591,7 +595,7 @@ class Create extends \Magento\Backend\App\Action
         // Prepare data
         $productId = (int)$this->getRequest()->getParam('id');
 
-        $configureResult = new \Magento\Object();
+        $configureResult = new \Magento\Framework\Object();
         $configureResult->setOk(true);
         $configureResult->setProductId($productId);
         $sessionQuote = $this->_objectManager->get('Magento\Backend\Model\Session\Quote');
@@ -614,16 +618,16 @@ class Create extends \Magento\Backend\App\Action
     public function configureQuoteItemsAction()
     {
         // Prepare data
-        $configureResult = new \Magento\Object();
+        $configureResult = new \Magento\Framework\Object();
         try {
             $quoteItemId = (int)$this->getRequest()->getParam('id');
             if (!$quoteItemId) {
-                throw new \Magento\Model\Exception(__('Quote item id is not received.'));
+                throw new \Magento\Framework\Model\Exception(__('Quote item id is not received.'));
             }
 
             $quoteItem = $this->_objectManager->create('Magento\Sales\Model\Quote\Item')->load($quoteItemId);
             if (!$quoteItem->getId()) {
-                throw new \Magento\Model\Exception(__('Quote item is not loaded.'));
+                throw new \Magento\Framework\Model\Exception(__('Quote item is not loaded.'));
             }
 
             $configureResult->setOk(true);

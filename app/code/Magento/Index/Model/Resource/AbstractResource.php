@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Index
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,16 +25,14 @@
 /**
  * Abstract resource model. Can be used as base for indexer resources
  *
- * @category    Magento
- * @package     Magento_Index
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Index\Model\Resource;
 
-use Magento\DB\Adapter\AdapterInterface;
-use Magento\DB\Select;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
 
-abstract class AbstractResource extends \Magento\Model\Resource\Db\AbstractDb
+abstract class AbstractResource extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     const IDX_SUFFIX = '_idx';
 

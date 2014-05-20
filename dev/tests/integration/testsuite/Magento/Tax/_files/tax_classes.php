@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -68,7 +65,7 @@ $taxRate = array(
 );
 $rate = $objectManager->create('Magento\Tax\Model\Calculation\Rate')->setData($taxRate)->save();
 
-$objectManager->get('Magento\Registry')->register('_fixture/Magento_Tax_Model_Calculation_Rate', $rate);
+$objectManager->get('Magento\Framework\Registry')->register('_fixture/Magento_Tax_Model_Calculation_Rate', $rate);
 
 $ruleData = array(
     'code' => 'Test Rule',
@@ -81,7 +78,7 @@ $ruleData = array(
 
 $taxRule = $objectManager->create('Magento\Tax\Model\Calculation\Rule')->setData($ruleData)->save();
 
-$objectManager->get('Magento\Registry')->register('_fixture/Magento_Tax_Model_Calculation_Rule', $taxRule);
+$objectManager->get('Magento\Framework\Registry')->register('_fixture/Magento_Tax_Model_Calculation_Rule', $taxRule);
 
 $ruleData['code'] = 'Test Rule Duplicate';
 

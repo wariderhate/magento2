@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,14 @@
 /**
  * Product qty increments block
  *
- * @category   Magento
- * @package    Magento_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogInventory\Block;
 
-class Qtyincrements extends \Magento\View\Element\Template implements \Magento\View\Block\IdentityInterface
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Block\IdentityInterface;
+
+class Qtyincrements extends Template implements IdentityInterface
 {
     /**
      * Qty Increments cache
@@ -46,18 +45,18 @@ class Qtyincrements extends \Magento\View\Element\Template implements \Magento\V
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_coreRegistry = $registry;

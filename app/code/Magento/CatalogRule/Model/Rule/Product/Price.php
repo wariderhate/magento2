@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -45,15 +43,13 @@
  * @method string getEarliestEndDate()
  * @method \Magento\CatalogRule\Model\Rule\Product\Price setEarliestEndDate(string $value)
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogRule\Model\Rule\Product;
 
-use Magento\DB\Select;
+use Magento\Framework\DB\Select;
 
-class Price extends \Magento\Model\AbstractModel
+class Price extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Initialize resource model

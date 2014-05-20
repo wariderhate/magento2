@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\CatalogSearch\Model\Resource;
 
-use Magento\Model\Resource\Db\AbstractDb;
+use Magento\Framework\Model\Resource\Db\AbstractDb;
 
 /**
  * Catalog search query resource model
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Query extends AbstractDb
@@ -39,24 +35,24 @@ class Query extends AbstractDb
     /**
      * Date
      *
-     * @var \Magento\Stdlib\DateTime\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
     protected $_date;
 
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime\DateTime $date
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Stdlib\DateTime\DateTime $date,
-        \Magento\Stdlib\DateTime $dateTime
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Stdlib\DateTime\DateTime $date,
+        \Magento\Framework\Stdlib\DateTime $dateTime
     ) {
         $this->_date = $date;
         $this->dateTime = $dateTime;
@@ -76,11 +72,11 @@ class Query extends AbstractDb
     /**
      * Custom load model by search query string
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @param string $value
      * @return $this
      */
-    public function loadByQuery(\Magento\Model\AbstractModel $object, $value)
+    public function loadByQuery(\Magento\Framework\Model\AbstractModel $object, $value)
     {
         $select = $this->_getReadAdapter()->select()->from(
             $this->getMainTable()
@@ -107,11 +103,11 @@ class Query extends AbstractDb
     /**
      * Custom load model only by query text (skip synonym for)
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @param string $value
      * @return $this
      */
-    public function loadByQueryText(\Magento\Model\AbstractModel $object, $value)
+    public function loadByQueryText(\Magento\Framework\Model\AbstractModel $object, $value)
     {
         $select = $this->_getReadAdapter()->select()->from(
             $this->getMainTable()
@@ -135,12 +131,12 @@ class Query extends AbstractDb
     /**
      * Loading string as a value or regular numeric
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @param int|string $value
      * @param null|string $field
-     * @return $this|AbstractDb
+     * @return $this|\Magento\Framework\Model\Resource\Db\AbstractDb
      */
-    public function load(\Magento\Model\AbstractModel $object, $value, $field = null)
+    public function load(\Magento\Framework\Model\AbstractModel $object, $value, $field = null)
     {
         if (is_numeric($value)) {
             return parent::load($object, $value);
@@ -151,10 +147,10 @@ class Query extends AbstractDb
     }
 
     /**
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
-    public function _beforeSave(\Magento\Model\AbstractModel $object)
+    public function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $object->setUpdatedAt($this->dateTime->formatDate($this->_date->gmtTimestamp()));
         return $this;

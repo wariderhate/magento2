@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -54,11 +52,9 @@ namespace Magento\Eav\Model\Entity;
  * @method \Magento\Eav\Model\Entity\Type setAdditionalAttributeTable(string $value)
  * @method \Magento\Eav\Model\Entity\Type setEntityAttributeCollection(string $value)
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Type extends \Magento\Model\AbstractModel
+class Type extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Collection of attributes
@@ -97,30 +93,30 @@ class Type extends \Magento\Model\AbstractModel
     protected $_storeFactory;
 
     /**
-     * @var \Magento\Validator\UniversalFactory
+     * @var \Magento\Framework\Validator\UniversalFactory
      */
     protected $_universalFactory;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Eav\Model\Entity\AttributeFactory $attributeFactory
      * @param \Magento\Eav\Model\Entity\Attribute\SetFactory $attSetFactory
      * @param \Magento\Eav\Model\Entity\StoreFactory $storeFactory
-     * @param \Magento\Validator\UniversalFactory $universalFactory
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Validator\UniversalFactory $universalFactory
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\Eav\Model\Entity\AttributeFactory $attributeFactory,
         \Magento\Eav\Model\Entity\Attribute\SetFactory $attSetFactory,
         \Magento\Eav\Model\Entity\StoreFactory $storeFactory,
-        \Magento\Validator\UniversalFactory $universalFactory,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Validator\UniversalFactory $universalFactory,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
@@ -388,7 +384,7 @@ class Type extends \Magento\Model\AbstractModel
     /**
      * Retrieve resource entity object
      *
-     * @return \Magento\Model\Resource\AbstractResource
+     * @return \Magento\Framework\Model\Resource\AbstractResource
      */
     public function getEntity()
     {

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sitemap
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,12 +25,10 @@
 /**
  * Image include policy into sitemap file
  *
- * @category   Magento
- * @package    Magento_Sitemap
  */
 namespace Magento\Sitemap\Model\Source\Product\Image;
 
-class IncludeImage implements \Magento\Option\ArrayInterface
+class IncludeImage implements \Magento\Framework\Option\ArrayInterface
 {
     /**#@+
      * Add Images into Sitemap possible values

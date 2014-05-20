@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -52,7 +49,7 @@ class TemplateFilesTest extends \Magento\TestFramework\TestCase\AbstractIntegrit
             $params = array('area' => $area, 'themeId' => $themeId, 'module' => $module);
             try {
                 $templateFilename = \Magento\TestFramework\Helper\Bootstrap::getObjectmanager()->get(
-                    'Magento\View\FileSystem'
+                    'Magento\Framework\View\FileSystem'
                 )->getFilename(
                     $file,
                     $params
@@ -80,9 +77,9 @@ class TemplateFilesTest extends \Magento\TestFramework\TestCase\AbstractIntegrit
 
         $themes = $this->_getDesignThemes();
         foreach ($themes as $theme) {
-            /** @var \Magento\View\Layout\ProcessorInterface $layoutUpdate */
+            /** @var \Magento\Framework\View\Layout\ProcessorInterface $layoutUpdate */
             $layoutUpdate = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-                'Magento\View\Layout\ProcessorInterface',
+                'Magento\Framework\View\Layout\ProcessorInterface',
                 array('theme' => $theme)
             );
             $layoutTemplates = $this->_getLayoutTemplates($layoutUpdate->getFileLayoutUpdatesXml());
@@ -132,7 +129,6 @@ class TemplateFilesTest extends \Magento\TestFramework\TestCase\AbstractIntegrit
                         $templates[] = array($module, (string)$template, $parent[0]->asXml());
                     }
                     break;
-                case 'addPriceBlockType':
                 case 'addInformationRenderer':
                 case 'addMergeSettingsBlockType':
                     $blockType = $action[0]->xpath('block');

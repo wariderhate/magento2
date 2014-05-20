@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,7 @@ namespace Magento\Catalog\Model\Resource\Product\Option;
 class ValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Stub\UnitTest\Magento\Catalog\Model\Resource\Product\Option\Value
+     * @var \Magento\Catalog\Model\Resource\Product\Option\ValueStub
      */
     protected $_object;
 
@@ -40,7 +37,7 @@ class ValueTest extends \PHPUnit_Framework_TestCase
      */
     public static $valueTitleData = array(
         'id' => 2,
-        'store_id' => \Magento\Core\Model\Store::DEFAULT_STORE_ID,
+        'store_id' => \Magento\Store\Model\Store::DEFAULT_STORE_ID,
         'scope' => array('title' => 1)
     );
 
@@ -62,8 +59,8 @@ class ValueTest extends \PHPUnit_Framework_TestCase
     public function testSaveValueTitles()
     {
         $object = new Stub(
-            $this->getMock('Magento\Model\Context', array(), array(), '', false),
-            $this->getMock('Magento\Registry', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Model\Context', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Registry', array(), array(), '', false),
             null,
             null,
             self::$valueTitleData

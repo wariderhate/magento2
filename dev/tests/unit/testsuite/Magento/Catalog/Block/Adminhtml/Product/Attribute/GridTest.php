@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,9 +30,9 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $attribute = $this->getMock('Magento\Catalog\Model\Resource\Eav\Attribute', array(), array(), '', false);
         $attribute->expects($this->once())->method('getAttributeId')->will($this->returnValue(2));
 
-        $filesystem = $this->getMock('Magento\App\Filesystem', array(), array(), '', false);
+        $filesystem = $this->getMock('Magento\Framework\App\Filesystem', array(), array(), '', false);
 
-        $urlBuilder = $this->getMock('Magento\UrlInterface', array(), array(), '', false);
+        $urlBuilder = $this->getMock('Magento\Framework\UrlInterface', array(), array(), '', false);
         $urlBuilder->expects(
             $this->once()
         )->method(

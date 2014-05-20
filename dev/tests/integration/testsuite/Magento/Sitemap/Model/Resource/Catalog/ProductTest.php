@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sitemap
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -46,7 +43,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             'Magento\Sitemap\Model\Resource\Catalog\Product'
         );
-        $products = $model->getCollection(\Magento\Core\Model\Store::DISTRO_STORE_ID);
+        $products = $model->getCollection(\Magento\Store\Model\Store::DISTRO_STORE_ID);
 
         $this->_checkProductCollection($products, 3, array(1, 4, 5));
 
@@ -73,7 +70,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             'Magento\Sitemap\Model\Resource\Catalog\Product'
         );
-        $products = $model->getCollection(\Magento\Core\Model\Store::DISTRO_STORE_ID);
+        $products = $model->getCollection(\Magento\Store\Model\Store::DISTRO_STORE_ID);
 
         $this->_checkProductCollection($products, 3, array(1, 4, 5));
 
@@ -141,7 +138,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             'Magento\Sitemap\Model\Resource\Catalog\Product'
         );
-        $products = $model->getCollection(\Magento\Core\Model\Store::DISTRO_STORE_ID);
+        $products = $model->getCollection(\Magento\Store\Model\Store::DISTRO_STORE_ID);
 
         $this->_checkProductCollection($products, 3, array(1, 4, 5));
 

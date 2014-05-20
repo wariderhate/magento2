@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright  Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,12 +27,12 @@ namespace Magento\Backend\Block\Store\Switcher\Form\Renderer\Fieldset;
  * Form fieldset renderer
  */
 class Element extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Element implements
-    \Magento\Data\Form\Element\Renderer\RendererInterface
+    \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
 {
     /**
      * Form element which re-rendering
      *
-     * @var \Magento\Data\Form\Element\Fieldset
+     * @var \Magento\Framework\Data\Form\Element\Fieldset
      */
     protected $_element;
 
@@ -46,7 +44,7 @@ class Element extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Eleme
     /**
      * Retrieve an element
      *
-     * @return \Magento\Data\Form\Element\Fieldset
+     * @return \Magento\Framework\Data\Form\Element\Fieldset
      */
     public function getElement()
     {
@@ -56,10 +54,10 @@ class Element extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Eleme
     /**
      * Render element
      *
-     * @param \Magento\Data\Form\Element\AbstractElement $element
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
      * @return string
      */
-    public function render(\Magento\Data\Form\Element\AbstractElement $element)
+    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
         $this->_element = $element;
         return $this->toHtml();

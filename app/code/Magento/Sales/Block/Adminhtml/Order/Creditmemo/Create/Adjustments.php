@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ class Adjustments extends \Magento\Backend\Block\Template
     /**
      * Source object
      *
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_source;
 
@@ -64,7 +62,7 @@ class Adjustments extends \Magento\Backend\Block\Template
     {
         $parent = $this->getParentBlock();
         $this->_source = $parent->getSource();
-        $total = new \Magento\Object(array('code' => 'agjustments', 'block_name' => $this->getNameInLayout()));
+        $total = new \Magento\Framework\Object(array('code' => 'agjustments', 'block_name' => $this->getNameInLayout()));
         $parent->removeTotal('shipping');
         $parent->removeTotal('adjustment_positive');
         $parent->removeTotal('adjustment_negative');
@@ -75,7 +73,7 @@ class Adjustments extends \Magento\Backend\Block\Template
     /**
      * Get source object
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getSource()
     {

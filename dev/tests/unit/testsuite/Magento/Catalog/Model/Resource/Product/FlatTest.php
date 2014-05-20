@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,20 +31,20 @@ class FlatTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\Core\Model\Store
+     * @var \Magento\Store\Model\Store
      */
     protected $_store;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManagerInterface;
 
     public function setUp()
     {
-        $this->_store = $this->getMock('\Magento\Core\Model\Store', array(), array(), '', false);
+        $this->_store = $this->getMock('\Magento\Store\Model\Store', array(), array(), '', false);
 
-        $this->_storeManagerInterface = $this->getMock('\Magento\Core\Model\StoreManagerInterface');
+        $this->_storeManagerInterface = $this->getMock('\Magento\Store\Model\StoreManagerInterface');
 
         $this->_storeManagerInterface->expects(
             $this->any()
@@ -67,7 +64,7 @@ class FlatTest extends \PHPUnit_Framework_TestCase
 
 
         $this->_model = new \Magento\Catalog\Model\Resource\Product\Flat(
-            $this->getMock('Magento\App\Resource', array(), array(), '', false),
+            $this->getMock('Magento\Framework\App\Resource', array(), array(), '', false),
             $this->_storeManagerInterface,
             $this->getMock('Magento\Catalog\Model\Config', array(), array(), '', false)
         );

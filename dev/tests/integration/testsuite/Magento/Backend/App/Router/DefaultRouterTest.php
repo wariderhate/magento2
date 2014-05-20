@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,7 +34,7 @@ class DefaultRouterTest extends \PHPUnit_Framework_TestCase
     protected $model;
 
     /**
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $objectManager;
 
@@ -49,7 +46,7 @@ class DefaultRouterTest extends \PHPUnit_Framework_TestCase
 
     public function testRouterCanProcessRequestsWithProperPathInfo()
     {
-        $request = $this->getMock('Magento\App\Request\Http', array(), array(), '', false);
+        $request = $this->getMock('Magento\Framework\App\Request\Http', array(), array(), '', false);
         $request->expects($this->once())->method('getPathInfo')->will($this->returnValue('backend/admin/dashboard'));
 
         $this->assertInstanceOf('Magento\Backend\Controller\Adminhtml\Dashboard', $this->model->match($request));
@@ -93,13 +90,13 @@ class DefaultRouterTest extends \PHPUnit_Framework_TestCase
         );
 
         $routeConfig = $this->getMock(
-            'Magento\App\Route\Config',
+            'Magento\Framework\App\Route\Config',
             array('_getRoutes'),
             array(
-                'reader' => $this->objectManager->get('Magento\App\Route\Config\Reader'),
-                'cache' => $this->objectManager->get('Magento\Config\CacheInterface'),
-                'configScope' => $this->objectManager->get('Magento\Config\ScopeInterface'),
-                'areaList' => $this->objectManager->get('Magento\App\AreaList'),
+                'reader' => $this->objectManager->get('Magento\Framework\App\Route\Config\Reader'),
+                'cache' => $this->objectManager->get('Magento\Framework\Config\CacheInterface'),
+                'configScope' => $this->objectManager->get('Magento\Framework\Config\ScopeInterface'),
+                'areaList' => $this->objectManager->get('Magento\Framework\App\AreaList'),
                 'cacheId' => 'RoutesConfig'
             )
         );

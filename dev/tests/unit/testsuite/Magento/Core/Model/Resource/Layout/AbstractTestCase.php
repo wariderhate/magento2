@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -76,12 +73,12 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function _getResource(\Zend_Db_Select $select)
     {
-        $connection = $this->getMock('Magento\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
+        $connection = $this->getMock('Magento\Framework\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
         $connection->expects($this->once())->method('select')->will($this->returnValue($select));
         $connection->expects($this->any())->method('quoteIdentifier')->will($this->returnArgument(0));
 
         $resource = $this->getMockForAbstractClass(
-            'Magento\Model\Resource\Db\AbstractDb',
+            'Magento\Framework\Model\Resource\Db\AbstractDb',
             array(),
             '',
             false,
@@ -98,7 +95,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @abstract
      * @param \Zend_Db_Select $select
-     * @return \Magento\Model\Resource\Db\Collection\AbstractCollection
+     * @return \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
      */
     abstract protected function _getCollection(\Zend_Db_Select $select);
 
@@ -123,7 +120,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
         $datetime = new \DateTime();
         $storeInterval = new \DateInterval('P' . self::TEST_DAYS_BEFORE . 'D');
         $datetime->sub($storeInterval);
-        $dateTimeLib = new \Magento\Stdlib\DateTime();
+        $dateTimeLib = new \Magento\Framework\Stdlib\DateTime();
         $expectedDate = $dateTimeLib->formatDate($datetime->getTimestamp());
         $this->_expectedConditions['data'][1][1]['lt'] = $expectedDate;
 

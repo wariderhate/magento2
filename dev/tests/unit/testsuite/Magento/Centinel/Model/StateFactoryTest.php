@@ -20,9 +20,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Centinel
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +29,7 @@ class StateFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateState()
     {
-        $objectManager = $this->getMock('Magento\ObjectManager');
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager');
         $objectManager->expects(
             $this->at(0)
         )->method(
@@ -88,7 +85,7 @@ class StateFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateStateMapIsEmpty()
     {
-        $objectManager = $this->getMock('Magento\ObjectManager');
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager');
         $factory = new \Magento\Centinel\Model\StateFactory($objectManager);
         $this->assertFalse($factory->createState('VI'));
         $this->assertFalse($factory->createState('MC'));

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab;
 /**
  * "Manage Coupons Codes" Tab
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Coupons extends \Magento\Backend\Block\Text\ListText implements \Magento\Backend\Block\Widget\Tab\TabInterface
@@ -37,18 +33,18 @@ class Coupons extends \Magento\Backend\Block\Text\ListText implements \Magento\B
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @param \Magento\View\Element\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\View\Element\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\View\Element\Context $context,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_coreRegistry = $registry;

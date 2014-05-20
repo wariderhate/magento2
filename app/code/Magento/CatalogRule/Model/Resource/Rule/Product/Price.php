@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * Catalog Rule Product Aggregated Price per date Resource Model
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogRule\Model\Resource\Rule\Product;
 
-class Price extends \Magento\Model\Resource\Db\AbstractDb
+class Price extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Initialize connection and define main table
@@ -49,7 +45,7 @@ class Price extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Apply price rule price to price index table
      *
-     * @param \Magento\DB\Select $select
+     * @param \Magento\Framework\DB\Select $select
      * @param array|string $indexTable
      * @param string $entityId
      * @param string $customerGroupId
@@ -59,7 +55,7 @@ class Price extends \Magento\Model\Resource\Db\AbstractDb
      * @return \Magento\CatalogRule\Model\Resource\Rule\Product\Price
      */
     public function applyPriceRuleToIndexTable(
-        \Magento\DB\Select $select,
+        \Magento\Framework\DB\Select $select,
         $indexTable,
         $entityId,
         $customerGroupId,

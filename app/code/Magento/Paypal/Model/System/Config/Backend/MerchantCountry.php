@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Paypal\Model\System\Config\Backend;
 /**
  * Backend model for merchant country. Default country used instead of empty value.
  */
-class MerchantCountry extends \Magento\Core\Model\Config\Value
+class MerchantCountry extends \Magento\Framework\App\Config\Value
 {
     /**
      * Core data
@@ -38,27 +36,33 @@ class MerchantCountry extends \Magento\Core\Model\Config\Value
     protected $_coreData;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\ConfigInterface $config
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $_storeManager;
+
+    /**
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Core\Helper\Data $coreData
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\ConfigInterface $config,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Config\ScopeConfigInterface $config,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Core\Helper\Data $coreData,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_coreData = $coreData;
-        parent::__construct($context, $registry, $storeManager, $config, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $resource, $resourceCollection, $data);
+        $this->_storeManager = $storeManager;
     }
 
     /**

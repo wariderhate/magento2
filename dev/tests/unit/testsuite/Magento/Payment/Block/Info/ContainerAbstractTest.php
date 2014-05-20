@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -43,7 +40,13 @@ class ContainerAbstractTest extends \PHPUnit_Framework_TestCase
         );
         $objectManagerHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
         $paymentInfo = $objectManagerHelper->getObject('Magento\Payment\Model\Info');
-        $adapterFactoryMock = $this->getMock('Magento\Logger\AdapterFactory', array('create'), array(), '', false);
+        $adapterFactoryMock = $this->getMock(
+            'Magento\Framework\Logger\AdapterFactory',
+            array('create'),
+            array(),
+            '',
+            false
+        );
         $methodInstance = $objectManagerHelper->getObject(
             'Magento\OfflinePayments\Model\Checkmo',
             array('logAdapterFactory' => $adapterFactoryMock)
@@ -51,7 +54,7 @@ class ContainerAbstractTest extends \PHPUnit_Framework_TestCase
         $paymentInfo->setMethodInstance($methodInstance);
         $block->expects($this->atLeastOnce())->method('getPaymentInfo')->will($this->returnValue($paymentInfo));
 
-        $childBlock = $objectManagerHelper->getObject('Magento\View\Element\Template');
+        $childBlock = $objectManagerHelper->getObject('Magento\Framework\View\Element\Template');
         $block->expects(
             $this->atLeastOnce()
         )->method(

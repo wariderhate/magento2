@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\Dashboard\Searches;
 /**
  * Adminhtml dashboard last search keywords block
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Top extends \Magento\Backend\Block\Dashboard\Grid
@@ -45,21 +41,21 @@ class Top extends \Magento\Backend\Block\Dashboard\Grid
     protected $_queriesFactory;
 
     /**
-     * @var \Magento\Module\Manager
+     * @var \Magento\Framework\Module\Manager
      */
     protected $_moduleManager;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Backend\Helper\Data $backendHelper
-     * @param \Magento\Module\Manager $moduleManager
+     * @param \Magento\Framework\Module\Manager $moduleManager
      * @param \Magento\CatalogSearch\Model\Resource\Query\CollectionFactory $queriesFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        \Magento\Module\Manager $moduleManager,
+        \Magento\Framework\Module\Manager $moduleManager,
         \Magento\CatalogSearch\Model\Resource\Query\CollectionFactory $queriesFactory,
         array $data = array()
     ) {

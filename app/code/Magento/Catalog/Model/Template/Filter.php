@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,14 +26,12 @@
 /**
  * Catalog Template Filter Model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  * @todo        Needs to be reimplemented to get rid of the copypasted methods
  */
 namespace Magento\Catalog\Model\Template;
 
-class Filter extends \Magento\Filter\Template
+class Filter extends \Magento\Framework\Filter\Template
 {
     /**
      * Use absolute links flag
@@ -52,27 +48,27 @@ class Filter extends \Magento\Filter\Template
     protected $_useSessionInUrl = false;
 
     /**
-     * @var \Magento\View\Url
+     * @var \Magento\Framework\View\Url
      */
     protected $_viewUrl;
 
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\Stdlib\String $string
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\View\Url $viewUrl
+     * @param \Magento\Framework\Stdlib\String $string
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\View\Url $viewUrl
      * @param array $variables
      */
     public function __construct(
-        \Magento\Stdlib\String $string,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\View\Url $viewUrl,
+        \Magento\Framework\Stdlib\String $string,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\View\Url $viewUrl,
         $variables = array()
     ) {
         $this->_storeManager = $storeManager;
@@ -132,7 +128,7 @@ class Filter extends \Magento\Filter\Template
     public function mediaDirective($construction)
     {
         $params = $this->_getIncludeParameters($construction[2]);
-        return $this->_storeManager->getStore()->getBaseUrl(\Magento\UrlInterface::URL_TYPE_MEDIA) . $params['url'];
+        return $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . $params['url'];
     }
 
     /**

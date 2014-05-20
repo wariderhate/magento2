@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,19 +26,17 @@ namespace Magento\ProductAlert\Model\Resource;
 /**
  * Product alert for back in abstract resource model
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class AbstractResource extends \Magento\Model\Resource\Db\AbstractDb
+abstract class AbstractResource extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Retrieve alert row by object parameters
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return array|false
      */
-    protected function _getAlertRow(\Magento\Model\AbstractModel $object)
+    protected function _getAlertRow(\Magento\Framework\Model\AbstractModel $object)
     {
         $adapter = $this->_getReadAdapter();
         if ($object->getCustomerId() && $object->getProductId() && $object->getWebsiteId()) {
@@ -66,10 +62,10 @@ abstract class AbstractResource extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Load object data by parameters
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
-    public function loadByParam(\Magento\Model\AbstractModel $object)
+    public function loadByParam(\Magento\Framework\Model\AbstractModel $object)
     {
         $row = $this->_getAlertRow($object);
         if ($row) {
@@ -81,12 +77,12 @@ abstract class AbstractResource extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Delete all customer alerts on website
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @param int $customerId
      * @param int $websiteId
      * @return $this
      */
-    public function deleteCustomer(\Magento\Model\AbstractModel $object, $customerId, $websiteId = null)
+    public function deleteCustomer(\Magento\Framework\Model\AbstractModel $object, $customerId, $websiteId = null)
     {
         $adapter = $this->_getWriteAdapter();
         $where = array();

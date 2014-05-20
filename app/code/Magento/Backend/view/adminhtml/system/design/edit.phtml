@@ -18,19 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="page-actions">
-    <?php echo $this->getChildHtml('back_button') ?>
-    <?php if($this->getDesignChangeId()): ?>
-    <?php echo $this->getChildHtml('delete_button') ?>
-    <?php endif; ?>
-    <?php echo $this->getChildHtml('save_button') ?>
-</div>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="design-edit-form">
     <?php echo $this->getBlockHtml('formkey')?>
 </form>

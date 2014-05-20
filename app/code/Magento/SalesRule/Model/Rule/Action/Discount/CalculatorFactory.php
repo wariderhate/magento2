@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ class CalculatorFactory
     /**
      * Object manager
      *
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     private $_objectManager;
 
@@ -47,10 +45,10 @@ class CalculatorFactory
     );
 
     /**
-     * @param \Magento\ObjectManager $objectManager
+     * @param \Magento\Framework\ObjectManager $objectManager
      * @param array $discountRules
      */
-    public function __construct(\Magento\ObjectManager $objectManager, array $discountRules = array())
+    public function __construct(\Magento\Framework\ObjectManager $objectManager, array $discountRules = array())
     {
         $this->classByType = array_merge($this->classByType, $discountRules);
         $this->_objectManager = $objectManager;

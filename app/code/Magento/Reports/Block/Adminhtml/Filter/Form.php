@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -127,7 +125,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     {
         $actionUrl = $this->getUrl('*/*/sales');
 
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create(
             array('data' => array('id' => 'filter_form', 'action' => $actionUrl, 'method' => 'get'))
         );
@@ -136,7 +134,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $form->setHtmlIdPrefix($htmlIdPrefix);
         $fieldset = $form->addFieldset('base_fieldset', array('legend' => __('Filter')));
 
-        $dateFormat = $this->_localeDate->getDateFormat(\Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT);
+        $dateFormat = $this->_localeDate->getDateFormat(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT);
 
         $fieldset->addField('store_ids', 'hidden', array('name' => 'store_ids'));
 
@@ -227,10 +225,10 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     {
         $result = parent::_beforeToHtml();
 
-        /** @var \Magento\Data\Form\Element\Fieldset $fieldset */
+        /** @var \Magento\Framework\Data\Form\Element\Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof \Magento\Data\Form\Element\Fieldset) {
+        if (is_object($fieldset) && $fieldset instanceof \Magento\Framework\Data\Form\Element\Fieldset) {
             // apply field visibility
             foreach ($fieldset->getElements() as $field) {
                 if (!$this->getFieldVisibility($field->getId())) {
@@ -240,7 +238,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             // apply field options
             foreach ($this->_fieldOptions as $fieldId => $fieldOptions) {
                 $field = $fieldset->getElements()->searchById($fieldId);
-                /** @var \Magento\Object $field */
+                /** @var \Magento\Framework\Object $field */
                 if ($field) {
                     foreach ($fieldOptions as $k => $v) {
                         $field->setDataUsingMethod($k, $v);

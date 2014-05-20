@@ -19,9 +19,6 @@
  * needs please refer to http://www.magentocommerce.com for more information.
  * Page cache data helper
  *
- * @category    Magento
- * @package     Magento_PageCache
- * @subpackage  unit_tests
  * @author      Magento Core Team <core@magentocommerce.com>
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -37,7 +34,7 @@ class StubExport extends \Magento\PageCache\Block\System\Config\Form\Field\Expor
     {
     }
 
-    public function setUrlBuilder(\Magento\UrlInterface $urlBuilder)
+    public function setUrlBuilder(\Magento\Framework\UrlInterface $urlBuilder)
     {
         $this->_urlBuilder = $urlBuilder;
     }
@@ -45,7 +42,7 @@ class StubExport extends \Magento\PageCache\Block\System\Config\Form\Field\Expor
     /**
      * Retrieve element HTML markup
      *
-     * @param \Magento\Data\Form\Element\AbstractElement $element
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
      * @return string
      */
     public function getElementHtml($element)

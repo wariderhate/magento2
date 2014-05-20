@@ -18,13 +18,11 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/* @var $installer \Magento\Core\Model\Resource\Setup */
+/* @var $installer \Magento\Framework\Module\Setup */
 $installer = $this;
 
 $installer->startSetup();
@@ -36,7 +34,7 @@ $connection->changeColumn(
     'package_theme',
     'theme_id',
     array(
-        'type' => \Magento\DB\Ddl\Table::TYPE_INTEGER,
+        'type' => \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
         'unsigned' => true,
         'nullable' => false,
         'comment' => 'Theme id'
@@ -49,8 +47,8 @@ $connection->addForeignKey(
     'theme_id',
     $installer->getTable('core_theme'),
     'theme_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 );
 
 $installer->endSetup();

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ImportExport\Helper;
 /**
  * ImportExport data helper
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Data extends \Magento\Core\Helper\Data
@@ -44,28 +40,37 @@ class Data extends \Magento\Core\Helper\Data
     /**#@-*/
 
     /**
-     * @var \Magento\File\Size
+     * @var \Magento\Framework\File\Size
      */
     protected $_fileSize;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\State $appState
-     * @param \Magento\File\Size $fileSize
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\State $appState
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+     * @param \Magento\Framework\File\Size $fileSize
      * @param bool $dbCompatibleMode
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\State $appState,
-        \Magento\File\Size $fileSize,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\State $appState,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
+        \Magento\Framework\File\Size $fileSize,
         $dbCompatibleMode = true
     ) {
         $this->_fileSize = $fileSize;
-        parent::__construct($context, $coreStoreConfig, $storeManager, $appState, $dbCompatibleMode);
+        parent::__construct(
+            $context,
+            $scopeConfig,
+            $storeManager,
+            $appState,
+            $priceCurrency,
+            $dbCompatibleMode
+        );
     }
 
     /**
@@ -91,7 +96,7 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function getLocalValidPaths()
     {
-        $paths = $this->_coreStoreConfig->getConfig(self::XML_PATH_EXPORT_LOCAL_VALID_PATH);
+        $paths = $this->_scopeConfig->getValue(self::XML_PATH_EXPORT_LOCAL_VALID_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $paths;
     }
 
@@ -102,6 +107,6 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function getBunchSize()
     {
-        return (int)$this->_coreStoreConfig->getConfig(self::XML_PATH_BUNCH_SIZE);
+        return (int)$this->_scopeConfig->getValue(self::XML_PATH_BUNCH_SIZE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }

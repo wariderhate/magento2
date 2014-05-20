@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,17 +27,17 @@
  */
 namespace Magento\Backend\Model\Config\Source;
 
-class Locale implements \Magento\Option\ArrayInterface
+class Locale implements \Magento\Framework\Option\ArrayInterface
 {
     /**
-     * @var \Magento\Locale\ListsInterface
+     * @var \Magento\Framework\Locale\ListsInterface
      */
     protected $_localeLists;
 
     /**
-     * @param \Magento\Locale\ListsInterface $localeLists
+     * @param \Magento\Framework\Locale\ListsInterface $localeLists
      */
-    public function __construct(\Magento\Locale\ListsInterface $localeLists)
+    public function __construct(\Magento\Framework\Locale\ListsInterface $localeLists)
     {
         $this->_localeLists = $localeLists;
     }

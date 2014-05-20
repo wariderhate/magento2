@@ -27,9 +27,8 @@ namespace Magento\PageCache\Model\System\Config\Backend;
  * Backend model for processing Varnish settings
  *
  * Class Varnish
- * @package Magento\PageCache\Model\System\Config\Backend
  */
-class Varnish extends \Magento\Core\Model\Config\Value
+class Varnish extends \Magento\Framework\App\Config\Value
 {
     /**
      * @var array
@@ -39,8 +38,8 @@ class Varnish extends \Magento\Core\Model\Config\Value
     /**
      * Set default data if empty fields have been left
      *
-     * @return $this|\Magento\Model\AbstractModel
-     * @throws \Magento\Model\Exception
+     * @return $this|\Magento\Framework\Model\AbstractModel
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _beforeSave()
     {
@@ -69,7 +68,7 @@ class Varnish extends \Magento\Core\Model\Config\Value
     /**
      * If fields are empty fill them with default data
      *
-     * @return $this|\Magento\Model\AbstractModel
+     * @return $this|\Magento\Framework\Model\AbstractModel
      */
     protected function _afterLoad()
     {

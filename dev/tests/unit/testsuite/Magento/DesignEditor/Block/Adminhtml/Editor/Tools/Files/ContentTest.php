@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -44,7 +41,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
     protected $_filesContent;
 
     /**
-     * @var \Magento\App\RequestInterface|PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\RequestInterface|PHPUnit_Framework_MockObject_MockObject
      */
     protected $_request;
 
@@ -52,7 +49,7 @@ class ContentTest extends \PHPUnit_Framework_TestCase
     {
         $this->_helperStorage = $this->getMock('Magento\Theme\Helper\Storage', array(), array(), '', false);
         $this->_urlBuilder = $this->getMock('Magento\Backend\Model\Url', array(), array(), '', false);
-        $this->_request = $this->getMock('Magento\App\RequestInterface', array(), array(), '', false);
+        $this->_request = $this->getMock('Magento\Framework\App\RequestInterface', array(), array(), '', false);
 
         $objectManagerHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
         $constructArguments = $objectManagerHelper->getConstructArguments(

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +27,7 @@ class GiftmessageTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSaveButtonHtml()
     {
-        $item = new \Magento\Object();
+        $item = new \Magento\Framework\Object();
         $expectedHtml = 'some_value';
 
         /** @var $block \Magento\Sales\Block\Adminhtml\Order\View\Giftmessage */
@@ -41,7 +38,7 @@ class GiftmessageTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $block->setEntity(new \Magento\Object());
+        $block->setEntity(new \Magento\Framework\Object());
         $block->expects($this->once())->method('getChildBlock')->with('save_button')->will($this->returnValue($item));
         $block->expects(
             $this->once()

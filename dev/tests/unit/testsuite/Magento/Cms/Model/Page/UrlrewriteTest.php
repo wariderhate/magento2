@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cms
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,7 +35,7 @@ class UrlrewriteTest extends \PHPUnit_Framework_TestCase
     protected $_model = null;
 
     /**
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_cmsPage = null;
 
@@ -52,7 +49,7 @@ class UrlrewriteTest extends \PHPUnit_Framework_TestCase
         )->setMethods(
             array('getResourceModelInstance', '__wakeup')
         )->disableOriginalConstructor()->getMock();
-        $this->_cmsPage = new \Magento\Object(array('id' => 3, 'identifier' => 'cms-page'));
+        $this->_cmsPage = new \Magento\Framework\Object(array('id' => 3, 'identifier' => 'cms-page'));
     }
 
     /**

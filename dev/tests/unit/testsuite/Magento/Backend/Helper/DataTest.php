@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,14 +45,14 @@ class DataTest extends \PHPUnit_Framework_TestCase
             false
         );
         $this->_helper = new \Magento\Backend\Helper\Data(
-            $this->getMock('Magento\App\Helper\Context', array(), array(), '', false, false),
-            $this->getMock('\Magento\App\Route\Config', array(), array(), '', false),
-            $this->getMock('Magento\Locale\ResolverInterface'),
+            $this->getMock('Magento\Framework\App\Helper\Context', array(), array(), '', false, false),
+            $this->getMock('\Magento\Framework\App\Route\Config', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Locale\ResolverInterface'),
             $this->getMock('\Magento\Backend\Model\Url', array(), array(), '', false),
             $this->getMock('\Magento\Backend\Model\Auth', array(), array(), '', false),
             $this->_frontResolverMock,
-            $this->getMock('\Magento\Math\Random', array(), array(), '', false),
-            $this->getMock('\Magento\App\RequestInterface')
+            $this->getMock('\Magento\Framework\Math\Random', array(), array(), '', false),
+            $this->getMock('\Magento\Framework\App\RequestInterface')
         );
     }
 

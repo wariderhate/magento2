@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Quantity and Stock Status attribute processing
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Model\Product\Attribute\Backend;
@@ -48,11 +44,11 @@ class Stock extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
     /**
      * Construct
      *
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\CatalogInventory\Model\Stock\ItemFactory $stockItemFactory
      */
     public function __construct(
-        \Magento\Logger $logger,
+        \Magento\Framework\Logger $logger,
         \Magento\CatalogInventory\Model\Stock\ItemFactory $stockItemFactory
     ) {
         $this->_stockItemFactory = $stockItemFactory;
@@ -99,7 +95,7 @@ class Stock extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
      * Validate
      *
      * @param Product $object
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      * @return bool
      */
     public function validate($object)
@@ -107,7 +103,7 @@ class Stock extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
         $attrCode = $this->getAttribute()->getAttributeCode();
         $value = $object->getData($attrCode);
         if (!empty($value['qty']) && !preg_match('/^-?\d*(\.|,)?\d{0,4}$/i', $value['qty'])) {
-            throw new \Magento\Model\Exception(__('Please enter a valid number in this field.'));
+            throw new \Magento\Framework\Model\Exception(__('Please enter a valid number in this field.'));
         }
         return true;
     }

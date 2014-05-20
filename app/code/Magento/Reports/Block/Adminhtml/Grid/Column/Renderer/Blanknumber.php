@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,11 +31,11 @@ namespace Magento\Reports\Block\Adminhtml\Grid\Column\Renderer;
 class Blanknumber extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Number
 {
     /**
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      *
      * @return string
      */
-    protected function _getValue(\Magento\Object $row)
+    protected function _getValue(\Magento\Framework\Object $row)
     {
         $data = parent::_getValue($row);
         if (!is_null($data)) {

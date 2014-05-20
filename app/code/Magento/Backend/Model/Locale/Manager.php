@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Model\Locale;
 /**
  * Locale manager model
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Manager
@@ -45,7 +41,7 @@ class Manager
     protected $_authSession;
 
     /**
-     * @var \Magento\TranslateInterface
+     * @var \Magento\Framework\TranslateInterface
      */
     protected $_translator;
 
@@ -54,12 +50,12 @@ class Manager
      *
      * @param \Magento\Backend\Model\Session $session
      * @param \Magento\Backend\Model\Auth\Session $authSession
-     * @param \Magento\TranslateInterface $translator
+     * @param \Magento\Framework\TranslateInterface $translator
      */
     public function __construct(
         \Magento\Backend\Model\Session $session,
         \Magento\Backend\Model\Auth\Session $authSession,
-        \Magento\TranslateInterface $translator
+        \Magento\Framework\TranslateInterface $translator
     ) {
         $this->_session = $session;
         $this->_authSession = $authSession;
@@ -90,7 +86,7 @@ class Manager
      */
     public function getUserInterfaceLocale()
     {
-        $interfaceLocale = \Magento\Locale\ResolverInterface::DEFAULT_LOCALE;
+        $interfaceLocale = \Magento\Framework\Locale\ResolverInterface::DEFAULT_LOCALE;
 
         $userData = $this->_authSession->getUser();
         if ($userData && $userData->getInterfaceLocale()) {

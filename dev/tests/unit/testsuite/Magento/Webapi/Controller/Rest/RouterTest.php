@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Webapi
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -54,8 +51,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         )->disableOriginalConstructor()->setMethods(
             array('match')
         )->getMock();
-        $areaListMock = $this->getMock('Magento\App\AreaList', array(), array(), '', false);
-        $configScopeMock = $this->getMock('Magento\Config\ScopeInterface');
+        $areaListMock = $this->getMock('Magento\Framework\App\AreaList', array(), array(), '', false);
+        $configScopeMock = $this->getMock('Magento\Framework\Config\ScopeInterface');
         $areaListMock->expects($this->once())->method('getFrontName')->will($this->returnValue('rest'));
         $this->_request = new \Magento\Webapi\Controller\Rest\Request(
             $areaListMock,

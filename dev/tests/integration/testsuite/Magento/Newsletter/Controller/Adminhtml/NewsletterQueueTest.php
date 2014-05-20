@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -77,14 +74,14 @@ class NewsletterQueueTest extends \Magento\Backend\Utility\Controller
         /**
          * Check that errors was generated and set to session
          */
-        $this->assertSessionMessages($this->isEmpty(), \Magento\Message\MessageInterface::TYPE_ERROR);
+        $this->assertSessionMessages($this->isEmpty(), \Magento\Framework\Message\MessageInterface::TYPE_ERROR);
 
         /**
          * Check that success message is set
          */
         $this->assertSessionMessages(
             $this->equalTo(array('The newsletter queue has been saved.')),
-            \Magento\Message\MessageInterface::TYPE_SUCCESS
+            \Magento\Framework\Message\MessageInterface::TYPE_SUCCESS
         );
     }
 }

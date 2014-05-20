@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Index
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -46,7 +43,7 @@ class ShellTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_shellFactory = $this->getMock('Magento\Index\Model\ShellFactory', array('create'), array(), '', false);
-        $this->_responseMock = $this->getMock('Magento\App\Console\Response', array(), array(), '', false);
+        $this->_responseMock = $this->getMock('Magento\Framework\App\Console\Response', array(), array(), '', false);
         $this->_entryPoint = new \Magento\Index\App\Shell('indexer.php', $this->_shellFactory, $this->_responseMock);
     }
 

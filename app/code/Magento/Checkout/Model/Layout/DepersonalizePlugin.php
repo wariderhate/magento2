@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,12 +35,12 @@ class DepersonalizePlugin
     protected $checkoutSession;
 
     /**
-     * @var \Magento\Module\Manager
+     * @var \Magento\Framework\Module\Manager
      */
     protected $moduleManager;
 
     /**
-     * @var \Magento\App\RequestInterface
+     * @var \Magento\Framework\App\RequestInterface
      */
     protected $request;
 
@@ -53,14 +51,14 @@ class DepersonalizePlugin
 
     /**
      * @param \Magento\Checkout\Model\Session $checkoutSession
-     * @param \Magento\Module\Manager $moduleManager
-     * @param \Magento\App\RequestInterface $request
+     * @param \Magento\Framework\Module\Manager $moduleManager
+     * @param \Magento\Framework\App\RequestInterface $request
      * @param \Magento\PageCache\Model\Config $cacheConfig
      */
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Magento\Module\Manager $moduleManager,
-        \Magento\App\RequestInterface $request,
+        \Magento\Framework\Module\Manager $moduleManager,
+        \Magento\Framework\App\RequestInterface $request,
         \Magento\PageCache\Model\Config $cacheConfig
     ) {
         $this->checkoutSession = $checkoutSession;
@@ -72,11 +70,11 @@ class DepersonalizePlugin
     /**
      * After generate Xml
      *
-     * @param \Magento\View\LayoutInterface $subject
-     * @param \Magento\View\LayoutInterface $result
-     * @return \Magento\View\LayoutInterface
+     * @param \Magento\Framework\View\LayoutInterface $subject
+     * @param \Magento\Framework\View\LayoutInterface $result
+     * @return \Magento\Framework\View\LayoutInterface
      */
-    public function afterGenerateXml(\Magento\View\LayoutInterface $subject, $result)
+    public function afterGenerateXml(\Magento\Framework\View\LayoutInterface $subject, $result)
     {
         if ($this->moduleManager->isEnabled('Magento_PageCache')
             && $this->cacheConfig->isEnabled()

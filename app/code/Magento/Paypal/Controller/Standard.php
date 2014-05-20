@@ -28,11 +28,9 @@ use Magento\Sales\Model\Order;
 /**
  * Paypal Standard Checkout Controller
  *
- * @category   Magento
- * @package    Magento_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Standard extends \Magento\App\Action\Action
+class Standard extends \Magento\Framework\App\Action\Action
 {
     /**
      * Order instance

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,17 +29,17 @@ namespace Magento\Install\Model\Installer;
 class Pear extends \Magento\Install\Model\Installer\AbstractInstaller
 {
     /**
-     * @var \Magento\Message\ManagerInterface
+     * @var \Magento\Framework\Message\ManagerInterface
      */
     protected $messageManager;
 
     /**
      * @param \Magento\Install\Model\Installer $installer
-     * @param \Magento\Message\ManagerInterface $messageManager
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      */
     public function __construct(
         \Magento\Install\Model\Installer $installer,
-        \Magento\Message\ManagerInterface $messageManager
+        \Magento\Framework\Message\ManagerInterface $messageManager
     ) {
         parent::__construct($installer);
         $this->messageManager = $messageManager;
@@ -70,7 +68,7 @@ class Pear extends \Magento\Install\Model\Installer\AbstractInstaller
      */
     public function checkDownloads()
     {
-        $pear = new \Magento\Pear();
+        $pear = new \Magento\Framework\Pear();
         $pkg = new PEAR_PackageFile($pear->getConfig(), false);
         $result = true;
         foreach ($this->getPackages() as $package) {

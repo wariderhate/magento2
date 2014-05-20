@@ -19,8 +19,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -124,7 +122,7 @@
                 <label>Design Theme</label>
                 <field id="theme_id" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Design Theme</label>
-                    <source_model>Magento\View\Design\Theme\Label::getLabelsCollectionForSystemConfiguration</source_model>
+                    <source_model>Magento\Framework\View\Design\Theme\Label::getLabelsCollectionForSystemConfiguration</source_model>
                     <backend_model>Magento\Core\Model\Design\Backend\Theme</backend_model>
                     <comment><![CDATA[If no value is specified, the system default will be used. The system default may be modified by third party extensions.]]></comment>
                 </field>
@@ -181,13 +179,13 @@
                     <comment>Leave empty for access from any location.</comment>
                 </field>
             </group>
-            <group id="debug" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="debug" translate="label" type="text" sortOrder="20" showInDefault="0" showInWebsite="1" showInStore="1">
                 <label>Debug</label>
-                <field id="template_hints" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="template_hints" translate="label" type="select" sortOrder="20" showInDefault="0" showInWebsite="1" showInStore="1">
                     <label>Template Path Hints</label>
                     <source_model>Magento\Backend\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="template_hints_blocks" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="template_hints_blocks" translate="label" type="select" sortOrder="21" showInDefault="0" showInWebsite="1" showInStore="1">
                     <label>Add Block Names to Hints</label>
                     <source_model>Magento\Backend\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -223,12 +221,12 @@
                 <field id="file" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>System Log File Name</label>
                     <backend_model>Magento\Backend\Model\Config\Backend\Filename</backend_model>
-                    <comment>Logging from \Magento\Logger. File is located in {{base_dir}}/var/log</comment>
+                    <comment>Logging from \Magento\Framework\Logger. File is located in {{base_dir}}/var/log</comment>
                 </field>
                 <field id="exception_file" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Exceptions Log File Name</label>
                     <backend_model>Magento\Backend\Model\Config\Backend\Filename</backend_model>
-                    <comment>Logging from \Magento\Logger. File is located in {{base_dir}}/var/log</comment>
+                    <comment>Logging from \Magento\Framework\Logger. File is located in {{base_dir}}/var/log</comment>
                 </field>
             </group>
             <group id="js" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">

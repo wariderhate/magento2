@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,7 +36,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     {
         \Magento\TestFramework\Helper\Bootstrap::getInstance()
             ->loadArea(\Magento\Backend\App\Area\FrontNameResolver::AREA_CODE);
-        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\View\DesignInterface')
+        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\Framework\View\DesignInterface')
             ->setDefaultDesignTheme();
         $block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
             ->create('Magento\ImportExport\Block\Adminhtml\Export\Filter');
@@ -65,9 +62,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($html);
 
         $dateFormat = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Stdlib\DateTime\TimezoneInterface'
+            'Magento\Framework\Stdlib\DateTime\TimezoneInterface'
         )->getDateFormat(
-            \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT
+            \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT
         );
         $pieces = array_filter(explode('<strong>', $html));
         foreach ($pieces as $piece) {

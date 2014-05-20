@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,26 +25,24 @@
 /**
  * Core URL helper
  *
- * @category    Magento
- * @package     Magento_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Core\Helper;
 
-class Url extends \Magento\App\Helper\AbstractHelper
+class Url extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         parent::__construct($context);
         $this->_storeManager = $storeManager;

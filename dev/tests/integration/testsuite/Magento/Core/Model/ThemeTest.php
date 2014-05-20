@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,9 +32,9 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
      */
     public function testCrud()
     {
-        /** @var $themeModel \Magento\View\Design\ThemeInterface */
+        /** @var $themeModel \Magento\Framework\View\Design\ThemeInterface */
         $themeModel = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\View\Design\ThemeInterface'
+            'Magento\Framework\View\Design\ThemeInterface'
         );
         $themeModel->setData($this->_getThemeValidData());
 
@@ -60,7 +57,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
             'is_featured' => false,
             'theme_path' => 'default/space',
             'preview_image' => 'images/preview.png',
-            'type' => \Magento\View\Design\ThemeInterface::TYPE_VIRTUAL
+            'type' => \Magento\Framework\View\Design\ThemeInterface::TYPE_VIRTUAL
         );
     }
 
@@ -69,12 +66,13 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
      */
     public function testChildRelation()
     {
-        /** @var $theme \Magento\View\Design\ThemeInterface */
+        /** @var $theme \Magento\Framework\View\Design\ThemeInterface */
         $theme = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\Design\ThemeInterface'
+            'Magento\Framework\View\Design\ThemeInterface'
         );
-        $collection = $theme->getCollection()->addTypeFilter(\Magento\View\Design\ThemeInterface::TYPE_VIRTUAL);
-        /** @var $currentTheme \Magento\View\Design\ThemeInterface */
+        $collection = $theme->getCollection()
+            ->addTypeFilter(\Magento\Framework\View\Design\ThemeInterface::TYPE_VIRTUAL);
+        /** @var $currentTheme \Magento\Framework\View\Design\ThemeInterface */
         foreach ($collection as $currentTheme) {
             $parentTheme = $currentTheme->getParentTheme();
             if (!empty($parentTheme)) {
@@ -90,9 +88,9 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInheritedThemes()
     {
-        /** @var \Magento\View\Design\Theme\FlyweightFactory $themeFactory */
+        /** @var \Magento\Framework\View\Design\Theme\FlyweightFactory $themeFactory */
         $themeFactory = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\Design\Theme\FlyweightFactory'
+            'Magento\Framework\View\Design\Theme\FlyweightFactory'
         );
         $theme = $themeFactory->create('vendor_custom_theme');
         $this->assertCount(2, $theme->getInheritedThemes());

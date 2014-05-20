@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -89,7 +86,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      * Test for method validateData()
      *
      * @covers \Magento\ImportExport\Model\Import\Entity\AbstractEntity::validateData
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Columns number: "1" have empty headers
      */
     public function testValidateDataEmptyColumnName()
@@ -102,7 +99,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      * Test for method validateData()
      *
      * @covers \Magento\ImportExport\Model\Import\Entity\AbstractEntity::validateData
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Columns number: "1" have empty headers
      */
     public function testValidateDataColumnNameWithWhitespaces()
@@ -115,7 +112,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      * Test for method validateData()
      *
      * @covers \Magento\ImportExport\Model\Import\Entity\AbstractEntity::validateData
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Column names: "_test1" are invalid
      */
     public function testValidateDataAttributeNames()

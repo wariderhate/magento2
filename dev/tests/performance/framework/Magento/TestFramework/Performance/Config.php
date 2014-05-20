@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     performance_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -78,14 +76,14 @@ class Config
      * @param string $testsBaseDir
      * @param string $appBaseDir
      * @throws \InvalidArgumentException
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     public function __construct(array $configData, $testsBaseDir, $appBaseDir)
     {
         $this->_validateData($configData);
 
         if (!is_dir($testsBaseDir)) {
-            throw new \Magento\Exception("Base directory '{$testsBaseDir}' does not exist.");
+            throw new \Magento\Framework\Exception("Base directory '{$testsBaseDir}' does not exist.");
         }
         $this->_testsBaseDir = $testsBaseDir;
         $this->_reportDir = $this->_getTestsRelativePath($configData['report_dir']);
@@ -117,7 +115,7 @@ class Config
      * Validate high-level configuration structure
      *
      * @param array $configData
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     protected function _validateData(array $configData)
     {
@@ -125,7 +123,7 @@ class Config
         $requiredKeys = array('application', 'scenario', 'report_dir');
         foreach ($requiredKeys as $requiredKeyName) {
             if (empty($configData[$requiredKeyName])) {
-                throw new \Magento\Exception("Configuration array must define '{$requiredKeyName}' key.");
+                throw new \Magento\Framework\Exception("Configuration array must define '{$requiredKeyName}' key.");
             }
         }
 
@@ -133,7 +131,7 @@ class Config
         $requiredAdminKeys = array('frontname', 'username', 'password');
         foreach ($requiredAdminKeys as $requiredKeyName) {
             if (empty($configData['application']['admin'][$requiredKeyName])) {
-                throw new \Magento\Exception("Admin options array must define '{$requiredKeyName}' key.");
+                throw new \Magento\Framework\Exception("Admin options array must define '{$requiredKeyName}' key.");
             }
         }
     }
@@ -288,9 +286,10 @@ class Config
             \Magento\TestFramework\Performance\Scenario::ARG_HOST => $this->getApplicationUrlHost(),
             \Magento\TestFramework\Performance\Scenario::ARG_PATH => $this->getApplicationUrlPath(),
             \Magento\TestFramework\Performance\Scenario::ARG_BASEDIR => $this->getApplicationBaseDir(),
-            \Magento\TestFramework\Performance\Scenario::ARG_ADMIN_FRONTNAME => $adminOptions['frontname'],
+            \Magento\TestFramework\Performance\Scenario::ARG_BACKEND_FRONTNAME => $adminOptions['frontname'],
             \Magento\TestFramework\Performance\Scenario::ARG_ADMIN_USERNAME => $adminOptions['username'],
-            \Magento\TestFramework\Performance\Scenario::ARG_ADMIN_PASSWORD => $adminOptions['password']
+            \Magento\TestFramework\Performance\Scenario::ARG_ADMIN_PASSWORD => $adminOptions['password'],
+            'jmeter.save.saveservice.output_format' => 'xml',
         );
     }
 

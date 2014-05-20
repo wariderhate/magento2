@@ -18,22 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Catalog\Block\Product\ProductList;
 
 use Magento\Catalog\Model\Resource\Product\Collection;
-use Magento\View\Element\AbstractBlock;
+use Magento\Framework\View\Element\AbstractBlock;
 
 /**
  * Catalog product upsell items block
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  */
-class Upsell extends \Magento\Catalog\Block\Product\AbstractProduct implements \Magento\View\Block\IdentityInterface
+class Upsell extends \Magento\Catalog\Block\Product\AbstractProduct implements \Magento\Framework\View\Block\IdentityInterface
 {
     /**
      * Default MAP renderer type
@@ -48,7 +46,7 @@ class Upsell extends \Magento\Catalog\Block\Product\AbstractProduct implements \
     protected $_columnCount = 4;
 
     /**
-     * @var  \Magento\Object[]
+     * @var  \Magento\Framework\Object[]
      */
     protected $_items;
 
@@ -89,23 +87,20 @@ class Upsell extends \Magento\Catalog\Block\Product\AbstractProduct implements \
      * @param \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param array $data
-     * @param array $priceBlockTypes
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Magento\Checkout\Model\Resource\Cart $checkoutCart,
         \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility,
         \Magento\Checkout\Model\Session $checkoutSession,
-        array $data = array(),
-        array $priceBlockTypes = array()
+        array $data = array()
     ) {
         $this->_checkoutCart = $checkoutCart;
         $this->_catalogProductVisibility = $catalogProductVisibility;
         $this->_checkoutSession = $checkoutSession;
         parent::__construct(
             $context,
-            $data,
-            $priceBlockTypes
+            $data
         );
     }
 
@@ -157,7 +152,7 @@ class Upsell extends \Magento\Catalog\Block\Product\AbstractProduct implements \
     }
 
     /**
-     * @return \Magento\Object[]
+     * @return \Magento\Framework\Object[]
      */
     public function getItems()
     {

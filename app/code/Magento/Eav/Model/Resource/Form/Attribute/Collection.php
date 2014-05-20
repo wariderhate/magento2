@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Eav\Model\Resource\Form\Attribute;
 /**
  * EAV Form Attribute Resource Collection
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
     /**
      * Current module pathname
@@ -51,7 +47,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     /**
      * Current store instance
      *
-     * @var \Magento\Core\Model\Store
+     * @var \Magento\Store\Model\Store
      */
     protected $_store;
 
@@ -63,7 +59,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     protected $_entityType;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -74,23 +70,23 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Eav\Model\Config $eavConfig
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param mixed $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
         $this->_storeManager = $storeManager;
         $this->_eavConfig = $eavConfig;
@@ -101,15 +97,15 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
      * Resource initialization
      *
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _construct()
     {
         if (empty($this->_moduleName)) {
-            throw new \Magento\Model\Exception(__('Current module pathname is undefined'));
+            throw new \Magento\Framework\Model\Exception(__('Current module pathname is undefined'));
         }
         if (empty($this->_entityTypeCode)) {
-            throw new \Magento\Model\Exception(__('Current module EAV entity is undefined'));
+            throw new \Magento\Framework\Model\Exception(__('Current module EAV entity is undefined'));
         }
     }
 
@@ -129,7 +125,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     /**
      * Set current store to collection
      *
-     * @param \Magento\Core\Model\Store|string|int $store
+     * @param \Magento\Store\Model\Store|string|int $store
      * @return $this
      */
     public function setStore($store)
@@ -141,7 +137,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     /**
      * Return current store instance
      *
-     * @return \Magento\Core\Model\Store
+     * @return \Magento\Store\Model\Store
      */
     public function getStore()
     {

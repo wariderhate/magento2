@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Core\Controller;
 
-class Index extends \Magento\App\Action\Action
+class Index extends \Magento\Framework\App\Action\Action
 {
     /**
      * @return void
@@ -53,7 +51,7 @@ class Index extends \Magento\App\Action\Action
      */
     public function noCookiesAction()
     {
-        $redirect = new \Magento\Object();
+        $redirect = new \Magento\Framework\Object();
         $this->_eventManager->dispatch(
             'controller_action_nocookies',
             array('action' => $this, 'redirect' => $redirect)

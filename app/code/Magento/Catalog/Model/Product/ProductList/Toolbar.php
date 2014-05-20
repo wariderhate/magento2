@@ -25,7 +25,6 @@ namespace Magento\Catalog\Model\Product\ProductList;
 
 /**
  * Class Toolbar
- * @package Magento\Catalog\Model\Product\ProductList
  */
 class Toolbar
 {
@@ -57,24 +56,24 @@ class Toolbar
     /**
      * Cookie
      *
-     * @var \Magento\Stdlib\Cookie
+     * @var \Magento\Framework\Stdlib\Cookie
      */
     protected $cookie;
 
     /**
      * Request
      *
-     * @var \Magento\App\Request\Http
+     * @var \Magento\Framework\App\Request\Http
      */
     protected $request;
 
     /**
-     * @param \Magento\Stdlib\Cookie $cookie
-     * @param \Magento\App\Request\Http $request
+     * @param \Magento\Framework\Stdlib\Cookie $cookie
+     * @param \Magento\Framework\App\Request\Http $request
      */
     public function __construct(
-        \Magento\Stdlib\Cookie $cookie,
-        \Magento\App\Request\Http $request
+        \Magento\Framework\Stdlib\Cookie $cookie,
+        \Magento\Framework\App\Request\Http $request
     ) {
         $this->cookie = $cookie;
         $this->request = $request;

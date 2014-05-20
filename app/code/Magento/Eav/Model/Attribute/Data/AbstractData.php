@@ -18,21 +18,17 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Eav\Model\Attribute\Data;
 
-use Magento\App\RequestInterface;
-use Magento\Model\Exception as CoreException;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Model\Exception as CoreException;
 
 /**
  * EAV Attribute Abstract Data Model
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class AbstractData
@@ -47,7 +43,7 @@ abstract class AbstractData
     /**
      * Entity instance
      *
-     * @var \Magento\Model\AbstractModel
+     * @var \Magento\Framework\Model\AbstractModel
      */
     protected $_entity;
 
@@ -88,29 +84,29 @@ abstract class AbstractData
     protected $_dateFilterFormat;
 
     /**
-     * @var \Magento\Stdlib\DateTime\TimezoneInterface
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
      */
     protected $_localeDate;
 
     /**
-     * @var \Magento\Locale\ResolverInterface
+     * @var \Magento\Framework\Locale\ResolverInterface
      */
     protected $_localeResolver;
 
     /**
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
     /**
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
-     * @param \Magento\Logger $logger
-     * @param \Magento\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      */
     public function __construct(
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
-        \Magento\Logger $logger,
-        \Magento\Locale\ResolverInterface $localeResolver
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver
     ) {
         $this->_localeDate = $localeDate;
         $this->_logger = $logger;
@@ -171,10 +167,10 @@ abstract class AbstractData
     /**
      * Set entity instance
      *
-     * @param \Magento\Model\AbstractModel $entity
+     * @param \Magento\Framework\Model\AbstractModel $entity
      * @return $this
      */
-    public function setEntity(\Magento\Model\AbstractModel $entity)
+    public function setEntity(\Magento\Framework\Model\AbstractModel $entity)
     {
         $this->_entity = $entity;
         return $this;
@@ -183,7 +179,7 @@ abstract class AbstractData
     /**
      * Returns entity instance
      *
-     * @return \Magento\Model\AbstractModel
+     * @return \Magento\Framework\Model\AbstractModel
      */
     public function getEntity()
     {
@@ -245,13 +241,13 @@ abstract class AbstractData
     /**
      * Return Data Form Input/Output Filter
      *
-     * @return \Magento\Data\Form\Filter\FilterInterface|false
+     * @return \Magento\Framework\Data\Form\Filter\FilterInterface|false
      */
     protected function _getFormFilter()
     {
         $filterCode = $this->getAttribute()->getInputFilter();
         if ($filterCode) {
-            $filterClass = 'Magento\Data\Form\Filter\\' . ucfirst($filterCode);
+            $filterClass = 'Magento\Framework\Data\Form\Filter\\' . ucfirst($filterCode);
             if ($filterCode == 'date') {
                 $filter = new $filterClass($this->_dateFilterFormat(), $this->_localeResolver->getLocale());
             } else {
@@ -273,7 +269,7 @@ abstract class AbstractData
         if (is_null($format)) {
             // get format
             if (is_null($this->_dateFilterFormat)) {
-                $this->_dateFilterFormat = \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT;
+                $this->_dateFilterFormat = \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT;
             }
             return $this->_localeDate->getDateFormat($this->_dateFilterFormat);
         } else if ($format === false) {
@@ -461,7 +457,12 @@ abstract class AbstractData
                     }
                     break;
                 case 'date':
-                    $validator = new \Zend_Validate_Date(\Magento\Stdlib\DateTime::DATE_INTERNAL_FORMAT);
+                    $validator = new \Zend_Validate_Date(
+                        [
+                            'format' => \Magento\Framework\Stdlib\DateTime::DATE_INTERNAL_FORMAT,
+                            'locale' => $this->_localeResolver->getLocale()
+                        ]
+                    );
                     $validator->setMessage(__('"%1" invalid type entered.', $label), \Zend_Validate_Date::INVALID);
                     $validator->setMessage(__('"%1" is not a valid date.', $label), \Zend_Validate_Date::INVALID_DATE);
                     $validator->setMessage(

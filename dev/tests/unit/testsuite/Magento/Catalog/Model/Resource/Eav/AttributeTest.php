@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,17 +45,17 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $eventManagerMock = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
+        $eventManagerMock = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
 
-        $cacheInterfaceMock = $this->getMock('Magento\App\CacheInterface', array(), array(), '', false);
+        $cacheInterfaceMock = $this->getMock('Magento\Framework\App\CacheInterface', array(), array(), '', false);
 
         $actionValidatorMock = $this->getMock(
-            '\Magento\Model\ActionValidator\RemoveAction', array(), array(), '', false
+            '\Magento\Framework\Model\ActionValidator\RemoveAction', array(), array(), '', false
         );
         $actionValidatorMock->expects($this->any())->method('isAllowed')->will($this->returnValue(true));
 
         $contextMock = $this->getMock(
-            '\Magento\Model\Context',
+            '\Magento\Framework\Model\Context',
             array('getEventDispatcher', 'getCacheManager', 'getActionValidator'), array(), '', false
         );
 
@@ -67,12 +64,12 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
         $contextMock->expects($this->any())->method('getActionValidator')
             ->will($this->returnValue($actionValidatorMock));
 
-        $dbAdapterMock = $this->getMock('Magento\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
+        $dbAdapterMock = $this->getMock('Magento\Framework\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
 
         $dbAdapterMock->expects($this->any())->method('getTransactionLevel')->will($this->returnValue(1));
 
         $resourceMock = $this->getMock(
-            'Magento\Model\Resource\AbstractResource',
+            'Magento\Framework\Model\Resource\AbstractResource',
             array('_construct', '_getReadAdapter', '_getWriteAdapter', 'getIdFieldName',
                 'save', 'saveInSetIncluding', 'isUsedBySuperProducts', 'delete'),
             array(), '', false
@@ -82,22 +79,22 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 
         $this->_model = new \Magento\Catalog\Model\Resource\Eav\Attribute(
             $contextMock,
-            $this->getMock('Magento\Registry', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Registry', array(), array(), '', false),
             $this->getMock('Magento\Core\Helper\Data', array(), array(), '', false),
             $this->getMock('Magento\Eav\Model\Config', array(), array(), '', false),
             $this->getMock('Magento\Eav\Model\Entity\TypeFactory', array(), array(), '', false),
-            $this->getMock('Magento\Core\Model\StoreManagerInterface', array(), array(), '', false),
+            $this->getMock('Magento\Store\Model\StoreManagerInterface', array(), array(), '', false),
             $this->getMock('Magento\Eav\Model\Resource\Helper', array(), array(), '', false),
-            $this->getMock('Magento\Validator\UniversalFactory', array(), array(), '', false),
-            $this->getMock('\Magento\Stdlib\DateTime\TimezoneInterface', array(), array(), '', false),
-            $this->getMock('Magento\Catalog\Model\ProductFactory', array(), array(), '', false),
-            $this->getMock('Magento\Locale\ResolverInterface', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Validator\UniversalFactory', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Stdlib\DateTime\TimezoneInterface', array(), array(), '', false),
+            $this->getMock('Magento\Catalog\Model\Product\ReservedAttributeList', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Locale\ResolverInterface', array(), array(), '', false),
             $this->getMock('Magento\Index\Model\Indexer', array(), array(), '', false),
             $this->_processor,
             $this->getMock('\Magento\Catalog\Helper\Product\Flat\Indexer', array(), array(), '', false),
             $this->getMock('\Magento\Catalog\Model\Attribute\LockValidatorInterface'),
             $resourceMock,
-            $this->getMock('\Magento\Data\Collection\Db', array(), array(), '', false),
+            $this->getMock('\Magento\Framework\Data\Collection\Db', array(), array(), '', false),
             array('id' => 1)
         );
     }

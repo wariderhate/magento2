@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,18 +25,16 @@
 /**
  * Filter item model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Model\Layer\Filter;
 
-class Item extends \Magento\Object
+class Item extends \Magento\Framework\Object
 {
     /**
      * Url
      *
-     * @var \Magento\UrlInterface
+     * @var \Magento\Framework\UrlInterface
      */
     protected $_url;
 
@@ -52,12 +48,12 @@ class Item extends \Magento\Object
     /**
      * Construct
      *
-     * @param \Magento\UrlInterface $url
+     * @param \Magento\Framework\UrlInterface $url
      * @param \Magento\Theme\Block\Html\Pager $htmlPagerBlock
      * @param array $data
      */
     public function __construct(
-        \Magento\UrlInterface $url,
+        \Magento\Framework\UrlInterface $url,
         \Magento\Theme\Block\Html\Pager $htmlPagerBlock,
         array $data = array()
     ) {
@@ -70,13 +66,13 @@ class Item extends \Magento\Object
      * Get filter instance
      *
      * @return \Magento\Catalog\Model\Layer\Filter\AbstractFilter
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getFilter()
     {
         $filter = $this->getData('filter');
         if (!is_object($filter)) {
-            throw new \Magento\Model\Exception(__('The filter must be an object. Please set correct filter.'));
+            throw new \Magento\Framework\Model\Exception(__('The filter must be an object. Please set correct filter.'));
         }
         return $filter;
     }

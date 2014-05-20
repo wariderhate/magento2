@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Customer\Block\Form;
 /**
  * Customer login form block
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Login extends \Magento\View\Element\Template
+class Login extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var int
@@ -64,7 +60,7 @@ class Login extends \Magento\View\Element\Template
     protected $coreUrl;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Helper\Data $customerHelper
      * @param \Magento\Checkout\Helper\Data $checkoutData
@@ -72,7 +68,7 @@ class Login extends \Magento\View\Element\Template
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Helper\Data $customerHelper,
         \Magento\Checkout\Helper\Data $checkoutData,

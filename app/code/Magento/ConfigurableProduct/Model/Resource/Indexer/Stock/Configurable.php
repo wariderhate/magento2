@@ -28,8 +28,6 @@ namespace Magento\ConfigurableProduct\Model\Resource\Indexer\Stock;
 /**
  * CatalogInventory Configurable Products Stock Status Indexer Resource Model
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 use Magento\Catalog\Model\Product\Attribute\Source\Status as ProductStatus;
@@ -41,7 +39,7 @@ class Configurable extends \Magento\CatalogInventory\Model\Resource\Indexer\Stoc
      *
      * @param int|array $entityIds
      * @param bool $usePrimaryTable use primary or temporary index table
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     protected function _getStockStatusSelect($entityIds = null, $usePrimaryTable = false)
     {

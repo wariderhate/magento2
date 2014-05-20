@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,13 +25,11 @@
 /**
  * Product form image field helper
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Helper\Form;
 
-class Image extends \Magento\Data\Form\Element\Image
+class Image extends \Magento\Framework\Data\Form\Element\Image
 {
     /**
      * @return bool|string
@@ -43,7 +39,7 @@ class Image extends \Magento\Data\Form\Element\Image
         $url = false;
         if ($this->getValue()) {
             $url = $this->_urlBuilder->getBaseUrl(
-                \Magento\UrlInterface::URL_TYPE_MEDIA
+                \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
             ) . 'catalog/product/' . $this->getValue();
         }
         return $url;

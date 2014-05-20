@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Magento
- * @package    Mage
  * @copyright  Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -157,14 +155,14 @@ return array(
     'core/layout_update' => 'core_layout_update',
     'core/resource' => 'core_resource',
     'core/session' => 'core_session',
-    'core/store' => 'core_store',
-    'core/store_group' => 'core_store_group',
+    'core/store' => 'store',
+    'core/store_group' => 'store_group',
     'core/translate' => 'core_translate',
     'core/url_rewrite' => 'core_url_rewrite',
     'core/url_rewrite_tag' => 'core_url_rewrite_tag',
     'core/variable' => 'core_variable',
     'core/variable_value' => 'core_variable_value',
-    'core/website' => 'core_website',
+    'core/website' => 'store_website',
     'cron/schedule' => 'cron_schedule',
     'customer/address_entity' => 'customer_address_entity',
     'customer/customer_group' => 'customer_group',

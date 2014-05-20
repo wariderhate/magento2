@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Controller\Adminhtml\Product;
 /**
  * Adminhtml entity sets controller
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Set extends \Magento\Backend\App\Action
@@ -37,15 +33,15 @@ class Set extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -134,8 +130,8 @@ class Set extends \Magento\Backend\App\Action
             $entityTypeId
         );
 
-        /** @var $filterManager \Magento\Filter\FilterManager */
-        $filterManager = $this->_objectManager->get('Magento\Filter\FilterManager');
+        /** @var $filterManager \Magento\Framework\Filter\FilterManager */
+        $filterManager = $this->_objectManager->get('Magento\Framework\Filter\FilterManager');
 
         try {
             if ($isNewSet) {
@@ -147,7 +143,7 @@ class Set extends \Magento\Backend\App\Action
                     $model->load($attributeSetId);
                 }
                 if (!$model->getId()) {
-                    throw new \Magento\Model\Exception(__('This attribute set no longer exists.'));
+                    throw new \Magento\Framework\Model\Exception(__('This attribute set no longer exists.'));
                 }
                 $data = $this->_objectManager->get(
                     'Magento\Core\Helper\Data'
@@ -168,7 +164,7 @@ class Set extends \Magento\Backend\App\Action
             }
             $model->save();
             $this->messageManager->addSuccess(__('You saved the attribute set.'));
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $this->messageManager->addError($e->getMessage());
             $hasError = true;
         } catch (\Exception $e) {
@@ -178,8 +174,8 @@ class Set extends \Magento\Backend\App\Action
 
         if ($isNewSet) {
             if ($this->getRequest()->getPost('return_session_messages_only')) {
-                /** @var $block \Magento\View\Element\Messages */
-                $block = $this->_objectManager->get('Magento\View\Element\Messages');
+                /** @var $block \Magento\Framework\View\Element\Messages */
+                $block = $this->_objectManager->get('Magento\Framework\View\Element\Messages');
                 $block->setMessages($this->messageManager->getMessages(true));
                 $body = $this->_objectManager->get(
                     'Magento\Core\Helper\Data'

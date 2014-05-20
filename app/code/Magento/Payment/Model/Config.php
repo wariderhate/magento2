@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Payment\Model;
 
-use Magento\Core\Model\Store;
+use Magento\Store\Model\Store;
 use Magento\Payment\Model\Method\AbstractMethod;
 
 /**
@@ -43,19 +41,19 @@ class Config
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @var \Magento\Config\DataInterface
+     * @var \Magento\Framework\Config\DataInterface
      */
     protected $_dataStorage;
 
     /**
      * Locale model
      *
-     * @var \Magento\Locale\ListsInterface
+     * @var \Magento\Framework\Locale\ListsInterface
      */
     protected $_localeLists;
 
@@ -69,20 +67,20 @@ class Config
     /**
      * Construct
      *
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\App\ConfigInterface $coreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $coreConfig
      * @param \Magento\Payment\Model\Method\Factory $paymentMethodFactory
-     * @param \Magento\Locale\ListsInterface $localeLists
-     * @param \Magento\Config\DataInterface $dataStorage
+     * @param \Magento\Framework\Locale\ListsInterface $localeLists
+     * @param \Magento\Framework\Config\DataInterface $dataStorage
      */
     public function __construct(
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\App\ConfigInterface $coreConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $coreConfig,
         \Magento\Payment\Model\Method\Factory $paymentMethodFactory,
-        \Magento\Locale\ListsInterface $localeLists,
-        \Magento\Config\DataInterface $dataStorage
+        \Magento\Framework\Locale\ListsInterface $localeLists,
+        \Magento\Framework\Config\DataInterface $dataStorage
     ) {
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_dataStorage = $dataStorage;
         $this->_coreConfig = $coreConfig;
         $this->_methodFactory = $paymentMethodFactory;
@@ -98,9 +96,14 @@ class Config
     public function getActiveMethods($store = null)
     {
         $methods = array();
-        $config = $this->_coreStoreConfig->getConfig('payment', $store);
+        $config = $this->_scopeConfig->getValue('payment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
         foreach ($config as $code => $methodConfig) {
-            if ($this->_coreStoreConfig->getConfigFlag('payment/' . $code . '/active', $store)) {
+            if ($this->_scopeConfig->isSetFlag(
+                'payment/' . $code . '/active',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+                $store
+            )
+            ) {
                 if (array_key_exists('model', $methodConfig)) {
                     $methodModel = $this->_methodFactory->create($methodConfig['model']);
                     if ($methodModel && $methodModel->getConfigData('active', $store)) {
@@ -121,7 +124,7 @@ class Config
     public function getAllMethods($store = null)
     {
         $methods = array();
-        $config = $this->_coreStoreConfig->getConfig('payment', $store);
+        $config = $this->_scopeConfig->getValue('payment', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
         foreach ($config as $code => $methodConfig) {
             $data = $this->_getMethod($code, $methodConfig);
             if (false !== $data) {

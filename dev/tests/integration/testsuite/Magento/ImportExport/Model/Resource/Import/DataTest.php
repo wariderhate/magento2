@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     <package-name>
- * @subpackage  <subpackage-name>
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -56,7 +53,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
         $expectedBunches = $objectManager->get(
-            'Magento\Registry'
+            'Magento\Framework\Registry'
         )->registry(
             '_fixture/Magento_ImportExport_Import_Data'
         );
@@ -67,7 +64,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /**
      * Test getUniqueColumnData() in case when in data stored in requested column is NOT unique
      *
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      */
     public function testGetUniqueColumnDataException()
     {
@@ -83,7 +80,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
         $expectedBunches = $objectManager->get(
-            'Magento\Registry'
+            'Magento\Framework\Registry'
         )->registry(
             '_fixture/Magento_ImportExport_Import_Data'
         );
@@ -100,7 +97,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
         $expectedBunches = $objectManager->get(
-            'Magento\Registry'
+            'Magento\Framework\Registry'
         )->registry(
             '_fixture/Magento_ImportExport_Import_Data'
         );

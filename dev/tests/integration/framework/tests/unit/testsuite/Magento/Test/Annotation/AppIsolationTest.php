@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -68,7 +65,7 @@ class AppIsolationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @magentoAppIsolation invalid
-     * @expectedException \Magento\Exception
+     * @expectedException \Magento\Framework\Exception
      */
     public function testEndTestIsolationInvalid()
     {
@@ -78,7 +75,7 @@ class AppIsolationTest extends \PHPUnit_Framework_TestCase
     /**
      * @magentoAppIsolation enabled
      * @magentoAppIsolation disabled
-     * @expectedException \Magento\Exception
+     * @expectedException \Magento\Framework\Exception
      */
     public function testEndTestIsolationAmbiguous()
     {

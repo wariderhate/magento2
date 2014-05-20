@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\Widget;
 /**
  * Backend container block
  *
- * @category    Magento
- * @package     Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Container extends \Magento\Backend\Block\Template
@@ -87,10 +83,10 @@ class Container extends \Magento\Backend\Block\Template
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $region That button should be displayed in ('header', 'footer', null)
+     * @param string|null $region That button should be displayed in ('toolbar', 'header', 'footer', null)
      * @return $this
      */
-    protected function _addButton($buttonId, $data, $level = 0, $sortOrder = 0, $region = 'header')
+    protected function _addButton($buttonId, $data, $level = 0, $sortOrder = 0, $region = 'toolbar')
     {
         if (!isset($this->_buttons[$level])) {
             $this->_buttons[$level] = array();
@@ -118,10 +114,10 @@ class Container extends \Magento\Backend\Block\Template
      * @param array $data
      * @param integer $level
      * @param integer $sortOrder
-     * @param string|null $region That button should be displayed in ('header', 'footer', null)
+     * @param string|null $region That button should be displayed in ('toolbar', 'header', 'footer', null)
      * @return $this
      */
-    public function addButton($buttonId, $data, $level = 0, $sortOrder = 0, $region = 'header')
+    public function addButton($buttonId, $data, $level = 0, $sortOrder = 0, $region = 'toolbar')
     {
         return $this->_addButton($buttonId, $data, $level, $sortOrder, $region);
     }
@@ -208,7 +204,14 @@ class Container extends \Magento\Backend\Block\Template
             foreach ($buttons as $buttonId => $data) {
                 $childId = $this->_prepareButtonBlockId($buttonId);
                 $blockClassName = isset($data['class_name']) ? $data['class_name'] : null;
-                $this->_addButtonChildBlock($childId, $blockClassName);
+                $block = $this->_getButtonChildBlock($childId, $blockClassName);
+                if (isset($data['name'])) {
+                    $data['element_name'] = $data['name'];
+                }
+                if ($block) {
+                    $block->setData($data);
+                    $this->_getButtonParentBlock($data['region'])->setChild($childId, $block);
+                }
             }
         }
         return parent::_prepareLayout();
@@ -226,20 +229,39 @@ class Container extends \Magento\Backend\Block\Template
     }
 
     /**
+     * Return button parent block.
+     *
+     * @param string $region
+     * @return \Magento\Backend\Block\Template
+     */
+    protected function _getButtonParentBlock($region)
+    {
+        if (!$region || $region == 'header' || $region == 'footer') {
+            $parent = $this;
+        } elseif ($region == 'toolbar') {
+            $parent = $this->getLayout()->getBlock('page.actions.toolbar');
+        } else {
+            $parent = $this->getLayout()->getBlock($region);
+        }
+        if ($parent) {
+            return $parent;
+        }
+        return $this;
+    }
+
+    /**
      * Adding child block with specified child's id.
      *
      * @param string $childId
      * @param null|string $blockClassName
      * @return \Magento\Backend\Block\Widget
      */
-    protected function _addButtonChildBlock($childId, $blockClassName = null)
+    protected function _getButtonChildBlock($childId, $blockClassName = null)
     {
         if (null === $blockClassName) {
             $blockClassName = 'Magento\Backend\Block\Widget\Button';
         }
-        $block = $this->getLayout()->createBlock($blockClassName, $this->getNameInLayout() . '-' . $childId);
-        $this->setChild($childId, $block);
-        return $block;
+        return $this->getLayout()->createBlock($blockClassName, $this->getNameInLayout() . '-' . $childId);
     }
 
     /**
@@ -254,23 +276,11 @@ class Container extends \Magento\Backend\Block\Template
         foreach ($this->_buttons as $buttons) {
             $_buttons = $this->_sortButtons($buttons);
             foreach ($_buttons as $button) {
-                $buttonId = $button['id'];
                 $data = $button['data'];
                 if ($region && isset($data['region']) && $region != $data['region']) {
                     continue;
                 }
-                $childId = $this->_prepareButtonBlockId($buttonId);
-                $child = $this->getChildBlock($childId);
-
-                if (!$child) {
-                    $blockClassName = isset($data['class_name']) ? $data['class_name'] : null;
-                    $child = $this->_addButtonChildBlock($childId, $blockClassName);
-                }
-                if (isset($data['name'])) {
-                    $data['element_name'] = $data['name'];
-                }
-                $child->setData($data);
-
+                $childId = $this->_prepareButtonBlockId($button['id']);
                 $out .= $this->getChildHtml($childId);
             }
         }

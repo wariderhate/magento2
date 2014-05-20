@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Adminhtml catalog product sets main page toolbar
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Attribute\Set\Toolbar;
@@ -45,13 +41,13 @@ class Main extends \Magento\Backend\Block\Template
      */
     protected function _prepareLayout()
     {
-        $this->addChild(
+        $this->getToolbar()->addChild(
             'addButton',
             'Magento\Backend\Block\Widget\Button',
             array(
                 'label' => __('Add New Set'),
                 'onclick' => 'setLocation(\'' . $this->getUrl('catalog/*/add') . '\')',
-                'class' => 'add'
+                'class' => 'add primary add-set'
             )
         );
         return parent::_prepareLayout();

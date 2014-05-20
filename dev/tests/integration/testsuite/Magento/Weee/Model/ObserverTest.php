@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Weee
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,7 +45,7 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
     {
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $objectManager->get('Magento\Registry')->unregister('current_product');
+        $objectManager->get('Magento\Framework\Registry')->unregister('current_product');
         $eventObserver = $this->_createEventObserverForUpdateConfigurableProductOptions();
         $this->_model->updateProductOptions($eventObserver);
         $this->assertEquals(array(), $eventObserver->getEvent()->getResponseObject()->getAdditionalOptions());
@@ -56,14 +53,15 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
         $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             'Magento\Catalog\Model\Product'
         );
-        $objectManager->get('Magento\Registry')->register('current_product', $product->load(1));
+        $objectManager->get('Magento\Framework\Registry')->register('current_product', $product->load(1));
 
         foreach (array(\Magento\Weee\Model\Tax::DISPLAY_INCL, \Magento\Weee\Model\Tax::DISPLAY_INCL_DESCR) as $mode) {
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\Core\Model\StoreManagerInterface'
-            )->getStore()->setConfig(
+                'Magento\Framework\App\Config\MutableScopeConfigInterface'
+            )->setValue(
                 'tax/weee/display',
-                $mode
+                $mode,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
             $eventObserver = $this->_createEventObserverForUpdateConfigurableProductOptions();
             $this->_model->updateProductOptions($eventObserver);
@@ -78,10 +76,11 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
             \Magento\Weee\Model\Tax::DISPLAY_EXCL_DESCR_INCL
         ) as $mode) {
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\Core\Model\StoreManagerInterface'
-            )->getStore()->setConfig(
+                'Magento\Framework\App\Config\MutableScopeConfigInterface'
+            )->setValue(
                 'tax/weee/display',
-                $mode
+                $mode,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
             $eventObserver = $this->_createEventObserverForUpdateConfigurableProductOptions();
             $this->_model->updateProductOptions($eventObserver);
@@ -93,12 +92,12 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \Magento\Event\Observer
+     * @return \Magento\Framework\Event\Observer
      */
     protected function _createEventObserverForUpdateConfigurableProductOptions()
     {
-        $response = new \Magento\Object(array('additional_options' => array()));
-        $event = new \Magento\Event(array('response_object' => $response));
-        return new \Magento\Event\Observer(array('event' => $event));
+        $response = new \Magento\Framework\Object(array('additional_options' => array()));
+        $event = new \Magento\Framework\Event(array('response_object' => $response));
+        return new \Magento\Framework\Event\Observer(array('event' => $event));
     }
 }

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Connect
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ if (version_compare(phpversion(), '5.4.0', '<') === true) {
 }
 
 
-\Magento\Autoload\Simple::register();
-require_once("lib/Magento/Autoload/Simple.php");
+\Magento\Framework\Autoload\Simple::register();
+require_once("lib/Magento/Framework/Autoload/Simple.php");
 umask(0);
 \Magento\Downloader\Controller::run();

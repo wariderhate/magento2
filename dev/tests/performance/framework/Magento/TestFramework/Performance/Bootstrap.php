@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     performance_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -55,19 +53,19 @@ class Bootstrap
     /**
      * Ensure reports directory exists, empty, and has write permissions
      *
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     public function cleanupReports()
     {
         $reportDir = $this->_config->getReportDir();
         try {
-            $filesystemAdapter = new \Magento\Filesystem\Driver\File();
+            $filesystemAdapter = new \Magento\Framework\Filesystem\Driver\File();
             if ($filesystemAdapter->isExists($reportDir)) {
                 $filesystemAdapter->deleteDirectory($reportDir);
             }
-        } catch (\Magento\Filesystem\FilesystemException $e) {
+        } catch (\Magento\Framework\Filesystem\FilesystemException $e) {
             if (file_exists($reportDir)) {
-                throw new \Magento\Exception("Cannot cleanup reports directory '{$reportDir}'.");
+                throw new \Magento\Framework\Exception("Cannot cleanup reports directory '{$reportDir}'.");
             }
         }
         mkdir($reportDir, 0777, true);

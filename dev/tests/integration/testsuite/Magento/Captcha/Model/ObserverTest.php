@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Captcha
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -67,7 +64,7 @@ class ObserverTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testCaptchaIsRequiredAfterFailedLoginAttempts()
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->setCurrentStore(
             0
         );
@@ -121,7 +118,7 @@ class ObserverTest extends \Magento\TestFramework\TestCase\AbstractController
         $this->dispatch('backend/admin/auth/forgotpassword');
         $this->assertSessionMessages(
             $this->equalTo(array('Incorrect CAPTCHA')),
-            \Magento\Message\MessageInterface::TYPE_ERROR
+            \Magento\Framework\Message\MessageInterface::TYPE_ERROR
         );
     }
 }

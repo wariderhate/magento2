@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\GoogleShopping\Controller\Adminhtml\Googleshopping;
 
-use Magento\App\RequestInterface;
+use Magento\Framework\App\RequestInterface;
 
 /**
  * GoogleShopping Admin Item Types Controller
@@ -35,15 +33,15 @@ class Types extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -53,7 +51,7 @@ class Types extends \Magento\Backend\App\Action
      * Dispatches controller_action_postdispatch_adminhtml Event
      *
      * @param RequestInterface $request
-     * @return \Magento\App\ResponseInterface
+     * @return \Magento\Framework\App\ResponseInterface
      */
     public function dispatch(RequestInterface $request)
     {
@@ -151,7 +149,7 @@ class Types extends \Magento\Backend\App\Action
             );
             $this->_view->renderLayout();
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->messageManager->addError(__("We can't create Attribute Set Mapping."));
             $this->_redirect('adminhtml/*/index', array('store' => $this->_getStore()->getId()));
         }
@@ -192,7 +190,7 @@ class Types extends \Magento\Backend\App\Action
             );
             $this->_view->renderLayout();
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->messageManager->addError(__("We can't edit Attribute Set Mapping."));
             $this->_redirect('adminhtml/*/index');
         }
@@ -262,7 +260,7 @@ class Types extends \Magento\Backend\App\Action
                 );
             }
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->messageManager->addError(__("We can't save Attribute Set Mapping."));
         }
         $this->_redirect('adminhtml/*/index', array('store' => $this->_getStore()->getId()));
@@ -284,7 +282,7 @@ class Types extends \Magento\Backend\App\Action
             }
             $this->messageManager->addSuccess(__('Attribute set mapping was deleted'));
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->messageManager->addError(__("We can't delete Attribute Set Mapping."));
         }
         $this->_redirect('adminhtml/*/index', array('store' => $this->_getStore()->getId()));
@@ -310,7 +308,7 @@ class Types extends \Magento\Backend\App\Action
                 )->toHtml()
             );
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             // just need to output text with error
             $this->messageManager->addError(__("We can't load attributes."));
         }
@@ -332,7 +330,7 @@ class Types extends \Magento\Backend\App\Action
                 )->toHtml()
             );
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             // just need to output text with error
             $this->messageManager->addError(__("We can't load attribute sets."));
         }
@@ -341,15 +339,15 @@ class Types extends \Magento\Backend\App\Action
     /**
      * Get store object, basing on request
      *
-     * @return \Magento\Core\Model\Store
+     * @return \Magento\Store\Model\Store
      */
     public function _getStore()
     {
         $storeId = (int)$this->getRequest()->getParam('store', 0);
         if ($storeId == 0) {
-            return $this->_objectManager->get('Magento\Core\Model\StoreManagerInterface')->getDefaultStoreView();
+            return $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getDefaultStoreView();
         }
-        return $this->_objectManager->get('Magento\Core\Model\StoreManagerInterface')->getStore($storeId);
+        return $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore($storeId);
     }
 
     /**

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,17 +28,17 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     public function testToHtml()
     {
         $block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         )->createBlock(
             'Magento\Rss\Block\Order\Status'
         );
         $this->assertEmpty($block->toHtml());
 
         $uniqid = uniqid();
-        $order = $this->getMock('Magento\Object', array('formatPrice'), array(array('id' => $uniqid)));
+        $order = $this->getMock('Magento\Framework\Object', array('formatPrice'), array(array('id' => $uniqid)));
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $objectManager->get('Magento\Registry')->register('current_order', $order);
+        $objectManager->get('Magento\Framework\Registry')->register('current_order', $order);
         $this->assertContains($uniqid, $block->toHtml());
     }
 }

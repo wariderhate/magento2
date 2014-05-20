@@ -18,24 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Newsletter
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Newsletter\Model\Resource;
 
 use Magento\Newsletter\Model\Queue as ModelQueue;
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Newsletter queue resource model
  *
- * @category    Magento
- * @package     Magento_Newsletter
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Queue extends \Magento\Model\Resource\Db\AbstractDb
+class Queue extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Subscriber collection
@@ -47,11 +43,11 @@ class Queue extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Construct
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Newsletter\Model\Resource\Subscriber\Collection $subscriberCollection
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Newsletter\Model\Resource\Subscriber\Collection $subscriberCollection
     ) {
         parent::__construct($resource);
@@ -74,16 +70,16 @@ class Queue extends \Magento\Model\Resource\Db\AbstractDb
      * @param ModelQueue $queue
      * @param array $subscriberIds
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function addSubscribersToQueue(ModelQueue $queue, array $subscriberIds)
     {
         if (count($subscriberIds) == 0) {
-            throw new \Magento\Model\Exception(__('There are no subscribers selected.'));
+            throw new \Magento\Framework\Model\Exception(__('There are no subscribers selected.'));
         }
 
         if (!$queue->getId() && $queue->getQueueStatus() != Magento_Newsletter_Model_Queue::STATUS_NEVER) {
-            throw new \Magento\Model\Exception(__('You selected an invalid queue.'));
+            throw new \Magento\Framework\Model\Exception(__('You selected an invalid queue.'));
         }
 
         $adapter = $this->_getWriteAdapter();
@@ -214,7 +210,7 @@ class Queue extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Saving template after saving queue action
      *
-     * @param AbstractModel $queue
+     * @param \Magento\Framework\Model\AbstractModel $queue
      * @return $this
      */
     protected function _afterSave(AbstractModel $queue)

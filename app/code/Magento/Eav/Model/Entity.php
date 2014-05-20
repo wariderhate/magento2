@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Eav\Model;
 /**
  * EAV entity model
  *
- * @category   Magento
- * @package    Magento_Eav
  */
 class Entity extends \Magento\Eav\Model\Entity\AbstractEntity
 {
@@ -48,21 +44,21 @@ class Entity extends \Magento\Eav\Model\Entity\AbstractEntity
     const DEFAULT_ENTITY_ID_FIELD = 'entity_id';
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param \Magento\Eav\Model\Entity\Attribute\Set $attrSetEntity
-     * @param \Magento\Locale\FormatInterface $localeFormat
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
      * @param \Magento\Eav\Model\Resource\Helper $resourceHelper
-     * @param \Magento\Validator\UniversalFactory $universalFactory
+     * @param \Magento\Framework\Validator\UniversalFactory $universalFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\Eav\Model\Entity\Attribute\Set $attrSetEntity,
-        \Magento\Locale\FormatInterface $localeFormat,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
         \Magento\Eav\Model\Resource\Helper $resourceHelper,
-        \Magento\Validator\UniversalFactory $universalFactory,
+        \Magento\Framework\Validator\UniversalFactory $universalFactory,
         $data = array()
     ) {
         parent::__construct(

@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Catalog\Block\Product\View\Options\Type;
 
-use Magento\View\Element\AbstractBlock;
+use Magento\Framework\View\Element\AbstractBlock;
 
 /**
  * Product options text type block
@@ -49,14 +47,14 @@ class Date extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
     protected $_catalogProductOptionTypeDate;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Tax\Helper\Data $taxData
      * @param \Magento\Core\Helper\Data $coreHelper
      * @param \Magento\Catalog\Model\Product\Option\Type\Date $catalogProductOptionTypeDate
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Core\Helper\Data $coreHelper,
         \Magento\Catalog\Model\Product\Option\Type\Date $catalogProductOptionTypeDate,
@@ -115,7 +113,7 @@ class Date extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
         $yearEnd = $this->_catalogProductOptionTypeDate->getYearEnd();
 
         $calendar = $this->getLayout()->createBlock(
-            'Magento\View\Element\Html\Date'
+            'Magento\Framework\View\Element\Html\Date'
         )->setId(
             'options_' . $this->getOption()->getId() . '_date'
         )->setName(
@@ -125,7 +123,7 @@ class Date extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
         )->setImage(
             $this->getViewFileUrl('Magento_Core::calendar.gif')
         )->setDateFormat(
-            $this->_localeDate->getDateFormat(\Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT)
+            $this->_localeDate->getDateFormat(\Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT)
         )->setValue(
             $value
         )->setYearsRange(
@@ -217,7 +215,7 @@ class Date extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
         // $require = $this->getOption()->getIsRequire() ? ' required-entry' : '';
         $require = '';
         $select = $this->getLayout()->createBlock(
-            'Magento\View\Element\Html\Select'
+            'Magento\Framework\View\Element\Html\Select'
         )->setId(
             'options_' . $this->getOption()->getId() . '_' . $name
         )->setClass(

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,7 +29,7 @@ namespace Magento\Tax\Block\Sales\Order;
 
 use Magento\Sales\Model\Order;
 
-class Tax extends \Magento\View\Element\Template
+class Tax extends \Magento\Framework\View\Element\Template
 {
     /**
      * Tax configuration model
@@ -46,17 +44,17 @@ class Tax extends \Magento\View\Element\Template
     protected $_order;
 
     /**
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_source;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Tax\Model\Config $taxConfig
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Tax\Model\Config $taxConfig,
         array $data = array()
     ) {
@@ -77,7 +75,7 @@ class Tax extends \Magento\View\Element\Template
     /**
      * Get data (totals) source model
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getSource()
     {
@@ -118,7 +116,7 @@ class Tax extends \Magento\View\Element\Template
      */
     protected function _addTax($after = 'discount')
     {
-        $taxTotal = new \Magento\Object(array('code' => 'tax', 'block_name' => $this->getNameInLayout()));
+        $taxTotal = new \Magento\Framework\Object(array('code' => 'tax', 'block_name' => $this->getNameInLayout()));
         $this->getParentBlock()->addTotal($taxTotal, $after);
         return $this;
     }
@@ -126,7 +124,7 @@ class Tax extends \Magento\View\Element\Template
     /**
      * Get order store object
      *
-     * @return \Magento\Core\Model\Store
+     * @return \Magento\Store\Model\Store
      */
     public function getStore()
     {
@@ -160,7 +158,7 @@ class Tax extends \Magento\View\Element\Template
             }
             $subtotalIncl = max(0, $subtotalIncl);
             $baseSubtotalIncl = max(0, $baseSubtotalIncl);
-            $totalExcl = new \Magento\Object(
+            $totalExcl = new \Magento\Framework\Object(
                 array(
                     'code' => 'subtotal_excl',
                     'value' => $subtotal,
@@ -168,7 +166,7 @@ class Tax extends \Magento\View\Element\Template
                     'label' => __('Subtotal (Excl.Tax)')
                 )
             );
-            $totalIncl = new \Magento\Object(
+            $totalIncl = new \Magento\Framework\Object(
                 array(
                     'code' => 'subtotal_incl',
                     'value' => $subtotalIncl,
@@ -227,7 +225,7 @@ class Tax extends \Magento\View\Element\Template
                 $baseShippingIncl = $baseShipping + (double)$this->_source->getBaseShippingTaxAmount();
             }
 
-            $totalExcl = new \Magento\Object(
+            $totalExcl = new \Magento\Framework\Object(
                 array(
                     'code' => 'shipping',
                     'value' => $shipping,
@@ -235,7 +233,7 @@ class Tax extends \Magento\View\Element\Template
                     'label' => __('Shipping & Handling (Excl.Tax)')
                 )
             );
-            $totalIncl = new \Magento\Object(
+            $totalIncl = new \Magento\Framework\Object(
                 array(
                     'code' => 'shipping_incl',
                     'value' => $shippingIncl,
@@ -296,7 +294,7 @@ class Tax extends \Magento\View\Element\Template
             $baseGrandtotalExcl = $baseGrandtotal - $this->_source->getBaseTaxAmount();
             $grandtotalExcl = max($grandtotalExcl, 0);
             $baseGrandtotalExcl = max($baseGrandtotalExcl, 0);
-            $totalExcl = new \Magento\Object(
+            $totalExcl = new \Magento\Framework\Object(
                 array(
                     'code' => 'grand_total',
                     'strong' => true,
@@ -305,7 +303,7 @@ class Tax extends \Magento\View\Element\Template
                     'label' => __('Grand Total (Excl.Tax)')
                 )
             );
-            $totalIncl = new \Magento\Object(
+            $totalIncl = new \Magento\Framework\Object(
                 array(
                     'code' => 'grand_total_incl',
                     'strong' => true,

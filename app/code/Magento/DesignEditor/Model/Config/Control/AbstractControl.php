@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\DesignEditor\Model\Config\Control;
 /**
  * Controls configuration
  */
-abstract class AbstractControl extends \Magento\Config\AbstractXml
+abstract class AbstractControl extends \Magento\Framework\Config\AbstractXml
 {
     /**
      * Keys of layout params attributes
@@ -132,12 +130,12 @@ abstract class AbstractControl extends \Magento\Config\AbstractXml
      *
      * @param string $controlName
      * @return array
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     public function getControlData($controlName)
     {
         if (!isset($this->_data[$controlName])) {
-            throw new \Magento\Exception("Unknown control: \"{$controlName}\"");
+            throw new \Magento\Framework\Exception("Unknown control: \"{$controlName}\"");
         }
         return $this->_data[$controlName];
     }

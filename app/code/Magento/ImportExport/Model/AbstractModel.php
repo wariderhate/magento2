@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\ImportExport\Model;
 /**
  * Operation abstract class
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class AbstractModel extends \Magento\Object
+abstract class AbstractModel extends \Magento\Framework\Object
 {
     /**
      * Enable loging
@@ -43,7 +39,7 @@ abstract class AbstractModel extends \Magento\Object
 
     /**
      * Logger instance
-     * @var \Magento\Logger\Adapter
+     * @var \Magento\Framework\Logger\Adapter
      */
     protected $_logInstance;
 
@@ -62,34 +58,34 @@ abstract class AbstractModel extends \Magento\Object
     protected $_logTrace = array();
 
     /**
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
     /**
-     * @var \Magento\Filesystem\Directory\WriteInterface
+     * @var \Magento\Framework\Filesystem\Directory\WriteInterface
      */
     protected $_varDirectory;
 
     /**
-     * @var \Magento\Logger\AdapterFactory
+     * @var \Magento\Framework\Logger\AdapterFactory
      */
     protected $_adapterFactory;
 
     /**
-     * @param \Magento\Logger $logger
-     * @param \Magento\App\Filesystem $filesystem
-     * @param \Magento\Logger\AdapterFactory $adapterFactory
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\App\Filesystem $filesystem
+     * @param \Magento\Framework\Logger\AdapterFactory $adapterFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\Logger $logger,
-        \Magento\App\Filesystem $filesystem,
-        \Magento\Logger\AdapterFactory $adapterFactory,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\App\Filesystem $filesystem,
+        \Magento\Framework\Logger\AdapterFactory $adapterFactory,
         array $data = array()
     ) {
         $this->_logger = $logger;
-        $this->_varDirectory = $filesystem->getDirectoryWrite(\Magento\App\Filesystem::VAR_DIR);
+        $this->_varDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::VAR_DIR);
         $this->_adapterFactory = $adapterFactory;
         parent::__construct($data);
     }

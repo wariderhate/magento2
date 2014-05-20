@@ -18,17 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Sales\Controller\Adminhtml;
 
-use Magento\App\ResponseInterface;
+use Magento\Framework\App\ResponseInterface;
 
 /**
- * Adminhtml sales orders controller
+ * Adminhtml sales invoices controller
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
@@ -41,9 +39,15 @@ class Invoice extends \Magento\Sales\Controller\Adminhtml\Invoice\AbstractInvoic
      */
     public function exportCsvAction()
     {
+        $this->_view->loadLayout();
         $fileName = 'invoices.csv';
-        $grid = $this->_view->getLayout()->createBlock('Magento\Sales\Block\Adminhtml\Invoice\Grid');
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        /** @var \Magento\Backend\Block\Widget\Grid\ExportInterface $exportBlock  */
+        $exportBlock = $this->_view->getLayout()->getChildBlock('sales.invoice.grid', 'grid.export');
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getCsvFile(),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**
@@ -53,8 +57,13 @@ class Invoice extends \Magento\Sales\Controller\Adminhtml\Invoice\AbstractInvoic
      */
     public function exportExcelAction()
     {
+         $this->_view->loadLayout();
         $fileName = 'invoices.xml';
-        $grid = $this->_view->getLayout()->createBlock('Magento\Sales\Block\Adminhtml\Invoice\Grid');
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        $exportBlock = $this->_view->getLayout()->getChildBlock('sales.invoice.grid', 'grid.export');
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getExcelFile($fileName),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 }

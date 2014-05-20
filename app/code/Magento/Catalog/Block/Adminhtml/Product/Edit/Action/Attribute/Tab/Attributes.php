@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * Adminhtml catalog product edit action attributes update tab block
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Edit\Action\Attribute\Tab;
 
-use Magento\Data\Form\Element\AbstractElement;
+use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class Attributes extends \Magento\Catalog\Block\Adminhtml\Form implements
     \Magento\Backend\Block\Widget\Tab\TabInterface
@@ -51,16 +47,16 @@ class Attributes extends \Magento\Catalog\Block\Adminhtml\Form implements
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\Catalog\Helper\Product\Edit\Action\Attribute $attributeAction
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\Catalog\Helper\Product\Edit\Action\Attribute $attributeAction,
         array $data = array()
@@ -100,7 +96,7 @@ class Attributes extends \Magento\Catalog\Block\Adminhtml\Form implements
             array('object' => $this)
         );
 
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
         $fieldset = $form->addFieldset('fields', array('legend' => __('Attributes')));
         $attributes = $this->getAttributes();
@@ -117,7 +113,7 @@ class Attributes extends \Magento\Catalog\Block\Adminhtml\Form implements
     /**
      * Retrieve attributes for product mass update
      *
-     * @return \Magento\Object[]
+     * @return \Magento\Framework\Object[]
      */
     public function getAttributes()
     {

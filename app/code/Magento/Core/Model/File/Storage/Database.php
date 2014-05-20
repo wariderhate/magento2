@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -62,28 +60,28 @@ class Database extends \Magento\Core\Model\File\Storage\Database\AbstractDatabas
     protected $_mediaHelper;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb
-     * @param \Magento\Stdlib\DateTime\DateTime $dateModel
-     * @param \Magento\App\ConfigInterface $configuration
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateModel
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $configuration
      * @param \Magento\Core\Helper\File\Media $mediaHelper
      * @param \Magento\Core\Model\Resource\File\Storage\Database $resource
      * @param Directory\DatabaseFactory $directoryFactory
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param null $connectionName
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb,
-        \Magento\Stdlib\DateTime\DateTime $dateModel,
-        \Magento\App\ConfigInterface $configuration,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateModel,
+        \Magento\Framework\App\Config\ScopeConfigInterface $configuration,
         \Magento\Core\Helper\File\Media $mediaHelper,
         \Magento\Core\Model\Resource\File\Storage\Database $resource,
         \Magento\Core\Model\File\Storage\Directory\DatabaseFactory $directoryFactory,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         $connectionName = null,
         array $data = array()
     ) {

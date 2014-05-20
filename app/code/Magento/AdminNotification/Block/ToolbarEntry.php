@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\AdminNotification\Block;
 /**
  * Toolbar entry that shows latest notifications
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class ToolbarEntry extends \Magento\Backend\Block\Template
@@ -86,10 +82,10 @@ class ToolbarEntry extends \Magento\Backend\Block\Template
         if (date('Ymd') == date('Ymd', strtotime($dateString))) {
             return $this->formatTime(
                 $dateString,
-                \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT,
+                \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT,
                 false
             );
         }
-        return $this->formatDate($dateString, \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM, true);
+        return $this->formatDate($dateString, \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM, true);
     }
 }

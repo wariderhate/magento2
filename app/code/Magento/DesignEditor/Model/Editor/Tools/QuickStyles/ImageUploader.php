@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\DesignEditor\Model\Editor\Tools\QuickStyles;
 /**
  * Quick style file uploader
  */
-class ImageUploader extends \Magento\Object
+class ImageUploader extends \Magento\Framework\Object
 {
     /**
      * Quick style images path prefix
@@ -43,7 +41,7 @@ class ImageUploader extends \Magento\Object
     protected $_storagePath;
 
     /**
-     * @var \Magento\App\Filesystem
+     * @var \Magento\Framework\App\Filesystem
      */
     protected $_filesystem;
 
@@ -63,12 +61,12 @@ class ImageUploader extends \Magento\Object
      * Generic constructor of change instance
      *
      * @param \Magento\Core\Model\File\UploaderFactory $uploaderFactory
-     * @param \Magento\App\Filesystem $filesystem
+     * @param \Magento\Framework\App\Filesystem $filesystem
      * @param array $data
      */
     public function __construct(
         \Magento\Core\Model\File\UploaderFactory $uploaderFactory,
-        \Magento\App\Filesystem $filesystem,
+        \Magento\Framework\App\Filesystem $filesystem,
         array $data = array()
     ) {
         $this->_uploaderFactory = $uploaderFactory;
@@ -111,7 +109,7 @@ class ImageUploader extends \Magento\Object
      */
     protected function _getTheme()
     {
-        /** @var $theme \Magento\View\Design\ThemeInterface */
+        /** @var $theme \Magento\Framework\View\Design\ThemeInterface */
         $theme = $this->getTheme();
         if (!$theme->getId()) {
             throw new \InvalidArgumentException('Theme was not found.');
@@ -136,7 +134,7 @@ class ImageUploader extends \Magento\Object
 
         if (!$uploader->save($this->getStoragePath())) {
             /** @todo add translator */
-            throw new \Magento\Model\Exception('Cannot upload file.');
+            throw new \Magento\Framework\Model\Exception('Cannot upload file.');
         }
         $result['css_path'] = implode(
             '/',
@@ -154,7 +152,7 @@ class ImageUploader extends \Magento\Object
      */
     public function removeFile($file)
     {
-        $directory = $this->_filesystem->getDirectoryWrite(\Magento\App\Filesystem::MEDIA_DIR);
+        $directory = $this->_filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::MEDIA_DIR);
         $path = $directory->getRelativePath($this->getStoragePath() . '/' . $file);
         if ($directory->isExist($path)) {
             $directory->delete($path);

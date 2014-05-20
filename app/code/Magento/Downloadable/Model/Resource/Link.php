@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Downloadable\Model\Resource;
 /**
  * Downloadable Product  Samples resource model
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Link extends \Magento\Model\Resource\Db\AbstractDb
+class Link extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Catalog data
@@ -42,7 +38,7 @@ class Link extends \Magento\Model\Resource\Db\AbstractDb
     protected $_catalogData;
 
     /**
-     * @var \Magento\App\ConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $_configuration;
 
@@ -52,23 +48,23 @@ class Link extends \Magento\Model\Resource\Db\AbstractDb
     protected $_currencyFactory;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Catalog\Helper\Data $catalogData
-     * @param \Magento\App\ConfigInterface $configuration
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $configuration
      * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Catalog\Helper\Data $catalogData,
-        \Magento\App\ConfigInterface $configuration,
+        \Magento\Framework\App\Config\ScopeConfigInterface $configuration,
         \Magento\Directory\Model\CurrencyFactory $currencyFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_catalogData = $catalogData;
         $this->_configuration = $configuration;

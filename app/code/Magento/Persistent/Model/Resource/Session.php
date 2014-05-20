@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Persistent
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Persistent\Model\Resource;
 /**
  * Persistent Session Resource Model
  */
-class Session extends \Magento\Model\Resource\Db\AbstractDb
+class Session extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Use is object new method for object saving
@@ -47,11 +45,11 @@ class Session extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Class constructor
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Persistent\Model\SessionFactory $sessionFactory
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Persistent\Model\SessionFactory $sessionFactory
     ) {
         $this->_sessionFactory = $sessionFactory;

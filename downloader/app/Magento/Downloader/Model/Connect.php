@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Connect
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Downloader\Model;
 
 
-include_once "Magento/Connect.php";
+include_once "Magento/Framework/Connect.php";
 /**
  * Class for initialize Magento_Connect lib
  *
- * @category   Magento
- * @package    Magento_Connect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Connect extends \Magento\Downloader\Model
@@ -396,7 +392,7 @@ class Connect extends \Magento\Downloader\Model
 
             $confFile = $configObj->downloader_path . '/' . $configTestFile;
             try {
-                $ftpObj = new \Magento\Connect\Ftp();
+                $ftpObj = new \Magento\Framework\Connect\Ftp();
                 $ftpObj->connect($p['ftp']);
                 $tempFile = tempnam(sys_get_temp_dir(), 'config');
                 $serial = md5('config test file');

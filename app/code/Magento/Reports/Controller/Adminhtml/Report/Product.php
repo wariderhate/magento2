@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * Product reports admin controller
  *
- * @category   Magento
- * @package    Magento_Reports
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Controller\Adminhtml\Report;
 
-use Magento\App\ResponseInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Backend\Block\Widget\Grid\ExportInterface;
 use Magento\Reports\Model\Flag;
 
@@ -80,7 +76,11 @@ class Product extends AbstractReport
         $fileName = 'products_ordered.csv';
         /** @var ExportInterface $exportBlock */
         $exportBlock = $this->_view->getLayout()->getChildBlock('adminhtml.report.grid', 'grid.export');
-        return $this->_fileFactory->create($fileName, $exportBlock->getCsvFile());
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getCsvFile(),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**
@@ -94,7 +94,11 @@ class Product extends AbstractReport
         $fileName = 'products_ordered.xml';
         /** @var ExportInterface $exportBlock */
         $exportBlock = $this->_view->getLayout()->getChildBlock('adminhtml.report.grid', 'grid.export');
-        return $this->_fileFactory->create($fileName, $exportBlock->getExcelFile($fileName));
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getExcelFile($fileName),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**
@@ -133,7 +137,7 @@ class Product extends AbstractReport
         $fileName = 'products_mostviewed.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Product\Viewed\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -146,7 +150,11 @@ class Product extends AbstractReport
         $fileName = 'products_mostviewed.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Product\Viewed\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create(
+            $fileName,
+            $grid->getExcelFile($fileName),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**
@@ -180,7 +188,11 @@ class Product extends AbstractReport
             'adminhtml.block.report.product.lowstock.grid',
             'grid.export'
         );
-        return $this->_fileFactory->create($fileName, $exportBlock->getCsvFile());
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getCsvFile(),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**
@@ -196,7 +208,11 @@ class Product extends AbstractReport
             'adminhtml.block.report.product.lowstock.grid',
             'grid.export'
         );
-        return $this->_fileFactory->create($fileName, $exportBlock->getExcelFile());
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getExcelFile(),
+            \Magento\Framework\App\Filesystem::VAR_DIR
+        );
     }
 
     /**

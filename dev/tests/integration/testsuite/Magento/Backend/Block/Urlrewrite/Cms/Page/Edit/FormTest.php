@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,12 +33,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
      * Get form instance
      *
      * @param array $args
-     * @return \Magento\Data\Form
+     * @return \Magento\Framework\Data\Form
      */
     protected function _getFormInstance($args = array())
     {
-        /** @var $layout \Magento\Core\Model\Layout */
-        $layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\View\LayoutInterface');
+        /** @var $layout \Magento\Framework\View\Layout */
+        $layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+            'Magento\Framework\View\LayoutInterface'
+        );
         /** @var $block \Magento\Backend\Block\Urlrewrite\Cms\Page\Edit\Form */
         $block = $layout->createBlock(
             'Magento\Backend\Block\Urlrewrite\Cms\Page\Edit\Form',
@@ -115,7 +114,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
      * @magentoAppIsolation enabled
      * @magentoDataFixture Magento/Core/_files/store.php
      *
-     * @expectedException \Magento\Core\Model\Store\Exception
+     * @expectedException \Magento\Store\Model\Exception
      * @expectedExceptionMessage Chosen cms page does not associated with any website.
      */
     public function testGetEntityStoresProductStoresException()

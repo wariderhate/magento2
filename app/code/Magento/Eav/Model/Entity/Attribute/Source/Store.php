@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,14 +26,12 @@ namespace Magento\Eav\Model\Entity\Attribute\Source;
 /**
  * Customer store_id attribute source
  *
- * @category   Magento
- * @package    Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Store extends \Magento\Eav\Model\Entity\Attribute\Source\Table
 {
     /**
-     * @var \Magento\Core\Model\Resource\Store\CollectionFactory
+     * @var \Magento\Store\Model\Resource\Store\CollectionFactory
      */
     protected $_storeCollectionFactory;
 
@@ -43,13 +39,13 @@ class Store extends \Magento\Eav\Model\Entity\Attribute\Source\Table
      * @param \Magento\Core\Helper\Data $coreData
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\Option\CollectionFactory $attrOptionCollectionFactory
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\OptionFactory $attrOptionFactory
-     * @param \Magento\Core\Model\Resource\Store\CollectionFactory $storeCollectionFactory
+     * @param \Magento\Store\Model\Resource\Store\CollectionFactory $storeCollectionFactory
      */
     public function __construct(
         \Magento\Core\Helper\Data $coreData,
         \Magento\Eav\Model\Resource\Entity\Attribute\Option\CollectionFactory $attrOptionCollectionFactory,
         \Magento\Eav\Model\Resource\Entity\Attribute\OptionFactory $attrOptionFactory,
-        \Magento\Core\Model\Resource\Store\CollectionFactory $storeCollectionFactory
+        \Magento\Store\Model\Resource\Store\CollectionFactory $storeCollectionFactory
     ) {
         parent::__construct($coreData, $attrOptionCollectionFactory, $attrOptionFactory);
         $this->_storeCollectionFactory = $storeCollectionFactory;

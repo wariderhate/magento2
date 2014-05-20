@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\GoogleShopping\Block\Adminhtml\Types\Edit;
 /**
  * Attributes box for Google Content attributes mapping
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Attributes extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Element
@@ -54,20 +50,20 @@ class Attributes extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\El
     protected $_attributeFactory;
 
     /**
-     * @var \Magento\Json\EncoderInterface
+     * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $_jsonEncoder;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Json\EncoderInterface $jsonEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      * @param \Magento\GoogleShopping\Model\Config $config
      * @param \Magento\GoogleShopping\Model\AttributeFactory $attributeFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\GoogleShopping\Model\Config $config,
         \Magento\GoogleShopping\Model\AttributeFactory $attributeFactory,
         array $data = array()
@@ -81,7 +77,7 @@ class Attributes extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\El
     /**
      * Preparing global layout
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _prepareLayout()
     {
@@ -172,7 +168,7 @@ class Attributes extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\El
     public function getAttributesSelectHtml($escapeJsQuotes = false)
     {
         $select = $this->getLayout()->createBlock(
-            'Magento\View\Element\Html\Select'
+            'Magento\Framework\View\Element\Html\Select'
         )->setId(
             $this->getFieldId() . '_{{index}}_attribute'
         )->setName(

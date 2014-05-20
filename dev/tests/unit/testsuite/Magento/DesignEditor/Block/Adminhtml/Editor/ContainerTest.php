@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -78,14 +75,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testPrepareLayout()
     {
         $buttonTitle = 'Back';
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
+        $eventManager = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
         $arguments = $this->_getBlockArguments();
         $arguments['eventManager'] = $eventManager;
 
         /** @var $block \Magento\DesignEditor\Block\Adminhtml\Editor\Container */
         $block = $this->_helper->getObject('Magento\DesignEditor\Block\Adminhtml\Editor\Container', $arguments);
 
-        $layout = $this->getMock('Magento\Core\Model\Layout', array(), array(), '', false);
+        $layout = $this->getMock('Magento\Framework\View\Layout', array(), array(), '', false);
         $block->setLayout($layout);
 
         $expectedButtonData = array(
@@ -94,7 +91,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                 'onclick' => 'setLocation(\'\')',
                 'class' => 'back',
                 'id' => 'back_button',
-                'region' => 'header',
+                'region' => 'toolbar',
                 'sort_order' => 10
             )
         );

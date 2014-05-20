@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,19 +27,19 @@
  */
 namespace Magento\Core\Helper;
 
-class Theme extends \Magento\App\Helper\AbstractHelper
+class Theme extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Filesystem facade
      *
-     * @var \Magento\App\Filesystem
+     * @var \Magento\Framework\App\Filesystem
      */
     protected $_filesystem;
 
     /**
      * Layout merge factory
      *
-     * @var \Magento\View\Layout\ProcessorFactory
+     * @var \Magento\Framework\View\Layout\ProcessorFactory
      */
     protected $_layoutProcessorFactory;
 
@@ -53,23 +51,23 @@ class Theme extends \Magento\App\Helper\AbstractHelper
     protected $_themeCollection;
 
     /**
-     * @var \Magento\View\FileSystem
+     * @var \Magento\Framework\View\FileSystem
      */
     protected $_viewFileSystem;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\App\Filesystem $filesystem
-     * @param \Magento\View\Layout\ProcessorFactory $layoutProcessorFactory
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Filesystem $filesystem
+     * @param \Magento\Framework\View\Layout\ProcessorFactory $layoutProcessorFactory
      * @param \Magento\Core\Model\Resource\Theme\Collection $themeCollection
-     * @param \Magento\View\FileSystem $viewFileSystem
+     * @param \Magento\Framework\View\FileSystem $viewFileSystem
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\App\Filesystem $filesystem,
-        \Magento\View\Layout\ProcessorFactory $layoutProcessorFactory,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Filesystem $filesystem,
+        \Magento\Framework\View\Layout\ProcessorFactory $layoutProcessorFactory,
         \Magento\Core\Model\Resource\Theme\Collection $themeCollection,
-        \Magento\View\FileSystem $viewFileSystem
+        \Magento\Framework\View\FileSystem $viewFileSystem
     ) {
         $this->_filesystem = $filesystem;
         $this->_layoutProcessorFactory = $layoutProcessorFactory;
@@ -86,12 +84,12 @@ class Theme extends \Magento\App\Helper\AbstractHelper
      *   'Magento_Catalog::widgets.css' => 'http://mage2.com/pub/static/frontend/_theme15/en_US/Magento_Cms/widgets.css'
      * )
      *
-     * @param \Magento\View\Design\ThemeInterface $theme
+     * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @return array
      */
     public function getCssFiles($theme)
     {
-        /** @var $layoutProcessor \Magento\View\Layout\ProcessorInterface */
+        /** @var $layoutProcessor \Magento\Framework\View\Layout\ProcessorInterface */
         $layoutProcessor = $this->_layoutProcessorFactory->create(array('theme' => $theme));
         $layoutElement = $layoutProcessor->getFileLayoutUpdatesXml();
 
@@ -114,7 +112,7 @@ class Theme extends \Magento\App\Helper\AbstractHelper
 
         $params = array('area' => $theme->getArea(), 'themeModel' => $theme, 'skipProxy' => true);
 
-        $rootDirectory = $this->_filesystem->getDirectoryRead(\Magento\App\Filesystem::ROOT_DIR);
+        $rootDirectory = $this->_filesystem->getDirectoryRead(\Magento\Framework\App\Filesystem::ROOT_DIR);
         $files = array();
         foreach ($elements as $fileId) {
             $fileId = (string)$fileId;
@@ -132,15 +130,15 @@ class Theme extends \Magento\App\Helper\AbstractHelper
     /**
      * Get CSS files by group
      *
-     * @param \Magento\View\Design\ThemeInterface $theme
+     * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @return array
      * @throws \LogicException
      */
     public function getGroupedCssFiles($theme)
     {
-        $jsDir = $this->_filesystem->getPath(\Magento\App\Filesystem::PUB_LIB_DIR);
-        $codeDir = $this->_filesystem->getPath(\Magento\App\Filesystem::MODULES_DIR);
-        $designDir = $this->_filesystem->getPath(\Magento\App\Filesystem::THEMES_DIR);
+        $jsDir = $this->_filesystem->getPath(\Magento\Framework\App\Filesystem::PUB_LIB_DIR);
+        $codeDir = $this->_filesystem->getPath(\Magento\Framework\App\Filesystem::MODULES_DIR);
+        $designDir = $this->_filesystem->getPath(\Magento\Framework\App\Filesystem::THEMES_DIR);
 
         $groups = array();
         $themes = array();
@@ -173,7 +171,7 @@ class Theme extends \Magento\App\Helper\AbstractHelper
             array($codeDir, $jsDir),
             array_map(
                 function ($fileTheme) {
-                    /** @var $fileTheme \Magento\View\Design\ThemeInterface */
+                    /** @var $fileTheme \Magento\Framework\View\Design\ThemeInterface */
                     return $fileTheme->getThemeId();
                 },
                 $themes
@@ -216,7 +214,7 @@ class Theme extends \Magento\App\Helper\AbstractHelper
             throw new \LogicException(__('Theme path "%1/%2" is incorrect', $area, $theme));
         }
         $themeModel = $this->_themeCollection->getThemeByFullPath(
-            $area . \Magento\View\Design\ThemeInterface::PATH_SEPARATOR . $theme
+            $area . \Magento\Framework\View\Design\ThemeInterface::PATH_SEPARATOR . $theme
         );
 
         if (!$themeModel || !$themeModel->getThemeId()) {
@@ -313,7 +311,7 @@ class Theme extends \Magento\App\Helper\AbstractHelper
     {
         $labels = array($jsDir => (string)__('Library files'), $codeDir => (string)__('Framework files'));
         foreach ($themes as $theme) {
-            /** @var $theme \Magento\View\Design\ThemeInterface */
+            /** @var $theme \Magento\Framework\View\Design\ThemeInterface */
             $labels[$theme->getThemeId()] = (string)__('"%1" Theme files', $theme->getThemeTitle());
         }
         return $labels;
@@ -350,8 +348,8 @@ class Theme extends \Magento\App\Helper\AbstractHelper
     /**
      * Sort themes by hierarchy callback
      *
-     * @param \Magento\View\Design\ThemeInterface $firstTheme
-     * @param \Magento\View\Design\ThemeInterface $secondTheme
+     * @param \Magento\Framework\View\Design\ThemeInterface $firstTheme
+     * @param \Magento\Framework\View\Design\ThemeInterface $secondTheme
      * @return int
      */
     protected function _sortThemesByHierarchyCallback($firstTheme, $secondTheme)

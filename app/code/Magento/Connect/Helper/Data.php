@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Connect
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,42 +29,51 @@ namespace Magento\Connect\Helper;
 class Data extends \Magento\Core\Helper\Data
 {
     /**
-     * @var \Magento\App\Filesystem
+     * @var \Magento\Framework\App\Filesystem
      */
     protected $filesystem;
 
     /**
-     * @var \Magento\Convert\Xml
+     * @var \Magento\Framework\Convert\Xml
      */
     protected $_xmlConverter;
 
     /**
-     * @var \Magento\Filesystem\Directory\Read
+     * @var \Magento\Framework\Filesystem\Directory\Read
      */
     protected $readDirectory;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\State $appState
-     * @param \Magento\App\Filesystem $filesystem
-     * @param \Magento\Convert\Xml $xmlConverter
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\State $appState
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+     * @param \Magento\Framework\App\Filesystem $filesystem
+     * @param \Magento\Framework\Convert\Xml $xmlConverter
      * @param bool $dbCompatibleMode
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\State $appState,
-        \Magento\App\Filesystem $filesystem,
-        \Magento\Convert\Xml $xmlConverter,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\State $appState,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
+        \Magento\Framework\App\Filesystem $filesystem,
+        \Magento\Framework\Convert\Xml $xmlConverter,
         $dbCompatibleMode = true
     ) {
         $this->filesystem = $filesystem;
-        $this->readDirectory = $this->filesystem->getDirectoryRead(\Magento\App\Filesystem::VAR_DIR);
+        $this->readDirectory = $this->filesystem->getDirectoryRead(\Magento\Framework\App\Filesystem::VAR_DIR);
         $this->_xmlConverter = $xmlConverter;
-        parent::__construct($context, $coreStoreConfig, $storeManager, $appState, $dbCompatibleMode);
+        parent::__construct(
+            $context,
+            $scopeConfig,
+            $storeManager,
+            $appState,
+            $priceCurrency,
+            $dbCompatibleMode
+        );
     }
 
     /**

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -30,15 +28,15 @@
  */
 ?>
 
-<div class="page-actions">
+<div class="product-actions">
     <div id="product-template-suggest-container" class="suggest-expandable">
-        <div class="actions-split">
+        <div class="action-dropdown">
             <button class="action-toggle" data-toggle="dropdown">
                 <span><?php echo $this->getAttributeSetName()?></span>
             </button>
             <ul class="dropdown-menu">
-                <input type="text" id="product-template-suggest" class="search"
-                       placeholder="start typing to search template"/>
+                <li><input type="text" id="product-template-suggest" class="search"
+                       placeholder="start typing to search template"/></li>
             </ul>
         </div>
     </div>
@@ -286,7 +284,7 @@ jQuery(function($) {
             });
 
             var nameDataMapper = function() {
-                return $(this).data('elementId');
+                return $(this).data('attributeCode');
             };
             //add new element elements or reorder
             $page.find('[data-form=edit-product] [data-role=tabs] .fieldset, #product_info_tabs .fieldset')
@@ -321,7 +319,7 @@ jQuery(function($) {
                         if (nameDataMapper.apply($elements.get(index)) == elementId) {
                             return true;
                         }
-                        var $elementToMove = $('.fieldset>.field[data-element-id="' + elementId + '"]');
+                        var $elementToMove = $('.fieldset>.field[data-attribute-code="' + elementId + '"]');
                         if ($elementToMove.length === 0) {
                             $elementToMove = $element;
                         }
@@ -336,12 +334,12 @@ jQuery(function($) {
                     });
                 });
             });
+            $('#product_info_tabs').tabs('refresh');
             if (!$('#' + activeTabId).closest('li').hasClass(removedElementClass)) {
                 $('#' + activeTabId).trigger('click');
             } else {
                 $('#product_info_tabs').tabs("option", "active", 0);
             }
-            $('#product_info_tabs').tabs('refresh');
         });
 
     });

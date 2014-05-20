@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -65,7 +62,7 @@ class CartFixedTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->rule = $this->getMock('Magento\Object', null, array(), 'Rule', true);
+        $this->rule = $this->getMock('Magento\Framework\Object', null, array(), 'Rule', true);
         $this->item = $this->getMock('Magento\Sales\Model\Quote\Item\AbstractItem', array(), array(), '', false);
         $this->data = $this->getMock('Magento\SalesRule\Model\Rule\Action\Discount\Data', null);
 
@@ -100,7 +97,7 @@ class CartFixedTest extends \PHPUnit_Framework_TestCase
         $this->rule->setData(array('id' => 1, 'discount_amount' => 10.0));
 
         $this->address->expects($this->any())->method('getCartFixedRules')->will($this->returnValue(array()));
-        $store = $this->getMock('Magento\Core\Model\Store', array(), array(), '', false);
+        $store = $this->getMock('Magento\Store\Model\Store', array(), array(), '', false);
         $store->expects($this->atLeastOnce())->method('convertPrice')->will($this->returnArgument(0));
         $store->expects($this->atLeastOnce())->method('roundPrice')->will($this->returnArgument(0));
         $this->quote->expects($this->any())->method('getStore')->will($this->returnValue($store));

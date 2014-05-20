@@ -17,8 +17,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Mage
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -43,7 +41,9 @@
             this._setVars();
             this._bind();
             this.element.find('script').remove();
+            this.element.wrapInner($('<div/>', {'class': 'page-actions-buttons'}));
             this.element.wrapInner($('<div/>', {'class': 'page-actions-inner', 'data-title': title}));
+
         },
 
         /**

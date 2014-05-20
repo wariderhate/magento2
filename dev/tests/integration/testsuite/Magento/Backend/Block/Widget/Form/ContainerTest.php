@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,8 +31,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testGetFormHtml()
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        /** @var $layout \Magento\Core\Model\Layout */
-        $layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\View\LayoutInterface');
+        /** @var $layout \Magento\Framework\View\Layout */
+        $layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+            'Magento\Framework\View\LayoutInterface'
+        );
         // Create block with blocking _prepateLayout(), which is used by block to instantly add 'form' child
         /** @var $block \Magento\Backend\Block\Widget\Form\Container */
         $block = $this->getMock(
@@ -45,7 +44,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         );
 
         $layout->addBlock($block, 'block');
-        $form = $layout->addBlock('Magento\View\Element\Text', 'form', 'block');
+        $form = $layout->addBlock('Magento\Framework\View\Element\Text', 'form', 'block');
 
         $expectedHtml = '<b>html</b>';
         $this->assertNotEquals($expectedHtml, $block->getFormHtml());

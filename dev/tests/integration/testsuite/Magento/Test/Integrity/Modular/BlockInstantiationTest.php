@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,24 +35,22 @@ class BlockInstantiationTest extends \Magento\TestFramework\TestCase\AbstractInt
     {
         $invoker = new \Magento\TestFramework\Utility\AggregateInvoker($this);
         $invoker(
-            /**
-             * @param string $module
-             * @param string $class
-             * @param string $area
-             */
             function ($module, $class, $area) {
                 $this->assertNotEmpty($module);
                 $this->assertTrue(class_exists($class), "Block class: {$class}");
-                \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-                    ->get('Magento\Config\ScopeInterface')
-                    ->setCurrentScope($area);
-                $context = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-                    ->get('Magento\App\Http\Context');
+                \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+                    'Magento\Framework\Config\ScopeInterface'
+                )->setCurrentScope(
+                    $area
+                );
+                $context = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+                    'Magento\Framework\App\Http\Context'
+                );
                 $context->setValue(\Magento\Customer\Helper\Data::CONTEXT_AUTH, false, false);
                 $context->setValue(
                     \Magento\Customer\Helper\Data::CONTEXT_GROUP,
-                    \Magento\Customer\Model\Group::NOT_LOGGED_IN_ID,
-                    \Magento\Customer\Model\Group::NOT_LOGGED_IN_ID
+                    \Magento\Customer\Service\V1\CustomerGroupServiceInterface::NOT_LOGGED_IN_ID,
+                    \Magento\Customer\Service\V1\CustomerGroupServiceInterface::NOT_LOGGED_IN_ID
                 );
                 \Magento\TestFramework\Helper\Bootstrap::getInstance()->loadArea($area);
 
@@ -73,9 +68,9 @@ class BlockInstantiationTest extends \Magento\TestFramework\TestCase\AbstractInt
     {
         $blockClass = '';
         try {
-            /** @var $website \Magento\Core\Model\Website */
+            /** @var $website \Magento\Store\Model\Website */
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\Core\Model\StoreManagerInterface'
+                'Magento\Store\Model\StoreManagerInterface'
             )->getStore()->setWebsiteId(
                 0
             );
@@ -89,7 +84,7 @@ class BlockInstantiationTest extends \Magento\TestFramework\TestCase\AbstractInt
                     continue;
                 }
                 $class = new \ReflectionClass($blockClass);
-                if ($class->isAbstract() || !$class->isSubclassOf('Magento\View\Element\Template')) {
+                if ($class->isAbstract() || !$class->isSubclassOf('Magento\Framework\View\Element\Template')) {
                     continue;
                 }
                 $templateBlocks = $this->_addBlock($module, $blockClass, $class, $templateBlocks);
@@ -143,11 +138,14 @@ class BlockInstantiationTest extends \Magento\TestFramework\TestCase\AbstractInt
         ) {
             $area = 'adminhtml';
         }
-        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\AreaList')
-            ->getArea(\Magento\Backend\App\Area\FrontNameResolver::AREA_CODE)
-            ->load(\Magento\Core\Model\App\Area::PART_CONFIG);
-        $templateBlocks[$module . ', ' . $blockClass . ', ' . $area]
-            = array($module, $blockClass, $area);
+        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+            'Magento\Framework\App\AreaList'
+        )->getArea(
+            \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE
+        )->load(
+            \Magento\Framework\App\Area::PART_CONFIG
+        );
+        $templateBlocks[$module . ', ' . $blockClass . ', ' . $area] = array($module, $blockClass, $area);
         return $templateBlocks;
     }
 }

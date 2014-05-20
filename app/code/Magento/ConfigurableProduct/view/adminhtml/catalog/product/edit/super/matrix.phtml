@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -169,8 +167,8 @@ $productByUsedAttributes = $this->getAssociatedProducts();
                                class="checkbox" data-column="entity_id" <?php echo $checked?> />
                     </td>
                     <td class="col-image" data-column="image">
-                        <div class="actions-split actions-image-uploader">
-                            <div class="action-upload" data-action="upload-image">
+                        <div class="actions split actions-image-uploader">
+                            <div class="action-upload action split" data-action="upload-image">
                                 <span><?php echo __('Upload Image'); ?></span>
                                 <input name="image" type="file" <?php echo $disabled;?>
                                        data-url="<?php echo $this->escapeHtml($this->getImageUploadUrl()) ?>"
@@ -179,10 +177,10 @@ $productByUsedAttributes = $this->getAssociatedProducts();
                                        name="variations-matrix[<?php echo $key?>][image]"
                                        type="hidden" <?php echo $disabled;?>/>
                             </div>
-                            <button type="button" class="action-toggle no-display" data-toggle="dropdown" data-mage-init='{"dropdown":{}}'>
+                            <button type="button" class="action toggle no-display" data-toggle="dropdown" data-mage-init='{"dropdown":{}}'>
                                 <span><?php echo __('Select'); ?></span>
                             </button>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown">
                                 <li>
                                     <a class="item" data-action="no-image"><?php echo __('No Image'); ?></a>
                                 </li>
@@ -270,7 +268,7 @@ jQuery(function ($) {
     matrix.find('[data-action=upload-image] [name=image]').each(function() {
         $(this).fileupload({
             dataType: 'json',
-            dropZone: $(this),
+            dropZone: $(this).closest('[data-role=row]'),
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             done: function (event, data) {
                 if (!data.result) {

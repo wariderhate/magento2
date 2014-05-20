@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,31 +26,29 @@
 /**
  * Product stock qty abstarct block
  *
- * @category   Magento
- * @package    Magento_CatalogInventory
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogInventory\Block\Stockqty;
 
-abstract class AbstractStockqty extends \Magento\View\Element\Template
+abstract class AbstractStockqty extends \Magento\Framework\View\Element\Template
 {
     const XML_PATH_STOCK_THRESHOLD_QTY = 'cataloginventory/options/stock_threshold_qty';
 
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_coreRegistry = $registry;
@@ -95,7 +91,10 @@ abstract class AbstractStockqty extends \Magento\View\Element\Template
     public function getThresholdQty()
     {
         if (!$this->hasData('threshold_qty')) {
-            $qty = (double)$this->_storeConfig->getConfig(self::XML_PATH_STOCK_THRESHOLD_QTY);
+            $qty = (double)$this->_scopeConfig->getValue(
+                self::XML_PATH_STOCK_THRESHOLD_QTY,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            );
             $this->setData('threshold_qty', $qty);
         }
         return $this->getData('threshold_qty');

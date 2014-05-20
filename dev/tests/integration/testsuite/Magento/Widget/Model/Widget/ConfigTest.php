@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,12 +48,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testGetPluginSettings()
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\DesignInterface'
+            'Magento\Framework\View\DesignInterface'
         )->setDesignTheme(
-            'magento_backend'
+            'Magento/backend'
         );
 
-        $config = new \Magento\Object();
+        $config = new \Magento\Framework\Object();
         $settings = $this->_model->getPluginSettings($config);
 
         $this->assertArrayHasKey('widget_plugin_src', $settings);
@@ -77,7 +74,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWidgetWindowUrl()
     {
-        $config = new \Magento\Object(array('widget_filters' => array('is_email_compatible' => 1)));
+        $config = new \Magento\Framework\Object(array('widget_filters' => array('is_email_compatible' => 1)));
 
         $url = $this->_model->getWidgetWindowUrl($config);
 

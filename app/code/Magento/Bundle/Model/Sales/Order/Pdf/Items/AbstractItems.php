@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,7 +33,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Getting all available childs for Invoice, Shipmen or Creditmemo item
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return array
      */
     public function getChilds($item)
@@ -72,7 +70,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Retrieve is Shipment Separately flag for Item
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -122,7 +120,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Retrieve is Child Calculated
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -175,7 +173,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Retrieve Bundle Options
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return array
      */
     public function getBundleOptions($item = null)
@@ -192,7 +190,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Retrieve Selection attributes
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return mixed
      */
     public function getSelectionAttributes($item)
@@ -211,7 +209,7 @@ abstract class AbstractItems extends \Magento\Sales\Model\Order\Pdf\Items\Abstra
     /**
      * Retrieve Order options
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return array
      */
     public function getOrderOptions($item = null)

@@ -22,14 +22,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Core\Helper;
 
-class PostData extends \Magento\App\Helper\AbstractHelper
+class PostData extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * get data for post by javascript in format acceptable to $.mage.dataPost widget
@@ -40,8 +38,8 @@ class PostData extends \Magento\App\Helper\AbstractHelper
      */
     public function getPostData($url, array $data = array())
     {
-        if (!isset($data[\Magento\App\Action\Action::PARAM_NAME_URL_ENCODED])) {
-            $data[\Magento\App\Action\Action::PARAM_NAME_URL_ENCODED] = $this->getEncodedUrl();
+        if (!isset($data[\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED])) {
+            $data[\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED] = $this->getEncodedUrl();
         }
         return json_encode(array('action' => $url, 'data' => $data));
     }

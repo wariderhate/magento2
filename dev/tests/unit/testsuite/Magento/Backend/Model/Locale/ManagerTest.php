@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\TranslateInterface
+     * @var \Magento\Framework\TranslateInterface
      */
     protected $_translator;
 
@@ -60,11 +57,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $userMock = new \Magento\Object();
+        $userMock = new \Magento\Framework\Object();
 
         $this->_authSession->expects($this->any())->method('getUser')->will($this->returnValue($userMock));
 
-        $this->_translator = $this->getMock('Magento\TranslateInterface', array(), array(), '', false);
+        $this->_translator = $this->getMock('Magento\Framework\TranslateInterface', array(), array(), '', false);
 
         $this->_translator->expects($this->any())->method('setLocale')->will($this->returnValue($this->_translator));
 
@@ -108,7 +105,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
         $locale = $this->_model->getUserInterfaceLocale();
 
-        $this->assertEquals($locale, \Magento\Locale\ResolverInterface::DEFAULT_LOCALE);
+        $this->assertEquals($locale, \Magento\Framework\Locale\ResolverInterface::DEFAULT_LOCALE);
     }
 
     /**

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,12 +36,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $this->_model = $this->getMockForAbstractClass(
             'Magento\Eav\Model\Entity\AbstractEntity',
             array(
-                $this->getMock('Magento\App\Resource', array(), array(), '', false),
+                $this->getMock('Magento\Framework\App\Resource', array(), array(), '', false),
                 $this->getMock('Magento\Eav\Model\Config', array(), array(), '', false),
                 $this->getMock('Magento\Eav\Model\Entity\Attribute\Set', array(), array(), '', false),
-                $this->getMock('\Magento\Locale\FormatInterface'),
+                $this->getMock('\Magento\Framework\Locale\FormatInterface'),
                 $this->getMock('Magento\Eav\Model\Resource\Helper', array(), array(), '', false),
-                $this->getMock('Magento\Validator\UniversalFactory', array(), array(), '', false)
+                $this->getMock('Magento\Framework\Validator\UniversalFactory', array(), array(), '', false)
             )
         );
     }
@@ -110,7 +107,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             );
             $mock->setAttributeId($code);
 
-            $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+            $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
             /** @var $backendModel \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend */
             $backendModel = $this->getMock(
                 'Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend',
@@ -132,12 +129,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     /**
      * Get adapter mock
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Magento\DB\Adapter\Pdo\Mysql
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Magento\Framework\DB\Adapter\Pdo\Mysql
      */
     private function _getAdapterMock()
     {
         $adapter = $this->getMock(
-            'Magento\DB\Adapter\Pdo\Mysql',
+            'Magento\Framework\DB\Adapter\Pdo\Mysql',
             array('describeTable', 'lastInsertId', 'insert', 'prepareColumnValue', 'query', 'delete'),
             array(),
             '',
@@ -238,7 +235,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $object->setData($productData);
         $object->expects($this->any())->method('getOrigData')->will($this->returnValue($productOrigData));
 
-        $entityType = new \Magento\Object();
+        $entityType = new \Magento\Framework\Object();
         $entityType->setEntityTypeCode('test');
         $entityType->setEntityTypeId(0);
         $entityType->setEntityTable('table');
@@ -247,7 +244,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $attribute = $this->_getAttributeMock($attributeCode, $attributeSetId);
 
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
         /** @var $backendModel \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend */
         $backendModel = $this->getMock(
             'Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend',
@@ -289,12 +286,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $attributes[$attributeCode] = $attribute;
 
         $data = array(
-            $this->getMock('Magento\App\Resource', array(), array(), '', false),
+            $this->getMock('Magento\Framework\App\Resource', array(), array(), '', false),
             $this->getMock('Magento\Eav\Model\Config', array(), array(), '', false),
             $this->getMock('Magento\Eav\Model\Entity\Attribute\Set', array(), array(), '', false),
-            $this->getMock('Magento\Locale\FormatInterface'),
+            $this->getMock('Magento\Framework\Locale\FormatInterface'),
             $this->getMock('Magento\Eav\Model\Resource\Helper', array(), array(), '', false),
-            $this->getMock('Magento\Validator\UniversalFactory', array(), array(), '', false),
+            $this->getMock('Magento\Framework\Validator\UniversalFactory', array(), array(), '', false),
             array('type' => $entityType, 'entityTable' => 'entityTable', 'attributesByCode' => $attributes)
         );
         /** @var $model \PHPUnit_Framework_MockObject_MockObject */
@@ -305,11 +302,11 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             true,
             true,
             true,
-            array('_getConfig')
+            array('_getValue')
         );
 
         $configMock = $this->getMock('Magento\Eav\Model\Config', array(), array(), '', false);
-        $model->expects($this->any())->method('_getConfig')->will($this->returnValue($configMock));
+        $model->expects($this->any())->method('_getValue')->will($this->returnValue($configMock));
 
         $model->setConnection($this->_getAdapterMock());
         $model->isPartialSave(true);

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Catalog\Model\Attribute\LockValidatorInterface;
 /**
  * Catalog attribute resource model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
@@ -49,15 +45,15 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     protected $attrLockValidator;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Eav\Model\Resource\Entity\Type $eavEntityType
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param LockValidatorInterface $lockValidator
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Eav\Model\Resource\Entity\Type $eavEntityType,
         \Magento\Eav\Model\Config $eavConfig,
         LockValidatorInterface $lockValidator
@@ -70,10 +66,10 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Perform actions before object save
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
-    protected function _beforeSave(\Magento\Model\AbstractModel $object)
+    protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $applyTo = $object->getApplyTo();
         if (is_array($applyTo)) {
@@ -85,10 +81,10 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Perform actions after object save
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
-    protected function _afterSave(\Magento\Model\AbstractModel $object)
+    protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
         $this->_clearUselessAttributeValues($object);
         return parent::_afterSave($object);
@@ -97,10 +93,10 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Clear useless attribute values
      *
-     * @param  \Magento\Model\AbstractModel $object
+     * @param  \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
-    protected function _clearUselessAttributeValues(\Magento\Model\AbstractModel $object)
+    protected function _clearUselessAttributeValues(\Magento\Framework\Model\AbstractModel $object)
     {
         $origData = $object->getOrigData();
 
@@ -125,11 +121,11 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Delete entity
      *
-     * @param \Magento\Model\AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
-    public function deleteEntity(\Magento\Model\AbstractModel $object)
+    public function deleteEntity(\Magento\Framework\Model\AbstractModel $object)
     {
         if (!$object->getEntityAttributeId()) {
             return $this;
@@ -151,8 +147,8 @@ class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
 
             try {
                 $this->attrLockValidator->validate($attribute, $result['attribute_set_id']);
-            } catch (\Magento\Model\Exception $exception) {
-                throw new \Magento\Model\Exception(
+            } catch (\Magento\Framework\Model\Exception $exception) {
+                throw new \Magento\Framework\Model\Exception(
                     __("Attribute '%1' is locked. ", $attribute->getAttributeCode()) . $exception->getMessage()
                 );
             }

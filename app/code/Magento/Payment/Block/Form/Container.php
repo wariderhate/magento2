@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,11 +30,9 @@ use Magento\Payment\Model\Method\AbstractMethod;
  *
  * @method \Magento\Sales\Model\Quote getQuote()
  *
- * @category   Magento
- * @package    Magento_Payment
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Container extends \Magento\View\Element\Template
+class Container extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Magento\Payment\Helper\Data
@@ -47,13 +43,13 @@ class Container extends \Magento\View\Element\Template
     protected $methodSpecificationFactory;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Payment\Helper\Data $paymentHelper
      * @param \Magento\Payment\Model\Checks\SpecificationFactory $methodSpecificationFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Payment\Helper\Data $paymentHelper,
         \Magento\Payment\Model\Checks\SpecificationFactory $methodSpecificationFactory,
         array $data = array()

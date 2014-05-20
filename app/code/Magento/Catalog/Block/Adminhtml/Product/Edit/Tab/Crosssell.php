@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Crossell products admin grid
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Edit\Tab;
@@ -42,7 +38,7 @@ class Crosssell extends Extended
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
@@ -85,7 +81,7 @@ class Crosssell extends Extended
      * @param \Magento\Catalog\Model\Product\Type $type
      * @param \Magento\Catalog\Model\Product\Attribute\Source\Status $status
      * @param \Magento\Catalog\Model\Product\Visibility $visibility
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -99,7 +95,7 @@ class Crosssell extends Extended
         \Magento\Catalog\Model\Product\Type $type,
         \Magento\Catalog\Model\Product\Attribute\Source\Status $status,
         \Magento\Catalog\Model\Product\Visibility $visibility,
-        \Magento\Registry $coreRegistry,
+        \Magento\Framework\Registry $coreRegistry,
         array $data = array()
     ) {
         $this->_linkFactory = $linkFactory;
@@ -316,8 +312,9 @@ class Crosssell extends Extended
             array(
                 'header' => __('Price'),
                 'type' => 'currency',
-                'currency_code' => (string)$this->_storeConfig->getConfig(
-                    \Magento\Directory\Model\Currency::XML_PATH_CURRENCY_BASE
+                'currency_code' => (string)$this->_scopeConfig->getValue(
+                    \Magento\Directory\Model\Currency::XML_PATH_CURRENCY_BASE,
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
                 ),
                 'index' => 'price',
                 'header_css_class' => 'col-price',

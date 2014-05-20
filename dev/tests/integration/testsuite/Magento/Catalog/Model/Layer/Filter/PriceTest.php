@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -102,9 +99,9 @@ class PriceTest extends \PHPUnit_Framework_TestCase
         $this->_model->apply(
             $request,
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\View\LayoutInterface'
+                'Magento\Framework\View\LayoutInterface'
             )->createBlock(
-                'Magento\View\Element\Text'
+                'Magento\Framework\View\Element\Text'
             )
         );
 
@@ -122,9 +119,9 @@ class PriceTest extends \PHPUnit_Framework_TestCase
         $this->_model->apply(
             $request,
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\View\LayoutInterface'
+                'Magento\Framework\View\LayoutInterface'
             )->createBlock(
-                'Magento\View\Element\Text'
+                'Magento\Framework\View\Element\Text'
             )
         );
 
@@ -144,9 +141,9 @@ class PriceTest extends \PHPUnit_Framework_TestCase
         $this->_model->apply(
             $request,
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\View\LayoutInterface'
+                'Magento\Framework\View\LayoutInterface'
             )->createBlock(
-                'Magento\View\Element\Text'
+                'Magento\Framework\View\Element\Text'
             )
         );
 
@@ -155,7 +152,10 @@ class PriceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSetCustomerGroupId()
     {
-        $this->assertEquals(\Magento\Customer\Model\Group::NOT_LOGGED_IN_ID, $this->_model->getCustomerGroupId());
+        $this->assertEquals(
+            \Magento\Customer\Service\V1\CustomerGroupServiceInterface::NOT_LOGGED_IN_ID,
+            $this->_model->getCustomerGroupId()
+        );
 
         $customerGroupId = 123;
         $this->_model->setCustomerGroupId($customerGroupId);

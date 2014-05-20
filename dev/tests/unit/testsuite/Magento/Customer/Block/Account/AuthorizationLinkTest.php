@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,7 +34,7 @@ class AuthorizationLinkTest extends \PHPUnit_Framework_TestCase
     protected $_objectManager;
 
     /**
-     * \Magento\App\Http\Context
+     * \Magento\Framework\App\Http\Context
      */
     protected $httpContext;
 
@@ -54,7 +51,7 @@ class AuthorizationLinkTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_objectManager = new \Magento\TestFramework\Helper\ObjectManager($this);
-        $this->httpContext = $this->getMockBuilder('\Magento\App\Http\Context')
+        $this->httpContext = $this->getMockBuilder('\Magento\Framework\App\Http\Context')
             ->disableOriginalConstructor()
             ->setMethods(array('getValue'))
             ->getMock();
@@ -63,7 +60,7 @@ class AuthorizationLinkTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('getLogoutUrl', 'getLoginUrl'))
             ->getMock();
 
-        $context = $this->_objectManager->getObject('Magento\View\Element\Template\Context');
+        $context = $this->_objectManager->getObject('Magento\Framework\View\Element\Template\Context');
         $this->_block = $this->_objectManager->getObject(
             'Magento\Customer\Block\Account\AuthorizationLink',
             array(

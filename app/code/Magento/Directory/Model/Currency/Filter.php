@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -41,36 +39,36 @@ class Filter implements \Zend_Filter_Interface
     /**
      * Currency object
      *
-     * @var \Magento\CurrencyInterface
+     * @var \Magento\Framework\CurrencyInterface
      */
     protected $_currency;
 
     /**
-     * @var \Magento\Locale\FormatInterface
+     * @var \Magento\Framework\Locale\FormatInterface
      */
     protected $_localeFormat;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @var \Magento\Locale\CurrencyInterface
+     * @var \Magento\Framework\Locale\CurrencyInterface
      */
     protected $_localeCurrency;
 
     /**
-     * @param \Magento\Locale\FormatInterface $localeFormat
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Locale\CurrencyInterface $localeCurrency
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Locale\CurrencyInterface $localeCurrency
      * @param string $code
      * @param int $rate
      */
     public function __construct(
-        \Magento\Locale\FormatInterface $localeFormat,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Locale\CurrencyInterface $localeCurrency,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Locale\CurrencyInterface $localeCurrency,
         $code,
         $rate = 1
     ) {

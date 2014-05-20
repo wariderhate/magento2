@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Catalog category model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Model\Resource;
@@ -39,7 +35,7 @@ class Category extends AbstractResource
     /**
      * Category tree object
      *
-     * @var \Magento\Data\Tree\Db
+     * @var \Magento\Framework\Data\Tree\Db
      */
     protected $_tree;
 
@@ -67,7 +63,7 @@ class Category extends AbstractResource
     /**
      * Core event manager proxy
      *
-     * @var \Magento\Event\ManagerInterface
+     * @var \Magento\Framework\Event\ManagerInterface
      */
     protected $_eventManager = null;
 
@@ -88,15 +84,15 @@ class Category extends AbstractResource
     /**
      * Construct
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param \Magento\Eav\Model\Entity\Attribute\Set $attrSetEntity
-     * @param \Magento\Locale\FormatInterface $localeFormat
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
      * @param \Magento\Eav\Model\Resource\Helper $resourceHelper
-     * @param \Magento\Validator\UniversalFactory $universalFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Validator\UniversalFactory $universalFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Catalog\Model\Factory $modelFactory
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Catalog\Model\Resource\Category\TreeFactory $categoryTreeFactory
      * @param \Magento\Catalog\Model\Resource\Category\CollectionFactory $categoryCollectionFactory
      * @param array $data
@@ -104,15 +100,15 @@ class Category extends AbstractResource
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\Eav\Model\Entity\Attribute\Set $attrSetEntity,
-        \Magento\Locale\FormatInterface $localeFormat,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
         \Magento\Eav\Model\Resource\Helper $resourceHelper,
-        \Magento\Validator\UniversalFactory $universalFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Validator\UniversalFactory $universalFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Catalog\Model\Factory $modelFactory,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Catalog\Model\Resource\Category\TreeFactory $categoryTreeFactory,
         \Magento\Catalog\Model\Resource\Category\CollectionFactory $categoryCollectionFactory,
         $data = array()
@@ -168,7 +164,7 @@ class Category extends AbstractResource
     /**
      * Retrieve category tree object
      *
-     * @return \Magento\Data\Tree\Db
+     * @return \Magento\Framework\Data\Tree\Db
      */
     protected function _getTree()
     {
@@ -183,10 +179,10 @@ class Category extends AbstractResource
      * update children count for parent category
      * delete child categories
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
-    protected function _beforeDelete(\Magento\Object $object)
+    protected function _beforeDelete(\Magento\Framework\Object $object)
     {
         parent::_beforeDelete($object);
 
@@ -208,10 +204,10 @@ class Category extends AbstractResource
     /**
      * Delete children categories of specific category
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
-    public function deleteChildren(\Magento\Object $object)
+    public function deleteChildren(\Magento\Framework\Object $object)
     {
         $adapter = $this->_getWriteAdapter();
         $pathField = $adapter->quoteIdentifier('path');
@@ -241,10 +237,10 @@ class Category extends AbstractResource
      * Process category data before saving
      * prepare path and increment children count for parent categories
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
-    protected function _beforeSave(\Magento\Object $object)
+    protected function _beforeSave(\Magento\Framework\Object $object)
     {
         parent::_beforeSave($object);
 
@@ -280,10 +276,10 @@ class Category extends AbstractResource
      * Process category data after save category object
      * save related products ids and update path value
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
-    protected function _afterSave(\Magento\Object $object)
+    protected function _afterSave(\Magento\Framework\Object $object)
     {
         /**
          * Add identifier for new category
@@ -642,7 +638,7 @@ class Category extends AbstractResource
      * @param boolean|string $sorted
      * @param boolean $asCollection
      * @param boolean $toLoad
-     * @return \Magento\Data\Tree\Node\Collection|\Magento\Catalog\Model\Resource\Category\Collection
+     * @return \Magento\Framework\Data\Tree\Node\Collection|\Magento\Catalog\Model\Resource\Category\Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)
     {
@@ -662,7 +658,7 @@ class Category extends AbstractResource
      * Return parent categories of category
      *
      * @param \Magento\Catalog\Model\Category $category
-     * @return \Magento\Object[]
+     * @return \Magento\Framework\Object[]
      */
     public function getParentCategories($category)
     {
@@ -749,7 +745,7 @@ class Category extends AbstractResource
             $category->getChildren()
         )->setOrder(
             'position',
-            \Magento\DB\Select::SQL_ASC
+            \Magento\Framework\DB\Select::SQL_ASC
         )->joinUrlRewrite()->load();
 
         return $collection;
@@ -836,7 +832,7 @@ class Category extends AbstractResource
     public function isForbiddenToDelete($categoryId)
     {
         $select = $this->_getReadAdapter()->select()->from(
-            $this->getTable('core_store_group'),
+            $this->getTable('store_group'),
             array('group_id')
         )->where(
             'root_category_id = :root_category_id'

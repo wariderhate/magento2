@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,12 +27,12 @@
  */
 namespace Magento\Sales\Model\Convert;
 
-class Order extends \Magento\Object
+class Order extends \Magento\Framework\Object
 {
     /**
      * Core event manager proxy
      *
-     * @var \Magento\Event\ManagerInterface
+     * @var \Magento\Framework\Event\ManagerInterface
      */
     protected $_eventManager = null;
 
@@ -84,12 +82,12 @@ class Order extends \Magento\Object
     protected $_creditmemoItemFactory;
 
     /**
-     * @var \Magento\Object\Copy
+     * @var \Magento\Framework\Object\Copy
      */
     protected $_objectCopyService;
 
     /**
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Sales\Model\QuoteFactory $quoteFactory
      * @param \Magento\Sales\Model\Quote\AddressFactory $quoteAddressFactory
      * @param \Magento\Sales\Model\Quote\PaymentFactory $quotePaymentFactory
@@ -100,13 +98,13 @@ class Order extends \Magento\Object
      * @param \Magento\Sales\Model\Order\Shipment\ItemFactory $shipmentItemFactory
      * @param \Magento\Sales\Model\Order\CreditmemoFactory $creditmemoFactory
      * @param \Magento\Sales\Model\Order\Creditmemo\ItemFactory $creditmemoItemFactory
-     * @param \Magento\Object\Copy $objectCopyService
+     * @param \Magento\Framework\Object\Copy $objectCopyService
      * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Sales\Model\QuoteFactory $quoteFactory,
         \Magento\Sales\Model\Quote\AddressFactory $quoteAddressFactory,
         \Magento\Sales\Model\Quote\PaymentFactory $quotePaymentFactory,
@@ -117,7 +115,7 @@ class Order extends \Magento\Object
         \Magento\Sales\Model\Order\Shipment\ItemFactory $shipmentItemFactory,
         \Magento\Sales\Model\Order\CreditmemoFactory $creditmemoFactory,
         \Magento\Sales\Model\Order\Creditmemo\ItemFactory $creditmemoItemFactory,
-        \Magento\Object\Copy $objectCopyService,
+        \Magento\Framework\Object\Copy $objectCopyService,
         array $data = array()
     ) {
         $this->_eventManager = $eventManager;

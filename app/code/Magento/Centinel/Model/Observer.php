@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Centinel
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * 3D Secure Validation Model
  *
- * @category   Magento
- * @package    Magento_Centinel
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Centinel\Model;
 
-class Observer extends \Magento\Object
+class Observer extends \Magento\Framework\Object
 {
     /**
      * Centinel data
@@ -61,7 +57,7 @@ class Observer extends \Magento\Object
     /**
      * Set cmpi data to payment
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return $this
      */
     public function salesEventConvertQuoteToOrder($observer)
@@ -78,7 +74,7 @@ class Observer extends \Magento\Object
     /**
      * Add cmpi data to info block
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return void|$this
      */
     public function paymentInfoBlockPrepareSpecificInformation($observer)
@@ -109,7 +105,7 @@ class Observer extends \Magento\Object
     /**
      * Add centinel logo block into payment form
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return $this
      */
     public function paymentFormBlockToHtmlBefore($observer)
@@ -129,7 +125,7 @@ class Observer extends \Magento\Object
     /**
      * Reset validation data
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return $this
      */
     public function checkoutSubmitAllAfter($observer)

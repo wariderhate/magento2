@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -43,8 +40,8 @@ class RegisterLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testToHtml()
     {
-        $context = $this->_objectManager->getObject('Magento\View\Element\Template\Context');
-        $httpContext = $this->getMockBuilder('Magento\App\Http\Context')
+        $context = $this->_objectManager->getObject('Magento\Framework\View\Element\Template\Context');
+        $httpContext = $this->getMockBuilder('Magento\Framework\App\Http\Context')
             ->disableOriginalConstructor()
             ->setMethods(array('getValue'))
             ->getMock();
@@ -75,7 +72,7 @@ class RegisterLinkTest extends \PHPUnit_Framework_TestCase
 
         $helper->expects($this->any())->method('getRegisterUrl')->will($this->returnValue('register url'));
 
-        $context = $this->_objectManager->getObject('Magento\View\Element\Template\Context');
+        $context = $this->_objectManager->getObject('Magento\Framework\View\Element\Template\Context');
 
         $block = $this->_objectManager->getObject(
             'Magento\Customer\Block\Account\RegisterLink',

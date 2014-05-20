@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Product attribute add/edit form main tab
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Attribute\Edit\Tab;
@@ -45,15 +41,16 @@ class Main extends AbstractMain
     protected function _prepareForm()
     {
         parent::_prepareForm();
+        /** @var \Magento\Catalog\Model\Resource\Eav\Attribute $attributeObject */
         $attributeObject = $this->getAttributeObject();
-        /* @var $form \Magento\Data\Form */
+        /* @var $form \Magento\Framework\Data\Form */
         $form = $this->getForm();
-        /* @var $fieldset \Magento\Data\Form\Element\Fieldset */
+        /* @var $fieldset \Magento\Framework\Data\Form\Element\Fieldset */
         $fieldset = $form->getElement('base_fieldset');
         $fiedsToRemove = array('attribute_code', 'is_unique', 'frontend_class');
 
         foreach ($fieldset->getElements() as $element) {
-            /** @var \Magento\Data\Form\AbstractForm $element  */
+            /** @var \Magento\Framework\Data\Form\AbstractForm $element  */
             if (substr($element->getId(), 0, strlen('default_value')) == 'default_value') {
                 $fiedsToRemove[] = $element->getId();
             }
@@ -63,8 +60,11 @@ class Main extends AbstractMain
         }
 
         $frontendInputElm = $form->getElement('frontend_input');
-        $additionalTypes = array(array('value' => 'price', 'label' => __('Price')));
-        $additionalReadOnlyTypes = array('media_image' => __('Media Image'), 'gallery' => __('Gallery'));
+        $additionalTypes = array(
+            array('value' => 'price', 'label' => __('Price')),
+            array('value' => 'media_image', 'label' => __('Media Image')),
+        );
+        $additionalReadOnlyTypes = array('gallery' => __('Gallery'));
         if (isset($additionalReadOnlyTypes[$attributeObject->getFrontendInput()])) {
             $additionalTypes[] = array(
                 'value' => $attributeObject->getFrontendInput(),
@@ -72,7 +72,7 @@ class Main extends AbstractMain
             );
         }
 
-        $response = new \Magento\Object();
+        $response = new \Magento\Framework\Object();
         $response->setTypes(array());
         $this->_eventManager->dispatch('adminhtml_product_attribute_types', array('response' => $response));
         $_disabledTypes = array();

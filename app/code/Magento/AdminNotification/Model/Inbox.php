@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -45,11 +43,9 @@ namespace Magento\AdminNotification\Model;
  * @method int getIsRemove()
  * @method \Magento\AdminNotification\Model\Inbox setIsRemove(int $value)
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Inbox extends \Magento\Model\AbstractModel
+class Inbox extends \Magento\Framework\Model\AbstractModel
 {
     const SEVERITY_CRITICAL = 1;
 
@@ -133,13 +129,13 @@ class Inbox extends \Magento\Model\AbstractModel
      * @param string|string[] $description
      * @param string $url
      * @param bool $isInternal
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      * @return $this
      */
     public function add($severity, $title, $description, $url = '', $isInternal = true)
     {
         if (!$this->getSeverities($severity)) {
-            throw new \Magento\Model\Exception(__('Wrong message type'));
+            throw new \Magento\Framework\Model\Exception(__('Wrong message type'));
         }
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Order\Create;
 /**
  * Order create data
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Data extends \Magento\Sales\Block\Adminhtml\Order\Create\AbstractCreate
@@ -42,7 +38,7 @@ class Data extends \Magento\Sales\Block\Adminhtml\Order\Create\AbstractCreate
     protected $_currencyFactory;
 
     /**
-     * @var \Magento\Locale\CurrencyInterface
+     * @var \Magento\Framework\Locale\CurrencyInterface
      */
     protected $_localeCurrency;
 
@@ -51,7 +47,7 @@ class Data extends \Magento\Sales\Block\Adminhtml\Order\Create\AbstractCreate
      * @param \Magento\Backend\Model\Session\Quote $sessionQuote
      * @param \Magento\Sales\Model\AdminOrder\Create $orderCreate
      * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
-     * @param \Magento\Locale\CurrencyInterface $localeCurrency
+     * @param \Magento\Framework\Locale\CurrencyInterface $localeCurrency
      * @param array $data
      */
     public function __construct(
@@ -59,7 +55,7 @@ class Data extends \Magento\Sales\Block\Adminhtml\Order\Create\AbstractCreate
         \Magento\Backend\Model\Session\Quote $sessionQuote,
         \Magento\Sales\Model\AdminOrder\Create $orderCreate,
         \Magento\Directory\Model\CurrencyFactory $currencyFactory,
-        \Magento\Locale\CurrencyInterface $localeCurrency,
+        \Magento\Framework\Locale\CurrencyInterface $localeCurrency,
         array $data = array()
     ) {
         $this->_currencyFactory = $currencyFactory;

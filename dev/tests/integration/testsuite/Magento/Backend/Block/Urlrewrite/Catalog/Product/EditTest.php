@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -42,9 +39,9 @@ class EditTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrepareLayout($blockAttributes, $expected)
     {
-        /** @var $layout \Magento\View\LayoutInterface */
+        /** @var $layout \Magento\Framework\View\LayoutInterface */
         $layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Core\Model\Layout',
+            'Magento\Framework\View\Layout',
             array('area' => \Magento\Backend\App\Area\FrontNameResolver::AREA_CODE)
         );
 
@@ -362,9 +359,9 @@ class EditTest extends \PHPUnit_Framework_TestCase
      */
     public function prepareLayoutDataProvider()
     {
-        /** @var $urlRewrite \Magento\Core\Model\Url\Rewrite */
+        /** @var $urlRewrite \Magento\UrlRewrite\Model\UrlRewrite */
         $urlRewrite = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Core\Model\Url\Rewrite'
+            'Magento\UrlRewrite\Model\UrlRewrite'
         );
         /** @var $product \Magento\Catalog\Model\Product */
         $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
@@ -376,9 +373,9 @@ class EditTest extends \PHPUnit_Framework_TestCase
             'Magento\Catalog\Model\Category',
             array('data' => array('entity_id' => 1, 'name' => 'Test category'))
         );
-        /** @var $existingUrlRewrite \Magento\Core\Model\Url\Rewrite */
+        /** @var $existingUrlRewrite \Magento\UrlRewrite\Model\UrlRewrite */
         $existingUrlRewrite = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Core\Model\Url\Rewrite',
+            'Magento\UrlRewrite\Model\UrlRewrite',
             array('data' => array('url_rewrite_id' => 1))
         );
         return array(

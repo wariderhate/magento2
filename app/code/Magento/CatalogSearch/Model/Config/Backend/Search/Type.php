@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,20 +26,17 @@
 /**
  * Catalog Search change Search Type backend model
  *
- * @category   Magento
- * @package    Magento_CatalogSearch
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CatalogSearch\Model\Config\Backend\Search;
 
-use Magento\App\ConfigInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\CatalogSearch\Model\Fulltext;
-use Magento\Core\Model\Config\Value;
-use Magento\Model\Context;
-use Magento\Registry;
-use Magento\Model\Resource\AbstractResource;
-use Magento\Core\Model\StoreManagerInterface;
-use Magento\Data\Collection\Db;
+use Magento\Framework\App\Config\Value;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
+use Magento\Framework\Model\Resource\AbstractResource;
+use Magento\Framework\Data\Collection\Db;
 
 class Type extends Value
 {
@@ -53,27 +48,25 @@ class Type extends Value
     protected $_catalogSearchFulltext;
 
     /**
-     * @param Context $context
+     * @param \Magento\Framework\Model\Context $context
      * @param Registry $registry
-     * @param StoreManagerInterface $storeManager
-     * @param ConfigInterface $config
+     * @param ScopeConfigInterface $config
      * @param Fulltext $catalogSearchFulltext
-     * @param AbstractResource $resource
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
      * @param Db $resourceCollection
      * @param array $data
      */
     public function __construct(
         Context $context,
         Registry $registry,
-        StoreManagerInterface $storeManager,
-        ConfigInterface $config,
+        ScopeConfigInterface $config,
         Fulltext $catalogSearchFulltext,
         AbstractResource $resource = null,
         Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_catalogSearchFulltext = $catalogSearchFulltext;
-        parent::__construct($context, $registry, $storeManager, $config, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $resource, $resourceCollection, $data);
     }
 
     /**

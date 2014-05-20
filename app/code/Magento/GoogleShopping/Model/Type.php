@@ -18,24 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\GoogleShopping\Model;
 
 use Magento\Catalog\Model\Product as CatalogModelProduct;
-use Magento\Gdata\Gshopping\Entry;
+use Magento\Framework\Gdata\Gshopping\Entry;
 
 /**
  * Google Content Item Types Model
  *
- * @category   Magento
- * @package    Magento_GoogleShopping
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Type extends \Magento\Model\AbstractModel
+class Type extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Mapping attributes collection
@@ -76,27 +72,27 @@ class Type extends \Magento\Model\AbstractModel
     protected $_collectionFactory;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\GoogleShopping\Model\Resource\Attribute\CollectionFactory $collectionFactory
      * @param \Magento\GoogleShopping\Model\AttributeFactory $attributeFactory
      * @param \Magento\GoogleShopping\Model\Config $config
      * @param \Magento\GoogleShopping\Helper\Product $gsProduct
      * @param \Magento\GoogleShopping\Helper\Data $gsData
      * @param \Magento\GoogleShopping\Model\Resource\Type $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\GoogleShopping\Model\Resource\Attribute\CollectionFactory $collectionFactory,
         \Magento\GoogleShopping\Model\AttributeFactory $attributeFactory,
         \Magento\GoogleShopping\Model\Config $config,
         \Magento\GoogleShopping\Helper\Product $gsProduct,
         \Magento\GoogleShopping\Helper\Data $gsData,
         \Magento\GoogleShopping\Model\Resource\Type $resource,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_collectionFactory = $collectionFactory;

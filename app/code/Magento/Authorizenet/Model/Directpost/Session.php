@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Authorizenet
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,25 +26,25 @@ namespace Magento\Authorizenet\Model\Directpost;
 /**
  * Authorize.net DirectPost session model
  */
-class Session extends \Magento\Session\SessionManager
+class Session extends \Magento\Framework\Session\SessionManager
 {
     /**
-     * @param \Magento\App\RequestInterface $request
-     * @param \Magento\Session\SidResolverInterface $sidResolver
-     * @param \Magento\Session\Config\ConfigInterface $sessionConfig
-     * @param \Magento\Session\SaveHandlerInterface $saveHandler
-     * @param \Magento\Session\ValidatorInterface $validator
-     * @param \Magento\Session\StorageInterface $storage
+     * @param \Magento\Framework\App\Request\Http $request
+     * @param \Magento\Framework\Session\SidResolverInterface $sidResolver
+     * @param \Magento\Framework\Session\Config\ConfigInterface $sessionConfig
+     * @param \Magento\Framework\Session\SaveHandlerInterface $saveHandler
+     * @param \Magento\Framework\Session\ValidatorInterface $validator
+     * @param \Magento\Framework\Session\StorageInterface $storage
      * @param string|null $sessionName
      * @internal param array $data
      */
     public function __construct(
-        \Magento\App\RequestInterface $request,
-        \Magento\Session\SidResolverInterface $sidResolver,
-        \Magento\Session\Config\ConfigInterface $sessionConfig,
-        \Magento\Session\SaveHandlerInterface $saveHandler,
-        \Magento\Session\ValidatorInterface $validator,
-        \Magento\Session\StorageInterface $storage,
+        \Magento\Framework\App\Request\Http $request,
+        \Magento\Framework\Session\SidResolverInterface $sidResolver,
+        \Magento\Framework\Session\Config\ConfigInterface $sessionConfig,
+        \Magento\Framework\Session\SaveHandlerInterface $saveHandler,
+        \Magento\Framework\Session\ValidatorInterface $validator,
+        \Magento\Framework\Session\StorageInterface $storage,
         $sessionName = null
     ) {
         parent::__construct($request, $sidResolver, $sessionConfig, $saveHandler, $validator, $storage);

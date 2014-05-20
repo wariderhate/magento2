@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Rss\Block;
 /**
  * Review form block
  */
-class ListBlock extends \Magento\View\Element\Template
+class ListBlock extends \Magento\Framework\View\Element\Template
 {
     const XML_PATH_RSS_METHODS = 'rss';
 
@@ -38,7 +36,7 @@ class ListBlock extends \Magento\View\Element\Template
     protected $_rssFeeds = array();
 
     /**
-     * @var \Magento\App\Http\Context
+     * @var \Magento\Framework\App\Http\Context
      */
     protected $httpContext;
 
@@ -48,14 +46,14 @@ class ListBlock extends \Magento\View\Element\Template
     protected $_categoryFactory;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\App\Http\Context $httpContext
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param \Magento\Catalog\Model\CategoryFactory $categoryFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\App\Http\Context $httpContext,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         array $data = array()
     ) {
@@ -107,7 +105,7 @@ class ListBlock extends \Magento\View\Element\Template
         if ($customerGroup) {
             $param = array_merge($param, array('cid' => $this->getCurrentCustomerGroupId()));
         }
-        $this->_rssFeeds[] = new \Magento\Object(
+        $this->_rssFeeds[] = new \Magento\Framework\Object(
             array('url' => $this->_urlBuilder->getUrl($url, $param), 'label' => $label)
         );
         return $this;
@@ -179,7 +177,7 @@ class ListBlock extends \Magento\View\Element\Template
     public function newProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS . '/catalog/new';
-        if ((bool)$this->_storeConfig->getConfig($path)) {
+        if ((bool)$this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             $this->addRssFeed($path, __('New Products'));
         }
     }
@@ -192,7 +190,7 @@ class ListBlock extends \Magento\View\Element\Template
     public function specialProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS . '/catalog/special';
-        if ((bool)$this->_storeConfig->getConfig($path)) {
+        if ((bool)$this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             $this->addRssFeed($path, __('Special Products'), array(), true);
         }
     }
@@ -205,7 +203,7 @@ class ListBlock extends \Magento\View\Element\Template
     public function salesRuleProductRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS . '/catalog/salesrule';
-        if ((bool)$this->_storeConfig->getConfig($path)) {
+        if ((bool)$this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             $this->addRssFeed($path, __('Coupons/Discounts'), array(), true);
         }
     }
@@ -218,7 +216,7 @@ class ListBlock extends \Magento\View\Element\Template
     public function categoriesRssFeed()
     {
         $path = self::XML_PATH_RSS_METHODS . '/catalog/category';
-        if ((bool)$this->_storeConfig->getConfig($path)) {
+        if ((bool)$this->_scopeConfig->getValue($path, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             /** @var $category \Magento\Catalog\Model\Category */
             $category = $this->_categoryFactory->create();
             $treeModel = $category->getTreeModel()->loadNode($this->_storeManager->getStore()->getRootCategoryId());

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,35 +26,33 @@ namespace Magento\GoogleShopping\Helper;
 /**
  * Google Content Data Helper
  *
- * @category   Magento
- * @package    Magento_GoogleShopping
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Data extends \Magento\App\Helper\AbstractHelper
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Magento string lib
      *
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $string;
 
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Stdlib\String $string
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\Stdlib\String $string
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Stdlib\String $string,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\Stdlib\String $string,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->string = $string;
         $this->_storeManager = $storeManager;

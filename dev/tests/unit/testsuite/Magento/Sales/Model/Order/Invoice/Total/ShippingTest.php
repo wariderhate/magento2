@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,12 +29,12 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
      * Retrieve new invoice collection from an array of invoices' data
      *
      * @param array $invoicesData
-     * @return \Magento\Data\Collection
+     * @return \Magento\Framework\Data\Collection
      */
     protected function _getInvoiceCollection(array $invoicesData)
     {
         $className = 'Magento\Sales\Model\Order\Invoice';
-        $result = new \Magento\Data\Collection(
+        $result = new \Magento\Framework\Data\Collection(
             $this->getMock('Magento\Core\Model\EntityFactory', array(), array(), '', false)
         );
         $objectManagerHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
@@ -50,7 +47,13 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
                 '',
                 false
             ),
-            'calculatorFactory' => $this->getMock('Magento\Math\CalculatorFactory', array(), array(), '', false),
+            'calculatorFactory' => $this->getMock(
+                    'Magento\Framework\Math\CalculatorFactory',
+                    array(),
+                    array(),
+                    '',
+                    false
+                ),
             'invoiceItemCollectionFactory' => $this->getMock(
                 'Magento\Sales\Model\Resource\Order\Invoice\Item\CollectionFactory',
                 array(),

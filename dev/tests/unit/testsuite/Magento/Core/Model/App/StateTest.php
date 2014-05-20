@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,7 @@ namespace Magento\Core\Model\App;
 class StateTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\App\State
+     * @var \Magento\Framework\App\State
      */
     protected $_model;
 
@@ -39,8 +36,8 @@ class StateTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor($mode)
     {
-        $model = new \Magento\App\State(
-            $this->getMockForAbstractClass('Magento\Config\ScopeInterface', array(), '', false),
+        $model = new \Magento\Framework\App\State(
+            $this->getMockForAbstractClass('Magento\Framework\Config\ScopeInterface', array(), '', false),
             time(),
             $mode
         );
@@ -53,9 +50,9 @@ class StateTest extends \PHPUnit_Framework_TestCase
     public static function constructorDataProvider()
     {
         return array(
-            'default mode' => array(\Magento\App\State::MODE_DEFAULT),
-            'production mode' => array(\Magento\App\State::MODE_PRODUCTION),
-            'developer mode' => array(\Magento\App\State::MODE_DEVELOPER)
+            'default mode' => array(\Magento\Framework\App\State::MODE_DEFAULT),
+            'production mode' => array(\Magento\Framework\App\State::MODE_PRODUCTION),
+            'developer mode' => array(\Magento\Framework\App\State::MODE_DEVELOPER)
         );
     }
 
@@ -65,8 +62,8 @@ class StateTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorException()
     {
-        new \Magento\App\State(
-            $this->getMockForAbstractClass('Magento\Config\ScopeInterface', array(), '', false),
+        new \Magento\Framework\App\State(
+            $this->getMockForAbstractClass('Magento\Framework\Config\ScopeInterface', array(), '', false),
             time(),
             "unknown mode"
         );

@@ -18,15 +18,13 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
- * @package     default_default
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php
 /**
- * Template for \Magento\Theme\Block\Html
+ * @var $this \Magento\Theme\Block\Html\Head
  */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -39,8 +37,9 @@
     <link rel="shortcut icon" href="<?php echo $this->getViewFileUrl('Magento_Theme::favicon.ico') ?>" type="image/x-icon"/>
 
     <script type="text/javascript" src="<?php echo $this->getViewFileUrl('jquery/jquery.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getViewFileUrl('jquery/jquery-migrate.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->getViewFileUrl('jquery/jquery-ui.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->getViewFileUrl('headjs/head.load.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->getViewFileUrl('headjs/head.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->getViewFileUrl('mage/mage.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->getViewFileUrl('mage/translate.js') ?>"></script>
 
@@ -51,7 +50,7 @@
     <link rel="stylesheet" href="<?php echo $this->getViewFileUrl('css/reset.css') ?>" type="text/css" media="all"/>
     <link rel="stylesheet" href="<?php echo $this->getViewFileUrl('css/boxes.css') ?>" type="text/css" media="all"/>
     <link rel="stylesheet" href="<?php echo $this->getViewFileUrl('css/clears.css') ?>" type="text/css" media="all"/>
-    <?php echo $this->helper('Magento\Core\Helper\Js')->getTranslatorScript() ?>
+    <?php echo $this->getTranslatorScript(); ?>
 </head>
 
 <body>
@@ -112,7 +111,7 @@
         <p class="legality">
             <?php echo __('Help Us Keep Magento Healthy') ?> - <a
             href="http://www.magentocommerce.com/bug-tracking"
-            target="varien_external"><strong><?php echo __('Report All Bugs') ?></strong></a> <?php echo __('(ver. %1)', \Magento\AppInterface::VERSION) ?>
+            target="varien_external"><strong><?php echo __('Report All Bugs') ?></strong></a> <?php echo __('(ver. %1)', \Magento\Framework\AppInterface::VERSION) ?>
             <br/>
             <?php echo $this->getChildHtml('copyright');?>
         </p>

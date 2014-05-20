@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Manage currency import services block
  *
- * @category   Magento
- * @package    Magento_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\CurrencySymbol\Block\Adminhtml\System\Currency\Rate;
@@ -63,14 +59,14 @@ class Services extends \Magento\Backend\Block\Template
     /**
      * Create import services form select element
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _prepareLayout()
     {
         $this->setChild(
             'import_services',
             $this->getLayout()->createBlock(
-                'Magento\View\Element\Html\Select'
+                'Magento\Framework\View\Element\Html\Select'
             )->setOptions(
                 $this->_srcCurrencyFactory->create()->toOptionArray()
             )->setId(

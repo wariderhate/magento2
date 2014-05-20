@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -69,7 +66,14 @@ class EditTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $this->_requestMock = $this->getMock('Magento\App\RequestInterface', array(), array(), '', false, false);
+        $this->_requestMock = $this->getMock(
+            'Magento\Framework\App\RequestInterface',
+            array(),
+            array(),
+            '',
+            false,
+            false
+        );
         $this->_requestMock->expects(
             $this->any()
         )->method(
@@ -80,7 +84,7 @@ class EditTest extends \PHPUnit_Framework_TestCase
             $this->returnValue('test_section')
         );
 
-        $this->_layoutMock = $this->getMock('Magento\Core\Model\Layout', array(), array(), '', false, false);
+        $this->_layoutMock = $this->getMock('Magento\Framework\View\Layout', array(), array(), '', false, false);
 
         $this->_urlModelMock = $this->getMock('Magento\Backend\Model\Url', array(), array(), '', false, false);
 

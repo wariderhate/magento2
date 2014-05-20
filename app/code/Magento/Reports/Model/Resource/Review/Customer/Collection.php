@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Report Customers Review collection
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource\Review\Customer;
@@ -43,27 +39,27 @@ class Collection extends \Magento\Review\Model\Resource\Review\Collection
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Review\Helper\Data $reviewData
-     * @param \Magento\Rating\Model\Rating\Option\VoteFactory $voteFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Review\Model\Rating\Option\VoteFactory $voteFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Customer\Model\Resource\Customer $customerResource
      * @param mixed $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Review\Helper\Data $reviewData,
-        \Magento\Rating\Model\Rating\Option\VoteFactory $voteFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Review\Model\Rating\Option\VoteFactory $voteFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Resource\Customer $customerResource,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
         $this->_customerResource = $customerResource;
         parent::__construct(
@@ -98,7 +94,7 @@ class Collection extends \Magento\Review\Model\Resource\Review\Collection
      */
     protected function _joinCustomers()
     {
-        /** @var $adapter \Magento\DB\Adapter\AdapterInterface */
+        /** @var $adapter \Magento\Framework\DB\Adapter\AdapterInterface */
         $adapter = $this->getConnection();
         /** @var $firstnameAttr \Magento\Eav\Model\Entity\Attribute */
         $firstnameAttr = $this->_customerResource->getAttribute('firstname');

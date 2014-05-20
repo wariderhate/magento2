@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * Reports summary collection
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource\Entity\Summary\Collection;
 
-class AbstractCollection extends \Magento\Data\Collection
+class AbstractCollection extends \Magento\Framework\Data\Collection
 {
     /**
      * Entity collection for summaries
@@ -44,15 +40,15 @@ class AbstractCollection extends \Magento\Data\Collection
     protected $_entityCollection;
 
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      */
-    public function __construct(\Magento\Core\Model\EntityFactory $entityFactory, \Magento\Stdlib\DateTime $dateTime)
+    public function __construct(\Magento\Core\Model\EntityFactory $entityFactory, \Magento\Framework\Stdlib\DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
         parent::__construct($entityFactory);

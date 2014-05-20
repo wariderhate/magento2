@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ImportExport\Model\Import;
 /**
  * Import entity product model
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Uploader extends \Magento\Core\Model\File\Uploader
@@ -57,7 +53,7 @@ class Uploader extends \Magento\Core\Model\File\Uploader
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
-     * @var \Magento\Image\AdapterFactory
+     * @var \Magento\Framework\Image\AdapterFactory
      */
     protected $_imageFactory;
 
@@ -69,17 +65,17 @@ class Uploader extends \Magento\Core\Model\File\Uploader
     /**
      * @param \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb
      * @param \Magento\Core\Helper\File\Storage $coreFileStorage
-     * @param \Magento\Image\AdapterFactory $imageFactory
+     * @param \Magento\Framework\Image\AdapterFactory $imageFactory
      * @param \Magento\Core\Model\File\Validator\NotProtectedExtension $validator
-     * @param \Magento\App\Filesystem $filesystem
+     * @param \Magento\Framework\App\Filesystem $filesystem
      * @param string $filePath
      */
     public function __construct(
         \Magento\Core\Helper\File\Storage\Database $coreFileStorageDb,
         \Magento\Core\Helper\File\Storage $coreFileStorage,
-        \Magento\Image\AdapterFactory $imageFactory,
+        \Magento\Framework\Image\AdapterFactory $imageFactory,
         \Magento\Core\Model\File\Validator\NotProtectedExtension $validator,
-        \Magento\App\Filesystem $filesystem,
+        \Magento\Framework\App\Filesystem $filesystem,
         $filePath = null
     ) {
         if (!is_null($filePath)) {
@@ -89,7 +85,7 @@ class Uploader extends \Magento\Core\Model\File\Uploader
         $this->_coreFileStorageDb = $coreFileStorageDb;
         $this->_coreFileStorage = $coreFileStorage;
         $this->_validator = $validator;
-        $this->_directory = $filesystem->getDirectoryWrite(\Magento\App\Filesystem::ROOT_DIR);
+        $this->_directory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::ROOT_DIR);
     }
 
     /**
@@ -128,12 +124,12 @@ class Uploader extends \Magento\Core\Model\File\Uploader
      *
      * @param string $filePath
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _setUploadFile($filePath)
     {
         if (!$this->_directory->isReadable($filePath)) {
-            throw new \Magento\Model\Exception("File '{$filePath}' was not found or has read restriction.");
+            throw new \Magento\Framework\Model\Exception("File '{$filePath}' was not found or has read restriction.");
         }
         $this->_file = $this->_readFileInfo($filePath);
 

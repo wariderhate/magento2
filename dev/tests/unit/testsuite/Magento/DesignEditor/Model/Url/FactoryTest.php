@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,19 +31,19 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
     protected function setUp()
     {
-        $this->_objectManager = $this->getMock('Magento\ObjectManager');
+        $this->_objectManager = $this->getMock('Magento\Framework\ObjectManager');
         $this->_model = new \Magento\DesignEditor\Model\Url\Factory($this->_objectManager);
     }
 
     public function testConstruct()
     {
-        $this->assertAttributeInstanceOf('Magento\ObjectManager', '_objectManager', $this->_model);
+        $this->assertAttributeInstanceOf('Magento\Framework\ObjectManager', '_objectManager', $this->_model);
     }
 
     public function testReplaceClassName()
@@ -56,7 +53,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         )->method(
             'configure'
         )->with(
-            array('preferences' => array('Magento\UrlInterface' => 'TestClass'))
+            array('preferences' => array('Magento\Framework\UrlInterface' => 'TestClass'))
         );
 
         $this->assertEquals($this->_model, $this->_model->replaceClassName('TestClass'));
@@ -69,7 +66,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         )->method(
             'create'
         )->with(
-            'Magento\UrlInterface',
+            'Magento\Framework\UrlInterface',
             array()
         )->will(
             $this->returnValue('ModelInstance')

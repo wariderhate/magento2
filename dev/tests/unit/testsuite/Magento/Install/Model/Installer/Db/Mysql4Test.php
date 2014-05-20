@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,18 +35,18 @@ class Mysql4Test extends \PHPUnit_Framework_TestCase
      */
     public function testSupportEngine(array $supportedEngines, $expectedResult)
     {
-        $connectionMock = $this->getMock('Magento\DB\Adapter\AdapterInterface');
+        $connectionMock = $this->getMock('Magento\Framework\DB\Adapter\AdapterInterface');
         $connectionMock->expects($this->once())->method('fetchPairs')->will($this->returnValue($supportedEngines));
 
         $adapterFactory = $this->getMock(
-            'Magento\Model\Resource\Type\Db\Pdo\MysqlFactory',
+            'Magento\Framework\Model\Resource\Type\Db\Pdo\MysqlFactory',
             array('create'),
             array(),
             '',
             false
         );
         $adapterMock = $this->getMock(
-            'Magento\Model\Resource\Type\Db\Pdo\Mysql',
+            'Magento\Framework\Model\Resource\Type\Db\Pdo\Mysql',
             array('getConnection'),
             array(),
             '',
@@ -58,7 +55,8 @@ class Mysql4Test extends \PHPUnit_Framework_TestCase
         $adapterMock->expects($this->once())->method('getConnection')->will($this->returnValue($connectionMock));
         $adapterFactory->expects($this->once())->method('create')->will($this->returnValue($adapterMock));
 
-        $localConfig = $this->getMockBuilder('\Magento\App\Arguments')->disableOriginalConstructor()->getMock();
+        $localConfig =
+            $this->getMockBuilder('\Magento\Framework\App\Arguments')->disableOriginalConstructor()->getMock();
 
         $installer = new \Magento\Install\Model\Installer\Db\Mysql4($adapterFactory, $localConfig);
         $this->assertEquals($expectedResult, $installer->supportEngine());
@@ -87,13 +85,14 @@ class Mysql4Test extends \PHPUnit_Framework_TestCase
     public function testGetRequiredExtensions($config, $dbExtensions, $expectedResult)
     {
         $adapterFactory = $this->getMock(
-            'Magento\Model\Resource\Type\Db\Pdo\MysqlFactory',
+            'Magento\Framework\Model\Resource\Type\Db\Pdo\MysqlFactory',
             array('create'),
             array(),
             '',
             false
         );
-        $localConfig = $this->getMockBuilder('\Magento\App\Arguments')->disableOriginalConstructor()->getMock();
+        $localConfig =
+            $this->getMockBuilder('\Magento\Framework\App\Arguments')->disableOriginalConstructor()->getMock();
         $installer = new \Magento\Install\Model\Installer\Db\Mysql4($adapterFactory, $localConfig, $dbExtensions);
         $installer->setConfig($config);
         $this->assertEquals($expectedResult, $installer->getRequiredExtensions());

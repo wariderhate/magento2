@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -68,14 +65,14 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
         $this->_model->apply(
             $objectManager->get('Magento\TestFramework\Request'),
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\View\LayoutInterface'
+                'Magento\Framework\View\LayoutInterface'
             )->createBlock(
-                'Magento\View\Element\Text'
+                'Magento\Framework\View\Element\Text'
             )
         );
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $this->assertNull($objectManager->get('Magento\Registry')->registry('current_category_filter'));
+        $this->assertNull($objectManager->get('Magento\Framework\Registry')->registry('current_category_filter'));
     }
 
     public function testApply()
@@ -86,14 +83,14 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
         $this->_model->apply(
             $request,
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\View\LayoutInterface'
+                'Magento\Framework\View\LayoutInterface'
             )->createBlock(
-                'Magento\View\Element\Text'
+                'Magento\Framework\View\Element\Text'
             )
         );
 
         /** @var $category \Magento\Catalog\Model\Category */
-        $category = $objectManager->get('Magento\Registry')->registry('current_category_filter');
+        $category = $objectManager->get('Magento\Framework\Registry')->registry('current_category_filter');
         $this->assertInstanceOf('Magento\Catalog\Model\Category', $category);
         $this->assertEquals(3, $category->getId());
 

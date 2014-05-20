@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Bundle\Helper\Catalog\Product\Configuration;
 /**
  * Shopping cart item render block
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Renderer extends \Magento\Checkout\Block\Cart\Item\Renderer
@@ -49,22 +45,22 @@ class Renderer extends \Magento\Checkout\Block\Cart\Item\Renderer
     protected $_bundleProdConfigur = null;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Catalog\Helper\Product\Configuration $productConfig
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Catalog\Helper\Image $imageHelper
      * @param \Magento\Core\Helper\Url $urlHelper
-     * @param \Magento\Message\ManagerInterface $messageManager
+     * @param \Magento\Framework\Message\ManagerInterface $messageManager
      * @param Configuration $bundleProdConfigur
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Helper\Product\Configuration $productConfig,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Catalog\Helper\Image $imageHelper,
         \Magento\Core\Helper\Url $urlHelper,
-        \Magento\Message\ManagerInterface $messageManager,
+        \Magento\Framework\Message\ManagerInterface $messageManager,
         Configuration $bundleProdConfigur,
         array $data = array()
     ) {

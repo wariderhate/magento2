@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,7 +37,7 @@ class Js extends \Magento\Theme\Block\Adminhtml\System\Design\Theme\Edit\Abstrac
      */
     protected function _prepareForm()
     {
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
         $this->setForm($form);
         $this->_addThemeJsFieldset();
@@ -57,7 +55,9 @@ class Js extends \Magento\Theme\Block\Adminhtml\System\Design\Theme\Edit\Abstrac
         $form = $this->getForm();
         $themeFieldset = $form->addFieldset('theme_js', array('legend' => __('Theme Java Script')));
         $customization = $this->_getCurrentTheme()->getCustomization();
-        $customJsFiles = $customization->getFilesByType(\Magento\View\Design\Theme\Customization\File\Js::TYPE);
+        $customJsFiles = $customization->getFilesByType(
+            \Magento\Framework\View\Design\Theme\Customization\File\Js::TYPE
+        );
 
         /** @var $jsFieldsetRenderer \Magento\Backend\Block\Widget\Form\Renderer\Fieldset */
         $jsFieldsetRenderer = $this->getChildBlock('theme_edit_tabs_tab_js_tab_content');

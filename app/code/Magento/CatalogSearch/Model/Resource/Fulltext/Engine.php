@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\CatalogSearch\Model\Resource\Fulltext;
 /**
  * CatalogSearch Fulltext Index Engine resource model
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Engine extends \Magento\Model\Resource\Db\AbstractDb implements
+class Engine extends \Magento\Framework\Model\Resource\Db\AbstractDb implements
     \Magento\CatalogSearch\Model\Resource\EngineInterface
 {
     /**
@@ -83,7 +79,7 @@ class Engine extends \Magento\Model\Resource\Db\AbstractDb implements
     /**
      * Construct
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\CatalogSearch\Model\Resource\Advanced\CollectionFactory $catalogSearchAdvancedCollectionFactory
      * @param \Magento\CatalogSearch\Model\Resource\Fulltext\CollectionFactory $catalogSearchFulltextCollectionFactory
      * @param \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility
@@ -93,7 +89,7 @@ class Engine extends \Magento\Model\Resource\Db\AbstractDb implements
      * @param \Magento\CatalogSearch\Model\Resource\Helper $resourceHelper
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\CatalogSearch\Model\Resource\Advanced\CollectionFactory $catalogSearchAdvancedCollectionFactory,
         \Magento\CatalogSearch\Model\Resource\Fulltext\CollectionFactory $catalogSearchFulltextCollectionFactory,
         \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility,

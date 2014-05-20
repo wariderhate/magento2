@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,9 +27,9 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetAddButtonId()
     {
-        $button = new \Magento\Object();
+        $button = new \Magento\Framework\Object();
 
-        $itemsBlock = $this->getMock('Magento\Object', array('getChildBlock'));
+        $itemsBlock = $this->getMock('Magento\Framework\Object', array('getChildBlock'));
         $itemsBlock->expects(
             $this->atLeastOnce()
         )->method(
@@ -43,7 +40,7 @@ class OptionTest extends \PHPUnit_Framework_TestCase
             $this->returnValue($button)
         );
 
-        $layout = $this->getMock('Magento\Object', array('getBlock'));
+        $layout = $this->getMock('Magento\Framework\Object', array('getBlock'));
         $layout->expects(
             $this->atLeastOnce()
         )->method(

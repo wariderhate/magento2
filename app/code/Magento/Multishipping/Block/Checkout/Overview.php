@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Sales\Model\Quote\Address;
 /**
  * Multishipping checkout overview information
  *
- * @category   Magento
- * @package    Magento_Checkout
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Overview extends \Magento\Sales\Block\Items\AbstractItems
@@ -52,13 +48,13 @@ class Overview extends \Magento\Sales\Block\Items\AbstractItems
     protected $_taxHelper;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Multishipping\Model\Checkout\Type\Multishipping $multishipping
      * @param \Magento\Tax\Helper\Data $taxHelper
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Multishipping\Model\Checkout\Type\Multishipping $multishipping,
         \Magento\Tax\Helper\Data $taxHelper,
         array $data = array()
@@ -112,12 +108,12 @@ class Overview extends \Magento\Sales\Block\Items\AbstractItems
     /**
      * Get object with payment info posted data
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getPayment()
     {
         if (!$this->hasData('payment')) {
-            $payment = new \Magento\Object($this->getRequest()->getPost('payment'));
+            $payment = new \Magento\Framework\Object($this->getRequest()->getPost('payment'));
             $this->setData('payment', $payment);
         }
         return $this->_getData('payment');
@@ -359,10 +355,10 @@ class Overview extends \Magento\Sales\Block\Items\AbstractItems
     /**
      * Return row-level item html
      *
-     * @param \Magento\Object $item
+     * @param \Magento\Framework\Object $item
      * @return string
      */
-    public function getRowItemHtml(\Magento\Object $item)
+    public function getRowItemHtml(\Magento\Framework\Object $item)
     {
         $type = $this->_getItemType($item);
         $renderer = $this->_getRowItemRenderer($type)->setItem($item);
@@ -374,7 +370,7 @@ class Overview extends \Magento\Sales\Block\Items\AbstractItems
      * Retrieve renderer block for row-level item output
      *
      * @param string $type
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _getRowItemRenderer($type)
     {

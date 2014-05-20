@@ -23,9 +23,8 @@
  */
 namespace Magento\Downloadable\Controller;
 
-use Magento\App\ResponseInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Downloadable\Helper\Download as DownloadHelper;
-use Magento\Model\Exception as CoreException;
 use Magento\Downloadable\Model\Link\Purchased\Item as PurchasedLink;
 
 /**
@@ -33,16 +32,16 @@ use Magento\Downloadable\Model\Link\Purchased\Item as PurchasedLink;
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Download extends \Magento\App\Action\Action
+class Download extends \Magento\Framework\App\Action\Action
 {
     /**
      * Return core session object
      *
-     * @return \Magento\Core\Model\Session
+     * @return \Magento\Framework\Session\Generic
      */
     protected function _getSession()
     {
-        return $this->_objectManager->get('Magento\Core\Model\Session');
+        return $this->_objectManager->get('Magento\Framework\Session\Generic');
     }
 
     /**
@@ -126,7 +125,7 @@ class Download extends \Magento\App\Action\Action
             try {
                 $this->_processDownload($resource, $resourceType);
                 exit(0);
-            } catch (CoreException $e) {
+            } catch (\Exception $e) {
                 $this->messageManager->addError(
                     __('Sorry, there was an error getting requested content. Please contact the store owner.')
                 );
@@ -163,7 +162,7 @@ class Download extends \Magento\App\Action\Action
             try {
                 $this->_processDownload($resource, $resourceType);
                 exit(0);
-            } catch (CoreException $e) {
+            } catch (\Exception $e) {
                 $this->messageManager->addError(
                     __('Sorry, there was an error getting requested content. Please contact the store owner.')
                 );
@@ -215,7 +214,7 @@ class Download extends \Magento\App\Action\Action
                 $session->authenticate($this);
                 $session->setBeforeAuthUrl(
                     $this->_objectManager->create(
-                        'Magento\UrlInterface'
+                        'Magento\Framework\UrlInterface'
                     )->getUrl(
                         'downloadable/customer/products/',
                         array('_secure' => true)

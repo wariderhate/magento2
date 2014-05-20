@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Backend\Model\Search;
 /**
  * Search Catalog Model
  */
-class Catalog extends \Magento\Object
+class Catalog extends \Magento\Framework\Object
 {
     /**
      * Catalog search data
@@ -40,7 +38,7 @@ class Catalog extends \Magento\Object
     /**
      * Magento string lib
      *
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $string;
 
@@ -53,12 +51,12 @@ class Catalog extends \Magento\Object
 
     /**
      * @param \Magento\Backend\Helper\Data $adminhtmlData
-     * @param \Magento\Stdlib\String $string
+     * @param \Magento\Framework\Stdlib\String $string
      * @param \Magento\CatalogSearch\Helper\Data $catalogSearchData
      */
     public function __construct(
         \Magento\Backend\Helper\Data $adminhtmlData,
-        \Magento\Stdlib\String $string,
+        \Magento\Framework\Stdlib\String $string,
         \Magento\CatalogSearch\Helper\Data $catalogSearchData
     ) {
         $this->_adminhtmlData = $adminhtmlData;

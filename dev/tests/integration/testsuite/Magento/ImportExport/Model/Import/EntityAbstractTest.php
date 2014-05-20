@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,10 +34,11 @@ class EntityAbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testSaveValidatedBunches()
     {
-        $filesystem = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\App\Filesystem');
-        $directory = $filesystem->getDirectoryWrite(\Magento\App\Filesystem::ROOT_DIR);
+        $filesystem = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
+            ->create('Magento\Framework\App\Filesystem');
+        $directory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::ROOT_DIR);
         $source = new \Magento\ImportExport\Model\Import\Source\Csv(
-            __DIR__ . '/Entity/Eav/_files/customers_for_validation_test.csv',
+            __DIR__ . '/Entity/_files/customers_for_validation_test.csv',
             $directory
         );
         $source->rewind();
@@ -52,11 +50,11 @@ class EntityAbstractTest extends \PHPUnit_Framework_TestCase
             'Magento\ImportExport\Model\Import\AbstractEntity',
             array(
                 $objectManager->get('Magento\Core\Helper\Data'),
-                $objectManager->get('Magento\Stdlib\String'),
-                $objectManager->get('Magento\Core\Model\Store\Config'),
+                $objectManager->get('Magento\Framework\Stdlib\String'),
+                $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface'),
                 $objectManager->get('Magento\ImportExport\Model\ImportFactory'),
                 $objectManager->get('Magento\ImportExport\Model\Resource\Helper'),
-                $objectManager->get('Magento\App\Resource')
+                $objectManager->get('Magento\Framework\App\Resource')
             )
         );
         $model->expects($this->any())->method('validateRow')->will($this->returnValue(true));

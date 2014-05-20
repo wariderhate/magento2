@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,10 +33,10 @@ abstract class AbstractComposite extends \Magento\Backend\Model\Config\Structure
     protected $_childrenIterator;
 
     /**
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param Iterator $childrenIterator
      */
-    public function __construct(\Magento\Core\Model\StoreManagerInterface $storeManager, Iterator $childrenIterator)
+    public function __construct(\Magento\Store\Model\StoreManagerInterface $storeManager, Iterator $childrenIterator)
     {
         parent::__construct($storeManager);
         $this->_childrenIterator = $childrenIterator;

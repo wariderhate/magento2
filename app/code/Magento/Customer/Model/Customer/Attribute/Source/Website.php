@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,14 +26,12 @@ namespace Magento\Customer\Model\Customer\Attribute\Source;
 /**
  * Customer website attribute source
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Website extends \Magento\Eav\Model\Entity\Attribute\Source\Table
 {
     /**
-     * @var \Magento\Core\Model\System\Store
+     * @var \Magento\Store\Model\System\Store
      */
     protected $_store;
 
@@ -43,13 +39,13 @@ class Website extends \Magento\Eav\Model\Entity\Attribute\Source\Table
      * @param \Magento\Core\Helper\Data $coreData
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\Option\CollectionFactory $attrOptionCollectionFactory
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\OptionFactory $attrOptionFactory
-     * @param \Magento\Core\Model\System\Store $store
+     * @param \Magento\Store\Model\System\Store $store
      */
     public function __construct(
         \Magento\Core\Helper\Data $coreData,
         \Magento\Eav\Model\Resource\Entity\Attribute\Option\CollectionFactory $attrOptionCollectionFactory,
         \Magento\Eav\Model\Resource\Entity\Attribute\OptionFactory $attrOptionFactory,
-        \Magento\Core\Model\System\Store $store
+        \Magento\Store\Model\System\Store $store
     ) {
         parent::__construct($coreData, $attrOptionCollectionFactory, $attrOptionFactory);
         $this->_store = $store;

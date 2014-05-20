@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,14 +26,12 @@
 /**
  * EAV attribute resource model (Using Forms)
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Eav\Model\Resource;
 
-use Magento\Model\AbstractModel;
-use Magento\DB\Select;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\DB\Select;
 
 abstract class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
 {
@@ -61,7 +57,7 @@ abstract class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Perform actions before object save
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _beforeSave(AbstractModel $object)
@@ -107,7 +103,7 @@ abstract class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Save attribute/form relations after attribute save
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _afterSave(AbstractModel $object)
@@ -193,7 +189,7 @@ abstract class Attribute extends \Magento\Eav\Model\Resource\Entity\Attribute
     /**
      * Return forms in which the attribute
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return array
      */
     public function getUsedInForms(AbstractModel $object)

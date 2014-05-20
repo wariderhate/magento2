@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Downloadable\Helper\Catalog\Product;
 /**
  * Helper for fetching properties by product configurational item
  *
- * @category   Magento
- * @package    Magento_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Configuration extends \Magento\App\Helper\AbstractHelper implements
+class Configuration extends \Magento\Framework\App\Helper\AbstractHelper implements
     \Magento\Catalog\Helper\Product\Configuration\ConfigurationInterface
 {
     /**
@@ -45,22 +41,22 @@ class Configuration extends \Magento\App\Helper\AbstractHelper implements
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @param \Magento\App\Helper\Context $context
+     * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Catalog\Helper\Product\Configuration $productConfigur
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
+        \Magento\Framework\App\Helper\Context $context,
         \Magento\Catalog\Helper\Product\Configuration $productConfigur,
-        \Magento\Core\Model\Store\Config $coreStoreConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
         $this->_productConfigur = $productConfigur;
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         parent::__construct($context);
     }
 
@@ -98,7 +94,7 @@ class Configuration extends \Magento\App\Helper\AbstractHelper implements
         if (strlen($title)) {
             return $title;
         }
-        return $this->_coreStoreConfig->getConfig(\Magento\Downloadable\Model\Link::XML_PATH_LINKS_TITLE);
+        return $this->_scopeConfig->getValue(\Magento\Downloadable\Model\Link::XML_PATH_LINKS_TITLE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**

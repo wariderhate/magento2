@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Controller\Adminhtml\Product;
 /**
  * Catalog product gallery controller
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Gallery extends \Magento\Backend\App\Action
@@ -42,16 +38,16 @@ class Gallery extends \Magento\Backend\App\Action
         try {
             $uploader = $this->_objectManager->create('Magento\Core\Model\File\Uploader', array('fileId' => 'image'));
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-            /** @var \Magento\Image\Adapter\AdapterInterface $imageAdapter */
-            $imageAdapter = $this->_objectManager->get('Magento\Image\AdapterFactory')->create();
+            /** @var \Magento\Framework\Image\Adapter\AdapterInterface $imageAdapter */
+            $imageAdapter = $this->_objectManager->get('Magento\Framework\Image\AdapterFactory')->create();
             $uploader->addValidateCallback('catalog_product_image', $imageAdapter, 'validateUploadFile');
             $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(true);
-            /** @var \Magento\Filesystem\Directory\Read $mediaDirectory */
+            /** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
             $mediaDirectory = $this->_objectManager->get(
-                'Magento\App\Filesystem'
+                'Magento\Framework\App\Filesystem'
             )->getDirectoryRead(
-                \Magento\App\Filesystem::MEDIA_DIR
+                \Magento\Framework\App\Filesystem::MEDIA_DIR
             );
             $config = $this->_objectManager->get('Magento\Catalog\Model\Product\Media\Config');
             $result = $uploader->save($mediaDirectory->getAbsolutePath($config->getBaseTmpMediaPath()));

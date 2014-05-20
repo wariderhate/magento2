@@ -18,24 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Eav\Model\Resource\Form;
 
 use Magento\Eav\Model\Form\Type as FormType;
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Eav Form Type Resource Model
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Type extends \Magento\Model\Resource\Db\AbstractDb
+class Type extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Initialize connection and define main table
@@ -93,7 +89,7 @@ class Type extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Save entity types after save form type
      *
-     * @see \Magento\Model\Resource\Db\AbstractDb#_afterSave($object)
+     * @see \Magento\Framework\Model\Resource\Db\AbstractDb#_afterSave($object)
      *
      * @param FormType|AbstractModel $object
      * @return $this

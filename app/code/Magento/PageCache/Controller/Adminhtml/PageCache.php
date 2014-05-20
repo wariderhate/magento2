@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_PageCache
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -42,12 +40,12 @@ class PageCache extends \Magento\Backend\App\Action
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\App\Response\Http\FileFactory $fileFactory
+     * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
      * @param \Magento\PageCache\Model\Config $config
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\App\Response\Http\FileFactory $fileFactory,
+        \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
         \Magento\PageCache\Model\Config $config
     ) {
         parent::__construct($context);
@@ -58,12 +56,12 @@ class PageCache extends \Magento\Backend\App\Action
     /**
      * Export Varnish Configuration as .vcl
      *
-     * @return \Magento\App\ResponseInterface
+     * @return \Magento\Framework\App\ResponseInterface
      */
     public function exportVarnishConfigAction()
     {
         $fileName = 'varnish.vcl';
         $content = $this->config->getVclFile();
-        return $this->fileFactory->create($fileName, $content, \Magento\App\Filesystem::VAR_DIR);
+        return $this->fileFactory->create($fileName, $content, \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 }

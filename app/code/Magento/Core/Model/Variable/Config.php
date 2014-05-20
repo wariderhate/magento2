@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Variable Wysiwyg Plugin Config
  *
- * @category    Magento
- * @package     Magento_Core
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Core\Model\Variable;
@@ -36,7 +32,7 @@ namespace Magento\Core\Model\Variable;
 class Config
 {
     /**
-     * @var \Magento\View\Url
+     * @var \Magento\Framework\View\Url
      */
     protected $_viewUrl;
 
@@ -46,10 +42,10 @@ class Config
     protected $_url;
 
     /**
-     * @param \Magento\View\Url $viewUrl
+     * @param \Magento\Framework\View\Url $viewUrl
      * @param \Magento\Backend\Model\UrlInterface $url
      */
-    public function __construct(\Magento\View\Url $viewUrl, \Magento\Backend\Model\UrlInterface $url)
+    public function __construct(\Magento\Framework\View\Url $viewUrl, \Magento\Backend\Model\UrlInterface $url)
     {
         $this->_viewUrl = $viewUrl;
         $this->_url = $url;
@@ -58,7 +54,7 @@ class Config
     /**
      * Prepare variable wysiwyg config
      *
-     * @param \Magento\Object $config
+     * @param \Magento\Framework\Object $config
      * @return array
      */
     public function getWysiwygPluginSettings($config)

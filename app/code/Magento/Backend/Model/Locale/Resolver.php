@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Backend\Model\Locale;
 /**
  * Backend locale model
  */
-class Resolver extends \Magento\Locale\Resolver
+class Resolver extends \Magento\Framework\Locale\Resolver
 {
     /**
      * @var \Magento\Backend\Model\Session
@@ -41,44 +39,44 @@ class Resolver extends \Magento\Locale\Resolver
     protected $_localeManager;
 
     /**
-     * @var \Magento\App\RequestInterface
+     * @var \Magento\Framework\App\RequestInterface
      */
     protected $_request;
 
     /**
-     * @var \Magento\Locale\Validator
+     * @var \Magento\Framework\Locale\Validator
      */
     protected $_localeValidator;
 
     /**
-     * @param \Magento\Locale\ScopeConfigInterface $scopeConfig
-     * @param \Magento\App\CacheInterface $cache
-     * @param \Magento\LocaleFactory $localeFactory
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\CacheInterface $cache
+     * @param \Magento\Framework\LocaleFactory $localeFactory
      * @param string $defaultLocalePath
-     * @param \Magento\ObjectManager $objectManager
+     * @param string $scopeType
      * @param \Magento\Backend\Model\Session $session
      * @param Manager $localeManager
-     * @param \Magento\App\RequestInterface $request
-     * @param \Magento\Locale\Validator $localeValidator
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @param \Magento\Framework\Locale\Validator $localeValidator
      * @param null $locale
      */
     public function __construct(
-        \Magento\Locale\ScopeConfigInterface $scopeConfig,
-        \Magento\App\CacheInterface $cache,
-        \Magento\LocaleFactory $localeFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\CacheInterface $cache,
+        \Magento\Framework\LocaleFactory $localeFactory,
         $defaultLocalePath,
-        \Magento\ObjectManager $objectManager,
+        $scopeType,
         \Magento\Backend\Model\Session $session,
         \Magento\Backend\Model\Locale\Manager $localeManager,
-        \Magento\App\RequestInterface $request,
-        \Magento\Locale\Validator $localeValidator,
+        \Magento\Framework\App\RequestInterface $request,
+        \Magento\Framework\Locale\Validator $localeValidator,
         $locale = null
     ) {
         $this->_session = $session;
         $this->_localeManager = $localeManager;
         $this->_request = $request;
         $this->_localeValidator = $localeValidator;
-        parent::__construct($scopeConfig, $cache, $localeFactory, $defaultLocalePath, $locale);
+        parent::__construct($scopeConfig, $cache, $localeFactory, $defaultLocalePath, $scopeType, $locale);
     }
 
     /**

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,18 +25,16 @@
 /**
  * Downloadable checkout success page
  *
- * @category   Magento
- * @package    Magento_Downloadable
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Downloadable\Block\Checkout;
 
-use Magento\View\Element\Template;
+use Magento\Framework\View\Element\Template;
 
 class Success extends \Magento\Checkout\Block\Onepage\Success
 {
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
@@ -48,18 +44,18 @@ class Success extends \Magento\Checkout\Block\Onepage\Success
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Sales\Model\OrderFactory $orderFactory
      * @param \Magento\Sales\Model\Order\Config $orderConfig
-     * @param \Magento\App\Http\Context $httpContext
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Framework\App\Http\Context $httpContext
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Sales\Model\Order\Config $orderConfig,
-        \Magento\App\Http\Context $httpContext,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
+        \Magento\Framework\App\Http\Context $httpContext,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = array()
     ) {
         parent::__construct(

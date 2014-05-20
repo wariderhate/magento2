@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,22 +32,22 @@ class Inputtype extends \Magento\Eav\Model\Adminhtml\System\Config\Source\Inputt
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * Core event manager proxy
      *
-     * @var \Magento\Event\ManagerInterface
+     * @var \Magento\Framework\Event\ManagerInterface
      */
     protected $_eventManager = null;
 
     /**
-     * @param \Magento\Event\ManagerInterface $eventManager
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Event\ManagerInterface $eventManager, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Framework\Event\ManagerInterface $eventManager, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_eventManager = $eventManager;
         $this->_coreRegistry = $coreRegistry;
@@ -67,7 +65,7 @@ class Inputtype extends \Magento\Eav\Model\Adminhtml\System\Config\Source\Inputt
             array('value' => 'media_image', 'label' => __('Media Image'))
         );
 
-        $response = new \Magento\Object();
+        $response = new \Magento\Framework\Object();
         $response->setTypes(array());
         $this->_eventManager->dispatch('adminhtml_product_attribute_types', array('response' => $response));
         $_disabledTypes = array();

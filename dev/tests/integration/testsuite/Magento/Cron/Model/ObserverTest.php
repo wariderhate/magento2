@@ -32,14 +32,17 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\AreaList')
+        \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\Framework\App\AreaList')
             ->getArea('crontab')
-            ->load(\Magento\Core\Model\App\Area::PART_CONFIG);
+            ->load(\Magento\Framework\App\Area::PART_CONFIG);
         $this->_model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
             ->create('Magento\Cron\Model\Observer');
         $this->_model->dispatch('this argument is not used');
     }
 
+    /**
+     * @magentoConfigFixture current_store crontab/default/jobs/catalog_product_alert/schedule/cron_expr 8 * * * *
+     */
     public function testDispatchScheduled()
     {
         $collection = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(

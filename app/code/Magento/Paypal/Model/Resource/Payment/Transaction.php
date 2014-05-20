@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,11 +27,9 @@ namespace Magento\Paypal\Model\Resource\Payment;
  * Paypal transaction resource model
  *
  * @deprecated since 1.6.2.0
- * @category    Magento
- * @package     Magento_Paypal
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Transaction extends \Magento\Model\Resource\Db\AbstractDb
+class Transaction extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Serializeable field: additional_information
@@ -71,11 +67,11 @@ class Transaction extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Serialize additional information, if any
      *
-     * @param \Magento\Model\AbstractModel $transaction
+     * @param \Magento\Framework\Model\AbstractModel $transaction
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
-    protected function _beforeSave(\Magento\Model\AbstractModel $transaction)
+    protected function _beforeSave(\Magento\Framework\Model\AbstractModel $transaction)
     {
         $txnId = $transaction->getData('txn_id');
         $idFieldName = $this->getIdFieldName();
@@ -113,7 +109,7 @@ class Transaction extends \Magento\Model\Resource\Db\AbstractDb
      *
      * @param string $txnId
      * @param string|array|Zend_Db_Expr $columns
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     private function _getLoadByUniqueKeySelect($txnId, $columns = '*')
     {

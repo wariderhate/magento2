@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Persistent
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Persistent\Block\Form;
 /**
  * Remember Me block
  *
- * @category    Magento
- * @package     Magento_Persistent
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Remember extends \Magento\View\Element\Template
+class Remember extends \Magento\Framework\View\Element\Template
 {
     /**
      * Persistent data
@@ -42,20 +38,20 @@ class Remember extends \Magento\View\Element\Template
     protected $_persistentData = null;
 
     /**
-     * @var \Magento\Math\Random
+     * @var \Magento\Framework\Math\Random
      */
     protected $mathRandom;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Persistent\Helper\Data $persistentData
-     * @param \Magento\Math\Random $mathRandom
+     * @param \Magento\Framework\Math\Random $mathRandom
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Persistent\Helper\Data $persistentData,
-        \Magento\Math\Random $mathRandom,
+        \Magento\Framework\Math\Random $mathRandom,
         array $data = array()
     ) {
         $this->_persistentData = $persistentData;

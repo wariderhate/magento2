@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,19 +32,19 @@ $table = $installer->getConnection()->newTable(
     $installer->getTable('sales_order_tax_item')
 )->addColumn(
     'tax_item_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true),
     'Tax Item Id'
 )->addColumn(
     'tax_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('unsigned' => true, 'nullable' => false),
     'Tax Id'
 )->addColumn(
     'item_id',
-    \Magento\DB\Ddl\Table::TYPE_INTEGER,
+    \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
     null,
     array('unsigned' => true, 'nullable' => false),
     'Item Id'
@@ -60,24 +58,24 @@ $table = $installer->getConnection()->newTable(
     $installer->getIdxName(
         'sales_order_tax_item',
         array('tax_id', 'item_id'),
-        \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+        \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
     ),
     array('tax_id', 'item_id'),
-    array('type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE)
+    array('type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE)
 )->addForeignKey(
     $installer->getFkName('sales_order_tax_item', 'tax_id', 'sales_order_tax', 'tax_id'),
     'tax_id',
     $installer->getTable('sales_order_tax'),
     'tax_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->addForeignKey(
     $installer->getFkName('sales_order_tax_item', 'item_id', 'sales_flat_order_item', 'item_id'),
     'item_id',
     $installer->getTable('sales_flat_order_item'),
     'item_id',
-    \Magento\DB\Ddl\Table::ACTION_CASCADE,
-    \Magento\DB\Ddl\Table::ACTION_CASCADE
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+    \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
 )->setComment(
     'Sales Order Tax Item'
 );

@@ -18,24 +18,20 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Index
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Index\Model\Resource;
 
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 use Magento\Index\Model\Process as ProcessModel;
 
 /**
  * Index Event Resource Model
  *
- * @category    Magento
- * @package     Magento_Index
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Event extends \Magento\Model\Resource\Db\AbstractDb
+class Event extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * @return void
@@ -81,7 +77,7 @@ class Event extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Save assigned processes
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _afterSave(AbstractModel $object)

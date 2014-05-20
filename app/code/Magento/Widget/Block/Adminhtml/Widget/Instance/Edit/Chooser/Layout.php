@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,21 +29,21 @@ namespace Magento\Widget\Block\Adminhtml\Widget\Instance\Edit\Chooser;
  * @method getArea()
  * @method getTheme()
  */
-class Layout extends \Magento\View\Element\Html\Select
+class Layout extends \Magento\Framework\View\Element\Html\Select
 {
     /**
-     * @var \Magento\View\Layout\PageType\Config
+     * @var \Magento\Framework\View\Layout\PageType\Config
      */
     protected $_config;
 
     /**
-     * @param \Magento\View\Element\Context $context
-     * @param \Magento\View\Layout\PageType\Config $config
+     * @param \Magento\Framework\View\Element\Context $context
+     * @param \Magento\Framework\View\Layout\PageType\Config $config
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Context $context,
-        \Magento\View\Layout\PageType\Config $config,
+        \Magento\Framework\View\Element\Context $context,
+        \Magento\Framework\View\Layout\PageType\Config $config,
         array $data = array()
     ) {
         $this->_config = $config;
@@ -55,7 +53,7 @@ class Layout extends \Magento\View\Element\Html\Select
     /**
      * Add necessary options
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _beforeToHtml()
     {

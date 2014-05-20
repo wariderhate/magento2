@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +29,7 @@ namespace Magento\Paypal\Model;
 class IpnTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
@@ -118,12 +115,12 @@ class IpnTest extends \PHPUnit_Framework_TestCase
     /**
      * Mocked HTTP adapter to get VERIFIED PayPal IPN postback result
      *
-     * @return \Magento\HTTP\Adapter\Curl
+     * @return \Magento\Framework\HTTP\Adapter\Curl
      */
     protected function _createMockedHttpAdapter()
     {
-        $factory = $this->getMock('Magento\HTTP\Adapter\CurlFactory', array('create'), array(), '', false);
-        $adapter = $this->getMock('Magento\HTTP\Adapter\Curl', array('read', 'write'), array(), '', false);
+        $factory = $this->getMock('Magento\Framework\HTTP\Adapter\CurlFactory', array('create'), array(), '', false);
+        $adapter = $this->getMock('Magento\Framework\HTTP\Adapter\Curl', array('read', 'write'), array(), '', false);
 
         $adapter->expects($this->once())->method('read')->with()->will($this->returnValue("\nVERIFIED"));
 

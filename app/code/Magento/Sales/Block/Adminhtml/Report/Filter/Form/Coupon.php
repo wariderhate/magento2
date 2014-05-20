@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Report\Filter\Form;
 /**
  * Sales Adminhtml report filter form for coupons report
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Coupon extends \Magento\Sales\Block\Adminhtml\Report\Filter\Form
@@ -50,16 +46,16 @@ class Coupon extends \Magento\Sales\Block\Adminhtml\Report\Filter\Form
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Sales\Model\Order\ConfigFactory $orderConfig
      * @param \Magento\SalesRule\Model\Resource\Report\RuleFactory $reportRule
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Sales\Model\Order\ConfigFactory $orderConfig,
         \Magento\SalesRule\Model\Resource\Report\RuleFactory $reportRule,
         array $data = array()
@@ -77,10 +73,10 @@ class Coupon extends \Magento\Sales\Block\Adminhtml\Report\Filter\Form
     {
         parent::_prepareForm();
 
-        /** @var \Magento\Data\Form\Element\Fieldset $fieldset */
+        /** @var \Magento\Framework\Data\Form\Element\Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof \Magento\Data\Form\Element\Fieldset) {
+        if (is_object($fieldset) && $fieldset instanceof \Magento\Framework\Data\Form\Element\Fieldset) {
 
             $fieldset->addField(
                 'price_rule_type',

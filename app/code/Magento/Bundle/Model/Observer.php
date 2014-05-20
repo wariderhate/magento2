@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Bundle\Model;
 /**
  * Bundle Products Observer
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Observer
@@ -87,7 +83,7 @@ class Observer
     /**
      * Append bundles in upsell list for current product
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return $this
      */
     public function appendUpsellProducts($observer)
@@ -148,11 +144,11 @@ class Observer
             true
         );
 
-        if ($collection instanceof \Magento\Data\Collection) {
+        if ($collection instanceof \Magento\Framework\Data\Collection) {
             foreach ($bundleCollection as $item) {
                 $collection->addItem($item);
             }
-        } elseif ($collection instanceof \Magento\Object) {
+        } elseif ($collection instanceof \Magento\Framework\Object) {
             $items = $collection->getItems();
             foreach ($bundleCollection as $item) {
                 $items[$item->getEntityId()] = $item;
@@ -167,7 +163,7 @@ class Observer
      * Add price index data for catalog product collection
      * only for front end
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
     public function loadProductOptions($observer)
@@ -182,7 +178,7 @@ class Observer
     /**
      * Setting attribute tab block for bundle
      *
-     * @param \Magento\Object $observer
+     * @param \Magento\Framework\Object $observer
      * @return $this
      */
     public function setAttributeTabBlock($observer)
@@ -199,10 +195,10 @@ class Observer
     /**
      * Initialize product options renderer with bundle specific params
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
-    public function initOptionRenderer(\Magento\Event\Observer $observer)
+    public function initOptionRenderer(\Magento\Framework\Event\Observer $observer)
     {
         $block = $observer->getBlock();
         $block->addOptionsRenderCfg('bundle', 'Magento\Bundle\Helper\Catalog\Product\Configuration');

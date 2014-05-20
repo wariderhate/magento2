@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,7 +45,8 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('Skipped because of authentication process moved into base controller.');
 
-        $request = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\RequestInterface');
+        $request = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
+            ->get('Magento\Framework\App\RequestInterface');
         $this->assertEmpty($request->getRouteName());
         $this->assertEmpty($request->getControllerName());
         $this->assertEmpty($request->getActionName());
@@ -71,7 +69,8 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
         $observer = $this->_buildObserver();
         $this->_model->actionPreDispatchAdmin($observer);
 
-        $response = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\ResponseInterface');
+        $response = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
+            ->get('Magento\Framework\App\ResponseInterface');
         $code = $response->getHttpResponseCode();
         $this->assertTrue($code >= 300 && $code < 400);
 
@@ -92,7 +91,8 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
         $observer = $this->_buildObserver();
         $this->_model->actionPreDispatchAdmin($observer);
 
-        $response = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\ResponseInterface');
+        $response = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
+            ->get('Magento\Framework\App\ResponseInterface');
         $code = $response->getHttpResponseCode();
         $this->assertFalse($code >= 300 && $code < 400);
 
@@ -105,11 +105,12 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * Builds a dummy observer for testing adminPreDispatch method
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     protected function _buildObserver()
     {
-        $request = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\App\RequestInterface');
+        $request = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
+            ->get('Magento\Framework\App\RequestInterface');
         $request->setPost(
             'login',
             array(
@@ -118,9 +119,9 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $controller = new \Magento\Object(array('request' => $request));
-        $event = new \Magento\Object(array('controller_action' => $controller));
-        $observer = new \Magento\Object(array('event' => $event));
+        $controller = new \Magento\Framework\Object(array('request' => $request));
+        $event = new \Magento\Framework\Object(array('controller_action' => $controller));
+        $observer = new \Magento\Framework\Object(array('event' => $event));
         return $observer;
     }
 }

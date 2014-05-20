@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\Directory\Model\Resource;
 /**
  * Directory Country Resource Model
  */
-class Country extends \Magento\Model\Resource\Db\AbstractDb
+class Country extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Resource initialization
@@ -46,7 +44,7 @@ class Country extends \Magento\Model\Resource\Db\AbstractDb
      * @param \Magento\Directory\Model\Country $country
      * @param string $code
      * @return \Magento\Directory\Model\Resource\Country
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function loadByCode(\Magento\Directory\Model\Country $country, $code)
     {
@@ -60,7 +58,7 @@ class Country extends \Magento\Model\Resource\Db\AbstractDb
                 break;
 
             default:
-                throw new \Magento\Model\Exception(__('Please correct the country code: %1.', $code));
+                throw new \Magento\Framework\Model\Exception(__('Please correct the country code: %1.', $code));
         }
 
         return $this->load($country, $code, $field);

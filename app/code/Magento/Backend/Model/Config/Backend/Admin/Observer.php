@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,7 +35,7 @@ class Observer
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
 
@@ -47,28 +45,28 @@ class Observer
     protected $_authSession;
 
     /**
-     * @var \Magento\App\ResponseInterface
+     * @var \Magento\Framework\App\ResponseInterface
      */
     protected $_response;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
      * @param \Magento\Backend\Helper\Data $backendData
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Backend\Model\Auth\Session $authSession
-     * @param \Magento\App\ResponseInterface $response
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\ResponseInterface $response
+     * @param \Magento\Store\Model\StoreManagerInterfac $storeManager
      */
     public function __construct(
         \Magento\Backend\Helper\Data $backendData,
-        \Magento\Registry $coreRegistry,
+        \Magento\Framework\Registry $coreRegistry,
         \Magento\Backend\Model\Auth\Session $authSession,
-        \Magento\App\ResponseInterface $response,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Framework\App\ResponseInterface $response,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_backendData = $backendData;
         $this->_coreRegistry = $coreRegistry;
@@ -93,9 +91,7 @@ class Observer
 
         $route = $this->_backendData->getAreaFrontName();
 
-        $this->_response
-            ->setRedirect($this->_storeManager->getStore()->getBaseUrl() . $route)
-            ->sendResponse();
+        $this->_response->setRedirect($this->_storeManager->getStore()->getBaseUrl() . $route)->sendResponse();
         exit(0);
     }
 }

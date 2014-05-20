@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Abstract resource data model
  *
- * @category    Magento
- * @package     Magento_Install
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Install\Model\Installer\Db;
@@ -38,7 +34,7 @@ abstract class AbstractDb
     /**
      * Resource connection adapter factory
      *
-     * @var \Magento\Model\Resource\Type\Db\Pdo\MysqlFactory
+     * @var \Magento\Framework\Model\Resource\Type\Db\Pdo\MysqlFactory
      */
     protected $_adapterFactory;
 
@@ -52,7 +48,7 @@ abstract class AbstractDb
     /**
      *  Adapter instance
      *
-     * @var \Magento\DB\Adapter\AdapterInterface
+     * @var \Magento\Framework\DB\Adapter\AdapterInterface
      */
     protected $_connection;
 
@@ -73,18 +69,18 @@ abstract class AbstractDb
     /**
      * Configuration arguments
      *
-     * @var \Magento\App\Arguments
+     * @var \Magento\Framework\App\Arguments
      */
     protected $_arguments;
 
     /**
-     * @param \Magento\Model\Resource\Type\Db\Pdo\MysqlFactory $adapterFactory
-     * @param \Magento\App\Arguments $arguments
+     * @param \Magento\Framework\Model\Resource\Type\Db\Pdo\MysqlFactory $adapterFactory
+     * @param \Magento\Framework\App\Arguments $arguments
      * @param array $dbExtensions
      */
     public function __construct(
-        \Magento\Model\Resource\Type\Db\Pdo\MysqlFactory $adapterFactory,
-        \Magento\App\Arguments $arguments,
+        \Magento\Framework\Model\Resource\Type\Db\Pdo\MysqlFactory $adapterFactory,
+        \Magento\Framework\App\Arguments $arguments,
         array $dbExtensions = array()
     ) {
         $this->_adapterFactory = $adapterFactory;
@@ -167,7 +163,7 @@ abstract class AbstractDb
     /**
      * Create new connection with custom config
      *
-     * @return \Magento\DB\Adapter\AdapterInterface
+     * @return \Magento\Framework\DB\Adapter\AdapterInterface
      */
     protected function _getConnection()
     {

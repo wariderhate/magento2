@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -41,15 +39,15 @@ class Salesrule extends \Magento\Rss\Block\AbstractBlock
     protected $_collectionFactory;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\App\Http\Context $httpContext
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param \Magento\Rss\Model\RssFactory $rssFactory
      * @param \Magento\SalesRule\Model\Resource\Rule\CollectionFactory $collectionFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\App\Http\Context $httpContext,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Rss\Model\RssFactory $rssFactory,
         \Magento\SalesRule\Model\Resource\Rule\CollectionFactory $collectionFactory,
         array $data = array()
@@ -85,8 +83,12 @@ class Salesrule extends \Magento\Rss\Block\AbstractBlock
         $now = date('Y-m-d');
         $url = $this->_urlBuilder->getUrl('');
         $newUrl = $this->_urlBuilder->getUrl('rss/catalog/salesrule');
-        $lang = $storeModel->getConfig('general/locale/code');
         $title = __('%1 - Discounts and Coupons', $storeModel->getName());
+        $lang = $this->_scopeConfig->getValue(
+            'general/locale/code',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $storeModel
+        );
 
         /** @var $rssObject \Magento\Rss\Model\Rss */
         $rssObject = $this->_rssFactory->create();
@@ -117,11 +119,8 @@ class Salesrule extends \Magento\Rss\Block\AbstractBlock
 
         /** @var $ruleModel \Magento\SalesRule\Model\Rule */
         foreach ($collection as $ruleModel) {
-            $description = '<table><tr>' .
-                '<td style="text-decoration:none;">' .
-                $ruleModel->getDescription() .
-                '<br/>Discount Start Date: ' .
-                $this->formatDate(
+            $description = '<table><tr>' . '<td style="text-decoration:none;">' . $ruleModel->getDescription()
+                . '<br/>Discount Start Date: ' . $this->formatDate(
                     $ruleModel->getFromDate(),
                     'medium'
                 );

@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backend\Block\Widget\Form;
 
-use Magento\Data\Form;
+use Magento\Framework\Data\Form;
 
 /**
  * Form element widget block
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Element extends \Magento\Backend\Block\Template
@@ -47,7 +43,7 @@ class Element extends \Magento\Backend\Block\Template
     protected $_form;
 
     /**
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_formBlock;
 
@@ -77,7 +73,7 @@ class Element extends \Magento\Backend\Block\Template
     }
 
     /**
-     * @param \Magento\Object $formBlock
+     * @param \Magento\Framework\Object $formBlock
      * @return $this
      */
     public function setFormBlock($formBlock)

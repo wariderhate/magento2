@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     performance_tests
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,6 @@ namespace Magento\Test;
 /**
  * Class ApplicationTest
  *
- * @package Magento\Test
  */
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +35,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     protected $_config;
 
     /**
-     * @var \Magento\Shell|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Shell|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_shell;
 
@@ -78,7 +74,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
             $this->_fixtureDir,
             $this->_fixtureDir . '/app_base_dir'
         );
-        $this->_shell = $this->getMock('Magento\Shell', array('execute'), array(), '', false);
+        $this->_shell = $this->getMock('Magento\Framework\Shell', array('execute'), array(), '', false);
 
         $this->_object = $this->getMock(
             'Magento\TestFramework\Application',
@@ -104,7 +100,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     /**
      * Constructor test
      *
-     * @expectedException \Magento\Exception
+     * @expectedException \Magento\Framework\Exception
      */
     public function testConstructorException()
     {

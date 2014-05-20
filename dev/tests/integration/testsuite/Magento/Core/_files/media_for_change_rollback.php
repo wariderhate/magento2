@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,17 +27,17 @@ $themeDirectory = \Magento\TestFramework\Helper\Bootstrap::getInstance()->getApp
 
 \Magento\TestFramework\Helper\Bootstrap::getInstance()->reinitialize(
     array(
-        \Magento\App\Filesystem::PARAM_APP_DIRS => array(
-            \Magento\App\Filesystem::VAR_DIR => array('path' => $themeDirectory)
+        \Magento\Framework\App\Filesystem::PARAM_APP_DIRS => array(
+            \Magento\Framework\App\Filesystem::VAR_DIR => array('path' => $themeDirectory)
         )
     )
 );
-/** @var $objectManager \Magento\ObjectManager */
+/** @var $objectManager \Magento\Framework\ObjectManager */
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-/** @var $directoryWrite \Magento\Filesystem\Directory\Write */
+/** @var $directoryWrite \Magento\Framework\Filesystem\Directory\Write */
 $directoryWrite = $objectManager->create(
-    'Magento\App\Filesystem'
+    'Magento\Framework\App\Filesystem'
 )->getDirectoryWrite(
-    \Magento\App\Filesystem::VAR_DIR
+    \Magento\Framework\App\Filesystem::VAR_DIR
 );
 $directoryWrite->delete();

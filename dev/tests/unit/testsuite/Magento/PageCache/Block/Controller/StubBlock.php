@@ -24,8 +24,8 @@
 
 namespace Magento\PageCache\Block\Controller;
 
-use Magento\View\Element\AbstractBlock;
-use Magento\View\Block\IdentityInterface;
+use Magento\Framework\View\Element\AbstractBlock;
+use Magento\Framework\View\Block\IdentityInterface;
 
 class StubBlock extends AbstractBlock implements IdentityInterface
 {
@@ -38,4 +38,4 @@ class StubBlock extends AbstractBlock implements IdentityInterface
     {
         return array('identity1', 'identity2');
     }
-} 
+}

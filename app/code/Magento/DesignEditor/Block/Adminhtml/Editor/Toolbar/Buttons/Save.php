@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,10 +49,10 @@ class Save extends \Magento\Backend\Block\Widget\Button\SplitButton
     {
         $theme = $this->getTheme();
         $themeType = $theme->getType();
-        if ($themeType == \Magento\View\Design\ThemeInterface::TYPE_PHYSICAL) {
+        if ($themeType == \Magento\Framework\View\Design\ThemeInterface::TYPE_PHYSICAL) {
             $this->_initPhysical();
-        } else if ($themeType == \Magento\View\Design\ThemeInterface::TYPE_VIRTUAL) {
-            if ($theme->getDomainModel(\Magento\View\Design\ThemeInterface::TYPE_VIRTUAL)->isAssigned()) {
+        } else if ($themeType == \Magento\Framework\View\Design\ThemeInterface::TYPE_VIRTUAL) {
+            if ($theme->getDomainModel(\Magento\Framework\View\Design\ThemeInterface::TYPE_VIRTUAL)->isAssigned()) {
                 $this->_initAssigned();
             } else {
                 $this->_initUnAssigned();
@@ -85,7 +83,7 @@ class Save extends \Magento\Backend\Block\Widget\Button\SplitButton
     /**
      * Set current theme
      *
-     * @param \Magento\View\Design\ThemeInterface $theme
+     * @param \Magento\Framework\View\Design\ThemeInterface $theme
      * @return $this
      */
     public function setTheme($theme)

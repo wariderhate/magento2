@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Newsletter
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,8 +32,8 @@ $template = $objectManager->create('Magento\Newsletter\Model\Template');
 $template->load('fixture_tpl', 'template_code');
 $templateId = $template->getId();
 
-$currentStore = $objectManager->get('Magento\Core\Model\StoreManagerInterface')->getStore()->getId();
-$otherStore = $objectManager->get('Magento\Core\Model\StoreManagerInterface')->getStore('fixturestore')->getId();
+$currentStore = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getId();
+$otherStore = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore('fixturestore')->getId();
 
 /** @var $queue \Magento\Newsletter\Model\Queue */
 $queue = $objectManager->create('Magento\Newsletter\Model\Queue');

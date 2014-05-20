@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,8 +35,8 @@ class ObjectManager
      * @var array
      */
     protected $_specialCases = array(
-        'Magento\Model\Resource\AbstractResource' => '_getResourceModelMock',
-        'Magento\TranslateInterface' => '_getTranslatorMock',
+        'Magento\Framework\Model\Resource\AbstractResource' => '_getResourceModelMock',
+        'Magento\Framework\TranslateInterface' => '_getTranslatorMock',
     );
 
     /**
@@ -88,7 +86,7 @@ class ObjectManager
     {
         $object = null;
         $interfaces = class_implements($className);
-        if (in_array('Magento\ObjectManager\ContextInterface', $interfaces)) {
+        if (in_array('Magento\Framework\ObjectManager\ContextInterface', $interfaces)) {
             $object = $this->getObject($className, $arguments);
         } elseif (isset($this->_specialCases[$className])) {
             $method = $this->_specialCases[$className];
@@ -101,12 +99,12 @@ class ObjectManager
     /**
      * Retrieve specific mock of core resource model
      *
-     * @return \Magento\Core\Model\Resource\Resource|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Magento\Framework\Module\ResourceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function _getResourceModelMock()
     {
         $resourceMock = $this->_testObject->getMock(
-            'Magento\Core\Model\Resource\Resource',
+            'Magento\Install\Model\Resource\Resource',
             array('getIdFieldName', '__sleep', '__wakeup'),
             array(),
             '',
@@ -127,7 +125,7 @@ class ObjectManager
      * Retrieve mock of core translator model
      *
      * @param string $className
-     * @return \Magento\TranslateInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Magento\Framework\TranslateInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function _getTranslatorMock($className)
     {
@@ -236,8 +234,10 @@ class ObjectManager
      */
     public function getCollectionMock($className, array $data)
     {
-        if (!is_subclass_of($className, '\Magento\Data\Collection')) {
-            throw new \InvalidArgumentException($className . ' does not instance of \Magento\Data\Collection');
+        if (!is_subclass_of($className, '\Magento\Framework\Data\Collection')) {
+            throw new \InvalidArgumentException(
+                $className . ' does not instance of \Magento\Framework\Data\Collection'
+            );
         }
         $mock = $this->_testObject->getMock($className, array(), array(), '', false, false);
         $iterator = new \ArrayIterator($data);

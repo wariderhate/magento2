@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Reports\Model;
 /**
  *  Totals Class
  *
- * @category   Magento
- * @package    Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Totals
@@ -40,7 +36,7 @@ class Totals
      * @param \Magento\Backend\Block\Widget\Grid $grid
      * @param string $from
      * @param string $to
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function countTotals($grid, $from, $to)
     {
@@ -88,7 +84,7 @@ class Totals
             }
         }
 
-        $totals = new \Magento\Object();
+        $totals = new \Magento\Framework\Object();
         $totals->setData($data);
 
         return $totals;

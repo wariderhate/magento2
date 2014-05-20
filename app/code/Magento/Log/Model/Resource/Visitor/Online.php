@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Log
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,22 +26,20 @@ namespace Magento\Log\Model\Resource\Visitor;
 /**
  * Log Prepare Online visitors resource 
  *
- * @category    Magento
- * @package     Magento_Log
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Online extends \Magento\Model\Resource\Db\AbstractDb
+class Online extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
-     * @var \Magento\Stdlib\DateTime\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
     protected $_date;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime\DateTime $date
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
      */
-    public function __construct(\Magento\App\Resource $resource, \Magento\Stdlib\DateTime\DateTime $date)
+    public function __construct(\Magento\Framework\App\Resource $resource, \Magento\Framework\Stdlib\DateTime\DateTime $date)
     {
         $this->_date = $date;
         parent::__construct($resource);

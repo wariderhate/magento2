@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,7 @@ namespace Magento\Test;
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\Model\AbstractModel|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Model\AbstractModel|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_model;
 
@@ -44,14 +41,14 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     /**
      * Callback for save method in mocked model
      *
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     public function saveModelAndFailOnUpdate()
     {
         if (!$this->_model->getId()) {
             $this->saveModelSuccessfully();
         } else {
-            throw new \Magento\Exception('Synthetic model update failure.');
+            throw new \Magento\Framework\Exception('Synthetic model update failure.');
         }
     }
 
@@ -67,7 +64,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             'successful CRUD' => array('saveModelSuccessfully'),
-            'cleanup on update error' => array('saveModelAndFailOnUpdate', 'Magento\Exception')
+            'cleanup on update error' => array('saveModelAndFailOnUpdate', 'Magento\Framework\Exception')
         );
     }
 
@@ -79,7 +76,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException($expectedException);
 
         $this->_model = $this->getMock(
-            'Magento\Model\AbstractModel',
+            'Magento\Framework\Model\AbstractModel',
             array('load', 'save', 'delete', 'getIdFieldName', '__wakeup'),
             array(),
             '',

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Order\Create\Search;
 /**
  * Adminhtml sales order create search products block
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
@@ -109,7 +105,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     /**
      * Retrieve quote store object
      *
-     * @return \Magento\Core\Model\Store
+     * @return \Magento\Store\Model\Store
      */
     public function getStore()
     {
@@ -189,7 +185,13 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     {
         $this->addColumn(
             'entity_id',
-            array('header' => __('ID'), 'sortable' => true, 'width' => '60', 'index' => 'entity_id')
+            array(
+                'header' => __('ID'),
+                'sortable' => true,
+                'header_css_class' => 'col-id',
+                'column_css_class' => 'col-id',
+                'index' => 'entity_id'
+            )
         );
         $this->addColumn(
             'name',
@@ -199,13 +201,12 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'index' => 'name'
             )
         );
-        $this->addColumn('sku', array('header' => __('SKU'), 'width' => '80', 'index' => 'sku'));
+        $this->addColumn('sku', array('header' => __('SKU'), 'index' => 'sku'));
         $this->addColumn(
             'price',
             array(
                 'header' => __('Price'),
                 'column_css_class' => 'price',
-                'align' => 'center',
                 'type' => 'currency',
                 'currency_code' => $this->getStore()->getCurrentCurrencyCode(),
                 'rate' => $this->getStore()->getBaseCurrency()->getRate($this->getStore()->getCurrentCurrencyCode()),
@@ -218,7 +219,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             'in_products',
             array(
                 'header' => __('Select'),
-                'header_css_class' => 'a-center',
                 'type' => 'checkbox',
                 'name' => 'in_products',
                 'values' => $this->_getSelectedProducts(),
@@ -237,11 +237,9 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'renderer' => 'Magento\Sales\Block\Adminhtml\Order\Create\Search\Grid\Renderer\Qty',
                 'name' => 'qty',
                 'inline_css' => 'qty',
-                'align' => 'center',
                 'type' => 'input',
                 'validate_class' => 'validate-number',
-                'index' => 'qty',
-                'width' => '1'
+                'index' => 'qty'
             )
         );
 

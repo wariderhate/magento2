@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Backend\App\Action;
 /**
  * Custom Variables admin controller
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Variable extends Action
@@ -39,15 +35,15 @@ class Variable extends Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -128,7 +124,7 @@ class Variable extends Action
             $this->_view->getLayout()->createBlock('Magento\Backend\Block\System\Variable\Edit')
         )->_addJs(
             $this->_view->getLayout()->createBlock(
-                'Magento\View\Element\Template',
+                'Magento\Framework\View\Element\Template',
                 '',
                 array('data' => array('template' => 'Magento_Backend::system/variable/js.phtml'))
             )
@@ -143,7 +139,7 @@ class Variable extends Action
      */
     public function validateAction()
     {
-        $response = new \Magento\Object(array('error' => false));
+        $response = new \Magento\Framework\Object(array('error' => false));
         $variable = $this->_initVariable();
         $variable->addData($this->getRequest()->getPost('variable'));
         $result = $variable->validate();
@@ -151,7 +147,7 @@ class Variable extends Action
             $this->messageManager->addError($result);
             $this->_view->getLayout()->initMessages();
             $response->setError(true);
-            $response->setMessage($this->_view->getLayout()->getMessagesBlock()->getGroupedHtml());
+            $response->setHtmlMessage($this->_view->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
         $this->getResponse()->setBody($response->toJson());
     }

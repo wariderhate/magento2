@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Model\Resource\Report;
 /**
  * Invoice report resource model
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Invoiced extends AbstractReport
@@ -108,7 +104,6 @@ class Invoiced extends AbstractReport
                 )
             );
             $columns = array(
-                // convert dates from UTC to current admin timezone
                 'period' => $periodExpr,
                 'store_id' => 'order_table.store_id',
                 'order_status' => 'order_table.status',
@@ -163,7 +158,7 @@ class Invoiced extends AbstractReport
 
             $columns = array(
                 'period' => 'period',
-                'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+                'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
                 'order_status' => 'order_status',
                 'orders_count' => new \Zend_Db_Expr('SUM(orders_count)'),
                 'orders_invoiced' => new \Zend_Db_Expr('SUM(orders_invoiced)'),
@@ -172,7 +167,7 @@ class Invoiced extends AbstractReport
                 'invoiced_not_captured' => new \Zend_Db_Expr('SUM(invoiced_not_captured)')
             );
 
-            $select->from($table, $columns)->where('store_id <> ?', \Magento\Core\Model\Store::DEFAULT_STORE_ID);
+            $select->from($table, $columns)->where('store_id <> ?', \Magento\Store\Model\Store::DEFAULT_STORE_ID);
 
             if ($subSelect !== null) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
@@ -261,7 +256,7 @@ class Invoiced extends AbstractReport
 
         $columns = array(
             'period' => 'period',
-            'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+            'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
             'order_status' => 'order_status',
             'orders_count' => new \Zend_Db_Expr('SUM(orders_count)'),
             'orders_invoiced' => new \Zend_Db_Expr('SUM(orders_invoiced)'),
@@ -270,7 +265,7 @@ class Invoiced extends AbstractReport
             'invoiced_not_captured' => new \Zend_Db_Expr('SUM(invoiced_not_captured)')
         );
 
-        $select->from($table, $columns)->where('store_id <> ?', \Magento\Core\Model\Store::DEFAULT_STORE_ID);
+        $select->from($table, $columns)->where('store_id <> ?', \Magento\Store\Model\Store::DEFAULT_STORE_ID);
 
         if ($subSelect !== null) {
             $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));

@@ -18,39 +18,43 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\ProductAlert\Controller;
 
-use Magento\App\Action\Context;
-use Magento\App\RequestInterface;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\RequestInterface;
 
 /**
  * ProductAlert controller
  *
- * @category   Magento
- * @package    Magento_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Add extends \Magento\App\Action\Action
+class Add extends \Magento\Framework\App\Action\Action
 {
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $_customerSession;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
      * @param Context $context
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
-        \Magento\App\Action\Context $context,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Model\Session $customerSession
     ) {
         $this->_storeManager = $storeManager;
+        $this->_customerSession = $customerSession;
         parent::__construct($context);
     }
 
@@ -58,18 +62,14 @@ class Add extends \Magento\App\Action\Action
      * Check customer authentication for some actions
      *
      * @param RequestInterface $request
-     * @return \Magento\App\ResponseInterface
+     * @return \Magento\Framework\App\ResponseInterface
      */
     public function dispatch(RequestInterface $request)
     {
-        if (!$this->_objectManager->get('Magento\Customer\Model\Session')->authenticate($this)) {
+        if (!$this->_customerSession->authenticate($this)) {
             $this->_actionFlag->set('', 'no-dispatch', true);
-            if (!$this->_objectManager->get('Magento\Customer\Model\Session')->getBeforeUrl()) {
-                $this->_objectManager->get(
-                    'Magento\Customer\Model\Session'
-                )->setBeforeUrl(
-                    $this->_redirect->getRefererUrl()
-                );
+            if (!$this->_customerSession->getBeforeUrl()) {
+                $this->_customerSession->setBeforeUrl($this->_redirect->getRefererUrl());
             }
         }
         return parent::dispatch($request);
@@ -80,7 +80,7 @@ class Add extends \Magento\App\Action\Action
      */
     public function testObserverAction()
     {
-        $object = new \Magento\Object();
+        $object = new \Magento\Framework\Object();
         $observer = $this->_objectManager->get('Magento\ProductAlert\Model\Observer');
         $observer->process($object);
     }
@@ -90,7 +90,7 @@ class Add extends \Magento\App\Action\Action
      */
     public function priceAction()
     {
-        $backUrl = $this->getRequest()->getParam(\Magento\App\Action\Action::PARAM_NAME_URL_ENCODED);
+        $backUrl = $this->getRequest()->getParam(\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED);
         $productId = (int)$this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
@@ -113,13 +113,13 @@ class Add extends \Magento\App\Action\Action
             $model = $this->_objectManager->create(
                 'Magento\ProductAlert\Model\Price'
             )->setCustomerId(
-                $this->_objectManager->get('Magento\Customer\Model\Session')->getId()
+                $this->_customerSession->getCustomerId()
             )->setProductId(
                 $product->getId()
             )->setPrice(
                 $product->getFinalPrice()
             )->setWebsiteId(
-                $this->_objectManager->get('Magento\Core\Model\StoreManagerInterface')->getStore()->getWebsiteId()
+                $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getWebsiteId()
             );
             $model->save();
             $this->messageManager->addSuccess(__('You saved the alert subscription.'));
@@ -134,7 +134,7 @@ class Add extends \Magento\App\Action\Action
      */
     public function stockAction()
     {
-        $backUrl = $this->getRequest()->getParam(\Magento\App\Action\Action::PARAM_NAME_URL_ENCODED);
+        $backUrl = $this->getRequest()->getParam(\Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED);
         $productId = (int)$this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
             $this->_redirect('/');
@@ -152,11 +152,11 @@ class Add extends \Magento\App\Action\Action
             $model = $this->_objectManager->create(
                 'Magento\ProductAlert\Model\Stock'
             )->setCustomerId(
-                $this->_objectManager->get('Magento\Customer\Model\Session')->getId()
+                $this->_customerSession->getCustomerId()
             )->setProductId(
                 $product->getId()
             )->setWebsiteId(
-                $this->_objectManager->get('Magento\Core\Model\StoreManagerInterface')->getStore()->getWebsiteId()
+                $this->_objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getWebsiteId()
             );
             $model->save();
             $this->messageManager->addSuccess(__('Alert subscription has been saved.'));
@@ -183,7 +183,7 @@ class Add extends \Magento\App\Action\Action
             $currentStore->getBaseUrl()
         ) === 0 || strpos(
             $url,
-            $currentStore->getBaseUrl(\Magento\UrlInterface::URL_TYPE_LINK, true)
+            $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK, true)
         ) === 0;
     }
 }

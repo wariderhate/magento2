@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,7 +31,7 @@ class Serialized extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBac
     /**
      * Serialize before saving
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -50,7 +48,7 @@ class Serialized extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBac
     /**
      * Unserialize after saving
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function afterSave($object)
@@ -63,7 +61,7 @@ class Serialized extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBac
     /**
      * Unserialize after loading
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function afterLoad($object)
@@ -76,10 +74,10 @@ class Serialized extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBac
     /**
      * Try to unserialize the attribute value
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
-    protected function _unserialize(\Magento\Object $object)
+    protected function _unserialize(\Magento\Framework\Object $object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
         if ($object->getData($attrCode)) {

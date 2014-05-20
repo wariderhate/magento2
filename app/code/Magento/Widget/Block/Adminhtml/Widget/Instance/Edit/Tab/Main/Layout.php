@@ -18,21 +18,19 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Widget\Block\Adminhtml\Widget\Instance\Edit\Tab\Main;
 
-use Magento\Data\Form\Element\AbstractElement;
+use Magento\Framework\Data\Form\Element\AbstractElement;
 
 /**
  * Widget Instance page groups (predefined layouts group) to display on
  *
  * @method \Magento\Widget\Model\Widget\Instance getWidgetInstance()
  */
-class Layout extends \Magento\Backend\Block\Template implements \Magento\Data\Form\Element\Renderer\RendererInterface
+class Layout extends \Magento\Backend\Block\Template implements \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
 {
     /**
      * @var AbstractElement|null
@@ -145,7 +143,7 @@ class Layout extends \Magento\Backend\Block\Template implements \Magento\Data\Fo
     public function getDisplayOnSelectHtml()
     {
         $selectBlock = $this->getLayout()->createBlock(
-            'Magento\View\Element\Html\Select'
+            'Magento\Framework\View\Element\Html\Select'
         )->setName(
             'widget_instance[{{id}}][page_group]'
         )->setId(

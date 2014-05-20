@@ -18,39 +18,38 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Dhl\Model\Resource;
 
-class Setup extends \Magento\Core\Model\Resource\Setup
+class Setup extends \Magento\Framework\Module\Setup
 {
     /**
-     * @var \Magento\Locale\ListsInterface
+     * @var \Magento\Framework\Locale\ListsInterface
      */
     protected $_localeLists;
 
     /**
-     * @param \Magento\Core\Model\Resource\Setup\Context $context
+     * @param \Magento\Framework\Module\Setup\Context $context
      * @param string $resourceName
      * @param string $moduleName
-     * @param \Magento\Locale\ListsInterface $localeLists
+     * @param \Magento\Framework\Locale\ListsInterface $localeLists
      * @param string $connectionName
      */
     public function __construct(
-        \Magento\Core\Model\Resource\Setup\Context $context,
+        \Magento\Framework\Module\Setup\Context $context,
         $resourceName,
         $moduleName,
-        \Magento\Locale\ListsInterface $localeLists,
-        $connectionName = ''
+        \Magento\Framework\Locale\ListsInterface $localeLists,
+        $connectionName = \Magento\Framework\Module\Updater\SetupInterface::DEFAULT_SETUP_CONNECTION
     ) {
         $this->_localeLists = $localeLists;
         parent::__construct($context, $resourceName, $moduleName, $connectionName);
     }
 
     /**
-     * @return \Magento\Locale\ListsInterface
+     * @return \Magento\Framework\Locale\ListsInterface
      */
     public function getLocaleLists()
     {

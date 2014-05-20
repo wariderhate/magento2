@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Review
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Review\Model\Resource\Review\Collection as ReviewCollection;
 /**
  * Product Reviews Page
  *
- * @category   Magento
- * @package    Magento_Review
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class View extends \Magento\Catalog\Block\Product\View
@@ -53,30 +49,28 @@ class View extends \Magento\Catalog\Block\Product\View
     /**
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Core\Helper\Data $coreData
-     * @param \Magento\Json\EncoderInterface $jsonEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\Tax\Model\Calculation $taxCalculation
-     * @param \Magento\Stdlib\String $string
+     * @param \Magento\Framework\Stdlib\String $string
      * @param \Magento\Catalog\Helper\Product $productHelper
      * @param \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig
-     * @param \Magento\Locale\FormatInterface $localeFormat
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
      * @param \Magento\Review\Model\Resource\Review\CollectionFactory $collectionFactory
      * @param array $data
-     * @param array $priceBlockTypes
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Magento\Core\Helper\Data $coreData,
-        \Magento\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\Tax\Model\Calculation $taxCalculation,
-        \Magento\Stdlib\String $string,
+        \Magento\Framework\Stdlib\String $string,
         \Magento\Catalog\Helper\Product $productHelper,
         \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig,
-        \Magento\Locale\FormatInterface $localeFormat,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
         \Magento\Review\Model\Resource\Review\CollectionFactory $collectionFactory,
-        array $data = array(),
-        array $priceBlockTypes = array()
+        array $data = array()
     ) {
         $this->_reviewsColFactory = $collectionFactory;
         parent::__construct(
@@ -89,8 +83,7 @@ class View extends \Magento\Catalog\Block\Product\View
             $productHelper,
             $productTypeConfig,
             $localeFormat,
-            $data,
-            $priceBlockTypes
+            $data
         );
     }
 
@@ -121,7 +114,7 @@ class View extends \Magento\Catalog\Block\Product\View
         $displayIfNoReviews = false
     ) {
         return $this->getLayout()->createBlock(
-            'Magento\Rating\Block\Entity\Detailed'
+            'Magento\Review\Block\Rating\Entity\Detailed'
         )->setEntityId(
             $this->getProduct()->getId()
         )->toHtml() . $this->getLayout()->getBlock(

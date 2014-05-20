@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,19 +26,17 @@
 /**
  * Reports Mysql resource helper model
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource;
 
-class Helper extends \Magento\DB\Helper implements \Magento\Reports\Model\Resource\HelperInterface
+class Helper extends \Magento\Framework\DB\Helper implements \Magento\Reports\Model\Resource\HelperInterface
 {
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param string $modulePrefix
      */
-    public function __construct(\Magento\App\Resource $resource, $modulePrefix = 'reports')
+    public function __construct(\Magento\Framework\App\Resource $resource, $modulePrefix = 'reports')
     {
         parent::__construct($resource, $modulePrefix);
     }

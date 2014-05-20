@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Resource\Product\Indexer\Eav;
 /**
  * Catalog Product Eav Attributes abstract indexer resource model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class AbstractEav extends \Magento\Catalog\Model\Resource\Product\Indexer\AbstractIndexer
@@ -37,21 +33,21 @@ abstract class AbstractEav extends \Magento\Catalog\Model\Resource\Product\Index
     /**
      * Core event manager proxy
      *
-     * @var \Magento\Event\ManagerInterface
+     * @var \Magento\Framework\Event\ManagerInterface
      */
     protected $_eventManager = null;
 
     /**
      * Construct
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Event\ManagerInterface $eventManager
+        \Magento\Framework\Event\ManagerInterface $eventManager
     ) {
         $this->_eventManager = $eventManager;
         parent::__construct($resource, $eavConfig);
@@ -208,7 +204,7 @@ abstract class AbstractEav extends \Magento\Catalog\Model\Resource\Product\Index
             array('l' => $this->getTable('catalog_product_relation')),
             'parent_id'
         )->join(
-            array('cs' => $this->getTable('core_store')),
+            array('cs' => $this->getTable('store')),
             '',
             array()
         )->join(
@@ -239,7 +235,7 @@ abstract class AbstractEav extends \Magento\Catalog\Model\Resource\Product\Index
             $select,
             $idxTable,
             array(),
-            \Magento\DB\Adapter\AdapterInterface::INSERT_IGNORE
+            \Magento\Framework\DB\Adapter\AdapterInterface::INSERT_IGNORE
         );
         $write->query($query);
 

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -112,7 +110,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel
     protected $_catalogRuleData;
 
     /**
-     * @var \Magento\App\Cache\TypeListInterface
+     * @var \Magento\Framework\App\Cache\TypeListInterface
      */
     protected $_cacheTypesList;
 
@@ -122,7 +120,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel
     protected $_relatedCacheTypes;
 
     /**
-     * @var \Magento\Model\Resource\Iterator
+     * @var \Magento\Framework\Model\Resource\Iterator
      */
     protected $_resourceIterator;
 
@@ -152,7 +150,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel
     protected $_productFactory;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -162,49 +160,49 @@ class Rule extends \Magento\Rule\Model\AbstractModel
     protected $_productCollectionFactory;
 
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param \Magento\Catalog\Model\Resource\Product\CollectionFactory $productCollectionFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $combineFactory
      * @param \Magento\CatalogRule\Model\Rule\Action\CollectionFactory $actionCollectionFactory
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
-     * @param \Magento\Model\Resource\Iterator $resourceIterator
+     * @param \Magento\Framework\Model\Resource\Iterator $resourceIterator
      * @param \Magento\Index\Model\Indexer $indexer
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\CatalogRule\Helper\Data $catalogRuleData
-     * @param \Magento\App\Cache\TypeListInterface $cacheTypesList
-     * @param \Magento\Stdlib\DateTime $dateTime
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\App\Cache\TypeListInterface $cacheTypesList
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $relatedCacheTypes
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Catalog\Model\Resource\Product\CollectionFactory $productCollectionFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $combineFactory,
         \Magento\CatalogRule\Model\Rule\Action\CollectionFactory $actionCollectionFactory,
         \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\Model\Resource\Iterator $resourceIterator,
+        \Magento\Framework\Model\Resource\Iterator $resourceIterator,
         \Magento\Index\Model\Indexer $indexer,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\CatalogRule\Helper\Data $catalogRuleData,
-        \Magento\App\Cache\TypeListInterface $cacheTypesList,
-        \Magento\Stdlib\DateTime $dateTime,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\App\Cache\TypeListInterface $cacheTypesList,
+        \Magento\Framework\Stdlib\DateTime $dateTime,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $relatedCacheTypes = array(),
         array $data = array()
     ) {

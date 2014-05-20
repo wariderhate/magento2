@@ -18,15 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backend\Helper\Dashboard;
 
 use Magento\Core\Helper\Data as HelperData;
-use Magento\Model\Resource\Db\Collection\AbstractCollection;
 
 /**
  * Adminhtml abstract  dashboard helper.
@@ -36,7 +33,7 @@ abstract class AbstractDashboard extends HelperData
     /**
      * Helper collection
      *
-     * @var AbstractCollection|array
+     * @var \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection|array
      */
     protected $_collection;
 
@@ -48,7 +45,7 @@ abstract class AbstractDashboard extends HelperData
     protected $_params = array();
 
     /**
-     * @return array|AbstractCollection
+     * @return array|\Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
      */
     public function getCollection()
     {
@@ -95,7 +92,7 @@ abstract class AbstractDashboard extends HelperData
                 } else {
                     $result[] = null;
                 }
-            } elseif ($item instanceof \Magento\Object) {
+            } elseif ($item instanceof \Magento\Framework\Object) {
                 $result[] = $item->getData($index);
             } else {
                 $result[] = null;

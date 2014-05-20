@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -81,7 +78,7 @@ class PhysicalTest extends \PHPUnit_Framework_TestCase
         $themeCollection->expects($this->once())->method('count')->will($this->returnValue(1));
 
         $domainModel = new \Magento\Core\Model\Theme\Domain\Physical(
-            $this->getMock('Magento\View\Design\ThemeInterface', array(), array(), '', false, false),
+            $this->getMock('Magento\Framework\View\Design\ThemeInterface', array(), array(), '', false, false),
             $themeFactory,
             $copyService,
             $themeCollection

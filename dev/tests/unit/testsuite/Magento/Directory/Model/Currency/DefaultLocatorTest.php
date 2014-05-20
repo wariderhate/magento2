@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,19 +48,26 @@ class DefaultLocatorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $backendData = $this->getMock('Magento\Backend\Helper\Data', array(), array(), '', false);
-        $this->_requestMock = $this->getMockForAbstractClass('Magento\App\RequestInterface',
-            array($backendData), '', false, false, true, array('getParam'));
-        $this->_configMock = $this->getMock('\Magento\App\ConfigInterface');
-        $this->_storeManagerMock = $this->getMock('Magento\Core\Model\StoreManager', array(), array(), '', false);
+        $this->_requestMock = $this->getMockForAbstractClass(
+            'Magento\Framework\App\RequestInterface',
+            array($backendData),
+            '',
+            false,
+            false,
+            true,
+            array('getParam')
+        );
+        $this->_configMock = $this->getMock('\Magento\Framework\App\Config\ScopeConfigInterface');
+        $this->_storeManagerMock = $this->getMock('Magento\Store\Model\StoreManager', array(), array(), '', false);
         $this->_model = new \Magento\Directory\Model\Currency\DefaultLocator(
-            $this->_configMock, $this->_storeManagerMock
+            $this->_configMock,
+            $this->_storeManagerMock
         );
     }
 
     public function testGetDefaultCurrencyReturnDefaultStoreDefaultCurrencyIfNoStoreIsSpecified()
     {
-        $this->_configMock->expects($this->once())->method('getValue')
-            ->will($this->returnValue('storeCurrency'));
+        $this->_configMock->expects($this->once())->method('getValue')->will($this->returnValue('storeCurrency'));
         $this->assertEquals('storeCurrency', $this->_model->getDefaultCurrency($this->_requestMock));
     }
 
@@ -78,7 +82,7 @@ class DefaultLocatorTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->returnValue('someStore')
         );
-        $storeMock = $this->getMock('Magento\Core\Model\Store', array(), array(), '', false);
+        $storeMock = $this->getMock('Magento\Store\Model\Store', array(), array(), '', false);
         $storeMock->expects($this->once())->method('getBaseCurrencyCode')->will($this->returnValue('storeCurrency'));
         $this->_storeManagerMock->expects(
             $this->once()
@@ -101,7 +105,7 @@ class DefaultLocatorTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->returnValueMap(array(array('store', null, ''), array('website', null, 'someWebsite')))
         );
-        $websiteMock = $this->getMock('Magento\Core\Model\Website', array(), array(), '', false);
+        $websiteMock = $this->getMock('Magento\Store\Model\Website', array(), array(), '', false);
         $websiteMock->expects(
             $this->once()
         )->method(
@@ -132,7 +136,7 @@ class DefaultLocatorTest extends \PHPUnit_Framework_TestCase
                 array(array('store', null, ''), array('website', null, ''), array('group', null, 'someGroup'))
             )
         );
-        $websiteMock = $this->getMock('Magento\Core\Model\Website', array(), array(), '', false);
+        $websiteMock = $this->getMock('Magento\Store\Model\Website', array(), array(), '', false);
         $websiteMock->expects(
             $this->once()
         )->method(
@@ -141,7 +145,7 @@ class DefaultLocatorTest extends \PHPUnit_Framework_TestCase
             $this->returnValue('websiteCurrency')
         );
 
-        $groupMock = $this->getMock('Magento\Core\Model\Store\Group', array(), array(), '', false);
+        $groupMock = $this->getMock('Magento\Store\Model\Group', array(), array(), '', false);
         $groupMock->expects($this->once())->method('getWebsite')->will($this->returnValue($websiteMock));
 
         $this->_storeManagerMock->expects(

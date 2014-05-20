@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rule
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetValueElement()
     {
-        $layoutMock = $this->getMock('Magento\Core\Model\Layout', array(), array(), '', false);
+        $layoutMock = $this->getMock('Magento\Framework\View\Layout', array(), array(), '', false);
 
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $context = $objectManager->create('Magento\Rule\Model\Condition\Context', array('layout' => $layoutMock));
@@ -56,7 +53,9 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $rule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Rule\Model\Rule');
         $model->setRule(
-            $rule->setForm(\Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Data\Form'))
+            $rule->setForm(
+                \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Framework\Data\Form')
+            )
         );
 
         $property = new \ReflectionProperty('Magento\Rule\Model\Condition\AbstractCondition', '_inputType');

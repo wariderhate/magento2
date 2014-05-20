@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -47,7 +44,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $classMock->expects($this->once())->method('getClassType')->will($this->returnValue($classType));
         $classMock->expects($this->once())->method('getId')->will($this->returnValue(1));
 
-        $objectManager = $this->getMock('Magento\ObjectManager', array(), array('create'), '', false);
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager', array(), array('create'), '', false);
         $objectManager->expects(
             $this->once()
         )->method(
@@ -93,12 +90,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         );
         $classMock->expects($this->once())->method('getClassType')->will($this->returnValue($wrongClassType));
 
-        $objectManager = $this->getMock('Magento\ObjectManager', array(), array(), '', false);
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager', array(), array(), '', false);
 
         $taxClassFactory = new \Magento\Tax\Model\TaxClass\Factory($objectManager);
 
         $this->setExpectedException(
-            'Magento\Model\Exception',
+            'Magento\Framework\Model\Exception',
             sprintf('Invalid type of tax class "%s"', $wrongClassType)
         );
         $taxClassFactory->create($classMock);

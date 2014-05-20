@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,19 +25,17 @@
 /**
  * Fieldset config form element renderer
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Frontend\Product;
 
-use Magento\Data\Form\Element\AbstractElement;
+use Magento\Framework\Data\Form\Element\AbstractElement;
 
 class Watermark extends \Magento\Backend\Block\AbstractBlock implements
-    \Magento\Data\Form\Element\Renderer\RendererInterface
+    \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
 {
     /**
-     * @var \Magento\Data\Form\Element\Factory
+     * @var \Magento\Framework\Data\Form\Element\Factory
      */
     protected $_elementFactory;
 
@@ -62,7 +58,7 @@ class Watermark extends \Magento\Backend\Block\AbstractBlock implements
      * @param \Magento\Backend\Block\Context $context
      * @param \Magento\Catalog\Model\Config\Source\Watermark\Position $watermarkPosition
      * @param \Magento\Backend\Block\System\Config\Form\Field $formField
-     * @param \Magento\Data\Form\Element\Factory $elementFactory
+     * @param \Magento\Framework\Data\Form\Element\Factory $elementFactory
      * @param array $imageTypes
      * @param array $data
      */
@@ -70,7 +66,7 @@ class Watermark extends \Magento\Backend\Block\AbstractBlock implements
         \Magento\Backend\Block\Context $context,
         \Magento\Catalog\Model\Config\Source\Watermark\Position $watermarkPosition,
         \Magento\Backend\Block\System\Config\Form\Field $formField,
-        \Magento\Data\Form\Element\Factory $elementFactory,
+        \Magento\Framework\Data\Form\Element\Factory $elementFactory,
         array $imageTypes = array(),
         array $data = array()
     ) {
@@ -92,7 +88,7 @@ class Watermark extends \Magento\Backend\Block\AbstractBlock implements
             /**
              * Watermark size field
              */
-            /** @var \Magento\Data\Form\Element\Text $field */
+            /** @var \Magento\Framework\Data\Form\Element\Text $field */
             $field = $this->_elementFactory->create('text');
             $field->setName(
                 "groups[watermark][fields][{$key}_size][value]"
@@ -108,7 +104,7 @@ class Watermark extends \Magento\Backend\Block\AbstractBlock implements
             /**
              * Watermark upload field
              */
-            /** @var \Magento\Data\Form\Element\Imagefile $field */
+            /** @var \Magento\Framework\Data\Form\Element\Imagefile $field */
             $field = $this->_elementFactory->create('imagefile');
             $field->setName(
                 "groups[watermark][fields][{$key}_image][value]"
@@ -124,7 +120,7 @@ class Watermark extends \Magento\Backend\Block\AbstractBlock implements
             /**
              * Watermark position field
              */
-            /** @var \Magento\Data\Form\Element\Select $field */
+            /** @var \Magento\Framework\Data\Form\Element\Select $field */
             $field = $this->_elementFactory->create('select');
             $field->setName(
                 "groups[watermark][fields][{$key}_position][value]"

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Authorizenet
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -77,11 +75,11 @@ class Payment extends \Magento\Backend\App\Action
             )->getPaymentMethodsHtml(
                 $this->_view
             );
-        } catch (\Magento\Model\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+        } catch (\Magento\Framework\Model\Exception $e) {
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $result['error_message'] = $e->getMessage();
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $result['error_message'] = __('Something went wrong canceling the transactions.');
         }
 

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Tax report resource model with aggregation by created at
  *
- * @category    Magento
- * @package     Magento_Tax
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Tax\Model\Resource\Report\Tax;
@@ -139,7 +135,7 @@ class Createdat extends \Magento\Reports\Model\Resource\Report\AbstractReport
 
             $columns = array(
                 'period' => 'period',
-                'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+                'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
                 'code' => 'code',
                 'order_status' => 'order_status',
                 'percent' => 'MAX(' . $writeAdapter->quoteIdentifier('percent') . ')',

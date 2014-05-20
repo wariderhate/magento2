@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,22 +25,20 @@
 /**
  * Product form weight field helper
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Helper\Form;
 
-use Magento\Data\Form;
+use Magento\Framework\Data\Form;
 
-class Weight extends \Magento\Data\Form\Element\Text
+class Weight extends \Magento\Framework\Data\Form\Element\Text
 {
     const VIRTUAL_FIELD_HTML_ID = 'weight_and_type_switcher';
 
     /**
      * Is virtual checkbox element
      *
-     * @var \Magento\Data\Form\Element\Checkbox
+     * @var \Magento\Framework\Data\Form\Element\Checkbox
      */
     protected $_virtual;
 
@@ -54,16 +50,16 @@ class Weight extends \Magento\Data\Form\Element\Text
     protected $_helper;
 
     /**
-     * @param \Magento\Data\Form\Element\Factory $factoryElement
-     * @param \Magento\Data\Form\Element\CollectionFactory $factoryCollection
-     * @param \Magento\Escaper $escaper
+     * @param \Magento\Framework\Data\Form\Element\Factory $factoryElement
+     * @param \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection
+     * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Catalog\Helper\Product $helper
      * @param array $data
      */
     public function __construct(
-        \Magento\Data\Form\Element\Factory $factoryElement,
-        \Magento\Data\Form\Element\CollectionFactory $factoryCollection,
-        \Magento\Escaper $escaper,
+        \Magento\Framework\Data\Form\Element\Factory $factoryElement,
+        \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection,
+        \Magento\Framework\Escaper $escaper,
         \Magento\Catalog\Helper\Product $helper,
         array $data = array()
     ) {

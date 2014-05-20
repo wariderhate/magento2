@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -43,7 +40,7 @@ class ContextPluginTest extends \PHPUnit_Framework_TestCase
     protected $customerSessionMock;
 
     /**
-     * @var \Magento\App\Http\Context $httpContext|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\Http\Context $httpContext|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $httpContextMock;
 
@@ -67,15 +64,25 @@ class ContextPluginTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->customerSessionMock = $this->getMock('Magento\Customer\Model\Session',
-            array(), array(), '', false);
-        $this->httpContextMock = $this->getMock('Magento\App\Http\Context',
-            array(), array(), '', false);
+        $this->customerSessionMock = $this->getMock(
+            'Magento\Customer\Model\Session',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $this->httpContextMock = $this->getMock(
+            'Magento\Framework\App\Http\Context',
+            array(),
+            array(),
+            '',
+            false
+        );
         $this->closureMock = function () {
             return 'ExpectedValue';
         };
-        $this->subjectMock = $this->getMock('Magento\App\Action\Action', array(), array(), '', false);
-        $this->requestMock = $this->getMock('Magento\App\RequestInterface');
+        $this->subjectMock = $this->getMock('Magento\Framework\App\Action\Action', array(), array(), '', false);
+        $this->requestMock = $this->getMock('Magento\Framework\App\RequestInterface');
         $this->plugin = new \Magento\Customer\Model\App\Action\ContextPlugin(
             $this->customerSessionMock,
             $this->httpContextMock
@@ -95,10 +102,14 @@ class ContextPluginTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $this->httpContextMock->expects($this->atLeastOnce())
             ->method('setValue')
-            ->will($this->returnValueMap(array(
-                array(\Magento\Customer\Helper\Data::CONTEXT_GROUP, 'UAH', $this->httpContextMock),
-                array(\Magento\Customer\Helper\Data::CONTEXT_AUTH, 0, $this->httpContextMock),
-            )));
+            ->will(
+                $this->returnValueMap(
+                    array(
+                        array(\Magento\Customer\Helper\Data::CONTEXT_GROUP, 'UAH', $this->httpContextMock),
+                        array(\Magento\Customer\Helper\Data::CONTEXT_AUTH, 0, $this->httpContextMock),
+                    )
+                )
+            );
         $this->assertEquals(
             'ExpectedValue',
             $this->plugin->aroundDispatch($this->subjectMock, $this->closureMock, $this->requestMock)

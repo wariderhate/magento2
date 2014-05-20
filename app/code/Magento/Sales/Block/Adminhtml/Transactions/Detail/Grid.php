@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Transactions\Detail;
 /**
  * Adminhtml transaction details grid
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
@@ -37,29 +33,29 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * Collection factory
      *
-     * @var \Magento\Data\CollectionFactory
+     * @var \Magento\Framework\Data\CollectionFactory
      */
     protected $_collectionFactory;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Backend\Helper\Data $backendHelper
-     * @param \Magento\Data\CollectionFactory $collectionFactory
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Data\CollectionFactory $collectionFactory
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        \Magento\Data\CollectionFactory $collectionFactory,
-        \Magento\Registry $coreRegistry,
+        \Magento\Framework\Data\CollectionFactory $collectionFactory,
+        \Magento\Framework\Registry $coreRegistry,
         array $data = array()
     ) {
         $this->_collectionFactory = $collectionFactory;
@@ -88,7 +84,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     {
         $collection = $this->_collectionFactory->create();
         foreach ($this->getTransactionAdditionalInfo() as $key => $value) {
-            $data = new \Magento\Object(array('key' => $key, 'value' => $value));
+            $data = new \Magento\Framework\Object(array('key' => $key, 'value' => $value));
             $collection->addItem($data);
         }
 

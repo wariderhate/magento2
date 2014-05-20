@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,8 +46,8 @@ class Simple extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attribute
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig
      * @param \Magento\Catalog\Helper\Data $catalogData
      * @param ProductFactory $productFactory
@@ -57,8 +55,8 @@ class Simple extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attribute
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Cms\Model\Wysiwyg\Config $wysiwygConfig,
         \Magento\Catalog\Helper\Data $catalogData,
         ProductFactory $productFactory,
@@ -77,7 +75,7 @@ class Simple extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attribute
      */
     protected function _prepareForm()
     {
-        /** @var \Magento\Data\Form $form */
+        /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
 
         $form->setFieldNameSuffix('simple_product');

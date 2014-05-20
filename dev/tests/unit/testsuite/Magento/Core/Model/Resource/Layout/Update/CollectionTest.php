@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,14 +33,14 @@ class CollectionTest extends \Magento\Core\Model\Resource\Layout\AbstractTestCas
      */
     protected function _getCollection(\Zend_Db_Select $select)
     {
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
+        $eventManager = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
 
         return new \Magento\Core\Model\Resource\Layout\Update\Collection(
             $this->getMock('Magento\Core\Model\EntityFactory', array(), array(), '', false),
-            $this->getMock('Magento\Logger', array(), array(), '', false),
-            $this->getMockForAbstractClass('Magento\Data\Collection\Db\FetchStrategyInterface'),
+            $this->getMock('Magento\Framework\Logger', array(), array(), '', false),
+            $this->getMockForAbstractClass('Magento\Framework\Data\Collection\Db\FetchStrategyInterface'),
             $eventManager,
-            $this->getMock('Magento\Stdlib\DateTime', null, array(), '', true),
+            $this->getMock('Magento\Framework\Stdlib\DateTime', null, array(), '', true),
             null,
             $this->_getResource($select)
         );

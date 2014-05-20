@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,7 @@ namespace Magento\CatalogRule\Controller\Adminhtml\Promo;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Catalog\Model\Category;
-use Magento\Registry;
+use Magento\Framework\Registry;
 
 class Widget extends Action
 {
@@ -124,12 +122,13 @@ class Widget extends Action
             if (!($category = $this->_initCategory())) {
                 return;
             }
+            $block = $this->_view->getLayout()->createBlock(
+                'Magento\Catalog\Block\Adminhtml\Category\Checkboxes\Tree'
+            )->setCategoryIds(
+                array($categoryId)
+            );
             $this->getResponse()->setBody(
-                $this->_view->getLayout()->createBlock(
-                    'Magento\Catalog\Block\Adminhtml\Category\Tree'
-                )->getTreeJson(
-                    $category
-                )
+                $block->getTreeJson($category)
             );
         }
     }
@@ -151,7 +150,7 @@ class Widget extends Action
             $category->load($categoryId);
             if ($storeId) {
                 $rootId = $this->_objectManager->get(
-                    'Magento\Core\Model\StoreManager'
+                    'Magento\Store\Model\StoreManager'
                 )->getStore(
                     $storeId
                 )->getRootCategoryId();

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -48,22 +45,28 @@ class RegionTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $escaperMock = $this->getMock('Magento\Escaper', array(), array(), '', false);
+        $escaperMock = $this->getMock('Magento\Framework\Escaper', array(), array(), '', false);
         $elementMock = $this->getMock(
-            'Magento\Data\Form\Element\AbstractElement',
+            'Magento\Framework\Data\Form\Element\AbstractElement',
             array('getForm', 'getHtmlAttributes'),
             array(),
             '',
             false
         );
         $countryMock = $this->getMock(
-            'Magento\Data\Form\Element\AbstractElement',
+            'Magento\Framework\Data\Form\Element\AbstractElement',
             array('getValue'),
             array(),
             '',
             false
         );
-        $regionMock = $this->getMock('Magento\Data\Form\Element\AbstractElement', array(), array(), '', false);
+        $regionMock = $this->getMock(
+            'Magento\Framework\Data\Form\Element\AbstractElement',
+            array(),
+            array(),
+            '',
+            false
+        );
         $countryModelMock = $this->getMock(
             'Magento\Directory\Model\Country',
             array('setId', 'getLoadedRegionCollection', 'toOptionArray', '__wakeup'),
@@ -71,7 +74,7 @@ class RegionTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $formMock = $this->getMock('Magento\Data\Form', array('getElement'), array(), '', false);
+        $formMock = $this->getMock('Magento\Framework\Data\Form', array('getElement'), array(), '', false);
 
         $elementMock->expects($this->any())->method('getForm')->will($this->returnValue($formMock));
         $elementMock->expects(
@@ -131,8 +134,8 @@ class RegionTest extends \PHPUnit_Framework_TestCase
             'with no defined regions' => array(array()),
             'with defined regions' => array(
                 array(
-                    new \Magento\Object(array('value' => 'Bavaria')),
-                    new \Magento\Object(array('value' => 'Saxony'))
+                    new \Magento\Framework\Object(array('value' => 'Bavaria')),
+                    new \Magento\Framework\Object(array('value' => 'Saxony'))
                 )
             )
         );

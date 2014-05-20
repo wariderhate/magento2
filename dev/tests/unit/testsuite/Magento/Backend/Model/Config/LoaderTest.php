@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -46,7 +43,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_configValueFactory = $this->getMock(
-            'Magento\Core\Model\Config\ValueFactory',
+            'Magento\Framework\App\Config\ValueFactory',
             array('create', 'getCollection'),
             array(),
             '',
@@ -73,7 +70,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             $this->returnSelf()
         );
 
-        $configDataMock = $this->getMock('Magento\Core\Model\Config\Value', array(), array(), '', false);
+        $configDataMock = $this->getMock('Magento\Framework\App\Config\Value', array(), array(), '', false);
         $this->_configValueFactory->expects(
             $this->once()
         )->method(
@@ -95,7 +92,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             'getItems'
         )->will(
             $this->returnValue(
-                array(new \Magento\Object(array('path' => 'section', 'value' => 10, 'config_id' => 20)))
+                array(new \Magento\Framework\Object(array('path' => 'section', 'value' => 10, 'config_id' => 20)))
             )
         );
     }

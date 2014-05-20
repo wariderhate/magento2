@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Bundle\Model\Product\Attribute\Source\Price;
 /**
  * Bundle Price View Attribute Renderer
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class View extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
@@ -101,7 +97,7 @@ class View extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array('unsigned' => false, 'default' => null, 'extra' => null);
 
-        $column['type'] = \Magento\DB\Ddl\Table::TYPE_INTEGER;
+        $column['type'] = \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER;
         $column['nullable'] = true;
         $column['comment'] = 'Bundle Price View ' . $attributeCode . ' column';
 
@@ -112,7 +108,7 @@ class View extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
      * Retrieve Select for update Attribute value in flat table
      *
      * @param   int $store
-     * @return  \Magento\DB\Select|null
+     * @return  \Magento\Framework\DB\Select|null
      */
     public function getFlatUpdateSelect($store)
     {

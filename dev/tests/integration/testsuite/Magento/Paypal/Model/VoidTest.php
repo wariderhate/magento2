@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,17 +32,17 @@ class VoidTest extends \PHPUnit_Framework_TestCase
     public function testPayflowProVoid()
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $eventManager = $objectManager->get('Magento\Event\ManagerInterface');
-        $moduleList = $objectManager->get('Magento\Module\ModuleListInterface');
+        $eventManager = $objectManager->get('Magento\Framework\Event\ManagerInterface');
+        $moduleList = $objectManager->get('Magento\Framework\Module\ModuleListInterface');
         $paymentData = $objectManager->get('Magento\Payment\Helper\Data');
-        $coreStoreConfig = $objectManager->get('Magento\Core\Model\Store\Config');
-        $logger = $objectManager->get('Magento\Logger');
-        $logAdapterFactory = $objectManager->get('Magento\Logger\AdapterFactory');
-        $localeDate = $objectManager->get('Magento\Stdlib\DateTime\TimezoneInterface');
+        $scopeConfig = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface');
+        $logger = $objectManager->get('Magento\Framework\Logger');
+        $logAdapterFactory = $objectManager->get('Magento\Framework\Logger\AdapterFactory');
+        $localeDate = $objectManager->get('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
         $centinelService = $objectManager->get('Magento\Centinel\Model\Service');
-        $storeManager = $objectManager->get('Magento\Core\Model\StoreManagerInterface');
+        $storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
         $configFactory = $objectManager->get('Magento\Paypal\Model\ConfigFactory');
-        $mathRandom = $objectManager->get('Magento\Math\Random');
+        $mathRandom = $objectManager->get('Magento\Framework\Math\Random');
 
         /** @var $order \Magento\Sales\Model\Order */
         $order = $objectManager->create('Magento\Sales\Model\Order');
@@ -59,7 +56,7 @@ class VoidTest extends \PHPUnit_Framework_TestCase
             array(
                 $eventManager,
                 $paymentData,
-                $coreStoreConfig,
+                $scopeConfig,
                 $logAdapterFactory,
                 $logger,
                 $moduleList,
@@ -71,7 +68,7 @@ class VoidTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $response = new \Magento\Object(
+        $response = new \Magento\Framework\Object(
             array(
                 'result' => '0',
                 'pnref' => 'V19A3D27B61E',
@@ -86,7 +83,7 @@ class VoidTest extends \PHPUnit_Framework_TestCase
         $instance->expects($this->any())->method('_postRequest')->will($this->returnValue($response));
 
         $payment->setMethodInstance($instance);
-        $payment->void(new \Magento\Object());
+        $payment->void(new \Magento\Framework\Object());
         $order->save();
 
         $order = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Sales\Model\Order');

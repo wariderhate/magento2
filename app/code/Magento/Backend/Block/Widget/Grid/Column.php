@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Backend\Block\Widget\Grid\Column\Filter\AbstractFilter;
 /**
  * Grid column block
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Column extends \Magento\Backend\Block\Widget
@@ -289,10 +285,10 @@ class Column extends \Magento\Backend\Block\Widget
     /**
      * Retrieve row column field value for display
      *
-     * @param   \Magento\Object $row
+     * @param   \Magento\Framework\Object $row
      * @return  string
      */
-    public function getRowField(\Magento\Object $row)
+    public function getRowField(\Magento\Framework\Object $row)
     {
         $renderedValue = $this->getRenderer()->render($row);
         if ($this->getHtmlDecorators()) {
@@ -317,10 +313,10 @@ class Column extends \Magento\Backend\Block\Widget
     /**
      * Retrieve row column field value for export
      *
-     * @param   \Magento\Object $row
+     * @param   \Magento\Framework\Object $row
      * @return  string
      */
-    public function getRowFieldExport(\Magento\Object $row)
+    public function getRowFieldExport(\Magento\Framework\Object $row)
     {
         $renderedValue = $this->getRenderer()->renderExport($row);
 

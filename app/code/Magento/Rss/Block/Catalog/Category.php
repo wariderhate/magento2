@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -66,8 +64,8 @@ class Category extends \Magento\Rss\Block\Catalog\AbstractCatalog
     protected $customerSession;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\App\Http\Context $httpContext
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param \Magento\Catalog\Helper\Data $catalogData
      * @param \Magento\Catalog\Model\Layer\Category $catalogLayer
      * @param \Magento\Catalog\Model\Product\Visibility $visibility
@@ -79,8 +77,8 @@ class Category extends \Magento\Rss\Block\Catalog\AbstractCatalog
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\App\Http\Context $httpContext,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Catalog\Helper\Data $catalogData,
         \Magento\Catalog\Model\Layer\Category $catalogLayer,
         \Magento\Catalog\Model\Product\Visibility $visibility,
@@ -223,7 +221,7 @@ class Category extends \Magento\Rss\Block\Catalog\AbstractCatalog
             $product->getDescription();
 
         if ($product->getAllowedPriceInRss()) {
-            $description .= $this->getPriceHtml($product, true);
+            $description .= $this->renderPriceHtml($product, true);
         }
 
         $description .= '</td></tr></table>';

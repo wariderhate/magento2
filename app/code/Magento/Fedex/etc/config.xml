@@ -19,7 +19,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -33,6 +32,8 @@
                 <key backend_model="Magento\Backend\Model\Config\Backend\Encrypted" />
                 <password backend_model="Magento\Backend\Model\Config\Backend\Encrypted" />
                 <sandbox_mode>0</sandbox_mode>
+                <production_webservices_url><![CDATA[https://ws.fedex.com:443/web-services/]]></production_webservices_url>
+                <sandbox_webservices_url><![CDATA[https://wsbeta.fedex.com:443/web-services/]]></sandbox_webservices_url>
                 <shipment_requesttype>0</shipment_requesttype>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>

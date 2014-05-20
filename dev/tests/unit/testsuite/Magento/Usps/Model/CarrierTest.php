@@ -47,18 +47,18 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
     {
         $this->_helper = new \Magento\TestFramework\Helper\ObjectManager($this);
 
-        $coreStoreConfig = $this->getMockBuilder(
-            '\Magento\Core\Model\Store\Config'
+        $scopeConfig = $this->getMockBuilder(
+            '\Magento\Framework\App\Config\ScopeConfigInterface'
         )->setMethods(
-            array('getConfigFlag', 'getConfig')
+            array('isSetFlag', 'getValue')
         )->disableOriginalConstructor()->getMock();
-        $coreStoreConfig->expects($this->any())->method('getConfigFlag')->will($this->returnValue(true));
-        $coreStoreConfig->expects(
+        $scopeConfig->expects($this->any())->method('isSetFlag')->will($this->returnValue(true));
+        $scopeConfig->expects(
             $this->any()
         )->method(
-            'getConfig'
+            'getValue'
         )->will(
-            $this->returnCallback(array($this, 'coreStoreConfigGetConfig'))
+            $this->returnCallback(array($this, 'scopeConfiggetValue'))
         );
 
         // xml element factory
@@ -115,14 +115,14 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         )->getMock();
 
         $httpClient = $this->getMockBuilder(
-            '\Magento\HTTP\ZendClient'
+            '\Magento\Framework\HTTP\ZendClient'
         )->disableOriginalConstructor()->setMethods(
             array('request')
         )->getMock();
         $httpClient->expects($this->any())->method('request')->will($this->returnValue($this->_httpResponse));
 
         $httpClientFactory = $this->getMockBuilder(
-            '\Magento\HTTP\ZendClientFactory'
+            '\Magento\Framework\HTTP\ZendClientFactory'
         )->disableOriginalConstructor()->setMethods(
             array('create')
         )->getMock();
@@ -131,7 +131,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         $data = array('id' => 'usps', 'store' => '1');
 
         $arguments = array(
-            'coreStoreConfig' => $coreStoreConfig,
+            'scopeConfig' => $scopeConfig,
             'xmlElFactory' => $xmlElFactory,
             'rateFactory' => $rateFactory,
             'rateMethodFactory' => $rateMethodFactory,
@@ -165,8 +165,10 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
             $this->returnValue(file_get_contents(__DIR__ . '/_files/success_usps_response_rates.xml'))
         );
         // for setRequest
-        $request_params = include __DIR__ . '/_files/rates_request_data.php';
-        $request = $this->_helper->getObject('Magento\Sales\Model\Quote\Address\RateRequest', $request_params);
+        $request = $this->_helper->getObject(
+            'Magento\Sales\Model\Quote\Address\RateRequest',
+            require __DIR__ . '/_files/rates_request_data.php'
+        );
 
         $this->assertNotEmpty($this->_model->collectRates($request)->getAllRates());
     }
@@ -180,17 +182,19 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->returnValue(file_get_contents(__DIR__ . '/_files/success_usps_response_return_shipment.xml'))
         );
-        $request_params = include __DIR__ . '/_files/return_shipment_request_data.php';
-        $request = $this->_helper->getObject('Magento\Shipping\Model\Shipment\ReturnShipment', $request_params);
+        $request = $this->_helper->getObject(
+            'Magento\Shipping\Model\Shipment\ReturnShipment',
+            require __DIR__ . '/_files/return_shipment_request_data.php'
+        );
         $this->assertNotEmpty($this->_model->returnOfShipment($request)->getInfo()[0]['tracking_number']);
     }
 
     /**
-     * Callback function, emulates getConfig function
+     * Callback function, emulates getValue function
      * @param $path
      * @return null|string
      */
-    public function coreStoreConfigGetConfig($path)
+    public function scopeConfiggetValue($path)
     {
         switch ($path) {
             case 'carriers/usps/allowed_methods':

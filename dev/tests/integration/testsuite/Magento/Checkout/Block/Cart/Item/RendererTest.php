@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,9 +36,10 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         \Magento\TestFramework\Helper\Bootstrap::getInstance()
-            ->loadArea(\Magento\Core\Model\App\Area::AREA_FRONTEND);
-        $this->_block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\View\LayoutInterface')
-            ->createBlock('Magento\Checkout\Block\Cart\Item\Renderer');
+            ->loadArea(\Magento\Framework\App\Area::AREA_FRONTEND);
+        $this->_block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+            'Magento\Framework\View\LayoutInterface'
+        )->createBlock('Magento\Checkout\Block\Cart\Item\Renderer');
         /** @var $item \Magento\Sales\Model\Quote\Item */
         $item = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Sales\Model\Quote\Item');
         $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(

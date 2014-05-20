@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -221,7 +219,7 @@ class Grid extends \Magento\Reports\Block\Adminhtml\Grid\AbstractGrid
      * Add price rule filter
      *
      * @param \Magento\Reports\Model\Resource\Report\Collection\AbstractCollection $collection
-     * @param \Magento\Object $filterData
+     * @param \Magento\Framework\Object $filterData
      * @return \Magento\Reports\Block\Adminhtml\Grid\AbstractGrid
      */
     protected function _addCustomFilter($collection, $filterData)

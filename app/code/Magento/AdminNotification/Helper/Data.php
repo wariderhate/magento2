@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_AdminNotification
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\AdminNotification\Helper;
 /**
  * AdminNotification Data helper
  *
- * @category   Magento
- * @package    Magento_AdminNotification
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Data extends \Magento\App\Helper\AbstractHelper
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const XML_PATH_POPUP_URL = 'system/adminnotification/popup_url';
 
@@ -65,9 +61,9 @@ class Data extends \Magento\App\Helper\AbstractHelper
     protected $_unreadNoticeCounts;
 
     /**
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\AdminNotification\Model\InboxFactory
@@ -75,17 +71,17 @@ class Data extends \Magento\App\Helper\AbstractHelper
     protected $_inboxFactory;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\AdminNotification\Model\InboxFactory $inboxFactory
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\AdminNotification\Model\InboxFactory $inboxFactory
     ) {
         parent::__construct($context);
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_inboxFactory = $inboxFactory;
     }
 

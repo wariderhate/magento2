@@ -26,18 +26,7 @@
 <script type="text/javascript">
     //<![CDATA[
     (function ($) {
-        head.js("<?php echo $this->getViewFileUrl('Magento_PageCache::js/page-cache.js')?>", function () {
-            $('body').pageCache(<?php echo $this->getScriptOptions(); ?>);
-        });
-    })(jQuery);
-    //]]>
-</script>
-<script type="text/javascript">
-    //<![CDATA[
-    (function ($) {
-        head.js("<?php echo $this->getViewFileUrl('Magento_PageCache::js/form-key.js')?>", function () {
-            $('body').formKey();
-        });
+        $('body').mage('pageCache', <?php echo $this->getScriptOptions(); ?>);
     })(jQuery);
     //]]>
 </script>

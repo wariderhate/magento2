@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@ class ResultTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testIndexActionTranslation()
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $objectManager->get('Magento\Locale\ResolverInterface')->setLocale('de_DE');
+        $objectManager->get('Magento\Framework\Locale\ResolverInterface')->setLocale('de_DE');
 
         $this->getRequest()->setParam('q', 'query_text');
         $this->dispatch('catalogsearch/result');

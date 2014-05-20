@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Abstract Rule product condition data model
  *
- * @category Magento
- * @package Magento_Rule
  * @author Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Rule\Model\Condition\Product;
@@ -88,7 +84,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
     protected $_attrSetCollection;
 
     /**
-     * @var \Magento\Locale\FormatInterface
+     * @var \Magento\Framework\Locale\FormatInterface
      */
     protected $_localeFormat;
 
@@ -99,7 +95,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
      * @param \Magento\Catalog\Model\Product $product
      * @param \Magento\Catalog\Model\Resource\Product $productResource
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\Set\Collection $attrSetCollection
-     * @param \Magento\Locale\FormatInterface $localeFormat
+     * @param \Magento\Framework\Locale\FormatInterface $localeFormat
      * @param array $data
      */
     public function __construct(
@@ -109,7 +105,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
         \Magento\Catalog\Model\Product $product,
         \Magento\Catalog\Model\Resource\Product $productResource,
         \Magento\Eav\Model\Resource\Entity\Attribute\Set\Collection $attrSetCollection,
-        \Magento\Locale\FormatInterface $localeFormat,
+        \Magento\Framework\Locale\FormatInterface $localeFormat,
         array $data = array()
     ) {
         $this->_backendData = $backendData;
@@ -149,7 +145,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
         try {
             $obj = $this->_config->getAttribute(\Magento\Catalog\Model\Product::ENTITY, $this->getAttribute());
         } catch (\Exception $e) {
-            $obj = new \Magento\Object();
+            $obj = new \Magento\Framework\Object();
             $obj->setEntity($this->_product)->setFrontendInput('text');
         }
         return $obj;
@@ -307,7 +303,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
     /**
      * Retrieve attribute element
      *
-     * @return \Magento\Data\Form\Element\AbstractElement
+     * @return \Magento\Framework\Data\Form\Element\AbstractElement
      */
     public function getAttributeElement()
     {
@@ -405,7 +401,7 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
     /**
      * Retrieve value element
      *
-     * @return \Magento\Data\Form\Element\AbstractElement
+     * @return \Magento\Framework\Data\Form\Element\AbstractElement
      */
     public function getValueElement()
     {
@@ -517,10 +513,10 @@ abstract class AbstractProduct extends \Magento\Rule\Model\Condition\AbstractCon
     /**
      * Validate product attribute value for condition
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return bool
      */
-    public function validate(\Magento\Object $object)
+    public function validate(\Magento\Framework\Object $object)
     {
         $attrCode = $this->getAttribute();
 

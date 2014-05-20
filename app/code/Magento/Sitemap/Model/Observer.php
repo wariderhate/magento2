@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sitemap
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -60,9 +58,9 @@ class Observer
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\Sitemap\Model\Resource\Sitemap\CollectionFactory
@@ -70,35 +68,35 @@ class Observer
     protected $_collectionFactory;
 
     /**
-     * @var \Magento\Mail\Template\TransportBuilder
+     * @var \Magento\Framework\Mail\Template\TransportBuilder
      */
     protected $_transportBuilder;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @var \Magento\Translate\Inline\StateInterface
+     * @var \Magento\Framework\Translate\Inline\StateInterface
      */
     protected $inlineTranslation;
 
     /**
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param Resource\Sitemap\CollectionFactory $collectionFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Mail\Template\TransportBuilder $transportBuilder
-     * @param \Magento\Translate\Inline\StateInterface $inlineTranslation
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+     * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
      */
     public function __construct(
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Sitemap\Model\Resource\Sitemap\CollectionFactory $collectionFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Mail\Template\TransportBuilder $transportBuilder,
-        \Magento\Translate\Inline\StateInterface $inlineTranslation
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
+        \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
     ) {
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_collectionFactory = $collectionFactory;
         $this->_storeManager = $storeManager;
         $this->_transportBuilder = $transportBuilder;
@@ -116,7 +114,11 @@ class Observer
         $errors = array();
 
         // check if scheduled generation enabled
-        if (!$this->_coreStoreConfig->getConfigFlag(self::XML_PATH_GENERATION_ENABLED)) {
+        if (!$this->_scopeConfig->isSetFlag(
+            self::XML_PATH_GENERATION_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        )
+        ) {
             return;
         }
 
@@ -132,22 +134,36 @@ class Observer
             }
         }
 
-        if ($errors && $this->_coreStoreConfig->getConfig(self::XML_PATH_ERROR_RECIPIENT)) {
-            $this->inlineTranslation->suspend();
+        if ($errors && $this->_scopeConfig->getValue(
+            self::XML_PATH_ERROR_RECIPIENT,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        )
+        ) {
+            $translate = $this->_translateModel->getTranslateInline();
+            $this->_translateModel->setTranslateInline(false);
 
             $this->_transportBuilder->setTemplateIdentifier(
-                $this->_coreStoreConfig->getConfig(self::XML_PATH_ERROR_TEMPLATE)
+                $this->_scopeConfig->getValue(
+                    self::XML_PATH_ERROR_TEMPLATE,
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                )
             )->setTemplateOptions(
                 array(
-                    'area' => \Magento\Core\Model\App\Area::AREA_ADMIN,
+                    'area' => \Magento\Framework\App\Area::AREA_ADMIN,
                     'store' => $this->_storeManager->getStore()->getId()
                 )
             )->setTemplateVars(
                 array('warnings' => join("\n", $errors))
             )->setFrom(
-                $this->_coreStoreConfig->getConfig(self::XML_PATH_ERROR_IDENTITY)
+                $this->_scopeConfig->getValue(
+                    self::XML_PATH_ERROR_IDENTITY,
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                )
             )->addTo(
-                $this->_coreStoreConfig->getConfig(self::XML_PATH_ERROR_RECIPIENT)
+                $this->_scopeConfig->getValue(
+                    self::XML_PATH_ERROR_RECIPIENT,
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                )
             );
             $transport = $this->_transportBuilder->getTransport();
             $transport->sendMessage();

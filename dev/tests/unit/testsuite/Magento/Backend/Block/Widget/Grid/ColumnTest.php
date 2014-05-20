@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -49,9 +46,9 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->_layoutMock = $this->getMock('Magento\Core\Model\Layout', array(), array(), '', false, false);
+        $this->_layoutMock = $this->getMock('Magento\Framework\View\Layout', array(), array(), '', false, false);
         $this->_blockMock = $this->getMock(
-            'Magento\View\Element\Template',
+            'Magento\Framework\View\Element\Template',
             array('setColumn', 'getHtml'),
             array(),
             '',

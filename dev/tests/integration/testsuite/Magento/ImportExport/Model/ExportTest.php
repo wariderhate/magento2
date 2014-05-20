@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -74,11 +71,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             ),
             'customer main data' => array(
                 '$entity' => 'customer',
-                '$expectedEntityType' => 'Magento\ImportExport\Model\Export\Entity\Eav\Customer'
+                '$expectedEntityType' => 'Magento\Customer\Model\ImportExport\Export\Customer'
             ),
             'customer address' => array(
                 '$entity' => 'customer_address',
-                '$expectedEntityType' => 'Magento\ImportExport\Model\Export\Entity\Eav\Customer\Address'
+                '$expectedEntityType' => 'Magento\Customer\Model\ImportExport\Export\Address'
             )
         );
     }
@@ -86,7 +83,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     /**
      * Test method '_getEntityAdapter' in case when entity is invalid
      *
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @covers \Magento\ImportExport\Model\Export::_getEntityAdapter
      */
     public function testGetEntityAdapterWithInvalidEntity()

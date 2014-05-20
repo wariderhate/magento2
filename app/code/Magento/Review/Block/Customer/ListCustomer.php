@@ -46,28 +46,28 @@ class ListCustomer extends \Magento\Customer\Block\Account\Dashboard
     protected $_collectionFactory;
 
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory
      * @param CustomerAccountServiceInterface $customerAccountService
      * @param CustomerAddressServiceInterface $addressService
      * @param \Magento\Review\Model\Resource\Review\Product\CollectionFactory $collectionFactory
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory,
         CustomerAccountServiceInterface $customerAccountService,
         CustomerAddressServiceInterface $addressService,
         \Magento\Review\Model\Resource\Review\Product\CollectionFactory $collectionFactory,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = array()
     ) {
         $this->_collectionFactory = $collectionFactory;
@@ -121,7 +121,7 @@ class ListCustomer extends \Magento\Customer\Block\Account\Dashboard
     /**
      * Initializes toolbar
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _prepareLayout()
     {
@@ -187,13 +187,13 @@ class ListCustomer extends \Magento\Customer\Block\Account\Dashboard
      */
     public function dateFormat($date)
     {
-        return $this->formatDate($date, \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT);
+        return $this->formatDate($date, \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT);
     }
 
     /**
      * Add review summary
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _beforeToHtml()
     {

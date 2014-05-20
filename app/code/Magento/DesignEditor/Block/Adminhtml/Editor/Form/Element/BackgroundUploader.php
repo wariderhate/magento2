@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -98,21 +96,21 @@ class BackgroundUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Fo
     /**
      * Get component of 'checkbox' type (actually 'tile')
      *
-     * @return \Magento\Data\Form\Element\Checkbox
-     * @throws \Magento\Model\Exception
+     * @return \Magento\Framework\Data\Form\Element\Checkbox
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getCheckboxElement()
     {
         $checkboxId = $this->getComponentId('tile');
 
-        /** @var $element \Magento\Data\Form\Element\AbstractElement */
+        /** @var $element \Magento\Framework\Data\Form\Element\AbstractElement */
         foreach ($this->getElements() as $element) {
             if ($element->getData('name') == $checkboxId) {
                 return $element;
             }
         }
 
-        throw new \Magento\Model\Exception(
+        throw new \Magento\Framework\Model\Exception(
             __('Element "%1" is not found in "%2".', $checkboxId, $this->getData('name'))
         );
     }
@@ -121,18 +119,18 @@ class BackgroundUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Fo
      * Get component of 'image-uploader' type
      *
      * @return \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element\ImageUploader
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getImageUploaderElement()
     {
         $imageUploaderId = $this->getComponentId('image-uploader');
-        /** @var $e \Magento\Data\Form\Element\AbstractElement */
+        /** @var $e \Magento\Framework\Data\Form\Element\AbstractElement */
         foreach ($this->getElements() as $e) {
             if ($e->getData('name') == $imageUploaderId) {
                 return $e;
             }
         }
-        throw new \Magento\Model\Exception(
+        throw new \Magento\Framework\Model\Exception(
             __('Element "%1" is not found in "%2".', $imageUploaderId, $this->getData('name'))
         );
     }

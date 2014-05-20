@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -54,7 +51,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
         $this->_menuModel = new \Magento\Backend\Model\Menu($logger);
         $this->_menuSubModel = new \Magento\Backend\Model\Menu($logger);
 

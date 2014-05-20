@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     performance_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +30,7 @@ namespace Magento\TestFramework\Performance\Scenario\Handler;
 class Php implements \Magento\TestFramework\Performance\Scenario\HandlerInterface
 {
     /**
-     * @var \Magento\Shell
+     * @var \Magento\Framework\Shell
      */
     protected $_shell;
 
@@ -44,10 +42,10 @@ class Php implements \Magento\TestFramework\Performance\Scenario\HandlerInterfac
     /**
      * Constructor
      *
-     * @param \Magento\Shell $shell
+     * @param \Magento\Framework\Shell $shell
      * @param bool $validateExecutable
      */
-    public function __construct(\Magento\Shell $shell, $validateExecutable = true)
+    public function __construct(\Magento\Framework\Shell $shell, $validateExecutable = true)
     {
         $this->_shell = $shell;
         $this->_validateExecutable = $validateExecutable;
@@ -70,7 +68,7 @@ class Php implements \Magento\TestFramework\Performance\Scenario\HandlerInterfac
      *
      * @param \Magento\TestFramework\Performance\Scenario $scenario
      * @param string|null $reportFile Report file to write results to, NULL disables report creation
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      * @throws \Magento\TestFramework\Performance\Scenario\FailureException
      *
      * @todo Implement execution in concurrent threads defined by the "users" scenario argument
@@ -117,7 +115,7 @@ class Php implements \Magento\TestFramework\Performance\Scenario\HandlerInterfac
         $executionTime = microtime(true);
         try {
             $result['output'] = $this->_shell->execute($scenarioCmd, $scenarioCmdArgs);
-        } catch (\Magento\Exception $e) {
+        } catch (\Magento\Framework\Exception $e) {
             $result['success'] = false;
             $result['exit_code'] = $e->getPrevious()->getCode();
             $result['output'] = $e->getPrevious()->getMessage();

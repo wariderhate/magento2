@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,15 +26,13 @@
 /**
  * Widget Instance Resource Model
  *
- * @category    Magento
- * @package     Magento_Widget
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Widget\Model\Resource\Widget;
 
-use Magento\Model\AbstractModel;
+use Magento\Framework\Model\AbstractModel;
 
-class Instance extends \Magento\Model\Resource\Db\AbstractDb
+class Instance extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Define main table
@@ -187,7 +183,7 @@ class Instance extends \Magento\Model\Resource\Db\AbstractDb
      * Perform actions before object delete.
      * Collect page ids and layout update ids and set to object for further delete
      *
-     * @param AbstractModel $object
+     * @param \Magento\Framework\Model\AbstractModel $object
      * @return $this
      */
     protected function _beforeDelete(AbstractModel $object)

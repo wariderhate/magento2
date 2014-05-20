@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -49,9 +47,9 @@ class Cart extends \Magento\Core\Helper\Url
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\Checkout\Model\Cart
@@ -64,23 +62,23 @@ class Cart extends \Magento\Core\Helper\Url
     protected $_checkoutSession;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Core\Helper\Data $coreData
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Checkout\Model\Cart $checkoutCart
      * @param \Magento\Checkout\Model\Session $checkoutSession
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Core\Helper\Data $coreData,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Checkout\Model\Cart $checkoutCart,
         \Magento\Checkout\Model\Session $checkoutSession
     ) {
         $this->_coreData = $coreData;
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_checkoutCart = $checkoutCart;
         $this->_checkoutSession = $checkoutSession;
         parent::__construct($context, $storeManager);
@@ -106,7 +104,7 @@ class Cart extends \Magento\Core\Helper\Url
     public function getAddUrl($product, $additional = array())
     {
         $continueUrl = $this->_coreData->urlEncode($this->_urlBuilder->getCurrentUrl());
-        $urlParamName = \Magento\App\Action\Action::PARAM_NAME_URL_ENCODED;
+        $urlParamName = \Magento\Framework\App\Action\Action::PARAM_NAME_URL_ENCODED;
 
         $routeParams = array($urlParamName => $continueUrl, 'product' => $product->getEntityId());
 
@@ -137,7 +135,7 @@ class Cart extends \Magento\Core\Helper\Url
     {
         $params = array(
             'id' => $item->getId(),
-            \Magento\App\Action\Action::PARAM_NAME_BASE64_URL => $this->getCurrentBase64Url()
+            \Magento\Framework\App\Action\Action::PARAM_NAME_BASE64_URL => $this->getCurrentBase64Url()
         );
         return $this->_getUrl('checkout/cart/delete', $params);
     }
@@ -205,11 +203,11 @@ class Cart extends \Magento\Core\Helper\Url
     /**
      * Checks if customer should be redirected to shopping cart after adding a product
      *
-     * @param int|string|\Magento\Core\Model\Store $store
+     * @param int|string|\Magento\Store\Model\Store $store
      * @return bool
      */
     public function getShouldRedirectToCart($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(self::XML_PATH_REDIRECT_TO_CART, $store);
+        return $this->_scopeConfig->isSetFlag(self::XML_PATH_REDIRECT_TO_CART, \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
     }
 }

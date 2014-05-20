@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,18 +25,17 @@ namespace Magento\Catalog\Block\Product\Widget;
 
 /**
  * New products widget
- *
- * @category   Magento
- * @package    Magento_Catalog
- * @author     Magento Core Team <core@magentocommerce.com>
  */
 class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Magento\Widget\Block\BlockInterface
 {
     /**
-     * Display products type
+     * Display products type - all products
      */
     const DISPLAY_TYPE_ALL_PRODUCTS = 'all_products';
 
+    /**
+     * Display products type - new products
+     */
     const DISPLAY_TYPE_NEW_PRODUCTS = 'new_products';
 
     /**
@@ -64,24 +61,9 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     protected $_pager;
 
     /**
-     * Initialize block's cache and template settings
-     *
-     * @return void
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->addPriceBlockType(
-            'bundle',
-            'Magento\Bundle\Block\Catalog\Product\Price',
-            'bundle/catalog/product/price.phtml'
-        );
-    }
-
-    /**
      * Product collection initialize process
      *
-     * @return \Magento\Catalog\Model\Resource\Product\Collection|Object|\Magento\Data\Collection
+     * @return \Magento\Catalog\Model\Resource\Product\Collection|Object|\Magento\Framework\Data\Collection
      */
     protected function _getProductCollection()
     {
@@ -99,7 +81,7 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
     /**
      * Prepare collection for recent product list
      *
-     * @return \Magento\Catalog\Model\Resource\Product\Collection|Object|\Magento\Data\Collection
+     * @return \Magento\Catalog\Model\Resource\Product\Collection|Object|\Magento\Framework\Data\Collection
      */
     protected function _getRecentlyAddedProductsCollection()
     {
@@ -107,16 +89,11 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
         $collection = $this->_productCollectionFactory->create();
         $collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
 
-        $collection = $this->_addProductAttributesAndPrices(
-            $collection
-        )->addStoreFilter()->addAttributeToSort(
-            'created_at',
-            'desc'
-        )->setPageSize(
-            $this->getProductsCount()
-        )->setCurPage(
-            1
-        );
+        $collection = $this->_addProductAttributesAndPrices($collection)
+            ->addStoreFilter()
+            ->addAttributeToSort('created_at', 'desc')
+            ->setPageSize($this->getProductsCount())
+            ->setCurPage(1);
         return $collection;
     }
 
@@ -203,26 +180,63 @@ class NewWidget extends \Magento\Catalog\Block\Product\NewProduct implements \Ma
                     'widget.new.product.list.pager'
                 );
 
-                $this->_pager->setUseContainer(
-                    true
-                )->setShowAmounts(
-                    true
-                )->setShowPerPage(
-                    false
-                )->setPageVarName(
-                    self::PAGE_VAR_NAME
-                )->setLimit(
-                    $this->getProductsPerPage()
-                )->setTotalLimit(
-                    $this->getProductsCount()
-                )->setCollection(
-                    $this->getProductCollection()
-                );
+                $this->_pager->setUseContainer(true)
+                    ->setShowAmounts(true)
+                    ->setShowPerPage(false)
+                    ->setPageVarName(self::PAGE_VAR_NAME)
+                    ->setLimit($this->getProductsPerPage())
+                    ->setTotalLimit($this->getProductsCount())
+                    ->setCollection($this->getProductCollection());
             }
-            if ($this->_pager instanceof \Magento\View\Element\AbstractBlock) {
+            if ($this->_pager instanceof \Magento\Framework\View\Element\AbstractBlock) {
                 return $this->_pager->toHtml();
             }
         }
         return '';
+    }
+
+    /**
+     * Return HTML block with price
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string $priceType
+     * @param string $renderZone
+     * @param array $arguments
+     * @return string
+     */
+    public function getProductPriceHtml(
+        \Magento\Catalog\Model\Product $product,
+        $priceType = null,
+        $renderZone = \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
+        array $arguments = []
+    ) {
+        if (!isset($arguments['zone'])) {
+            $arguments['zone'] = $renderZone;
+        }
+        $arguments['zone'] = isset($arguments['zone'])
+            ? $arguments['zone']
+            : $renderZone;
+        $arguments['price_id'] = isset($arguments['price_id'])
+            ? $arguments['price_id']
+            : 'old-price-' . $product->getId() . '-' . $priceType;
+        $arguments['include_container'] = isset($arguments['include_container'])
+            ? $arguments['include_container']
+            : true;
+        $arguments['display_minimal_price'] = isset($arguments['display_minimal_price'])
+            ? $arguments['display_minimal_price']
+            : true;
+
+            /** @var \Magento\Framework\Pricing\Render $priceRender */
+        $priceRender = $this->getLayout()->getBlock('product.price.render.default');
+
+        $price = '';
+        if ($priceRender) {
+            $price = $priceRender->render(
+                \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                $product,
+                $arguments
+            );
+        }
+        return $price;
     }
 }

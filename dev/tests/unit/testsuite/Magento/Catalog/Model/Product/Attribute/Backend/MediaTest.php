@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -41,7 +38,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_objectHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
+        $eventManager = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
 
         $fileStorageDb = $this->getMock('Magento\Core\Helper\File\Storage\Database', array(), array(), '', false);
         $coreData = $this->getMock('Magento\Core\Helper\Data', array(), array(), '', false);
@@ -56,9 +53,11 @@ class MediaTest extends \PHPUnit_Framework_TestCase
 
         $mediaConfig = $this->getMock('Magento\Catalog\Model\Product\Media\Config', array(), array(), '', false);
         $directory = $this->getMockBuilder(
-            'Magento\Filesystem\Directory\Write'
+            'Magento\Framework\Filesystem\Directory\Write'
         )->disableOriginalConstructor()->getMock();
-        $filesystem = $this->getMockBuilder('Magento\App\Filesystem')->disableOriginalConstructor()->getMock();
+        $filesystem = $this->getMockBuilder('Magento\Framework\App\Filesystem')
+            ->disableOriginalConstructor()
+            ->getMock();
         $filesystem->expects($this->once())->method('getDirectoryWrite')->will($this->returnValue($directory));
         $this->_model = $this->_objectHelper->getObject(
             'Magento\Catalog\Model\Product\Attribute\Backend\Media',
@@ -96,7 +95,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
 
         $this->_model->setAttribute($attribute);
 
-        $object = new \Magento\Object();
+        $object = new \Magento\Framework\Object();
         $object->setImage(array('images' => array(array('value_id' => $valueId))));
         $object->setId(555);
 

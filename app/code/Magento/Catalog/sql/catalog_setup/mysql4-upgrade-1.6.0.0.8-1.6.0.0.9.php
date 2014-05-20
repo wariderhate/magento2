@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,14 +28,14 @@ $installer = $this;
 /** @var $this \Magento\Catalog\Model\Resource\Setup */
 $installFile = __DIR__ . '/upgrade-1.6.0.0.8-1.6.0.0.9.php';
 
-/** @var \Magento\Filesystem\Directory\Read $modulesDirectory */
-$modulesDirectory = $this->getFilesystem()->getDirectoryRead(\Magento\App\Filesystem::MODULES_DIR);
+/** @var \Magento\Framework\Filesystem\Directory\Read $modulesDirectory */
+$modulesDirectory = $this->getFilesystem()->getDirectoryRead(\Magento\Framework\App\Filesystem::MODULES_DIR);
 
 if ($modulesDirectory->isExist($modulesDirectory->getRelativePath($installFile))) {
     include $installFile;
 }
 
-/** @var $connection \Magento\DB\Adapter\Pdo\Mysql */
+/** @var $connection \Magento\Framework\DB\Adapter\Pdo\Mysql */
 $connection = $installer->getConnection();
 $memoryTables = array(
     'catalog_category_anc_categs_index_tmp',
@@ -55,5 +53,5 @@ $memoryTables = array(
 );
 
 foreach ($memoryTables as $table) {
-    $connection->changeTableEngine($this->getTable($table), \Magento\DB\Adapter\Pdo\Mysql::ENGINE_MEMORY);
+    $connection->changeTableEngine($this->getTable($table), \Magento\Framework\DB\Adapter\Pdo\Mysql::ENGINE_MEMORY);
 }

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,14 +28,14 @@ namespace Magento\Theme\Controller\Adminhtml\System\Design;
  */
 class ThemeControllerTest extends \Magento\Backend\Utility\Controller
 {
-    /** @var \Magento\App\Filesystem */
+    /** @var \Magento\Framework\App\Filesystem */
     protected $_filesystem;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->_filesystem = $this->_objectManager->get('Magento\App\Filesystem');
+        $this->_filesystem = $this->_objectManager->get('Magento\Framework\App\Filesystem');
     }
 
     /**
@@ -57,12 +54,14 @@ class ThemeControllerTest extends \Magento\Backend\Utility\Controller
         );
 
         $directoryList = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\App\Filesystem\DirectoryList'
+            'Magento\Framework\App\Filesystem\DirectoryList'
         );
-        /** @var $directoryList \Magento\App\Filesystem\DirectoryList */
-        $directoryList->addDirectory(\Magento\App\Filesystem::SYS_TMP_DIR, array('path' => '/'));
+        /** @var $directoryList \Magento\Framework\App\Filesystem\DirectoryList */
+        $directoryList->addDirectory(\Magento\Framework\App\Filesystem::SYS_TMP_DIR, array('path' => '/'));
 
-        $theme = $this->_objectManager->create('Magento\View\Design\ThemeInterface')->getCollection()->getFirstItem();
+        $theme = $this->_objectManager->create('Magento\Framework\View\Design\ThemeInterface')
+            ->getCollection()
+            ->getFirstItem();
 
         $this->getRequest()->setPost('id', $theme->getId());
         $this->dispatch('backend/admin/system_design_theme/uploadjs');
@@ -83,8 +82,8 @@ class ThemeControllerTest extends \Magento\Backend\Utility\Controller
          * Uploader can copy(upload) and then remove this temporary file.
          */
         $fileName = __DIR__ . '/_files/simple-js-file.js';
-        $varDir = $this->_filesystem->getDirectoryWrite(\Magento\App\Filesystem::VAR_DIR);
-        $rootDir = $this->_filesystem->getDirectoryWrite(\Magento\App\Filesystem::ROOT_DIR);
+        $varDir = $this->_filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::VAR_DIR);
+        $rootDir = $this->_filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::ROOT_DIR);
         $destinationFilePath = 'simple-js-file.js';
 
         $rootDir->copyFile($rootDir->getRelativePath($fileName), $destinationFilePath, $varDir);

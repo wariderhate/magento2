@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleShopping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\GoogleShopping\Block\Adminhtml\Items;
 /**
  * Google Shopping Items
  *
- * @category   Magento
- * @package    Magento_GoogleShopping
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Item extends \Magento\Backend\Block\Widget\Grid\Extended
@@ -89,11 +85,17 @@ class Item extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareColumns()
     {
-        $this->addColumn('name', array('header' => __('Product'), 'width' => '30%', 'index' => 'name'));
+        $this->addColumn('name', array('header' => __('Product'), 'index' => 'name'));
 
         $this->addColumn(
             'expires',
-            array('header' => __('Expires'), 'type' => 'datetime', 'width' => '100px', 'index' => 'expires')
+            array(
+                'header' => __('Expires'),
+                'type' => 'datetime',
+                'index' => 'expires',
+                'header_css_class' => 'col-period',
+                'column_css_class' => 'col-period'
+            )
         );
 
         return parent::_prepareColumns();

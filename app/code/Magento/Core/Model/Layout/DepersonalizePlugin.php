@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,17 +30,17 @@ namespace Magento\Core\Model\Layout;
 class DepersonalizePlugin
 {
     /**
-     * @var \Magento\App\RequestInterface
+     * @var \Magento\Framework\App\RequestInterface
      */
     protected $request;
 
     /**
-     * @var \Magento\Module\Manager
+     * @var \Magento\Framework\Module\Manager
      */
     protected $moduleManager;
 
     /**
-     * @var \Magento\Event\Manager
+     * @var \Magento\Framework\Event\Manager
      */
     protected $eventManager;
 
@@ -52,23 +50,23 @@ class DepersonalizePlugin
     protected $cacheConfig;
 
     /**
-     * @var \Magento\Message\Session
+     * @var \Magento\Framework\Message\Session
      */
     protected $messageSession;
 
     /**
-     * @param \Magento\App\RequestInterface $request
-     * @param \Magento\Module\Manager $moduleManager
-     * @param \Magento\Event\Manager $eventManager
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @param \Magento\Framework\Module\Manager $moduleManager
+     * @param \Magento\Framework\Event\Manager $eventManager
      * @param \Magento\PageCache\Model\Config $cacheConfig
-     * @param \Magento\Message\Session $messageSession
+     * @param \Magento\Framework\Message\Session $messageSession
      */
     public function __construct(
-        \Magento\App\RequestInterface $request,
-        \Magento\Module\Manager $moduleManager,
-        \Magento\Event\Manager $eventManager,
+        \Magento\Framework\App\RequestInterface $request,
+        \Magento\Framework\Module\Manager $moduleManager,
+        \Magento\Framework\Event\Manager $eventManager,
         \Magento\PageCache\Model\Config $cacheConfig,
-        \Magento\Message\Session $messageSession
+        \Magento\Framework\Message\Session $messageSession
     ) {
         $this->request = $request;
         $this->moduleManager = $moduleManager;
@@ -80,11 +78,11 @@ class DepersonalizePlugin
     /**
      * After generate Xml
      *
-     * @param \Magento\View\LayoutInterface $subject
-     * @param \Magento\View\LayoutInterface $result
-     * @return \Magento\View\LayoutInterface
+     * @param \Magento\Framework\View\LayoutInterface $subject
+     * @param \Magento\Framework\View\LayoutInterface $result
+     * @return \Magento\Framework\View\LayoutInterface
      */
-    public function afterGenerateXml(\Magento\View\LayoutInterface $subject, $result)
+    public function afterGenerateXml(\Magento\Framework\View\LayoutInterface $subject, $result)
     {
         if ($this->moduleManager->isEnabled('Magento_PageCache')
             && $this->cacheConfig->isEnabled()

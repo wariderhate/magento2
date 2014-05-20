@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,19 +35,21 @@ class ResetTest extends \PHPUnit_Framework_TestCase
     private $_resetRobotsBlock;
 
     /**
-     * @var \Magento\App\ConfigInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $coreConfigMock;
+    protected $configMock;
 
     protected function setUp()
     {
-        $this->coreConfigMock = $this->getMock('Magento\App\ConfigInterface', array(), array(), '', false);
+        $this->configMock = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');
 
-        $this->_resetRobotsBlock = new Reset(
-            $this->getMock('Magento\Backend\Block\Template\Context', array(), array(), '', false),
-            $this->coreConfigMock,
-            array()
+        $objectHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
+        $context = $objectHelper->getObject(
+            'Magento\Backend\Block\Template\Context',
+            array('scopeConfig' => $this->configMock)
         );
+
+        $this->_resetRobotsBlock = new Reset($context, array());
     }
 
     /**
@@ -59,13 +58,7 @@ class ResetTest extends \PHPUnit_Framework_TestCase
     public function testGetRobotsDefaultCustomInstructions()
     {
         $expectedInstructions = 'User-agent: *';
-        $this->coreConfigMock->expects(
-            $this->once()
-        )->method(
-            'getValue'
-        )->will(
-            $this->returnValue($expectedInstructions)
-        );
+        $this->configMock->expects($this->once())->method('getValue')->will($this->returnValue($expectedInstructions));
         $this->assertEquals($expectedInstructions, $this->_resetRobotsBlock->getRobotsDefaultCustomInstructions());
     }
 }

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,7 +35,7 @@ class CouponTest extends \PHPUnit_Framework_TestCase
     /**
      * Layout
      *
-     * @var \Magento\View\LayoutInterface
+     * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout;
 
@@ -46,7 +43,7 @@ class CouponTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->_layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->get('Magento\View\LayoutInterface');
+            ->get('Magento\Framework\View\LayoutInterface');
     }
 
     /**
@@ -56,7 +53,7 @@ class CouponTest extends \PHPUnit_Framework_TestCase
     {
         /** @var $block \Magento\Sales\Block\Adminhtml\Report\Filter\Form\Coupon */
         $block = $this->_layout->createBlock('Magento\Sales\Block\Adminhtml\Report\Filter\Form\Coupon');
-        $block->setFilterData(new \Magento\Object());
+        $block->setFilterData(new \Magento\Framework\Object());
         $html = $block->toHtml();
 
         $expectedStrings = array(

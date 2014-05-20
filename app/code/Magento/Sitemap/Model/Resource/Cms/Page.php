@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sitemap
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ namespace Magento\Sitemap\Model\Resource\Cms;
  *
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Page extends \Magento\Model\Resource\Db\AbstractDb
+class Page extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Init resource model (catalog/category)
@@ -82,11 +80,11 @@ class Page extends \Magento\Model\Resource\Db\AbstractDb
      * Prepare page object
      *
      * @param array $data
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     protected function _prepareObject(array $data)
     {
-        $object = new \Magento\Object();
+        $object = new \Magento\Framework\Object();
         $object->setId($data[$this->getIdFieldName()]);
         $object->setUrl($data['url']);
         $object->setUpdatedAt($data['updated_at']);

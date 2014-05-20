@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,12 +29,12 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
     {
         $categoryIds = array(1, 2, 3, 4, 5);
 
-        $product = $this->getMock('Magento\Object', array('getCategoryIds', 'setData'));
+        $product = $this->getMock('Magento\Framework\Object', array('getCategoryIds', 'setData'));
         $product->expects($this->once())->method('getCategoryIds')->will($this->returnValue($categoryIds));
 
         $product->expects($this->once())->method('setData')->with('category_ids', $categoryIds);
 
-        $categoryAttribute = $this->getMock('Magento\Object', array('getAttributeCode'));
+        $categoryAttribute = $this->getMock('Magento\Framework\Object', array('getAttributeCode'));
         $categoryAttribute->expects(
             $this->once()
         )->method(
@@ -46,7 +43,7 @@ class CategoryTest extends \PHPUnit_Framework_TestCase
             $this->returnValue('category_ids')
         );
 
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
         $model = new \Magento\Catalog\Model\Product\Attribute\Backend\Category($logger);
         $model->setAttribute($categoryAttribute);
 

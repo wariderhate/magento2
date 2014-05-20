@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cms
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +32,7 @@ namespace Magento\Cms\Model\Page;
  * @method \Magento\Cms\Model\Page\Urlrewrite setCmsPageId() setCmsPageId(int)
  * @method \Magento\Cms\Model\Page\Urlrewrite setUrlRewriteId() setUrlRewriteId(int)
  */
-class Urlrewrite extends \Magento\Model\AbstractModel
+class Urlrewrite extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Initialize resource model

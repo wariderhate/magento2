@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Sales\Model\Config;
 /**
  * Configuration class for ordered items
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-abstract class Ordered extends \Magento\Core\Model\Config\Base
+abstract class Ordered extends \Magento\Framework\App\Config\Base
 {
     /**
      * Cache key for collectors
@@ -77,12 +73,12 @@ abstract class Ordered extends \Magento\Core\Model\Config\Base
     protected $_collectors = array();
 
     /**
-     * @var \Magento\App\Cache\Type\Config
+     * @var \Magento\Framework\App\Cache\Type\Config
      */
     protected $_configCacheType;
 
     /**
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
@@ -92,14 +88,14 @@ abstract class Ordered extends \Magento\Core\Model\Config\Base
     protected $_salesConfig;
 
     /**
-     * @param \Magento\App\Cache\Type\Config $configCacheType
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\App\Cache\Type\Config $configCacheType
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\Sales\Model\Config $salesConfig
-     * @param \Magento\Simplexml\Element $sourceData
+     * @param \Magento\Framework\Simplexml\Element $sourceData
      */
     public function __construct(
-        \Magento\App\Cache\Type\Config $configCacheType,
-        \Magento\Logger $logger,
+        \Magento\Framework\App\Cache\Type\Config $configCacheType,
+        \Magento\Framework\Logger $logger,
         \Magento\Sales\Model\Config $salesConfig,
         $sourceData = null
     ) {
@@ -141,7 +137,7 @@ abstract class Ordered extends \Magento\Core\Model\Config\Base
      * Prepare configuration array for total model
      *
      * @param   string $code
-     * @param   \Magento\Core\Model\Config\Element $totalConfig
+     * @param   \Magento\Framework\App\Config\Element $totalConfig
      * @return  array
      */
     protected function _prepareConfigArray($code, $totalConfig)

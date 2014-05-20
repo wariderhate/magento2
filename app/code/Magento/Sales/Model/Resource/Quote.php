@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,13 +34,13 @@ class Quote extends AbstractResource
     protected $_config;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      * @param \Magento\Eav\Model\Config $config
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Stdlib\DateTime $dateTime,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Stdlib\DateTime $dateTime,
         \Magento\Eav\Model\Config $config
     ) {
         parent::__construct($resource, $dateTime);
@@ -64,8 +62,8 @@ class Quote extends AbstractResource
      *
      * @param string $field
      * @param mixed $value
-     * @param \Magento\Model\AbstractModel $object
-     * @return \Magento\DB\Select
+     * @param \Magento\Framework\Model\AbstractModel $object
+     * @return \Magento\Framework\DB\Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -101,7 +99,7 @@ class Quote extends AbstractResource
             'is_active = ?',
             1
         )->order(
-            'updated_at ' . \Magento\DB\Select::SQL_DESC
+            'updated_at ' . \Magento\Framework\DB\Select::SQL_DESC
         )->limit(
             1
         );

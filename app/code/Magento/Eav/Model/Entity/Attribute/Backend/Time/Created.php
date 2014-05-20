@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,15 +29,15 @@ namespace Magento\Eav\Model\Entity\Attribute\Backend\Time;
 class Created extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
 {
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
-     * @param \Magento\Logger $logger
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      */
-    public function __construct(\Magento\Logger $logger, \Magento\Stdlib\DateTime $dateTime)
+    public function __construct(\Magento\Framework\Logger $logger, \Magento\Framework\Stdlib\DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
         parent::__construct($logger);

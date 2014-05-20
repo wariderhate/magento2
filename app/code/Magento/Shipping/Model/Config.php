@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Shipping
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Shipping\Model;
 
-class Config extends \Magento\Object
+class Config extends \Magento\Framework\Object
 {
     /**
      * Shipping origin settings
@@ -41,9 +39,9 @@ class Config extends \Magento\Object
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\Shipping\Model\CarrierFactory
@@ -53,16 +51,16 @@ class Config extends \Magento\Object
     /**
      * Constructor
      *
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Shipping\Model\CarrierFactory $carrierFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Shipping\Model\CarrierFactory $carrierFactory,
         array $data = array()
     ) {
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_carrierFactory = $carrierFactory;
         parent::__construct($data);
     }
@@ -76,9 +74,9 @@ class Config extends \Magento\Object
     public function getActiveCarriers($store = null)
     {
         $carriers = array();
-        $config = $this->_coreStoreConfig->getConfig('carriers', $store);
+        $config = $this->_scopeConfig->getValue('carriers', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
         foreach (array_keys($config) as $carrierCode) {
-            if ($this->_coreStoreConfig->getConfigFlag('carriers/' . $carrierCode . '/active', $store)) {
+            if ($this->_scopeConfig->isSetFlag('carriers/' . $carrierCode . '/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store)) {
                 $carrierModel = $this->_carrierFactory->create($carrierCode, $store);
                 if ($carrierModel) {
                     $carriers[$carrierCode] = $carrierModel;
@@ -97,7 +95,7 @@ class Config extends \Magento\Object
     public function getAllCarriers($store = null)
     {
         $carriers = array();
-        $config = $this->_coreStoreConfig->getConfig('carriers', $store);
+        $config = $this->_scopeConfig->getValue('carriers', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store);
         foreach (array_keys($config) as $carrierCode) {
             $model = $this->_carrierFactory->create($carrierCode, $store);
             if ($model) {

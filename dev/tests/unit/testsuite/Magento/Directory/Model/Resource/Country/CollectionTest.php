@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -35,11 +32,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $connection = $this->getMock('Magento\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
+        $connection = $this->getMock('Magento\Framework\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
         $select = $this->getMock('Zend_Db_Select', array(), array(), '', false);
         $connection->expects($this->once())->method('select')->will($this->returnValue($select));
 
-        $resource = $this->getMockForAbstractClass('Magento\Model\Resource\Db\AbstractDb',
+        $resource = $this->getMockForAbstractClass('Magento\Framework\Model\Resource\Db\AbstractDb',
             array(),
             '',
             false,
@@ -50,14 +47,14 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $resource->expects($this->any())->method('getReadConnection')->will($this->returnValue($connection));
         $resource->expects($this->any())->method('getTable')->will($this->returnArgument(0));
 
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
-        $localeListsMock = $this->getMock('Magento\Locale\ListsInterface');
+        $eventManager = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
+        $localeListsMock = $this->getMock('Magento\Framework\Locale\ListsInterface');
         $localeListsMock->expects($this->any())->method('getCountryTranslation')->will($this->returnArgument(0));
 
-        $fetchStrategy = $this->getMockForAbstractClass('Magento\Data\Collection\Db\FetchStrategyInterface');
+        $fetchStrategy = $this->getMockForAbstractClass('Magento\Framework\Data\Collection\Db\FetchStrategyInterface');
         $entityFactory = $this->getMock('Magento\Core\Model\EntityFactory', array(), array(), '', false);
-        $storeConfigMock = $this->getMock('Magento\Core\Model\Store\Config', array(), array(), '', false);
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $scopeConfigMock = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
         $countryFactory = $this->getMock(
             'Magento\Directory\Model\Resource\CountryFactory',
             array(),
@@ -72,7 +69,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             'localeLists' => $localeListsMock,
             'fetchStrategy' => $fetchStrategy,
             'entityFactory' => $entityFactory,
-            'coreStoreConfig' => $storeConfigMock,
+            'scopeConfig' => $scopeConfigMock,
             'countryFactory' => $countryFactory,
             'resource' => $resource
         );
@@ -89,7 +86,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testToOptionArray($optionsArray, $emptyLabel, $foregroundCountries, $expectedResults)
     {
         foreach ($optionsArray as $itemData) {
-            $this->_model->addItem(new \Magento\Object($itemData));
+            $this->_model->addItem(new \Magento\Framework\Object($itemData));
         }
 
         $this->_model->setForegroundCountries($foregroundCountries);

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -73,10 +71,10 @@ class Found extends \Magento\SalesRule\Model\Rule\Condition\Product\Combine
     /**
      * Validate
      *
-     * @param \Magento\Object $object Quote
+     * @param \Magento\Framework\Object $object Quote
      * @return bool
      */
-    public function validate(\Magento\Object $object)
+    public function validate(\Magento\Framework\Object $object)
     {
         $all = $this->getAggregator() === 'all';
         $true = (bool)$this->getValue();

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +27,7 @@
  */
 namespace Magento\Directory\Model\Resource;
 
-class Currency extends \Magento\Model\Resource\Db\AbstractDb
+class Currency extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Currency rate table
@@ -151,7 +149,7 @@ class Currency extends \Magento\Model\Resource\Db\AbstractDb
      *
      * @param array $rates
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function saveRates($rates)
     {
@@ -171,7 +169,7 @@ class Currency extends \Magento\Model\Resource\Db\AbstractDb
                 $adapter->insertOnDuplicate($this->_currencyRateTable, $data, array('rate'));
             }
         } else {
-            throw new \Magento\Model\Exception(__('Please correct the rates received'));
+            throw new \Magento\Framework\Model\Exception(__('Please correct the rates received'));
         }
     }
 

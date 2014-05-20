@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,11 +35,13 @@ class CalculationTest extends \PHPUnit_Framework_TestCase
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
-        $taxRule = $objectManager->get('Magento\Registry')->registry('_fixture/Magento_Tax_Model_Calculation_Rule');
+        $taxRule = $objectManager->get('Magento\Framework\Registry')
+            ->registry('_fixture/Magento_Tax_Model_Calculation_Rule');
         $customerTaxClasses = $taxRule->getTaxCustomerClass();
         $productTaxClasses = $taxRule->getTaxProductClass();
-        $taxRate = $objectManager->get('Magento\Registry')->registry('_fixture/Magento_Tax_Model_Calculation_Rate');
-        $data = new \Magento\Object();
+        $taxRate = $objectManager->get('Magento\Framework\Registry')
+            ->registry('_fixture/Magento_Tax_Model_Calculation_Rate');
+        $data = new \Magento\Framework\Object();
         $data->setData(
             array(
                 'country_id' => 'US',

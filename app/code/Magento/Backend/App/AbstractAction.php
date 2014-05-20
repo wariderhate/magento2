@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ namespace Magento\Backend\App;
  *
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
-abstract class AbstractAction extends \Magento\App\Action\Action
+abstract class AbstractAction extends \Magento\Framework\App\Action\Action
 {
     /**
      * Name of "is URLs checked" flag
@@ -67,7 +65,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     protected $_session;
 
     /**
-     * @var \Magento\AuthorizationInterface
+     * @var \Magento\Framework\AuthorizationInterface
      */
     protected $_authorization;
 
@@ -82,7 +80,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     protected $_backendUrl;
 
     /**
-     * @var \Magento\Locale\ResolverInterface
+     * @var \Magento\Framework\Locale\ResolverInterface
      */
     protected $_localeResolver;
 
@@ -97,7 +95,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     protected $_formKeyValidator;
 
     /**
-     * @var \Magento\App\Action\Title
+     * @var \Magento\Framework\App\Action\Title
      */
     protected $_title;
 
@@ -137,7 +135,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     }
 
     /**
-     * @return \Magento\Message\ManagerInterface
+     * @return \Magento\Framework\Message\ManagerInterface
      */
     protected function getMessageManager()
     {
@@ -177,28 +175,28 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     }
 
     /**
-     * @param \Magento\View\Element\AbstractBlock $block
+     * @param \Magento\Framework\View\Element\AbstractBlock $block
      * @return $this
      */
-    protected function _addContent(\Magento\View\Element\AbstractBlock $block)
+    protected function _addContent(\Magento\Framework\View\Element\AbstractBlock $block)
     {
         return $this->_moveBlockToContainer($block, 'content');
     }
 
     /**
-     * @param \Magento\View\Element\AbstractBlock $block
+     * @param \Magento\Framework\View\Element\AbstractBlock $block
      * @return $this
      */
-    protected function _addLeft(\Magento\View\Element\AbstractBlock $block)
+    protected function _addLeft(\Magento\Framework\View\Element\AbstractBlock $block)
     {
         return $this->_moveBlockToContainer($block, 'left');
     }
 
     /**
-     * @param \Magento\View\Element\AbstractBlock $block
+     * @param \Magento\Framework\View\Element\AbstractBlock $block
      * @return $this
      */
-    protected function _addJs(\Magento\View\Element\AbstractBlock $block)
+    protected function _addJs(\Magento\Framework\View\Element\AbstractBlock $block)
     {
         return $this->_moveBlockToContainer($block, 'js');
     }
@@ -208,21 +206,21 @@ abstract class AbstractAction extends \Magento\App\Action\Action
      *
      * The block will be moved to the container from previous parent after all other elements
      *
-     * @param \Magento\View\Element\AbstractBlock $block
+     * @param \Magento\Framework\View\Element\AbstractBlock $block
      * @param string $containerName
      * @return $this
      */
-    private function _moveBlockToContainer(\Magento\View\Element\AbstractBlock $block, $containerName)
+    private function _moveBlockToContainer(\Magento\Framework\View\Element\AbstractBlock $block, $containerName)
     {
         $this->_view->getLayout()->setChild($containerName, $block->getNameInLayout(), '');
         return $this;
     }
 
     /**
-     * @param \Magento\App\RequestInterface $request
-     * @return \Magento\App\ResponseInterface
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @return \Magento\Framework\App\ResponseInterface
      */
-    public function dispatch(\Magento\App\RequestInterface $request)
+    public function dispatch(\Magento\Framework\App\RequestInterface $request)
     {
         if (!$this->_processUrlKeys()) {
             return parent::dispatch($request);
@@ -306,7 +304,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
     protected function _processLocaleSettings()
     {
         $forceLocale = $this->getRequest()->getParam('locale', null);
-        if ($this->_objectManager->get('Magento\Locale\Validator')->isValid($forceLocale)) {
+        if ($this->_objectManager->get('Magento\Framework\Locale\Validator')->isValid($forceLocale)) {
             $this->_getSession()->setSessionLocale($forceLocale);
         }
 
@@ -351,7 +349,7 @@ abstract class AbstractAction extends \Magento\App\Action\Action
      *
      * @param   string $path
      * @param   array $arguments
-     * @return \Magento\App\ResponseInterface
+     * @return \Magento\Framework\App\ResponseInterface
      */
     protected function _redirect($path, $arguments = array())
     {

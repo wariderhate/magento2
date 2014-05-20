@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Adminhtml header notices block
  *
- * @category    Magento
- * @package     Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Backend\Block\Page;
@@ -42,7 +38,7 @@ class Notices extends \Magento\Backend\Block\Template
      */
     public function displayNoscriptNotice()
     {
-        return $this->_storeConfig->getConfig('web/browser_capabilities/javascript');
+        return $this->_scopeConfig->getValue('web/browser_capabilities/javascript', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -52,6 +48,6 @@ class Notices extends \Magento\Backend\Block\Template
      */
     public function displayDemoNotice()
     {
-        return $this->_storeConfig->getConfig('design/head/demonotice');
+        return $this->_scopeConfig->getValue('design/head/demonotice', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }

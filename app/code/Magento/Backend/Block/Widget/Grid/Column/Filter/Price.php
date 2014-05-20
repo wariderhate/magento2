@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\Widget\Grid\Column\Filter;
 /**
  * Range grid column filter
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
@@ -53,14 +49,14 @@ class Price extends \Magento\Backend\Block\Widget\Grid\Column\Filter\AbstractFil
 
     /**
      * @param \Magento\Backend\Block\Context $context
-     * @param \Magento\DB\Helper $resourceHelper
+     * @param \Magento\Framework\DB\Helper $resourceHelper
      * @param \Magento\Directory\Model\Currency $currencyModel
      * @param \Magento\Directory\Model\Currency\DefaultLocator $currencyLocator
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
-        \Magento\DB\Helper $resourceHelper,
+        \Magento\Framework\DB\Helper $resourceHelper,
         \Magento\Directory\Model\Currency $currencyModel,
         \Magento\Directory\Model\Currency\DefaultLocator $currencyLocator,
         array $data = array()

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -51,7 +48,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
             false
         );
         $resourceModel->expects($this->once())->method('addCommitCallback')->will($this->returnSelf());
-        $dateTime = $this->getMock('\Magento\Stdlib\DateTime', array(), array());
+        $dateTime = $this->getMock('\Magento\Framework\Stdlib\DateTime', array(), array());
         $dateTime->expects(
             $this->once()
         )->method(

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -68,7 +65,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
             'Magento\Catalog\Model\Product\Attribute\Backend\Stock',
             array('data' => array('inventory' => $this->_inventory), 'stockItemFactory' => $stockItemFactory)
         );
-        $attribute = $this->getMock('Magento\Object', array('getAttributeCode'));
+        $attribute = $this->getMock('Magento\Framework\Object', array('getAttributeCode'));
         $attribute->expects(
             $this->atLeastOnce()
         )->method(
@@ -83,7 +80,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
     {
         $this->_inventory->expects($this->once())->method('getIsInStock')->will($this->returnValue(1));
         $this->_inventory->expects($this->once())->method('getQty')->will($this->returnValue(5));
-        $object = new \Magento\Object();
+        $object = new \Magento\Framework\Object();
         $this->_model->afterLoad($object);
         $data = $object->getData();
         $this->assertEquals(1, $data[self::ATTRIBUTE_NAME]['is_in_stock']);
@@ -92,7 +89,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
 
     public function testBeforeSave()
     {
-        $object = new \Magento\Object(
+        $object = new \Magento\Framework\Object(
             array(
                 self::ATTRIBUTE_NAME => array('is_in_stock' => 1, 'qty' => 5),
                 'stock_data' => array('is_in_stock' => 2, 'qty' => 2)
@@ -113,7 +110,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
 
     public function testBeforeSaveQtyIsEmpty()
     {
-        $object = new \Magento\Object(
+        $object = new \Magento\Framework\Object(
             array(
                 self::ATTRIBUTE_NAME => array('is_in_stock' => 1, 'qty' => ''),
                 'stock_data' => array('is_in_stock' => 2, 'qty' => '')
@@ -128,7 +125,7 @@ class StockTest extends \PHPUnit_Framework_TestCase
 
     public function testBeforeSaveQtyIsZero()
     {
-        $object = new \Magento\Object(
+        $object = new \Magento\Framework\Object(
             array(
                 self::ATTRIBUTE_NAME => array('is_in_stock' => 1, 'qty' => 0),
                 'stock_data' => array('is_in_stock' => 2, 'qty' => 0)

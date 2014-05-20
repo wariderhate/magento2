@@ -18,15 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Core\Model;
 
-use Magento\View\Design\ThemeInterface;
-use Magento\Model\AbstractModel;
+use Magento\Framework\View\Design\ThemeInterface;
 
 /**
  * Theme model class
@@ -54,7 +51,7 @@ use Magento\Model\AbstractModel;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-class Theme extends AbstractModel implements ThemeInterface
+class Theme extends \Magento\Framework\Model\AbstractModel implements ThemeInterface
 {
     /**
      * Filename of view configuration
@@ -76,32 +73,32 @@ class Theme extends AbstractModel implements ThemeInterface
     protected $_eventObject = 'theme';
 
     /**
-     * @var \Magento\View\Design\Theme\FlyweightFactory
+     * @var \Magento\Framework\View\Design\Theme\FlyweightFactory
      */
     protected $_themeFactory;
 
     /**
-     * @var \Magento\View\Design\Theme\Domain\Factory
+     * @var \Magento\Framework\View\Design\Theme\Domain\Factory
      */
     protected $_domainFactory;
 
     /**
-     * @var \Magento\View\Design\Theme\ImageFactory
+     * @var \Magento\Framework\View\Design\Theme\ImageFactory
      */
     protected $_imageFactory;
 
     /**
-     * @var \Magento\View\Design\Theme\Validator
+     * @var \Magento\Framework\View\Design\Theme\Validator
      */
     protected $_validator;
 
     /**
-     * @var \Magento\View\Design\Theme\Customization
+     * @var \Magento\Framework\View\Design\Theme\Customization
      */
     protected $_customization;
 
     /**
-     * @var \Magento\View\Design\Theme\CustomizationFactory
+     * @var \Magento\Framework\View\Design\Theme\CustomizationFactory
      */
     protected $_customFactory;
 
@@ -113,13 +110,13 @@ class Theme extends AbstractModel implements ThemeInterface
     /**
      * Initialize dependencies
      *
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\View\Design\Theme\FlyweightFactory $themeFactory
-     * @param \Magento\View\Design\Theme\Domain\Factory $domainFactory
-     * @param \Magento\View\Design\Theme\ImageFactory $imageFactory
-     * @param \Magento\View\Design\Theme\Validator $validator
-     * @param \Magento\View\Design\Theme\CustomizationFactory $customizationFactory
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\View\Design\Theme\FlyweightFactory $themeFactory
+     * @param \Magento\Framework\View\Design\Theme\Domain\Factory $domainFactory
+     * @param \Magento\Framework\View\Design\Theme\ImageFactory $imageFactory
+     * @param \Magento\Framework\View\Design\Theme\Validator $validator
+     * @param \Magento\Framework\View\Design\Theme\CustomizationFactory $customizationFactory
      * @param \Magento\Core\Model\Resource\Theme $resource
      * @param \Magento\Core\Model\Resource\Theme\Collection $resourceCollection
      * @param array $data
@@ -127,13 +124,13 @@ class Theme extends AbstractModel implements ThemeInterface
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\View\Design\Theme\FlyweightFactory $themeFactory,
-        \Magento\View\Design\Theme\Domain\Factory $domainFactory,
-        \Magento\View\Design\Theme\ImageFactory $imageFactory,
-        \Magento\View\Design\Theme\Validator $validator,
-        \Magento\View\Design\Theme\CustomizationFactory $customizationFactory,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\View\Design\Theme\FlyweightFactory $themeFactory,
+        \Magento\Framework\View\Design\Theme\Domain\Factory $domainFactory,
+        \Magento\Framework\View\Design\Theme\ImageFactory $imageFactory,
+        \Magento\Framework\View\Design\Theme\Validator $validator,
+        \Magento\Framework\View\Design\Theme\CustomizationFactory $customizationFactory,
         \Magento\Core\Model\Resource\Theme $resource = null,
         \Magento\Core\Model\Resource\Theme\Collection $resourceCollection = null,
         array $data = array()
@@ -161,7 +158,7 @@ class Theme extends AbstractModel implements ThemeInterface
     /**
      * Get theme image model
      *
-     * @return \Magento\View\Design\Theme\Image
+     * @return \Magento\Framework\View\Design\Theme\Image
      */
     public function getThemeImage()
     {
@@ -169,7 +166,7 @@ class Theme extends AbstractModel implements ThemeInterface
     }
 
     /**
-     * @return \Magento\View\Design\Theme\Customization
+     * @return \Magento\Framework\View\Design\Theme\Customization
      */
     public function getCustomization()
     {
@@ -344,13 +341,13 @@ class Theme extends AbstractModel implements ThemeInterface
      * Validate theme data
      *
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _validate()
     {
         if (!$this->_validator->validate($this)) {
             $messages = $this->_validator->getErrorMessages();
-            throw new \Magento\Model\Exception(implode(PHP_EOL, reset($messages)));
+            throw new \Magento\Framework\Model\Exception(implode(PHP_EOL, reset($messages)));
         }
         return $this;
     }

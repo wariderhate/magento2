@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_PageCache
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,15 +25,13 @@
 /**
  * Page cache data helper
  *
- * @category    Magento
- * @package     Magento_PageCache
  */
 namespace Magento\PageCache\Helper;
 
 /**
  * Helper for Page Cache module
  */
-class Data extends \Magento\App\Helper\AbstractHelper
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Private caching time one year
@@ -43,19 +39,19 @@ class Data extends \Magento\App\Helper\AbstractHelper
     const PRIVATE_MAX_AGE_CACHE = 31536000;
 
     /**
-     * @var \Magento\App\View
+     * @var \Magento\Framework\App\View
      */
     protected $view;
 
     /**
      * Constructor
      *
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\App\View $view
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\View $view
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\App\View $view
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\View $view
     ) {
         parent::__construct($context);
         $this->view = $view;

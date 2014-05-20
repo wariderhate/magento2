@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,9 +36,9 @@ class EngineProviderTest extends \PHPUnit_Framework_TestCase
     protected $_engineFactoryMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\Magento\Core\Model\Store\Config
+     * @var \PHPUnit_Framework_MockObject_MockObject|\Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_storeConfigMock;
+    protected $_scopeConfigMock;
 
     protected function setUp()
     {
@@ -52,17 +49,11 @@ class EngineProviderTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $this->_storeConfigMock = $this->getMock(
-            'Magento\Core\Model\Store\Config',
-            array('getConfig'),
-            array(),
-            '',
-            false
-        );
+        $this->_scopeConfigMock = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');
 
         $this->_model = new \Magento\CatalogSearch\Model\Resource\EngineProvider(
             $this->_engineFactoryMock,
-            $this->_storeConfigMock
+            $this->_scopeConfigMock
         );
     }
 
@@ -77,10 +68,10 @@ class EngineProviderTest extends \PHPUnit_Framework_TestCase
         );
         $engineMock->expects($this->once())->method('test')->will($this->returnValue(true));
 
-        $this->_storeConfigMock->expects(
+        $this->_scopeConfigMock->expects(
             $this->once()
         )->method(
-            'getConfig'
+            'getValue'
         )->with(
             'catalog/search/engine'
         )->will(
@@ -111,10 +102,10 @@ class EngineProviderTest extends \PHPUnit_Framework_TestCase
         );
         $engineMock->expects($this->never())->method('test');
 
-        $this->_storeConfigMock->expects(
+        $this->_scopeConfigMock->expects(
             $this->once()
         )->method(
-            'getConfig'
+            'getValue'
         )->with(
             'catalog/search/engine'
         )->will(

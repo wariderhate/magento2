@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * New products widget pager block
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Product\Widget\Html;
@@ -120,7 +116,7 @@ class Pager extends \Magento\Theme\Block\Html\Pager
     /**
      * Connect collection to paging
      *
-     * @param   \Magento\Model\Resource\Db\Collection\AbstractCollection $collection
+     * @param   \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection $collection
      * @return  \Magento\Catalog\Block\Product\Widget\Html\Pager
      */
     public function setCollection($collection)

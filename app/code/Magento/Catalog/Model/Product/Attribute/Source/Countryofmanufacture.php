@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Catalog product country attribute source
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Model\Product\Attribute\Source;
@@ -36,14 +32,14 @@ namespace Magento\Catalog\Model\Product\Attribute\Source;
 class Countryofmanufacture extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
     /**
-     * @var \Magento\App\Cache\Type\Config
+     * @var \Magento\Framework\App\Cache\Type\Config
      */
     protected $_configCacheType;
 
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -58,13 +54,13 @@ class Countryofmanufacture extends \Magento\Eav\Model\Entity\Attribute\Source\Ab
      * Construct
      *
      * @param \Magento\Directory\Model\CountryFactory $countryFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\Cache\Type\Config $configCacheType
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Cache\Type\Config $configCacheType
      */
     public function __construct(
         \Magento\Directory\Model\CountryFactory $countryFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\Cache\Type\Config $configCacheType
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\Cache\Type\Config $configCacheType
     ) {
         $this->_countryFactory = $countryFactory;
         $this->_storeManager = $storeManager;

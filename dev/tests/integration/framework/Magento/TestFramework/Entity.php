@@ -18,28 +18,25 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Test
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Class that implements CRUP tests for \Magento\Model\AbstractModel based objects
+ * Class that implements CRUP tests for \Magento\Framework\Model\AbstractModel based objects
  */
 namespace Magento\TestFramework;
 
 class Entity
 {
     /**
-     * @var \Magento\Model\AbstractModel
+     * @var \Magento\Framework\Model\AbstractModel
      */
     protected $_model;
 
     protected $_updateData;
 
-    public function __construct(\Magento\Model\AbstractModel $model, array $updateData)
+    public function __construct(\Magento\Framework\Model\AbstractModel $model, array $updateData)
     {
         $this->_model = $model;
         $this->_updateData = $updateData;
@@ -59,7 +56,7 @@ class Entity
     }
 
     /**
-     * @return \Magento\Model\AbstractModel
+     * @return \Magento\Framework\Model\AbstractModel
      */
     protected function _getEmptyModel()
     {

@@ -18,42 +18,37 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backend\Model\Translate;
 
 /**
- * Test class for \Magento\Backend\Model\Translate\Inline.
- *
  * @magentoAppArea adminhtml
  */
 class InlineTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\Translate\InlineInterface
+     * @var \Magento\Framework\Translate\InlineInterface
      */
     protected $_translateInline;
 
     protected function setUp()
     {
         $this->_translateInline = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Translate\InlineInterface'
+            'Magento\Framework\Translate\InlineInterface'
         );
     }
 
     /**
      * @magentoAdminConfigFixture dev/translate_inline/active_admin 1
-     * @covers \Magento\Backend\Model\Translate\Inline::_getAjaxUrl
+     * @covers \Magento\Framework\Translate\Inline::getAjaxUrl
      */
     public function testAjaxUrl()
     {
         $body = '<html><body>some body</body></html>';
         /** @var \Magento\Backend\Model\UrlInterface $url */
-        $url = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\UrlInterface');
+        $url = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\Framework\UrlInterface');
         $url->getUrl(\Magento\Backend\App\Area\FrontNameResolver::AREA_CODE . '/ajax/translate');
         $this->_translateInline->processResponseBody($body, true);
         $this->assertContains(

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -57,31 +55,31 @@ class Database extends \Magento\Core\Model\Resource\File\Storage\AbstractStorage
             $table
         )->addColumn(
             'directory_id',
-            \Magento\DB\Ddl\Table::TYPE_INTEGER,
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
             array('identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true),
             'Directory Id'
         )->addColumn(
             'name',
-            \Magento\DB\Ddl\Table::TYPE_TEXT,
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             100,
             array('nullable' => false),
             'Directory Name'
         )->addColumn(
             'path',
-            \Magento\DB\Ddl\Table::TYPE_TEXT,
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
             array('default' => null),
             'Path to the \Directory'
         )->addColumn(
             'upload_time',
-            \Magento\DB\Ddl\Table::TYPE_TIMESTAMP,
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
             null,
-            array('nullable' => false, 'default' => \Magento\DB\Ddl\Table::TIMESTAMP_INIT),
+            array('nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT),
             'Upload Timestamp'
         )->addColumn(
             'parent_id',
-            \Magento\DB\Ddl\Table::TYPE_INTEGER,
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
             array('nullable' => true, 'default' => null, 'unsigned' => true),
             'Parent \Directory Id'
@@ -89,10 +87,10 @@ class Database extends \Magento\Core\Model\Resource\File\Storage\AbstractStorage
             $adapter->getIndexName(
                 $table,
                 array('name', 'parent_id'),
-                \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
             ),
             array('name', 'parent_id'),
-            array('type' => \Magento\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE)
+            array('type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE)
         )->addIndex(
             $adapter->getIndexName($table, array('parent_id')),
             array('parent_id')
@@ -101,8 +99,8 @@ class Database extends \Magento\Core\Model\Resource\File\Storage\AbstractStorage
             'parent_id',
             $table,
             'directory_id',
-            \Magento\DB\Ddl\Table::ACTION_CASCADE,
-            \Magento\DB\Ddl\Table::ACTION_CASCADE
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE,
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         )->setComment(
             'Directory Storage'
         );

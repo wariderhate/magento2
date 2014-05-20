@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,7 +29,7 @@ namespace Magento\Sales\Model\Order\Creditmemo\Total;
 class Shipping extends AbstractTotal
 {
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -41,12 +39,12 @@ class Shipping extends AbstractTotal
     protected $_taxConfig;
 
     /**
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Tax\Model\Config $taxConfig
      * @param array $data
      */
     public function __construct(
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Tax\Model\Config $taxConfig,
         array $data = array()
     ) {
@@ -58,7 +56,7 @@ class Shipping extends AbstractTotal
     /**
      * @param \Magento\Sales\Model\Order\Creditmemo $creditmemo
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function collect(\Magento\Sales\Model\Order\Creditmemo $creditmemo)
     {
@@ -108,7 +106,7 @@ class Shipping extends AbstractTotal
                 }
             } else {
                 $baseAllowedAmount = $order->getBaseCurrency()->format($baseAllowedAmount, null, false);
-                throw new \Magento\Model\Exception(
+                throw new \Magento\Framework\Model\Exception(
                     __('Maximum shipping amount allowed to refund is: %1', $baseAllowedAmount)
                 );
             }

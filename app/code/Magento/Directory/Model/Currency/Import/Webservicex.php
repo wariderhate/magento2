@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Directory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,28 +37,28 @@ class Webservicex extends \Magento\Directory\Model\Currency\Import\AbstractImpor
     /**
      * HTTP client
      *
-     * @var \Magento\HTTP\ZendClient
+     * @var \Magento\Framework\HTTP\ZendClient
      */
     protected $_httpClient;
 
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @param \Magento\Directory\Model\CurrencyFactory $currencyFactory
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         \Magento\Directory\Model\CurrencyFactory $currencyFactory,
-        \Magento\Core\Model\Store\Config $coreStoreConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
         parent::__construct($currencyFactory);
-        $this->_coreStoreConfig = $coreStoreConfig;
-        $this->_httpClient = new \Magento\HTTP\ZendClient();
+        $this->_scopeConfig = $scopeConfig;
+        $this->_httpClient = new \Magento\Framework\HTTP\ZendClient();
     }
 
     /**
@@ -78,7 +76,12 @@ class Webservicex extends \Magento\Directory\Model\Currency\Import\AbstractImpor
             $response = $this->_httpClient->setUri(
                 $url
             )->setConfig(
-                array('timeout' => $this->_coreStoreConfig->getConfig('currency/webservicex/timeout'))
+                array(
+                    'timeout' => $this->_scopeConfig->getValue(
+                        'currency/webservicex/timeout',
+                        \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+                    )
+                )
             )->request(
                 'GET'
             )->getBody();

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\ProductAlert\Model\Resource\Price;
 /**
  * Product alert for changed price collection
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollection
+class Collection extends \Magento\Framework\Model\Resource\Db\Collection\AbstractCollection
 {
     /**
      * Define price collection
@@ -42,25 +38,6 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
     protected function _construct()
     {
         $this->_init('Magento\ProductAlert\Model\Price', 'Magento\ProductAlert\Model\Resource\Price');
-    }
-
-    /**
-     * Add customer filter
-     *
-     * @param mixed $customer
-     * @return $this
-     */
-    public function addCustomerFilter($customer)
-    {
-        if (is_array($customer)) {
-            $condition = $this->getConnection()->quoteInto('customer_id IN(?)', $customer);
-        } elseif ($customer instanceof \Magento\Customer\Model\Customer) {
-            $condition = $this->getConnection()->quoteInto('customer_id=?', $customer->getId());
-        } else {
-            $condition = $this->getConnection()->quoteInto('customer_id=?', $customer);
-        }
-        $this->addFilter('customer_id', $condition, 'string');
-        return $this;
     }
 
     /**
@@ -76,7 +53,7 @@ class Collection extends \Magento\Model\Resource\Db\Collection\AbstractCollectio
         }
         if (is_array($website)) {
             $condition = $this->getConnection()->quoteInto('website_id IN(?)', $website);
-        } elseif ($website instanceof \Magento\Core\Model\Website) {
+        } elseif ($website instanceof \Magento\Store\Model\Website) {
             $condition = $this->getConnection()->quoteInto('website_id=?', $website->getId());
         } else {
             $condition = $this->getConnection()->quoteInto('website_id=?', $website);

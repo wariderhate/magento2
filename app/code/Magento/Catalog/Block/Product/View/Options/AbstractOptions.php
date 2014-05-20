@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * Product options abstract type block
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Product\View\Options;
 
-abstract class AbstractOptions extends \Magento\View\Element\Template
+abstract class AbstractOptions extends \Magento\Framework\View\Element\Template
 {
     /**
      * Product object
@@ -63,13 +59,13 @@ abstract class AbstractOptions extends \Magento\View\Element\Template
     protected $_coreHelper;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Tax\Helper\Data $taxData
      * @param \Magento\Core\Helper\Data $coreHelper
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Core\Helper\Data $coreHelper,
         array $data = array()
@@ -152,8 +148,6 @@ abstract class AbstractOptions extends \Magento\View\Element\Template
             return '';
         }
 
-        $store = $this->getProduct()->getStore();
-
         $sign = '+';
         if ($value['pricing_value'] < 0) {
             $sign = '-';
@@ -161,25 +155,14 @@ abstract class AbstractOptions extends \Magento\View\Element\Template
         }
 
         $priceStr = $sign;
-        $_priceInclTax = $this->getPrice($value['pricing_value'], true);
-        $_priceExclTax = $this->getPrice($value['pricing_value']);
-        if ($this->_taxData->displayPriceIncludingTax()) {
-            $priceStr .= $this->_coreHelper->currencyByStore($_priceInclTax, $store, true, $flag);
-        } elseif ($this->_taxData->displayPriceExcludingTax()) {
-            $priceStr .= $this->_coreHelper->currencyByStore($_priceExclTax, $store, true, $flag);
-        } elseif ($this->_taxData->displayBothPrices()) {
-            $priceStr .= $this->_coreHelper->currencyByStore($_priceExclTax, $store, true, $flag);
-            if ($_priceInclTax != $_priceExclTax) {
-                $priceStr .= ' (' . $sign . $this->_coreHelper->currencyByStore(
-                    $_priceInclTax,
-                    $store,
-                    true,
-                    $flag
-                ) . ' ' . __(
-                    'Incl. Tax'
-                ) . ')';
-            }
-        }
+
+        $customOptionPrice = $this->getProduct()->getPriceInfo()->getPrice('custom_option_price');
+        $optionAmount = $customOptionPrice->getCustomAmount($value['pricing_value']);
+        $priceStr .= $this->getLayout()->getBlock('product.price.render.default')->renderAmount(
+            $optionAmount,
+            $customOptionPrice,
+            $this->getProduct()
+        );
 
         if ($flag) {
             $priceStr = '<span class="price-notice">' . $priceStr . '</span>';

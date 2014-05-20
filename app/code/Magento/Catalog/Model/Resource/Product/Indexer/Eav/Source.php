@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,8 +28,6 @@ use Magento\Catalog\Model\Product\Attribute\Source\Status as ProductStatus;
 /**
  * Catalog Product Eav Select and Multiply Select Attributes Indexer resource model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Source extends AbstractEav
@@ -46,15 +42,15 @@ class Source extends AbstractEav
     /**
      * Construct
      *
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
-     * @param \Magento\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Catalog\Model\Resource\Helper $resourceHelper
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Event\ManagerInterface $eventManager,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Catalog\Model\Resource\Helper $resourceHelper
     ) {
         $this->_resourceHelper = $resourceHelper;
@@ -136,9 +132,9 @@ class Source extends AbstractEav
             return $this;
         }
 
-        /**@var $subSelect \Magento\DB\Select*/
+        /**@var $subSelect \Magento\Framework\DB\Select*/
         $subSelect = $adapter->select()->from(
-            array('s' => $this->getTable('core_store')),
+            array('s' => $this->getTable('store')),
             array('store_id', 'website_id')
         )->joinLeft(
             array('d' => $this->getTable('catalog_product_entity_int')),
@@ -152,7 +148,7 @@ class Source extends AbstractEav
             $subSelect->where('d.entity_id IN(?)', $entityIds);
         }
 
-        /**@var $select \Magento\DB\Select*/
+        /**@var $select \Magento\Framework\DB\Select*/
         $select = $adapter->select()->from(
             array('pid' => new \Zend_Db_Expr(sprintf('(%s)', $subSelect->assemble()))),
             array()
@@ -235,7 +231,7 @@ class Source extends AbstractEav
             array('pvd' => $this->getTable('catalog_product_entity_varchar')),
             array('entity_id', 'attribute_id')
         )->join(
-            array('cs' => $this->getTable('core_store')),
+            array('cs' => $this->getTable('store')),
             '',
             array('store_id')
         )->joinLeft(
@@ -244,10 +240,10 @@ class Source extends AbstractEav
             array('value' => $productValueExpression)
         )->where(
             'pvd.store_id=?',
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
         )->where(
             'cs.store_id!=?',
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
         )->where(
             'pvd.attribute_id IN(?)',
             $attrIds

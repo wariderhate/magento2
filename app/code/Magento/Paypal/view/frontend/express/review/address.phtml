@@ -18,15 +18,29 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @var \Magento\Paypal\Block\Express\Review\Shipping|\Magento\Paypal\Block\Express\Review\Billing $this
  */
 ?>
 <?php $prefix = $this->getFieldNamePrefix(); ?>
 <input type="hidden" name="<?php echo $prefix ?>[address_id]" value="<?php echo $this->getAddress()->getId() ?>"
        id="<?php echo $prefix ?>:address_id"/>
-<?php echo $this->getLayout()->createBlock('Magento\Customer\Block\Widget\Name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())->setFieldIdFormat($prefix . ':%s')->setFieldNameFormat($prefix . '[%s]')->toHtml() ?>
+<?php
+/** @var \Magento\Customer\Block\Widget\Name $nameWidget */
+$nameWidget = $this->getLayout()->createBlock('Magento\Customer\Block\Widget\Name');
+$widgetObject = $this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomerData();
+echo $nameWidget
+    ->setObject($widgetObject)
+    ->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())
+    ->setFieldIdFormat($prefix . ':%s')
+    ->setFieldNameFormat($prefix . '[%s]')
+    ->toHtml()
+?>
 
 <div class="field company">
     <label for="<?php echo $prefix ?>:company" class="label"><span><?php echo __('Company') ?></span></label>
@@ -167,22 +181,14 @@
 
 <script type="text/javascript">
     (function ($) {
-        head.js(
-            "<?php echo $this->getViewFileUrl('Magento_Checkout::js/region-updater.js') ?>",
-            "<?php echo $this->getViewFileUrl('jquery/jquery.validate.js') ?>",
-            "<?php echo $this->getViewFileUrl('jquery/jquery.metadata.js') ?>",
-            "<?php echo $this->getViewFileUrl('mage/validation.js')?>",
-            "<?php echo $this->getViewFileUrl('mage/validation/validation.js') ?>",
-            function () {
-                $('#<?php echo $prefix ?>\\:country_id').regionUpdater({
-                    optionalRegionAllowed: <?php echo ($this->getConfig('general/region/display_all')? 'true' : 'false'); ?>,
-                    regionListId: '#<?php echo $prefix ?>\\:region_id',
-                    regionInputId: '#<?php echo $prefix ?>\\:region',
-                    postcodeId: '#<?php echo $prefix ?>\\:postcode',
-                    regionJson: <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
-                    defaultRegion: "<?php echo $this->getAddress()->getRegionId() ?>",
-                    countriesWithOptionalZip: <?php echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
-                });
-            });
+        $('#<?php echo $prefix ?>\\:country_id').mage('regionUpdater', {
+            optionalRegionAllowed: <?php echo ($this->getConfig('general/region/display_all')? 'true' : 'false'); ?>,
+            regionListId: '#<?php echo $prefix ?>\\\:region_id',
+            regionInputId: '#<?php echo $prefix ?>\\\:region',
+            postcodeId: '#<?php echo $prefix ?>\\\:postcode',
+            regionJson: <?php echo $this->helper('Magento\Directory\Helper\Data')->getRegionJson() ?>,
+            defaultRegion: "<?php echo $this->getAddress()->getRegionId() ?>",
+            countriesWithOptionalZip: <?php echo $this->helper('Magento\Directory\Helper\Data')->getCountriesWithOptionalZip(true) ?>
+        });
     })(jQuery);
 </script>

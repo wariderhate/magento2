@@ -18,20 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /** @var $filesystemCollection \Magento\Core\Model\Theme\Collection */
-$filesystemCollection = $this->_themeFactory->create();
+$filesystemCollection = $this->createThemeFactory();
 $filesystemCollection->addDefaultPattern('*');
 
-/** @var $theme \Magento\View\Design\ThemeInterface */
-foreach ($this->_themeResourceFactory->create() as $theme) {
-    $themeType = $filesystemCollection->hasTheme(
-        $theme
-    ) ? \Magento\View\Design\ThemeInterface::TYPE_PHYSICAL : \Magento\View\Design\ThemeInterface::TYPE_VIRTUAL;
+/** @var $theme \Magento\Framework\View\Design\ThemeInterface */
+foreach ($this->createThemeResourceFactory() as $theme) {
+    $themeType = $filesystemCollection->hasTheme($theme)
+        ? \Magento\Framework\View\Design\ThemeInterface::TYPE_PHYSICAL
+        : \Magento\Framework\View\Design\ThemeInterface::TYPE_VIRTUAL;
     $theme->setType($themeType)->save();
 }

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cms
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Cms\Block\Widget;
 /**
  * Cms Static Block Widget
  *
- * @category   Magento
- * @package    Magento_Cms
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Block extends \Magento\View\Element\Template implements \Magento\Widget\Block\BlockInterface
+class Block extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
     /**
      * @var \Magento\Cms\Model\Template\FilterProvider
@@ -54,13 +50,13 @@ class Block extends \Magento\View\Element\Template implements \Magento\Widget\Bl
     protected $_blockFactory;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Cms\Model\Template\FilterProvider $filterProvider
      * @param \Magento\Cms\Model\BlockFactory $blockFactory
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Cms\Model\Template\FilterProvider $filterProvider,
         \Magento\Cms\Model\BlockFactory $blockFactory,
         array $data = array()

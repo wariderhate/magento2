@@ -29,7 +29,7 @@ use Magento\Wishlist\Model\Wishlist;
 /**
  * Account dashboard sidebar
  */
-class Sidebar extends \Magento\View\Element\Template
+class Sidebar extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var int
@@ -74,28 +74,28 @@ class Sidebar extends \Magento\View\Element\Template
     protected $_itemsCompareFactory;
 
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Magento\Sales\Model\QuoteFactory $quoteFactory
      * @param \Magento\Wishlist\Model\WishlistFactory $wishListFactory
      * @param \Magento\Catalog\Model\Resource\Product\Compare\Item\CollectionFactory $itemsCompareFactory
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\QuoteFactory $quoteFactory,
         \Magento\Wishlist\Model\WishlistFactory $wishListFactory,
         \Magento\Catalog\Model\Resource\Product\Compare\Item\CollectionFactory $itemsCompareFactory,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = array()
     ) {
         $this->_customerSession = $customerSession;

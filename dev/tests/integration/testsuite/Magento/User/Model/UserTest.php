@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_User
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,7 +34,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $_dateTime;
 
@@ -50,7 +47,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $this->_model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\User\Model\User');
         $this->_dateTime = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Stdlib\DateTime'
+            'Magento\Framework\Stdlib\DateTime'
         );
     }
 
@@ -184,7 +181,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testGetCollection()
     {
-        $this->assertInstanceOf('Magento\Model\Resource\Db\Collection\AbstractCollection',
+        $this->assertInstanceOf('Magento\Framework\Model\Resource\Db\Collection\AbstractCollection',
             $this->_model->getCollection());
     }
 
@@ -311,7 +308,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage User Name is a required field.
      * @expectedExceptionMessage First Name is a required field.
      * @expectedExceptionMessage Last Name is a required field.
@@ -361,7 +358,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Your password confirmation must match your password.
      * @magentoDbIsolation enabled
      */
@@ -373,7 +370,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Your password must include both numeric and alphabetic characters.
      * @magentoDbIsolation enabled
      */
@@ -385,7 +382,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider beforeSavePasswordInsecureDataProvider
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage Your password must include both numeric and alphabetic characters.
      * @magentoDbIsolation enabled
      * @param string $password
@@ -402,7 +399,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      * @expectedExceptionMessage A user with the same user name or email already exists.
      * @magentoDbIsolation enabled
      */

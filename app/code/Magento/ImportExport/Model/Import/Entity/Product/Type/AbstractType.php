@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ImportExport\Model\Import\Entity\Product\Type;
 /**
  * Import entity abstract product type model
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 abstract class AbstractType
@@ -107,7 +103,7 @@ abstract class AbstractType
      * @param \Magento\Eav\Model\Resource\Entity\Attribute\Set\CollectionFactory $attrSetColFac
      * @param \Magento\Catalog\Model\Resource\Product\Attribute\CollectionFactory $prodAttrColFac
      * @param array $params
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function __construct(
         \Magento\Eav\Model\Resource\Entity\Attribute\Set\CollectionFactory $attrSetColFac,
@@ -126,7 +122,7 @@ abstract class AbstractType
                 $params[0]
             ) || !$params[0] instanceof \Magento\ImportExport\Model\Import\Entity\Product
             ) {
-                throw new \Magento\Model\Exception(__('Please correct the parameters.'));
+                throw new \Magento\Framework\Model\Exception(__('Please correct the parameters.'));
             }
             $this->_entityModel = $params[0];
             $this->_type = $params[1];

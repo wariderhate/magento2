@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +29,9 @@ $testsBaseDir = dirname(__DIR__);
 $testsTmpDir = "{$testsBaseDir}/tmp";
 $magentoBaseDir = realpath("{$testsBaseDir}/../../../");
 
-\Magento\Autoload\IncludePath::addIncludePath(array("{$testsBaseDir}/framework", "{$testsBaseDir}/testsuite"));
+(new \Magento\Framework\Autoload\IncludePath())->addIncludePath(
+    array("{$testsBaseDir}/framework", "{$testsBaseDir}/testsuite")
+);
 
 function tool_autoloader($className)
 {
@@ -58,8 +57,8 @@ $bootstrap = new \Magento\TestFramework\Bootstrap(
     new \Magento\TestFramework\Bootstrap\Settings($testsBaseDir, $invariantSettings + get_defined_constants()),
     new \Magento\TestFramework\Bootstrap\Environment(),
     new \Magento\TestFramework\Bootstrap\DocBlock("{$testsBaseDir}/testsuite"),
-    new \Magento\TestFramework\Bootstrap\Profiler(new \Magento\Profiler\Driver\Standard()),
-    new \Magento\Shell(new \Magento\OSInfo()),
+    new \Magento\TestFramework\Bootstrap\Profiler(new \Magento\Framework\Profiler\Driver\Standard()),
+    new \Magento\Framework\Shell(new \Magento\Framework\Shell\CommandRenderer()),
     $testsTmpDir
 );
 $bootstrap->runBootstrap();

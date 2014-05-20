@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Sales\Block\Adminhtml\Order\Create\Giftmessage;
 
-use Magento\Data\Form\Element\Fieldset;
+use Magento\Framework\Data\Form\Element\Fieldset;
 
 /**
  * Adminhtml order creating gift message item form
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 
@@ -69,33 +65,49 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     protected $_messageHelper;
 
     /**
+     * @var \Magento\Customer\Service\V1\CustomerAccountServiceInterface
+     */
+    protected $_customerService;
+
+    /**
+     * @var \Magento\Customer\Helper\View
+     */
+    protected $_customerViewHelper;
+
+    /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Backend\Model\Session\Quote $sessionQuote
      * @param \Magento\GiftMessage\Helper\Message $messageHelper
+     * @param \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerService
+     * @param \Magento\Customer\Helper\View $customerViewHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Backend\Model\Session\Quote $sessionQuote,
         \Magento\GiftMessage\Helper\Message $messageHelper,
+        \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerService,
+        \Magento\Customer\Helper\View $customerViewHelper,
         array $data = array()
     ) {
         $this->_messageHelper = $messageHelper;
         $this->_sessionQuote = $sessionQuote;
+        $this->_customerService = $customerService;
+        $this->_customerViewHelper = $customerViewHelper;
         parent::__construct($context, $registry, $formFactory, $data);
     }
 
     /**
      * Set entity for form
      *
-     * @param \Magento\Object $entity
+     * @param \Magento\Framework\Object $entity
      * @return $this
      */
-    public function setEntity(\Magento\Object $entity)
+    public function setEntity(\Magento\Framework\Object $entity)
     {
         $this->_entity = $entity;
         return $this;
@@ -104,7 +116,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Retrieve entity for form
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getEntity()
     {
@@ -130,8 +142,9 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             return '';
         }
 
-        if ($this->_getSession()->getCustomer()->getId()) {
-            return $this->_getSession()->getCustomer()->getName();
+        if ($this->_getSession()->hasCustomerId()) {
+            $customerData = $this->_customerService->getCustomer($this->_getSession()->getCustomerId());
+            return $this->_customerViewHelper->getCustomerName($customerData);
         }
 
         $object = $this->getEntity();

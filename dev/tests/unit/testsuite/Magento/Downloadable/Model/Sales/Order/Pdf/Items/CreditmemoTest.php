@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -103,12 +100,18 @@ class CreditmemoTest extends \PHPUnit_Framework_TestCase
             false
         );
 
-        $filterManager = $this->getMock('Magento\Filter\FilterManager', array('stripTags'), array(), '', false);
+        $filterManager = $this->getMock(
+            'Magento\Framework\Filter\FilterManager',
+            array('stripTags'),
+            array(),
+            '',
+            false
+        );
         $filterManager->expects($this->any())->method('stripTags')->will($this->returnArgument(0));
 
         $modelConstructorArgs = $objectManager->getConstructArguments(
             'Magento\Downloadable\Model\Sales\Order\Pdf\Items\Creditmemo',
-            array('string' => new \Magento\Stdlib\String(), 'filterManager' => $filterManager)
+            array('string' => new \Magento\Framework\Stdlib\String(), 'filterManager' => $filterManager)
         );
 
         $this->_model = $this->getMock(
@@ -166,7 +169,7 @@ class CreditmemoTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->_model->setItem(
-            new \Magento\Object(
+            new \Magento\Framework\Object(
                 array(
                     'name' => 'Downloadable Documentation',
                     'sku' => 'downloadable-documentation',
@@ -175,7 +178,7 @@ class CreditmemoTest extends \PHPUnit_Framework_TestCase
                     'qty' => 1,
                     'tax_amount' => 2.00,
                     'hidden_tax_amount' => 0.00,
-                    'order_item' => new \Magento\Object(
+                    'order_item' => new \Magento\Framework\Object(
                         array(
                             'product_options' => array(
                                 'options' => array(array('label' => 'Test Custom Option', 'value' => 'test value'))
@@ -192,8 +195,10 @@ class CreditmemoTest extends \PHPUnit_Framework_TestCase
             'getLinks'
         )->will(
             $this->returnValue(
-                new \Magento\Object(
-                    array('purchased_items' => array(new \Magento\Object(array('link_title' => 'Magento User Guide'))))
+                new \Magento\Framework\Object(
+                    array('purchased_items' => array(
+                        new \Magento\Framework\Object(array('link_title' => 'Magento User Guide')))
+                    )
                 )
             )
         );

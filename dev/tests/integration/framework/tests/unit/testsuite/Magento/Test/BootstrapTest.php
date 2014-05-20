@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -73,7 +70,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     protected $_memoryBootstrap;
 
     /**
-     * @var \Magento\Shell|PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Shell|PHPUnit_Framework_MockObject_MockObject
      */
     protected $_shell;
 
@@ -98,7 +95,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             array('registerAnnotations'),
             array(__DIR__)
         );
-        $profilerDriver = $this->getMock('Magento\Profiler\Driver\Standard', array('registerOutput'));
+        $profilerDriver = $this->getMock('Magento\Framework\Profiler\Driver\Standard', array('registerOutput'));
         $this->_profilerBootstrap = $this->getMock(
             'Magento\TestFramework\Bootstrap\Profiler',
             array('registerFileProfiler', 'registerBambooProfiler'),
@@ -111,7 +108,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $this->_shell = $this->getMock('Magento\Shell', array('execute'), array(), '', false);
+        $this->_shell = $this->getMock('Magento\Framework\Shell', array('execute'), array(), '', false);
         $this->_object = new \Magento\TestFramework\Bootstrap(
             $this->_settings,
             $this->_envBootstrap,

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@ class UrlGeneratorTest extends \PHPUnit_Framework_TestCase
         $itemId = 3;
         $urlPath = 'mng/item/edit';
 
-        $itemMock = $this->getMock('Magento\Object', array('getItemId'), array(), '', false);
+        $itemMock = $this->getMock('Magento\Framework\Object', array('getItemId'), array(), '', false);
         $itemMock->expects($this->once())->method('getItemId')->will($this->returnValue($itemId));
 
         $urlModelMock = $this->getMock(

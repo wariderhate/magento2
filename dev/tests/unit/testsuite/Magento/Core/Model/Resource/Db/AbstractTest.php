@@ -18,35 +18,32 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Test class for \Magento\Model\Resource\Db\AbstractDb.
+ * Test class for \Magento\Framework\Model\Resource\Db\AbstractDb.
  */
 namespace Magento\Core\Model\Resource\Db;
 
 class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\Model\Resource\Db\AbstractDb|PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Model\Resource\Db\AbstractDb|PHPUnit_Framework_MockObject_MockObject
      */
     protected $_model;
 
     /**
-     * @var \Magento\App\Resource|PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\Resource|PHPUnit_Framework_MockObject_MockObject
      */
     protected $_resource;
 
     protected function setUp()
     {
-        $this->_resource = $this->getMock('Magento\App\Resource', array('getConnection'), array(), '', false, false);
+        $this->_resource = $this->getMock('Magento\Framework\App\Resource', array('getConnection'), array(), '', false, false);
         $this->_model = $this->getMock(
-            'Magento\Model\Resource\Db\AbstractDb',
+            'Magento\Framework\Model\Resource\Db\AbstractDb',
             array('_construct', '_getWriteAdapter'),
             array($this->_resource)
         );
@@ -67,10 +64,10 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetConnectionInMemoryCaching()
     {
-        $filesystem = $this->getMock('Magento\App\Filesystem', array(), array(), '', false);
-        $string = $this->getMock('Magento\Stdlib\String', array(), array(), '', false);
-        $dateTime = $this->getMock('Magento\Stdlib\DateTime', null, array(), '', true);
-        $connection = new \Magento\DB\Adapter\Pdo\Mysql(
+        $filesystem = $this->getMock('Magento\Framework\App\Filesystem', array(), array(), '', false);
+        $string = $this->getMock('Magento\Framework\Stdlib\String', array(), array(), '', false);
+        $dateTime = $this->getMock('Magento\Framework\Stdlib\DateTime', null, array(), '', true);
+        $connection = new \Magento\Framework\DB\Adapter\Pdo\Mysql(
             $filesystem,
             $string,
             $dateTime,

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Weee
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,18 +29,18 @@ use Magento\Catalog\Model\Product\Condition\ConditionInterface;
 /**
  * Wee tax resource model
  */
-class Tax extends \Magento\Model\Resource\Db\AbstractDb
+class Tax extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
-     * @var \Magento\Stdlib\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      */
-    public function __construct(\Magento\App\Resource $resource, \Magento\Stdlib\DateTime $dateTime)
+    public function __construct(\Magento\Framework\App\Resource $resource, \Magento\Framework\Stdlib\DateTime $dateTime)
     {
         $this->dateTime = $dateTime;
         parent::__construct($resource);
@@ -61,7 +59,7 @@ class Tax extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Fetch one
      *
-     * @param \Magento\DB\Select|string $select
+     * @param \Magento\Framework\DB\Select|string $select
      * @return string
      */
     public function fetchOne($select)
@@ -72,7 +70,7 @@ class Tax extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Fetch column
      *
-     * @param \Magento\DB\Select|string $select
+     * @param \Magento\Framework\DB\Select|string $select
      * @return array
      */
     public function fetchCol($select)

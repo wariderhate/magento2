@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -66,31 +64,31 @@ interface BackendInterface
     public function getValueId();
 
     /**
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function afterLoad($object);
 
     /**
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function beforeSave($object);
 
     /**
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function afterSave($object);
 
     /**
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function beforeDelete($object);
 
     /**
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function afterDelete($object);
@@ -98,7 +96,7 @@ interface BackendInterface
     /**
      * Get entity value id
      *
-     * @param \Magento\Object $entity
+     * @param \Magento\Framework\Object $entity
      * @return int
      */
     public function getEntityValueId($entity);
@@ -106,7 +104,7 @@ interface BackendInterface
     /**
      * Set entity value id
      *
-     * @param \Magento\Object $entity
+     * @param \Magento\Framework\Object $entity
      * @param int $valueId
      * @return $this
      */

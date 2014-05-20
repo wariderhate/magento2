@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Errors
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,10 +25,10 @@
 require_once __DIR__ . '/../../app/bootstrap.php';
 require_once 'processor.php';
 
-$processor = new Error_Processor(
-    new \Magento\App\Response\Http(
-        new \Magento\Stdlib\Cookie(),
-        new \Magento\App\Http\Context()
+$processor = new \Magento\Framework\Error\Processor(
+    new \Magento\Framework\App\Response\Http(
+        new \Magento\Framework\Stdlib\Cookie(),
+        new \Magento\Framework\App\Http\Context()
     )
 );
 $response = $processor->process404();

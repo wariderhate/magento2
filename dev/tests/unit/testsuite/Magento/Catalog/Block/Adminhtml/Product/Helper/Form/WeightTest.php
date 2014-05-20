@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,7 +33,7 @@ class WeightTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\Data\Form\Element\Checkbox
+     * @var \Magento\Framework\Data\Form\Element\Checkbox
      */
     protected $_virtual;
 
@@ -44,18 +41,18 @@ class WeightTest extends \PHPUnit_Framework_TestCase
     {
         $objectManager = new \Magento\TestFramework\Helper\ObjectManager($this);
 
-        $factory = $this->getMock('Magento\Data\Form\Element\Factory', array(), array(), '', false);
+        $factory = $this->getMock('Magento\Framework\Data\Form\Element\Factory', array(), array(), '', false);
 
         $collectionFactory = $this->getMock(
-            'Magento\Data\Form\Element\CollectionFactory',
+            'Magento\Framework\Data\Form\Element\CollectionFactory',
             array('create'),
             array(),
             '',
             false
         );
-        $formKey = $this->getMock('Magento\Data\Form\FormKey', array(), array(), '', false);
+        $formKey = $this->getMock('Magento\Framework\Data\Form\FormKey', array(), array(), '', false);
 
-        $form = new \Magento\Data\Form($factory, $collectionFactory, $formKey);
+        $form = new \Magento\Framework\Data\Form($factory, $collectionFactory, $formKey);
 
         $helper = $this->getMock(
             'Magento\Catalog\Helper\Product',
@@ -74,7 +71,7 @@ class WeightTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->_virtual = $this->getMock(
-            'Magento\Data\Form\Element\Checkbox',
+            'Magento\Framework\Data\Form\Element\Checkbox',
             array('setId', 'setName', 'setLabel', 'setForm'),
             array(),
             '',
@@ -94,7 +91,7 @@ class WeightTest extends \PHPUnit_Framework_TestCase
             $this->returnSelf()
         );
 
-        $factory = $this->getMock('Magento\Data\Form\Element\Factory', array(), array(), '', false);
+        $factory = $this->getMock('Magento\Framework\Data\Form\Element\Factory', array(), array(), '', false);
         $factory->expects(
             $this->once()
         )->method(

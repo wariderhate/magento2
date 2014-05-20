@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,13 +25,11 @@
 /**
  * Sales report admin controller
  *
- * @category   Magento
- * @package    Magento_Reports
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Controller\Adminhtml\Report;
 
-use Magento\App\ResponseInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Reports\Model\Flag;
 
 class Sales extends AbstractReport
@@ -112,7 +108,7 @@ class Sales extends AbstractReport
         $fileName = 'bestsellers.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Bestsellers\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -125,7 +121,7 @@ class Sales extends AbstractReport
         $fileName = 'bestsellers.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Bestsellers\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -158,7 +154,7 @@ class Sales extends AbstractReport
         $fileName = 'sales.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Sales\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -171,7 +167,7 @@ class Sales extends AbstractReport
         $fileName = 'sales.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Sales\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -210,7 +206,7 @@ class Sales extends AbstractReport
         $fileName = 'tax.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Tax\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -223,7 +219,7 @@ class Sales extends AbstractReport
         $fileName = 'tax.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Tax\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -262,7 +258,7 @@ class Sales extends AbstractReport
         $fileName = 'shipping.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Shipping\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -275,7 +271,7 @@ class Sales extends AbstractReport
         $fileName = 'shipping.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Shipping\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -314,7 +310,7 @@ class Sales extends AbstractReport
         $fileName = 'invoiced.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Invoiced\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -327,7 +323,7 @@ class Sales extends AbstractReport
         $fileName = 'invoiced.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Invoiced\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -366,7 +362,7 @@ class Sales extends AbstractReport
         $fileName = 'refunded.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Refunded\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -379,7 +375,7 @@ class Sales extends AbstractReport
         $fileName = 'refunded.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Refunded\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -418,7 +414,7 @@ class Sales extends AbstractReport
         $fileName = 'coupons.csv';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Coupons\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getCsvFile());
+        return $this->_fileFactory->create($fileName, $grid->getCsvFile(), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**
@@ -431,7 +427,7 @@ class Sales extends AbstractReport
         $fileName = 'coupons.xml';
         $grid = $this->_view->getLayout()->createBlock('Magento\Reports\Block\Adminhtml\Sales\Coupons\Grid');
         $this->_initReportAction($grid);
-        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName));
+        return $this->_fileFactory->create($fileName, $grid->getExcelFile($fileName), \Magento\Framework\App\Filesystem::VAR_DIR);
     }
 
     /**

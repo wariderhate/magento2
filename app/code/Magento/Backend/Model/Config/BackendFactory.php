@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,14 +28,14 @@ class BackendFactory
     /**
      * Object manager
      *
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
     /**
-     * @param \Magento\ObjectManager $objectmanager
+     * @param \Magento\Framework\ObjectManager $objectmanager
      */
-    public function __construct(\Magento\ObjectManager $objectmanager)
+    public function __construct(\Magento\Framework\ObjectManager $objectmanager)
     {
         $this->_objectManager = $objectmanager;
     }
@@ -46,13 +44,13 @@ class BackendFactory
      * Create backend model by name
      *
      * @param string $modelName
-     * @return \Magento\App\Config\ValueInterface
+     * @return \Magento\Framework\App\Config\ValueInterface
      * @throws \InvalidArgumentException
      */
     public function create($modelName)
     {
         $model = $this->_objectManager->create($modelName);
-        if (!$model instanceof \Magento\App\Config\ValueInterface) {
+        if (!$model instanceof \Magento\Framework\App\Config\ValueInterface) {
             throw new \InvalidArgumentException('Invalid config field backend model: ' . $modelName);
         }
         return $model;

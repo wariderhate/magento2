@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,14 +29,12 @@ use Magento\Customer\Service\V1\CustomerAddressServiceInterface;
 /**
  * Customer address book block
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Book extends \Magento\View\Element\Template
+class Book extends \Magento\Framework\View\Element\Template
 {
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
@@ -58,18 +54,18 @@ class Book extends \Magento\View\Element\Template
     protected $_addressConfig;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param CustomerAccountServiceInterface $customerAccountService
      * @param CustomerAddressServiceInterface $addressService
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param \Magento\Customer\Model\Address\Config $addressConfig
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         CustomerAccountServiceInterface $customerAccountService,
         CustomerAddressServiceInterface $addressService,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         \Magento\Customer\Model\Address\Config $addressConfig,
         array $data = array()
     ) {
@@ -142,7 +138,7 @@ class Book extends \Magento\View\Element\Template
     {
         try {
             $addresses = $this->_addressService->getAddresses($this->currentCustomer->getCustomerId());
-        } catch (\Magento\Exception\NoSuchEntityException $e) {
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return false;
         }
         $primaryAddressIds = array($this->getDefaultBilling(), $this->getDefaultShipping());
@@ -179,7 +175,7 @@ class Book extends \Magento\View\Element\Template
         if (is_null($customer)) {
             try {
                 $customer = $this->_customerAccountService->getCustomer($this->currentCustomer->getCustomerId());
-            } catch (\Magento\Exception\NoSuchEntityException $e) {
+            } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
                 return null;
             }
             $this->setData('customer', $customer);
@@ -208,7 +204,7 @@ class Book extends \Magento\View\Element\Template
     {
         try {
             return $this->_addressService->getAddress($addressId);
-        } catch (\Magento\Exception\NoSuchEntityException $e) {
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return null;
         }
     }

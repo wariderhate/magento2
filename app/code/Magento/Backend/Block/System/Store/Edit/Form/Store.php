@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\System\Store\Edit\Form;
 /**
  * Adminhtml store edit form for store
  *
- * @category    Magento
- * @package     Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @SuppressWarnings(PHPMD.DepthOfInheritance)
@@ -37,29 +33,29 @@ namespace Magento\Backend\Block\System\Store\Edit\Form;
 class Store extends \Magento\Backend\Block\System\Store\Edit\AbstractForm
 {
     /**
-     * @var \Magento\Core\Model\Website\Factory
+     * @var \Magento\Store\Model\WebsiteFactory
      */
     protected $_websiteFactory;
 
     /**
-     * @var \Magento\Core\Model\Store\Group\Factory
+     * @var \Magento\Store\Model\GroupFactory
      */
     protected $_groupFactory;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
-     * @param \Magento\Core\Model\Store\Group\Factory $groupFactory
-     * @param \Magento\Core\Model\Website\Factory $websiteFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
+     * @param \Magento\Store\Model\GroupFactory $groupFactory
+     * @param \Magento\Store\Model\WebsiteFactory $websiteFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
-        \Magento\Core\Model\Store\Group\Factory $groupFactory,
-        \Magento\Core\Model\Website\Factory $websiteFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
+        \Magento\Store\Model\GroupFactory $groupFactory,
+        \Magento\Store\Model\WebsiteFactory $websiteFactory,
         array $data = array()
     ) {
         $this->_groupFactory = $groupFactory;
@@ -70,11 +66,11 @@ class Store extends \Magento\Backend\Block\System\Store\Edit\AbstractForm
     /**
      * Prepare store specific fieldset
      *
-     * @param \Magento\Data\Form $form
+     * @param \Magento\Framework\Data\Form $form
      * @return void
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    protected function _prepareStoreFieldset(\Magento\Data\Form $form)
+    protected function _prepareStoreFieldset(\Magento\Framework\Data\Form $form)
     {
         $storeModel = $this->_coreRegistry->registry('store_data');
         $postData = $this->_coreRegistry->registry('store_post_data');

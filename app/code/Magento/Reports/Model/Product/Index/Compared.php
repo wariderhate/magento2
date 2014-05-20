@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,8 +36,6 @@ namespace Magento\Reports\Model\Product\Index;
  * @method string getAddedAt()
  * @method \Magento\Reports\Model\Product\Index\Compared setAddedAt(string $value)
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Compared extends \Magento\Reports\Model\Product\Index\AbstractIndex
@@ -59,31 +55,31 @@ class Compared extends \Magento\Reports\Model\Product\Index\AbstractIndex
     protected $_productCompare = null;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Log\Model\Visitor $logVisitor
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Session\Generic $reportSession
+     * @param \Magento\Framework\Session\Generic $reportSession
      * @param \Magento\Catalog\Model\Product\Visibility $productVisibility
-     * @param \Magento\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      * @param \Magento\Catalog\Helper\Product\Compare $productCompare
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Log\Model\Visitor $logVisitor,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Session\Generic $reportSession,
+        \Magento\Framework\Session\Generic $reportSession,
         \Magento\Catalog\Model\Product\Visibility $productVisibility,
-        \Magento\Stdlib\DateTime $dateTime,
+        \Magento\Framework\Stdlib\DateTime $dateTime,
         \Magento\Catalog\Helper\Product\Compare $productCompare,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         parent::__construct(

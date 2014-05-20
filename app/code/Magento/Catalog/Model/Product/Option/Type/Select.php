@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Catalog\Model\Product\Option\Type;
 
-use Magento\Model\Exception;
+use Magento\Framework\Model\Exception;
 
 /**
  * Catalog product option select type
@@ -38,34 +36,34 @@ class Select extends \Magento\Catalog\Model\Product\Option\Type\DefaultType
     protected $_formattedOptionValue;
 
     /**
-     * @var \Magento\Escaper
+     * @var \Magento\Framework\Escaper
      */
     protected $_escaper;
 
     /**
      * Magento string lib
      *
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $string;
 
     /**
      * @param \Magento\Checkout\Model\Session $checkoutSession
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Stdlib\String $string
-     * @param \Magento\Escaper $escaper
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\Stdlib\String $string
+     * @param \Magento\Framework\Escaper $escaper
      * @param array $data
      */
     public function __construct(
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\Stdlib\String $string,
-        \Magento\Escaper $escaper,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\Stdlib\String $string,
+        \Magento\Framework\Escaper $escaper,
         array $data = array()
     ) {
         $this->string = $string;
         $this->_escaper = $escaper;
-        parent::__construct($checkoutSession, $coreStoreConfig, $data);
+        parent::__construct($checkoutSession, $scopeConfig, $data);
     }
 
     /**

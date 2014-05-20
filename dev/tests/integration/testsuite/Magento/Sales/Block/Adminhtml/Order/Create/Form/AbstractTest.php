@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +27,6 @@
  */
 namespace Magento\Sales\Block\Adminhtml\Order\Create\Form;
 
-use Magento\Customer\Service\V1\Data\Eav\AttributeMetadata;
 use Magento\Customer\Service\V1\Data\Eav\AttributeMetadataBuilder;
 use Magento\Customer\Service\V1\Data\Eav\OptionBuilder;
 use Magento\Customer\Service\V1\Data\Eav\ValidationRuleBuilder;
@@ -46,12 +42,12 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         \Magento\TestFramework\Helper\Bootstrap::getInstance()
             ->loadArea(\Magento\Backend\App\Area\FrontNameResolver::AREA_CODE);
 
-        $objectManager->get('Magento\View\DesignInterface')->setDefaultDesignTheme();
+        $objectManager->get('Magento\Framework\View\DesignInterface')->setDefaultDesignTheme();
         $arguments = array(
             $objectManager->get('Magento\Backend\Block\Template\Context'),
             $objectManager->get('Magento\Backend\Model\Session\Quote'),
             $objectManager->get('Magento\Sales\Model\AdminOrder\Create'),
-            $objectManager->get('Magento\Data\FormFactory')
+            $objectManager->get('Magento\Framework\Data\FormFactory')
         );
 
         /** @var $block \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractForm */
@@ -59,7 +55,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
             'Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractForm',
             $arguments
         );
-        $block->setLayout($objectManager->create('Magento\Core\Model\Layout'));
+        $block->setLayout($objectManager->create('Magento\Framework\View\Layout'));
 
         $method = new \ReflectionMethod(
             'Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractForm',
@@ -67,8 +63,8 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         );
         $method->setAccessible(true);
 
-        /** @var $formFactory \Magento\Data\FormFactory */
-        $formFactory = $objectManager->get('Magento\Data\FormFactory');
+        /** @var $formFactory \Magento\Framework\Data\FormFactory */
+        $formFactory = $objectManager->get('Magento\Framework\Data\FormFactory');
         $form = $formFactory->create();
         $fieldset = $form->addFieldset('test_fieldset', array());
         $dateAttribute = (new AttributeMetadataBuilder(

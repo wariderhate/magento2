@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Most viewed product report aggregate resource model
  *
- * @category    Magento
- * @package     Magento_Reports
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Reports\Model\Resource\Report\Product;
@@ -62,22 +58,22 @@ class Viewed extends \Magento\Sales\Model\Resource\Report\AbstractReport
     protected $_resourceHelper;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Logger $logger
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param \Magento\Reports\Model\FlagFactory $reportsFlagFactory
-     * @param \Magento\Stdlib\DateTime $dateTime
-     * @param \Magento\Stdlib\DateTime\Timezone\Validator $timezoneValidator
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
+     * @param \Magento\Framework\Stdlib\DateTime\Timezone\Validator $timezoneValidator
      * @param \Magento\Catalog\Model\Resource\Product $productResource
      * @param \Magento\Reports\Model\Resource\Helper $resourceHelper
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Logger $logger,
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Reports\Model\FlagFactory $reportsFlagFactory,
-        \Magento\Stdlib\DateTime $dateTime,
-        \Magento\Stdlib\DateTime\Timezone\Validator $timezoneValidator,
+        \Magento\Framework\Stdlib\DateTime $dateTime,
+        \Magento\Framework\Stdlib\DateTime\Timezone\Validator $timezoneValidator,
         \Magento\Catalog\Model\Resource\Product $productResource,
         \Magento\Reports\Model\Resource\Helper $resourceHelper
     ) {

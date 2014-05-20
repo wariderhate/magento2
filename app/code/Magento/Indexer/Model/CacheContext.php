@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   Magento
- * @package    Magento_Indexer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
@@ -28,7 +26,7 @@ namespace Magento\Indexer\Model;
 /**
  * Class Context
  */
-class CacheContext implements \Magento\Object\IdentityInterface
+class CacheContext implements \Magento\Framework\Object\IdentityInterface
 {
     /**
      * @var array

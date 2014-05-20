@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Backend\Block\Urlrewrite;
 /**
  * Block for URL rewrites edit page
  *
- * @method \Magento\Core\Model\Url\Rewrite getUrlRewrite()
- * @method \Magento\Backend\Block\Urlrewrite\Edit setUrlRewrite(\Magento\Core\Model\Url\Rewrite $urlRewrite)
+ * @method \Magento\UrlRewrite\Model\UrlRewrite getUrlRewrite()
+ * @method \Magento\Backend\Block\Urlrewrite\Edit setUrlRewrite(\Magento\UrlRewrite\Model\UrlRewrite $urlRewrite)
  *
- * @category   Magento
- * @package    Magento_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Edit extends \Magento\Backend\Block\Widget\Container
@@ -64,19 +60,19 @@ class Edit extends \Magento\Backend\Block\Widget\Container
     protected $_adminhtmlData = null;
 
     /**
-     * @var \Magento\Core\Model\Url\RewriteFactory
+     * @var \Magento\UrlRewrite\Model\UrlRewriteFactory
      */
     protected $_rewriteFactory;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Core\Model\Url\RewriteFactory $rewriteFactory
+     * @param \Magento\UrlRewrite\Model\UrlRewriteFactory $rewriteFactory
      * @param \Magento\Backend\Helper\Data $adminhtmlData
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Core\Model\Url\RewriteFactory $rewriteFactory,
+        \Magento\UrlRewrite\Model\UrlRewriteFactory $rewriteFactory,
         \Magento\Backend\Helper\Data $adminhtmlData,
         array $data = array()
     ) {
@@ -218,7 +214,7 @@ class Edit extends \Magento\Backend\Block\Widget\Container
             'save',
             array(
                 'label' => __('Save'),
-                'class' => 'save',
+                'class' => 'save primary save-url-redirect',
                 'level' => -1,
                 'data_attribute' => array(
                     'mage-init' => array('button' => array('event' => 'save', 'target' => '#edit_form'))
@@ -292,7 +288,7 @@ class Edit extends \Magento\Backend\Block\Widget\Container
     /**
      * Get or create new instance of URL rewrite
      *
-     * @return \Magento\Core\Model\Url\Rewrite
+     * @return \Magento\UrlRewrite\Model\UrlRewrite
      */
     protected function _getUrlRewrite()
     {

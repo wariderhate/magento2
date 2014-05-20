@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cms
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Cms\Controller\Adminhtml\Wysiwyg;
 /**
  * Images manage controller for Cms WYSIWYG editor
  *
- * @category    Magento
- * @package     Magento_Cms
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Images extends \Magento\Backend\App\Action
@@ -37,15 +33,15 @@ class Images extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -174,9 +170,9 @@ class Images extends \Magento\Backend\App\Action
             $path = $this->getStorage()->getSession()->getCurrentPath();
             foreach ($files as $file) {
                 $file = $helper->idDecode($file);
-                /** @var \Magento\App\Filesystem $filesystem */
-                $filesystem = $this->_objectManager->get('Magento\App\Filesystem');
-                $dir = $filesystem->getDirectoryRead(\Magento\App\Filesystem::MEDIA_DIR);
+                /** @var \Magento\Framework\App\Filesystem $filesystem */
+                $filesystem = $this->_objectManager->get('Magento\Framework\App\Filesystem');
+                $dir = $filesystem->getDirectoryRead(\Magento\Framework\App\Filesystem::MEDIA_DIR);
                 $filePath = $path . '/' . $file;
                 if ($dir->isFile($dir->getRelativePath($filePath))) {
                     $this->getStorage()->deleteFile($filePath);
@@ -237,8 +233,8 @@ class Images extends \Magento\Backend\App\Action
         $file = $this->_objectManager->get('Magento\Cms\Helper\Wysiwyg\Images')->idDecode($file);
         $thumb = $this->getStorage()->resizeOnTheFly($file);
         if ($thumb !== false) {
-            /** @var \Magento\Image\Adapter\AdapterInterface $image */
-            $image = $this->_objectManager->get('Magento\Image\AdapterFactory')->create();
+            /** @var \Magento\Framework\Image\Adapter\AdapterInterface $image */
+            $image = $this->_objectManager->get('Magento\Framework\Image\AdapterFactory')->create();
             $image->open($thumb);
             $this->getResponse()->setHeader('Content-Type', $image->getMimeType())->setBody($image->getImage());
         } else {

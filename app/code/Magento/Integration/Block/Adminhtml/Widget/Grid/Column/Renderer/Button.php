@@ -25,19 +25,18 @@ namespace Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer;
 
 use Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer;
 use Magento\Integration\Model\Integration;
-use Magento\Object;
+use Magento\Framework\Object;
 
 /**
  * Render HTML <button> tag.
  *
- * @package Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer
  */
 class Button extends AbstractRenderer
 {
     /**
      * {@inheritdoc}
      */
-    public function render(Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         /** @var array $attributes */
         $attributes = $this->_prepareAttributes($row);
@@ -47,7 +46,7 @@ class Button extends AbstractRenderer
     /**
      * Determine whether current integration came from config file
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return bool
      */
     protected function _isConfigBasedIntegration(Object $row)
@@ -62,7 +61,7 @@ class Button extends AbstractRenderer
     /**
      * Whether current item is disabled.
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return bool
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
@@ -72,7 +71,7 @@ class Button extends AbstractRenderer
     }
 
     /**
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
     protected function _getDisabledAttribute(Object $row)
@@ -87,7 +86,7 @@ class Button extends AbstractRenderer
      * - Then it tries to get it from the button's column layout description.
      * If received attribute value is empty - attribute is not added to final HTML.
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return array
      */
     protected function _prepareAttributes(Object $row)

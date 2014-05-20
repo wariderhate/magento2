@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Catalog\Helper;
 /**
  * Adminhtml Catalog helper
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Catalog extends \Magento\App\Helper\AbstractHelper
+class Catalog extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Config path to valid file paths
@@ -61,21 +57,21 @@ class Catalog extends \Magento\App\Helper\AbstractHelper
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @param \Magento\App\Helper\Context $context
+     * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Core\Helper\Data $coreData
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
+        \Magento\Framework\App\Helper\Context $context,
         \Magento\Core\Helper\Data $coreData,
-        \Magento\Core\Model\Store\Config $coreStoreConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         parent::__construct($context);
     }
 
@@ -131,8 +127,8 @@ class Catalog extends \Magento\App\Helper\AbstractHelper
     public function getSitemapValidPaths()
     {
         return array_merge(
-            $this->_coreStoreConfig->getConfig(self::XML_PATH_SITEMAP_VALID_PATHS),
-            $this->_coreStoreConfig->getConfig(self::XML_PATH_PUBLIC_FILES_VALID_PATHS)
+            $this->_scopeConfig->getValue(self::XML_PATH_SITEMAP_VALID_PATHS, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
+            $this->_scopeConfig->getValue(self::XML_PATH_PUBLIC_FILES_VALID_PATHS, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
         );
     }
 }

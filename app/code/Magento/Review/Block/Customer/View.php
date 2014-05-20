@@ -18,22 +18,18 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Review
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Review\Block\Customer;
 
 use Magento\Catalog\Model\Product;
-use Magento\Rating\Model\Resource\Rating\Option\Vote\Collection as VoteCollection;
+use Magento\Review\Model\Resource\Rating\Option\Vote\Collection as VoteCollection;
 use Magento\Review\Model\Review;
 
 /**
  * Customer Review detailed view block
  *
- * @category   Magento
- * @package    Magento_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class View extends \Magento\Catalog\Block\Product\AbstractProduct
@@ -62,19 +58,19 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
     /**
      * Rating option model
      *
-     * @var \Magento\Rating\Model\Rating\Option\VoteFactory
+     * @var \Magento\Review\Model\Rating\Option\VoteFactory
      */
     protected $_voteFactory;
 
     /**
      * Rating model
      *
-     * @var \Magento\Rating\Model\RatingFactory
+     * @var \Magento\Review\Model\RatingFactory
      */
     protected $_ratingFactory;
 
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
@@ -82,21 +78,19 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\Review\Model\ReviewFactory $reviewFactory
-     * @param \Magento\Rating\Model\Rating\Option\VoteFactory $voteFactory
-     * @param \Magento\Rating\Model\RatingFactory $ratingFactory
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Review\Model\Rating\Option\VoteFactory $voteFactory
+     * @param \Magento\Review\Model\RatingFactory $ratingFactory
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
-     * @param array $priceBlockTypes
      */
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\Review\Model\ReviewFactory $reviewFactory,
-        \Magento\Rating\Model\Rating\Option\VoteFactory $voteFactory,
-        \Magento\Rating\Model\RatingFactory $ratingFactory,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
-        array $data = array(),
-        array $priceBlockTypes = array()
+        \Magento\Review\Model\Rating\Option\VoteFactory $voteFactory,
+        \Magento\Review\Model\RatingFactory $ratingFactory,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
+        array $data = array()
     ) {
         $this->_productFactory = $productFactory;
         $this->_reviewFactory = $reviewFactory;
@@ -106,8 +100,7 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
 
         parent::__construct(
             $context,
-            $data,
-            $priceBlockTypes
+            $data
         );
         $this->_isScopePrivate = true;
     }
@@ -226,7 +219,7 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
      */
     public function dateFormat($date)
     {
-        return $this->formatDate($date, \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_LONG);
+        return $this->formatDate($date, \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_LONG);
     }
 
     /**
@@ -237,5 +230,25 @@ class View extends \Magento\Catalog\Block\Product\AbstractProduct
     public function isReviewOwner()
     {
         return ($this->getReviewData()->getCustomerId() == $this->currentCustomer->getCustomerId());
+    }
+
+
+    /**
+     * Get product reviews summary
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @param bool $templateType
+     * @param bool $displayIfNoReviews
+     * @return string
+     */
+    public function getReviewsSummaryHtml(
+        \Magento\Catalog\Model\Product $product,
+        $templateType = false,
+        $displayIfNoReviews = false
+    ) {
+        if (!$product->getRatingSummary()) {
+            $this->_reviewFactory->create()->getEntitySummary($product, $this->_storeManager->getStore()->getId());
+        }
+        return parent::getReviewsSummaryHtml($product, $templateType, $displayIfNoReviews);
     }
 }

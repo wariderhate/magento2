@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,20 +26,20 @@ namespace Magento\Payment\Block;
 /**
  * Payment method form base block
  */
-class Form extends \Magento\View\Element\Template
+class Form extends \Magento\Framework\View\Element\Template
 {
     /**
      * Retrieve payment method model
      *
      * @return \Magento\Payment\Model\MethodInterface
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getMethod()
     {
         $method = $this->getData('method');
 
         if (!$method instanceof \Magento\Payment\Model\MethodInterface) {
-            throw new \Magento\Model\Exception(__('We cannot retrieve the payment method model object.'));
+            throw new \Magento\Framework\Model\Exception(__('We cannot retrieve the payment method model object.'));
         }
         return $method;
     }

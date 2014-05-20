@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -50,7 +47,7 @@ class BeginTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLicenseHtmlWhenFileExists($fileName, $expectedTxt)
     {
-        $directoryMock = $this->getMock('Magento\Filesystem\Directory\Read', array(), array(), '', false);
+        $directoryMock = $this->getMock('Magento\Framework\Filesystem\Directory\Read', array(), array(), '', false);
         $directoryMock->expects(
             $this->once()
         )->method(
@@ -61,7 +58,7 @@ class BeginTest extends \PHPUnit_Framework_TestCase
             $this->returnValue($expectedTxt)
         );
 
-        $fileSystem = $this->getMock('Magento\App\Filesystem', array(), array(), '', false);
+        $fileSystem = $this->getMock('Magento\Framework\App\Filesystem', array(), array(), '', false);
         $fileSystem->expects($this->once())->method('getDirectoryRead')->will($this->returnValue($directoryMock));
 
         $block = $this->_objectManager->getObject(
@@ -81,7 +78,7 @@ class BeginTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLicenseHtmlWhenFileIsEmpty($fileName)
     {
-        $fileSystem = $this->getMock('Magento\App\Filesystem', array(), array(), '', false);
+        $fileSystem = $this->getMock('Magento\Framework\App\Filesystem', array(), array(), '', false);
         $fileSystem->expects($this->never())->method('read');
 
         $block = $this->_objectManager->getObject(

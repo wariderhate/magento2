@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -84,14 +82,14 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
     /**
      * Request which can be used for tax rate calculation
      *
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_storeTaxRequest = null;
 
     /**
      *  Quote store
      *
-     * @var \Magento\Core\Model\Store
+     * @var \Magento\Store\Model\Store
      */
     protected $_store;
 
@@ -198,7 +196,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Caclulate item price and row total with customized rounding level
      *
      * @param AbstractItem $item
-     * @param \Magento\Object $taxRequest
+     * @param \Magento\Framework\Object $taxRequest
      * @return $this
      */
     protected function _processItem($item, $taxRequest)
@@ -223,7 +221,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Calculate item price and row total including/excluding tax based on unit price rounding level
      *
      * @param AbstractItem $item
-     * @param \Magento\Object $request
+     * @param \Magento\Framework\Object $request
      * @return $this
      */
     protected function _unitBaseCalculation($item, $request)
@@ -335,7 +333,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Calculate item price and row total including/excluding tax based on row total price rounding level
      *
      * @param AbstractItem $item
-     * @param \Magento\Object $request
+     * @param \Magento\Framework\Object $request
      * @return $this
      */
     protected function _rowBaseCalculation($item, $request)
@@ -450,7 +448,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Calculate item price and row total including/excluding tax based on total price rounding level
      *
      * @param AbstractItem $item
-     * @param \Magento\Object $request
+     * @param \Magento\Framework\Object $request
      * @return $this
      */
     protected function _totalBaseCalculation($item, $request)
@@ -613,7 +611,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Used only after collect() started, as far as uses optimized $_areTaxRequestsSimilar property
      * Used only in case of prices including tax
      *
-     * @param \Magento\Object $request
+     * @param \Magento\Framework\Object $request
      * @return bool
      */
     protected function _sameRateAsStore($request)
@@ -692,7 +690,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Get request for fetching store tax rate
      *
      * @param   Address $address
-     * @return  \Magento\Object
+     * @return  \Magento\Framework\Object
      */
     protected function _getStoreTaxRequest($address)
     {
@@ -706,7 +704,7 @@ class Subtotal extends \Magento\Sales\Model\Quote\Address\Total\AbstractTotal
      * Get request for fetching address tax rate
      *
      * @param   Address $address
-     * @return  \Magento\Object
+     * @return  \Magento\Framework\Object
      */
     protected function _getAddressTaxRequest($address)
     {

@@ -18,15 +18,13 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Core\Model\File;
 
-use Magento\App\Filesystem;
-use Magento\Model\AbstractModel;
+use Magento\Framework\App\Filesystem;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Class Storage
@@ -68,12 +66,12 @@ class Storage extends AbstractModel
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @var \Magento\App\ConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $_coreConfig;
 
@@ -99,40 +97,40 @@ class Storage extends AbstractModel
     /**
      * Filesystem instance
      *
-     * @var \Magento\App\Filesystem
+     * @var \Magento\Framework\App\Filesystem
      */
     protected $filesystem;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Core\Helper\File\Storage $coreFileStorage
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\App\ConfigInterface $coreConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $coreConfig
      * @param \Magento\Core\Model\File\Storage\Flag $fileFlag
      * @param \Magento\Core\Model\File\Storage\FileFactory $fileFactory
      * @param \Magento\Core\Model\File\Storage\DatabaseFactory $databaseFactory
-     * @param \Magento\App\Filesystem $filesystem
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\App\Filesystem $filesystem
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
         \Magento\Core\Helper\File\Storage $coreFileStorage,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\App\ConfigInterface $coreConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Config\ScopeConfigInterface $coreConfig,
         \Magento\Core\Model\File\Storage\Flag $fileFlag,
         \Magento\Core\Model\File\Storage\FileFactory $fileFactory,
         \Magento\Core\Model\File\Storage\DatabaseFactory $databaseFactory,
-        \Magento\App\Filesystem $filesystem,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\App\Filesystem $filesystem,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_coreFileStorage = $coreFileStorage;
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_coreConfig = $coreConfig;
         $this->_fileFlag = $fileFlag;
         $this->_fileFactory = $fileFactory;
@@ -144,8 +142,8 @@ class Storage extends AbstractModel
     /**
      * Show if there were errors while synchronize process
      *
-     * @param AbstractModel $sourceModel
-     * @param AbstractModel $destinationModel
+     * @param \Magento\Framework\Model\AbstractModel $sourceModel
+     * @param \Magento\Framework\Model\AbstractModel $destinationModel
      * @return bool
      */
     protected function _synchronizeHasErrors($sourceModel, $destinationModel)
@@ -304,7 +302,7 @@ class Storage extends AbstractModel
             $config['allowed_resources'][] = $allowedResource;
         }
 
-        $config['update_time'] = $this->_coreStoreConfig->getConfig(self::XML_PATH_MEDIA_UPDATE_TIME);
+        $config['update_time'] = $this->_scopeConfig->getValue(self::XML_PATH_MEDIA_UPDATE_TIME, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
         return $config;
     }

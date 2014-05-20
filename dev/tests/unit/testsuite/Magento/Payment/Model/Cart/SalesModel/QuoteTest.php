@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -93,7 +90,7 @@ class QuoteTest extends \PHPUnit_Framework_TestCase
         $itemMock->expects($this->any())->method('getTotalQty')->will($this->returnValue($qty));
         $itemMock->expects($this->any())->method('getBaseCalculationPrice')->will($this->returnValue($price));
         $expected = array(
-            new \Magento\Object(
+            new \Magento\Framework\Object(
                 array(
                     'parent_item' => $pItem,
                     'name' => $name,

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,19 +28,19 @@ class Section extends AbstractComposite
     /**
      * Authorization service
      *
-     * @var \Magento\AuthorizationInterface
+     * @var \Magento\Framework\AuthorizationInterface
      */
     protected $_authorization;
 
     /**
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param Iterator $childrenIterator
-     * @param \Magento\AuthorizationInterface $authorization
+     * @param \Magento\Framework\AuthorizationInterface $authorization
      */
     public function __construct(
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         Iterator $childrenIterator,
-        \Magento\AuthorizationInterface $authorization
+        \Magento\Framework\AuthorizationInterface $authorization
     ) {
         parent::__construct($storeManager, $childrenIterator);
         $this->_authorization = $authorization;

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -40,16 +37,18 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $directoryList = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\App\Filesystem\DirectoryList',
+            'Magento\Framework\App\Filesystem\DirectoryList',
             array(
-                'root' => \Magento\App\Filesystem::ROOT_DIR,
+                'root' => \Magento\Framework\App\Filesystem::ROOT_DIR,
                 'directories' => array(
-                    \Magento\App\Filesystem::THEMES_DIR => array('path' => dirname(__DIR__) . '/_files/design')
+                    \Magento\Framework\App\Filesystem::THEMES_DIR => array(
+                        'path' => dirname(__DIR__) . '/_files/design'
+                    )
                 )
             )
         );
         $filesystem = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\App\Filesystem',
+            'Magento\Framework\App\Filesystem',
             array('directoryList' => $directoryList)
         );
         $this->_model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
@@ -100,7 +99,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
                     'theme_path' => 'magento_default',
                     'code' => 'magento_default',
                     'preview_image' => null,
-                    'type' => \Magento\View\Design\ThemeInterface::TYPE_PHYSICAL
+                    'type' => \Magento\Framework\View\Design\ThemeInterface::TYPE_PHYSICAL
                 )
             )
         );
@@ -115,9 +114,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasThemeInCollection()
     {
-        /** @var $themeModel \Magento\View\Design\ThemeInterface */
+        /** @var $themeModel \Magento\Framework\View\Design\ThemeInterface */
         $themeModel = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\View\Design\ThemeInterface'
+            'Magento\Framework\View\Design\ThemeInterface'
         );
         $themeModel->setData(
             array(
@@ -128,7 +127,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
                 'is_featured' => false,
                 'theme_path' => 'default_space',
                 'preview_image' => 'images/preview.png',
-                'type' => \Magento\View\Design\ThemeInterface::TYPE_PHYSICAL
+                'type' => \Magento\Framework\View\Design\ThemeInterface::TYPE_PHYSICAL
             )
         );
 

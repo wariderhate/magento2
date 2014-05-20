@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,31 +36,37 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\App\Filesystem|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\Filesystem|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_filesystemMock;
 
     /**
-     * @var \Magento\Filesystem\Directory\Write|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Filesystem\Directory\Write|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_directoryMock;
 
     /**
-     * @var \Magento\Message\ManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Message\ManagerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_messageManager;
 
     protected function setUp()
     {
-        $this->_directoryMock = $this->getMock('Magento\Filesystem\Directory\Write', array(), array(), '', false);
+        $this->_directoryMock = $this->getMock(
+            'Magento\Framework\Filesystem\Directory\Write',
+            array(),
+            array(),
+            '',
+            false
+        );
 
-        $this->_filesystemMock = $this->getMock('Magento\App\Filesystem', array(), array(), '', false);
+        $this->_filesystemMock = $this->getMock('Magento\Framework\App\Filesystem', array(), array(), '', false);
         $this->_filesystemMock->expects(
             $this->any()
         )->method(
             'getPath'
         )->with(
-            \Magento\App\Filesystem::CONFIG_DIR
+            \Magento\Framework\App\Filesystem::CONFIG_DIR
         )->will(
             $this->returnValue(TESTS_TEMP_DIR)
         );
@@ -75,12 +78,18 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $this->returnValue($this->_directoryMock)
         );
 
-        $this->_messageManager = $this->getMock('\Magento\Message\ManagerInterface', array(), array(), '', false);
+        $this->_messageManager = $this->getMock(
+            '\Magento\Framework\Message\ManagerInterface',
+            array(),
+            array(),
+            '',
+            false
+        );
         $this->_model = new \Magento\Install\Model\Installer\Config(
             $this->getMock('Magento\Install\Model\Installer', array(), array(), '', false),
-            $this->getMock('Magento\App\RequestInterface', array(), array(), '', false),
+            $this->getMock('Magento\Framework\App\RequestInterface', array(), array(), '', false),
             $this->_filesystemMock,
-            $this->getMock('Magento\Core\Model\StoreManagerInterface', array(), array(), '', false),
+            $this->getMock('Magento\Store\Model\StoreManagerInterface', array(), array(), '', false),
             $this->_messageManager
         );
     }

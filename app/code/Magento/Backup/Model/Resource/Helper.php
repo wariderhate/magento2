@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backup
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backup\Model\Resource;
 
-class Helper extends \Magento\DB\Helper
+class Helper extends \Magento\Framework\DB\Helper
 {
     /**
      * Tables foreign key data array
@@ -38,19 +36,19 @@ class Helper extends \Magento\DB\Helper
     /**
      * Core Date
      *
-     * @var \Magento\Stdlib\DateTime\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
     protected $_coreDate;
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param string $modulePrefix
-     * @param \Magento\Stdlib\DateTime\DateTime $coreDate
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $coreDate
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         $modulePrefix,
-        \Magento\Stdlib\DateTime\DateTime $coreDate
+        \Magento\Framework\Stdlib\DateTime\DateTime $coreDate
     ) {
         parent::__construct($resource, $modulePrefix);
         $this->_coreDate = $coreDate;

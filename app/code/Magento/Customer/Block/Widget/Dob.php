@@ -18,12 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Customer\Block\Widget;
+
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 class Dob extends AbstractWidget
 {
@@ -110,7 +110,7 @@ class Dob extends AbstractWidget
      */
     public function getDateFormat()
     {
-        return $this->_localeDate->getDateFormat(\Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_SHORT);
+        return $this->_localeDate->getDateFormat(TimezoneInterface::FORMAT_TYPE_SHORT);
     }
 
     /**
@@ -128,17 +128,20 @@ class Dob extends AbstractWidget
     /**
      * Sort date inputs by dateformat order of current locale
      *
+     * @param bool $stripNonInputChars
+     *
      * @return string
      */
-    public function getSortedDateInputs()
+    public function getSortedDateInputs($stripNonInputChars = true)
     {
-        $mapping = array(
-            '/[^medy]/i' => '\\1',
-            '/m{1,5}/i' => '%1$s',
-            '/e{1,5}/i' => '%2$s',
-            '/d{1,5}/i' => '%2$s',
-            '/y{1,5}/i' => '%3$s'
-        );
+        $mapping = array();
+        if ($stripNonInputChars) {
+            $mapping['/[^medy]/i'] = '\\1';
+        }
+        $mapping['/m{1,5}/i'] = '%1$s';
+        $mapping['/e{1,5}/i'] = '%2$s';
+        $mapping['/d{1,5}/i'] = '%2$s';
+        $mapping['/y{1,5}/i'] = '%3$s';
 
         $dateFormat = preg_replace(array_keys($mapping), array_values($mapping), $this->getDateFormat());
 

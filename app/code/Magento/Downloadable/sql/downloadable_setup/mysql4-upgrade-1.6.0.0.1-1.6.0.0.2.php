@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,15 +26,15 @@
 /** @var $this \Magento\Catalog\Model\Resource\Setup */
 $installFile = __DIR__ . '/upgrade-1.6.0.0.1-1.6.0.0.2.php';
 
-/** @var \Magento\Filesystem\Directory\Read $moduleDirectory */
-$moduleDirectory = $this->getFilesystem()->getDirectoryRead(\Magento\App\Filesystem::MODULES_DIR);
+/** @var \Magento\Framework\Filesystem\Directory\Read $moduleDirectory */
+$moduleDirectory = $this->getFilesystem()->getDirectoryRead(\Magento\Framework\App\Filesystem::MODULES_DIR);
 if ($moduleDirectory->isExist($moduleDirectory->getRelativePath($installFile))) {
     include $installFile;
 }
 
-/** @var $connection \Magento\DB\Adapter\Pdo\Mysql */
+/** @var $connection \Magento\Framework\DB\Adapter\Pdo\Mysql */
 $connection = $this->getConnection();
 $connection->changeTableEngine(
     $this->getTable('catalog_product_index_price_downlod_tmp'),
-    \Magento\DB\Adapter\Pdo\Mysql::ENGINE_MEMORY
+    \Magento\Framework\DB\Adapter\Pdo\Mysql::ENGINE_MEMORY
 );

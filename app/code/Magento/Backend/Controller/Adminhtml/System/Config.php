@@ -18,14 +18,10 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backend\Controller\Adminhtml\System;
-
-use Magento\App\ResponseInterface;
 
 /**
  * System Configuration controller
@@ -33,26 +29,26 @@ use Magento\App\ResponseInterface;
 class Config extends AbstractConfig
 {
     /**
-     * @var \Magento\App\Response\Http\FileFactory
+     * @var \Magento\Framework\App\Response\Http\FileFactory
      */
     protected $_fileFactory;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Backend\Model\Config\Structure $configStructure
-     * @param \Magento\App\Response\Http\FileFactory $fileFactory
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Backend\Model\Config\Structure $configStructure,
-        \Magento\App\Response\Http\FileFactory $fileFactory,
-        \Magento\Core\Model\StoreManagerInterface $storeManager
+        \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->_storeManager = $storeManager;
         $this->_fileFactory = $fileFactory;
@@ -72,7 +68,7 @@ class Config extends AbstractConfig
     /**
      * Edit configuration section
      *
-     * @return \Magento\App\ResponseInterface|void
+     * @return \Magento\Framework\App\ResponseInterface|void
      */
     public function editAction()
     {

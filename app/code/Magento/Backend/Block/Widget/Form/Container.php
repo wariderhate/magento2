@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Backend\Block\Widget\Form;
 /**
  * Backend form container block
  *
- * @category    Magento
- * @package     Magento_Backend
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Container extends \Magento\Backend\Block\Widget\Container
@@ -82,7 +78,7 @@ class Container extends \Magento\Backend\Block\Widget\Container
         );
         $this->_addButton(
             'reset',
-            array('label' => __('Reset'), 'onclick' => 'setLocation(window.location.href)'),
+            array('label' => __('Reset'), 'onclick' => 'setLocation(window.location.href)', 'class' => 'reset'),
             -1
         );
 
@@ -243,7 +239,7 @@ class Container extends \Magento\Backend\Block\Widget\Container
     /**
      * Set data object and pass it to form
      *
-     * @param \Magento\Object $object
+     * @param \Magento\Framework\Object $object
      * @return $this
      */
     public function setDataObject($object)

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +30,7 @@ namespace Magento\Tax\Model\TaxClass;
 class Factory
 {
     /**
-     * @var \Magento\ObjectManager
+     * @var \Magento\Framework\ObjectManager
      */
     protected $_objectManager;
 
@@ -47,9 +45,9 @@ class Factory
     );
 
     /**
-     * @param \Magento\ObjectManager $objectManager
+     * @param \Magento\Framework\ObjectManager $objectManager
      */
-    public function __construct(\Magento\ObjectManager $objectManager)
+    public function __construct(\Magento\Framework\ObjectManager $objectManager)
     {
         $this->_objectManager = $objectManager;
     }
@@ -59,13 +57,13 @@ class Factory
      *
      * @param \Magento\Tax\Model\ClassModel $taxClass
      * @return \Magento\Tax\Model\TaxClass\Type\TypeInterface
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function create(\Magento\Tax\Model\ClassModel $taxClass)
     {
         $taxClassType = $taxClass->getClassType();
         if (!array_key_exists($taxClassType, $this->_types)) {
-            throw new \Magento\Model\Exception(sprintf('Invalid type of tax class "%s"', $taxClassType));
+            throw new \Magento\Framework\Model\Exception(sprintf('Invalid type of tax class "%s"', $taxClassType));
         }
         return $this->_objectManager->create(
             $this->_types[$taxClassType],

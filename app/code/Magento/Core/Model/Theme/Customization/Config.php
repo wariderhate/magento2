@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +27,7 @@
  */
 namespace Magento\Core\Model\Theme\Customization;
 
-class Config implements \Magento\View\Design\Theme\Customization\ConfigInterface
+class Config implements \Magento\Framework\View\Design\Theme\Customization\ConfigInterface
 {
     /**
      * XML path to definitions of customization services
@@ -37,14 +35,14 @@ class Config implements \Magento\View\Design\Theme\Customization\ConfigInterface
     const XML_PATH_CUSTOM_FILES = 'theme/customization';
 
     /**
-     * @var \Magento\App\ConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
     protected $config;
 
     /**
-     * @param \Magento\App\ConfigInterface $config
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
      */
-    public function __construct(\Magento\App\ConfigInterface $config)
+    public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $config)
     {
         $this->config = $config;
     }

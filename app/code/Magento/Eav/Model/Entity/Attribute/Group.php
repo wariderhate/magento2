@@ -18,16 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Eav\Model\Entity\Attribute;
 
 /**
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  *
  * @method \Magento\Eav\Model\Resource\Entity\Attribute\Group _getResource()
@@ -45,7 +41,7 @@ namespace Magento\Eav\Model\Entity\Attribute;
  * @method string getTabGroupCode()
  * @method \Magento\Eav\Model\Entity\Attribute\Group setTabGroupCode(string $value)
  */
-class Group extends \Magento\Model\AbstractModel
+class Group extends \Magento\Framework\Model\AbstractModel
 {
     /**
      * Resource initialization

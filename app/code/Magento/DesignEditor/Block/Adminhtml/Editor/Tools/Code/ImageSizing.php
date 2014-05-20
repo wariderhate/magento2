@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\DesignEditor\Block\Adminhtml\Editor\Tools\Code;
 
-use Magento\Data\Form;
+use Magento\Framework\Data\Form;
 use Magento\DesignEditor\Model\Editor\Tools\Controls\Configuration;
 
 /**
@@ -52,8 +50,8 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param \Magento\DesignEditor\Model\Editor\Tools\Controls\Factory $controlFactory
      * @param \Magento\DesignEditor\Model\Theme\Context $themeContext
@@ -61,8 +59,8 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Data\FormFactory $formFactory,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\DesignEditor\Model\Editor\Tools\Controls\Factory $controlFactory,
         \Magento\DesignEditor\Model\Theme\Context $themeContext,
@@ -109,7 +107,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
                 \Magento\DesignEditor\Model\Editor\Tools\Controls\Factory::TYPE_IMAGE_SIZING,
                 $this->_themeContext->getStagingTheme()
             );
-        } catch (\Magento\Exception $e) {
+        } catch (\Magento\Framework\Exception $e) {
             $isFilePresent = false;
         }
 
@@ -253,7 +251,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add image size form element by component type
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $component
      * @param string $componentName
      * @return $this
@@ -280,7 +278,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add image type form element to fieldset
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $component
      * @param string $componentName
      * @return $this
@@ -302,7 +300,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add image width form element to fieldset
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $component
      * @param string $componentName
      * @return $this
@@ -325,7 +323,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add image height form element to fieldset
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $component
      * @param string $componentName
      * @return $this
@@ -348,7 +346,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add image ratio form element to fieldset
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $component
      * @param string $componentName
      * @return $this
@@ -373,7 +371,7 @@ class ImageSizing extends \Magento\Backend\Block\Widget\Form\Generic
     /**
      * Add reset button to fieldset
      *
-     * @param \Magento\Data\Form\Element\Fieldset $fieldset
+     * @param \Magento\Framework\Data\Form\Element\Fieldset $fieldset
      * @param array $defaultValues
      * @param string $name
      * @return $this

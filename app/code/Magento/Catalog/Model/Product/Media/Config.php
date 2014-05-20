@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Product\Media;
 /**
  * Catalog product media config
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Config implements ConfigInterface
@@ -37,14 +33,14 @@ class Config implements ConfigInterface
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
 
     /**
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
-    public function __construct(\Magento\Core\Model\StoreManagerInterface $storeManager)
+    public function __construct(\Magento\Store\Model\StoreManagerInterface $storeManager)
     {
         $this->storeManager = $storeManager;
     }
@@ -84,7 +80,7 @@ class Config implements ConfigInterface
      */
     public function getBaseMediaUrl()
     {
-        return $this->storeManager->getStore()->getBaseUrl(\Magento\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
+        return $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
     }
 
     /**
@@ -104,7 +100,7 @@ class Config implements ConfigInterface
     public function getBaseTmpMediaUrl()
     {
         return $this->storeManager->getStore()->getBaseUrl(
-            \Magento\UrlInterface::URL_TYPE_MEDIA
+            \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
         ) . 'tmp/' . $this->getBaseMediaUrlAddition();
     }
 

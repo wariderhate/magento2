@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ImportExport\Controller\Adminhtml;
 /**
  * Import controller
  *
- * @category    Magento
- * @package     Magento_ImportExport
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Import extends \Magento\Backend\App\Action
@@ -155,9 +151,9 @@ class Import extends \Magento\Backend\App\Action
                 $source = \Magento\ImportExport\Model\Import\Adapter::findAdapterFor(
                     $import->uploadSource(),
                     $this->_objectManager->create(
-                        'Magento\App\Filesystem'
+                        'Magento\Framework\App\Filesystem'
                     )->getDirectoryWrite(
-                        \Magento\App\Filesystem::ROOT_DIR
+                        \Magento\Framework\App\Filesystem::ROOT_DIR
                     )
                 );
                 $validationResult = $import->validateSource($source);

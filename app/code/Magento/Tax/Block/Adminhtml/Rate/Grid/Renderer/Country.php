@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Adminhtml tax rates grid item renderer country
  *
- * @category   Magento
- * @package     Magento_Tax
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Tax\Block\Adminhtml\Rate\Grid\Renderer;
@@ -38,10 +34,10 @@ class Country extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Country
     /**
      * Render column for export
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function renderExport(\Magento\Object $row)
+    public function renderExport(\Magento\Framework\Object $row)
     {
         return $row->getData($this->getColumn()->getIndex());
     }

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ProductAlert
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\ProductAlert\Block\Email;
 /**
  * ProductAlert email back in stock grid
  *
- * @category   Magento
- * @package    Magento_ProductAlert
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Stock extends \Magento\ProductAlert\Block\Email\AbstractEmail
@@ -45,12 +41,12 @@ class Stock extends \Magento\ProductAlert\Block\Email\AbstractEmail
     protected $_imageHelper;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Catalog\Helper\Image $imageHelper
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Catalog\Helper\Image $imageHelper,
         array $data = array()
     ) {

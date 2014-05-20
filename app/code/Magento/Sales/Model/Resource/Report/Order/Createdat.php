@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Model\Resource\Report\Order;
 /**
  * Order entity resource model with aggregation by created at
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Createdat extends \Magento\Sales\Model\Resource\Report\AbstractReport
@@ -100,7 +96,6 @@ class Createdat extends \Magento\Sales\Model\Resource\Report\AbstractReport
             );
             // Columns list
             $columns = array(
-                // convert dates from UTC to current admin timezone
                 'period' => $periodExpr,
                 'store_id' => 'o.store_id',
                 'order_status' => 'o.status',
@@ -259,7 +254,7 @@ class Createdat extends \Magento\Sales\Model\Resource\Report\AbstractReport
                 $columns[$k] = new \Zend_Db_Expr('SUM(' . $k . ')');
             }
             $columns['period'] = 'period';
-            $columns['store_id'] = new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID);
+            $columns['store_id'] = new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID);
             $columns['order_status'] = 'order_status';
 
             $select->reset();

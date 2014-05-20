@@ -27,10 +27,6 @@ namespace Magento\Sales\Block\Adminhtml\Order;
 
 /**
  * Adminhtml sales order view
- *
- * @category    Magento
- * @package     Magento_Sales
- * @author      Magento Core Team <core@magentocommerce.com>
  */
 class View extends \Magento\Backend\Block\Widget\Form\Container
 {
@@ -44,7 +40,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
@@ -64,14 +60,14 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Registry $registry
      * @param \Magento\Sales\Model\Config $salesConfig
      * @param \Magento\Sales\Helper\Reorder $reorderHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Registry $registry,
         \Magento\Sales\Model\Config $salesConfig,
         \Magento\Sales\Helper\Reorder $reorderHelper,
         array $data = array()
@@ -106,29 +102,21 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
         }
 
         if ($this->_isAllowedAction('Magento_Sales::actions_edit') && $order->canEdit()) {
-            $onclickJs = 'deleteConfirm(\'' . __(
-                'Are you sure? This order will be canceled and a new one will be created instead.'
-            ) . '\', \'' . $this->getEditUrl() . '\');';
-            $this->_addButton('order_edit', array('label' => __('Edit'), 'onclick' => $onclickJs));
-            // see if order has non-editable products as items
-            $nonEditableTypes = array_keys(
-                $this->getOrder()->getResource()->aggregateProductsByTypes(
-                    $order->getId(),
-                    $this->_salesConfig->getAvailableProductTypes(),
-                    false
+            $onclickJs = 'jQuery(\'#order_edit\').orderEditDialog({message: \''
+                . $this->getEditMessage($order) . '\', url: \'' . $this->getEditUrl()
+                . '\'}).orderEditDialog(\'showDialog\');';
+
+            $this->_addButton(
+                'order_edit',
+                array(
+                    'label' => __('Edit'),
+                    'class' => 'edit primary',
+                    'onclick' => $onclickJs,
+                    'data_attribute' => array(
+                        'mage-init' => '{"orderEditDialog":{}}'
+                    )
                 )
             );
-            if ($nonEditableTypes) {
-                $this->_updateButton(
-                    'order_edit',
-                    'onclick',
-                    'if (!confirm(\'' . __(
-                        'This order contains (%1) items and therefore cannot be edited through the admin interface. If you wish to continue editing, the (%2) items will be removed, the order will be canceled and a new order will be placed.',
-                        implode(', ', $nonEditableTypes),
-                        implode(', ', $nonEditableTypes)
-                    ) . '\')) return false;' . $onclickJs
-                );
-            }
         }
 
         if ($this->_isAllowedAction('Magento_Sales::cancel') && $order->canCancel()) {
@@ -137,6 +125,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'order_cancel',
                 array(
                     'label' => __('Cancel'),
+                    'class' => 'cancel',
                     'onclick' => 'deleteConfirm(\'' . $message . '\', \'' . $this->getCancelUrl() . '\')'
                 )
             );
@@ -148,6 +137,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'send_notification',
                 array(
                     'label' => __('Send Email'),
+                    'class' => 'send-email',
                     'onclick' => "confirmSetLocation('{$message}', '{$this->getEmailUrl()}')"
                 )
             );
@@ -155,7 +145,8 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
 
         if ($this->_isAllowedAction('Magento_Sales::creditmemo') && $order->canCreditmemo()) {
             $message = __(
-                'This will create an offline refund. To create an online refund, open an invoice and create credit memo for it. Do you want to continue?'
+                'This will create an offline refund. ' .
+                'To create an online refund, open an invoice and create credit memo for it. Do you want to continue?'
             );
             $onClick = "setLocation('{$this->getCreditmemoUrl()}')";
             if ($order->getPayment()->getMethodInstance()->isGateway()) {
@@ -163,7 +154,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
             }
             $this->_addButton(
                 'order_creditmemo',
-                array('label' => __('Credit Memo'), 'onclick' => $onClick, 'class' => 'go')
+                array('label' => __('Credit Memo'), 'onclick' => $onClick, 'class' => 'credit-memo')
             );
         }
 
@@ -182,14 +173,22 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
         if ($this->_isAllowedAction('Magento_Sales::hold') && $order->canHold()) {
             $this->_addButton(
                 'order_hold',
-                array('label' => __('Hold'), 'onclick' => 'setLocation(\'' . $this->getHoldUrl() . '\')')
+                array(
+                    'label' => __('Hold'),
+                    'class' => __('hold'),
+                    'onclick' => 'setLocation(\'' . $this->getHoldUrl() . '\')'
+                )
             );
         }
 
         if ($this->_isAllowedAction('Magento_Sales::unhold') && $order->canUnhold()) {
             $this->_addButton(
                 'order_unhold',
-                array('label' => __('Unhold'), 'onclick' => 'setLocation(\'' . $this->getUnholdUrl() . '\')')
+                array(
+                    'label' => __('Unhold'),
+                    'class' => __('unhold'),
+                    'onclick' => 'setLocation(\'' . $this->getUnholdUrl() . '\')'
+                )
             );
         }
 
@@ -230,7 +229,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 array(
                     'label' => $_label,
                     'onclick' => 'setLocation(\'' . $this->getInvoiceUrl() . '\')',
-                    'class' => 'go'
+                    'class' => 'invoice'
                 )
             );
         }
@@ -244,7 +243,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 array(
                     'label' => __('Ship'),
                     'onclick' => 'setLocation(\'' . $this->getShipUrl() . '\')',
-                    'class' => 'go'
+                    'class' => 'ship'
                 )
             );
         }
@@ -260,7 +259,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 array(
                     'label' => __('Reorder'),
                     'onclick' => 'setLocation(\'' . $this->getReorderUrl() . '\')',
-                    'class' => 'go'
+                    'class' => 'reorder'
                 )
             );
         }
@@ -464,5 +463,40 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
     public function getReviewPaymentUrl($action)
     {
         return $this->getUrl('sales/*/reviewPayment', array('action' => $action));
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order $order
+     * @return string
+     */
+    protected function getEditMessage($order)
+    {
+        // see if order has non-editable products as items
+        $nonEditableTypes = $this->getNonEditableTypes($order);
+        if (!empty($nonEditableTypes)) {
+            return __(
+                'This order contains (%1) items and therefore cannot be edited through the admin interface. ' .
+                'If you wish to continue editing, the (%2) items will be removed, ' .
+                ' the order will be canceled and a new order will be placed.',
+                implode(', ', $nonEditableTypes),
+                implode(', ', $nonEditableTypes)
+            );
+        }
+        return __('Are you sure? This order will be canceled and a new one will be created instead.');
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order $order
+     * @return array
+     */
+    protected function getNonEditableTypes($order)
+    {
+        return array_keys(
+            $this->getOrder()->getResource()->aggregateProductsByTypes(
+                $order->getId(),
+                $this->_salesConfig->getAvailableProductTypes(),
+                false
+            )
+        );
     }
 }

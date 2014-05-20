@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -143,7 +141,7 @@ class Table extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
      *
      * @return $this
      */
-    public function addValueSortToCollection($collection, $dir = \Magento\DB\Select::SQL_ASC)
+    public function addValueSortToCollection($collection, $dir = \Magento\Framework\DB\Select::SQL_ASC)
     {
         $valueTable1 = $this->getAttribute()->getAttributeCode() . '_t1';
         $valueTable2 = $this->getAttribute()->getAttributeCode() . '_t2';
@@ -188,7 +186,7 @@ class Table extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $isMulti = $this->getAttribute()->getFrontend()->getInputType() == 'multiselect';
 
-        $type = $isMulti ? \Magento\DB\Ddl\Table::TYPE_TEXT : \Magento\DB\Ddl\Table::TYPE_INTEGER;
+        $type = $isMulti ? \Magento\Framework\DB\Ddl\Table::TYPE_TEXT : \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER;
         $columns[$attributeCode] = array(
             'type' => $type,
             'length' => $isMulti ? '255' : null,
@@ -200,7 +198,7 @@ class Table extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
         );
         if (!$isMulti) {
             $columns[$attributeCode . '_value'] = array(
-                'type' => \Magento\DB\Ddl\Table::TYPE_TEXT,
+                'type' => \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
                 'length' => 255,
                 'unsigned' => false,
                 'nullable' => true,
@@ -242,7 +240,7 @@ class Table extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
      * Retrieve Select For Flat Attribute update
      *
      * @param int $store
-     * @return \Magento\DB\Select|null
+     * @return \Magento\Framework\DB\Select|null
      */
     public function getFlatUpdateSelect($store)
     {

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -101,7 +98,7 @@ class DbIsolation
      * @param string $scope 'class' or 'method'
      * @param \PHPUnit_Framework_TestCase $test
      * @return bool|null Returns NULL, if isolation is not defined for the current scope
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      */
     protected function _getIsolation($scope, \PHPUnit_Framework_TestCase $test)
     {
@@ -109,7 +106,7 @@ class DbIsolation
         if (isset($annotations[$scope]['magentoDbIsolation'])) {
             $isolation = $annotations[$scope]['magentoDbIsolation'];
             if ($isolation !== array('enabled') && $isolation !== array('disabled')) {
-                throw new \Magento\Exception(
+                throw new \Magento\Framework\Exception(
                     'Invalid "@magentoDbIsolation" annotation, can be "enabled" or "disabled" only.'
                 );
             }

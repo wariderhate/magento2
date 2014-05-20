@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -50,12 +47,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddGetClearRss($isUseStoreInUrl)
     {
-        $urlMock = $this->getMock('Magento\Url', array(), array(), '', false);
+        $urlMock = $this->getMock('Magento\Framework\Url', array(), array(), '', false);
 
-        $storeMock = $this->getMock('Magento\Core\Model\Store', array(), array(), '', false);
+        $storeMock = $this->getMock('Magento\Store\Model\Store', array(), array(), '', false);
         $storeMock->expects($this->any())->method('isUseStoreInUrl')->will($this->returnValue($isUseStoreInUrl));
 
-        $storeManagerMock = $this->getMock('Magento\Core\Model\StoreManager', array(), array(), '', false);
+        $storeManagerMock = $this->getMock('Magento\Store\Model\StoreManager', array(), array(), '', false);
 
         $urlBuilderMock = $this->getMock('Magento\Backend\Model\Url', array(), array(), '', false);
 
@@ -64,11 +61,9 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $helper = new \Magento\TestFramework\Helper\ObjectManager($this);
 
-        $block = $helper->getObject('Magento\Backend\Block\Widget\Grid', array(
-            'storeManager' => $storeManagerMock,
-            'urlModel' => $urlMock,
-            'urlBuilder' => $urlBuilderMock,
-            )
+        $block = $helper->getObject(
+            'Magento\Backend\Block\Widget\Grid',
+            array('storeManager' => $storeManagerMock, 'urlModel' => $urlMock, 'urlBuilder' => $urlBuilderMock)
         );
 
         $this->assertFalse($block->getRssLists());

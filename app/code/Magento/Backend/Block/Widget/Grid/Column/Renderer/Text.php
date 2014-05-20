@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Backend grid item renderer
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Backend\Block\Widget\Grid\Column\Renderer;
@@ -45,10 +41,10 @@ class Text extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
     /**
      * Renders grid column
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return mixed
      */
-    public function _getValue(\Magento\Object $row)
+    public function _getValue(\Magento\Framework\Object $row)
     {
         $format = $this->getColumn()->getFormat() ? $this->getColumn()->getFormat() : null;
         $defaultValue = $this->getColumn()->getDefault();

@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sitemap
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,10 +27,10 @@ $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 /** @var \Magento\Catalog\Model\Product\Media\Config $config */
 $config = $objectManager->get('Magento\Catalog\Model\Product\Media\Config');
 
-/** @var \Magento\Filesystem\Directory\WriteInterface $mediaDirectory */
-$filesystem = $objectManager->get('Magento\App\Filesystem');
-$mediaPath = $filesystem->getPath(\Magento\App\Filesystem::MEDIA_DIR);
-$mediaDirectory = $filesystem->getDirectoryWrite(\Magento\App\Filesystem::MEDIA_DIR);
+/** @var \Magento\Framework\Filesystem\Directory\WriteInterface $mediaDirectory */
+$filesystem = $objectManager->get('Magento\Framework\App\Filesystem');
+$mediaPath = $filesystem->getPath(\Magento\Framework\App\Filesystem::MEDIA_DIR);
+$mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem::MEDIA_DIR);
 
 $baseTmpMediaPath = $config->getBaseTmpMediaPath();
 $mediaDirectory->create($baseTmpMediaPath);

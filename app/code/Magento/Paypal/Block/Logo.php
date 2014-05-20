@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +27,7 @@
  */
 namespace Magento\Paypal\Block;
 
-class Logo extends \Magento\View\Element\Template
+class Logo extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Magento\Paypal\Model\Config
@@ -37,20 +35,20 @@ class Logo extends \Magento\View\Element\Template
     protected $_paypalConfig;
 
     /**
-     * @var \Magento\Locale\ResolverInterface
+     * @var \Magento\Framework\Locale\ResolverInterface
      */
     protected $_localeResolver;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Paypal\Model\Config $paypalConfig
-     * @param \Magento\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Paypal\Model\Config $paypalConfig,
-        \Magento\Locale\ResolverInterface $localeResolver,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver,
         array $data = array()
     ) {
         $this->_paypalConfig = $paypalConfig;

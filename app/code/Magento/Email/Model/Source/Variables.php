@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Email
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Email\Model\Source;
 /**
  * Store Contact Information source model
  *
- * @category   Magento
- * @package    Magento_Email
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Variables implements \Magento\Option\ArrayInterface
+class Variables implements \Magento\Framework\Option\ArrayInterface
 {
     /**
      * Assoc array of configuration variables
@@ -48,10 +44,10 @@ class Variables implements \Magento\Option\ArrayInterface
     {
         $this->_configVariables = array(
             array(
-                'value' => \Magento\Core\Model\Store::XML_PATH_UNSECURE_BASE_URL,
+                'value' => \Magento\Store\Model\Store::XML_PATH_UNSECURE_BASE_URL,
                 'label' => __('Base Unsecure URL')
             ),
-            array('value' => \Magento\Core\Model\Store::XML_PATH_SECURE_BASE_URL, 'label' => __('Base Secure URL')),
+            array('value' => \Magento\Store\Model\Store::XML_PATH_SECURE_BASE_URL, 'label' => __('Base Secure URL')),
             array('value' => 'trans_email/ident_general/name', 'label' => __('General Contact Name')),
             array('value' => 'trans_email/ident_general/email', 'label' => __('General Contact Email')),
             array('value' => 'trans_email/ident_sales/name', 'label' => __('Sales Representative Contact Name')),

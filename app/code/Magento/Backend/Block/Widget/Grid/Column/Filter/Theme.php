@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,20 +30,20 @@ namespace Magento\Backend\Block\Widget\Grid\Column\Filter;
 class Theme extends \Magento\Backend\Block\Widget\Grid\Column\Filter\AbstractFilter
 {
     /**
-     * @var \Magento\View\Design\Theme\LabelFactory
+     * @var \Magento\Framework\View\Design\Theme\LabelFactory
      */
     protected $_labelFactory;
 
     /**
      * @param \Magento\Backend\Block\Context $context
-     * @param \Magento\DB\Helper $resourceHelper
-     * @param \Magento\View\Design\Theme\LabelFactory $labelFactory
+     * @param \Magento\Framework\DB\Helper $resourceHelper
+     * @param \Magento\Framework\View\Design\Theme\LabelFactory $labelFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
-        \Magento\DB\Helper $resourceHelper,
-        \Magento\View\Design\Theme\LabelFactory $labelFactory,
+        \Magento\Framework\DB\Helper $resourceHelper,
+        \Magento\Framework\View\Design\Theme\LabelFactory $labelFactory,
         array $data = array()
     ) {
         $this->_labelFactory = $labelFactory;
@@ -83,7 +81,7 @@ class Theme extends \Magento\Backend\Block\Widget\Grid\Column\Filter\AbstractFil
     {
         $options = $this->getColumn()->getOptions();
         if (empty($options) || !is_array($options)) {
-            /** @var $label \Magento\View\Design\Theme\Label */
+            /** @var $label \Magento\Framework\View\Design\Theme\Label */
             $label = $this->_labelFactory->create();
             $options = $label->getLabelsCollection();
         }

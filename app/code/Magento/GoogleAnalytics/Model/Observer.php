@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_GoogleAnalytics
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\GoogleAnalytics\Model;
 
-use Magento\Event\Observer as EventObserver;
+use Magento\Framework\Event\Observer as EventObserver;
 
 /**
  * Google Analytics module observer
  *
- * @category   Magento
- * @package    Magento_GoogleAnalytics
  */
 class Observer
 {
@@ -43,23 +39,23 @@ class Observer
     protected $_googleAnalyticsData = null;
 
     /**
-     * @var \Magento\View\LayoutInterface
+     * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\View\LayoutInterface $layout
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\View\LayoutInterface $layout
      * @param \Magento\GoogleAnalytics\Helper\Data $googleAnalyticsData
      */
     public function __construct(
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\View\LayoutInterface $layout,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\View\LayoutInterface $layout,
         \Magento\GoogleAnalytics\Helper\Data $googleAnalyticsData
     ) {
         $this->_googleAnalyticsData = $googleAnalyticsData;

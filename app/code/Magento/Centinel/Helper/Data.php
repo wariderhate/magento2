@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Centinel
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,20 +29,20 @@
  */
 namespace Magento\Centinel\Helper;
 
-class Data extends \Magento\App\Helper\AbstractHelper
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     /**
      * Layout factory
      *
-     * @var \Magento\View\LayoutInterface
+     * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\View\LayoutInterface $layout
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\View\LayoutInterface $layout
      */
-    public function __construct(\Magento\App\Helper\Context $context, \Magento\View\LayoutInterface $layout)
+    public function __construct(\Magento\Framework\App\Helper\Context $context, \Magento\Framework\View\LayoutInterface $layout)
     {
         $this->_layout = $layout;
         parent::__construct($context);

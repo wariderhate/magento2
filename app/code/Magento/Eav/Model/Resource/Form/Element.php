@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Eav\Model\Resource\Form;
 /**
  * Eav Form Element Resource Model
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Element extends \Magento\Model\Resource\Db\AbstractDb
+class Element extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Initialize connection and define main table
@@ -53,7 +49,7 @@ class Element extends \Magento\Model\Resource\Db\AbstractDb
      * @param string $field
      * @param mixed $value
      * @param \Magento\Eav\Model\Form\Element $object
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {

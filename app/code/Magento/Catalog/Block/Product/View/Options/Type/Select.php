@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Product options text type block
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Product\View\Options\Type;
@@ -42,13 +38,13 @@ class Select extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
     protected $_coreHelper;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Tax\Helper\Data $taxData
      * @param \Magento\Core\Helper\Data $coreHelper
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Tax\Helper\Data $taxData,
         \Magento\Core\Helper\Data $coreHelper,
         array $data = array()
@@ -77,7 +73,7 @@ class Select extends \Magento\Catalog\Block\Product\View\Options\AbstractOptions
             $require = $_option->getIsRequire() ? ' required' : '';
             $extraParams = '';
             $select = $this->getLayout()->createBlock(
-                'Magento\View\Element\Html\Select'
+                'Magento\Framework\View\Element\Html\Select'
             )->setData(
                 array('id' => 'select_' . $_option->getId(), 'class' => $require . ' product-custom-option')
             );

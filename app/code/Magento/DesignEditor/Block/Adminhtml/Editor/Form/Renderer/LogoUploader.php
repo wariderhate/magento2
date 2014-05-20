@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -78,7 +76,7 @@ class LogoUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Ren
     /**
      * Get logo upload url
      *
-     * @param \Magento\Core\Model\Store $store
+     * @param \Magento\Store\Model\Store $store
      * @return string
      */
     public function getLogoUploadUrl($store)
@@ -92,7 +90,7 @@ class LogoUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Ren
     /**
      * Get logo upload url
      *
-     * @param \Magento\Core\Model\Store $store
+     * @param \Magento\Store\Model\Store $store
      * @return string
      */
     public function getLogoRemoveUrl($store)
@@ -106,14 +104,14 @@ class LogoUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Ren
     /**
      * Get logo image
      *
-     * @param \Magento\Core\Model\Store $store
+     * @param \Magento\Store\Model\Store $store
      * @return string|null
      */
     public function getLogoImage($store)
     {
         $image = null;
         if (null !== $store) {
-            $image = basename($this->_storeConfig->getConfig('design/header/logo_src', $store->getId()));
+            $image = basename($this->_scopeConfig->getValue('design/header/logo_src', \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $store->getId()));
         }
         return $image;
     }
@@ -121,7 +119,7 @@ class LogoUploader extends \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Ren
     /**
      * Get stores list
      *
-     * @return \Magento\Core\Model\Store|null
+     * @return \Magento\Store\Model\Store|null
      */
     public function getStoresList()
     {

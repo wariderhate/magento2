@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cron
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -73,19 +71,19 @@ class Observer
     protected $_config;
 
     /**
-     * @var \Magento\App\ObjectManager
+     * @var \Magento\Framework\App\ObjectManager
      */
     protected $_objectManager;
 
     /**
-     * @var \Magento\App\CacheInterface
+     * @var \Magento\Framework\App\CacheInterface
      */
     protected $_cache;
 
     /**
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
      * @var ScheduleFactory
@@ -93,38 +91,38 @@ class Observer
     protected $_scheduleFactory;
 
     /**
-     * @var \Magento\App\Console\Request
+     * @var \Magento\Framework\App\Console\Request
      */
     protected $_request;
 
     /**
-     * @var \Magento\Shell
+     * @var \Magento\Framework\ShellInterface
      */
     protected $_shell;
 
     /**
-     * @param \Magento\ObjectManager $objectManager
+     * @param \Magento\Framework\ObjectManager $objectManager
      * @param ScheduleFactory $scheduleFactory
-     * @param \Magento\App\CacheInterface $cache
+     * @param \Magento\Framework\App\CacheInterface $cache
      * @param ConfigInterface $config
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\App\Console\Request $request
-     * @param \Magento\Shell $shell
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Console\Request $request
+     * @param \Magento\Framework\ShellInterface $shell
      */
     public function __construct(
-        \Magento\ObjectManager $objectManager,
+        \Magento\Framework\ObjectManager $objectManager,
         \Magento\Cron\Model\ScheduleFactory $scheduleFactory,
-        \Magento\App\CacheInterface $cache,
+        \Magento\Framework\App\CacheInterface $cache,
         \Magento\Cron\Model\ConfigInterface $config,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\App\Console\Request $request,
-        \Magento\Shell $shell
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Console\Request $request,
+        \Magento\Framework\ShellInterface $shell
     ) {
         $this->_objectManager = $objectManager;
         $this->_scheduleFactory = $scheduleFactory;
         $this->_cache = $cache;
         $this->_config = $config;
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_request = $request;
         $this->_shell = $shell;
     }
@@ -134,7 +132,7 @@ class Observer
      * Generate tasks schedule
      * Cleanup tasks schedule
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return void
      */
     public function dispatch($observer)
@@ -146,20 +144,18 @@ class Observer
         foreach ($jobGroupsRoot as $groupId => $jobsRoot) {
             if ($this->_request->getParam(
                 'group'
-            ) === null && $this->_coreStoreConfig->getConfig(
-                'system/cron/' . $groupId . '/use_separate_process'
+            ) === null && $this->_scopeConfig->getValue(
+                'system/cron/' . $groupId . '/use_separate_process',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             ) == 1
             ) {
-                $this->_shell->executeInBackground(
-                    '"' .
-                    PHP_BINARY .
-                    '" -f ' .
-                    BP .
-                    DIRECTORY_SEPARATOR .
-                    \Magento\App\Filesystem::PUB_DIR .
-                    DIRECTORY_SEPARATOR .
-                    'cron.php -- --group=' .
-                    $groupId
+                $this->_shell->execute(
+                    '%s -f %s -- --group=%s',
+                    array(
+                        PHP_BINARY,
+                        BP . '/' . \Magento\Framework\App\Filesystem::PUB_DIR . '/cron.php',
+                        $groupId
+                    )
                 );
                 continue;
             }
@@ -204,8 +200,9 @@ class Observer
      */
     protected function _runJob($scheduledTime, $currentTime, $jobConfig, $schedule, $groupId)
     {
-        $scheduleLifetime = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_LIFETIME
+        $scheduleLifetime = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_LIFETIME,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
         $scheduleLifetime = $scheduleLifetime * self::SECONDS_IN_MINUTE;
         if ($scheduledTime < $currentTime - $scheduleLifetime) {
@@ -265,8 +262,9 @@ class Observer
          * check if schedule generation is needed
          */
         $lastRun = (int)$this->_cache->load(self::CACHE_KEY_LAST_SCHEDULE_GENERATE_AT);
-        $rawSchedulePeriod = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_GENERATE_EVERY
+        $rawSchedulePeriod = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_GENERATE_EVERY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
         $schedulePeriod = $rawSchedulePeriod * self::SECONDS_IN_MINUTE;
         if ($lastRun > time() - $schedulePeriod) {
@@ -304,43 +302,24 @@ class Observer
      */
     protected function _generateJobs($jobs, $exists, $groupId)
     {
-        $scheduleAheadFor = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_AHEAD_FOR
-        );
-        $scheduleAheadFor = $scheduleAheadFor * self::SECONDS_IN_MINUTE;
-        /**
-         * @var Schedule $schedule
-         */
-        $schedule = $this->_scheduleFactory->create();
-
         foreach ($jobs as $jobCode => $jobConfig) {
-            $cronExpr = null;
+            $cronExpression = null;
             if (isset($jobConfig['config_path'])) {
-                $cronExpr = $this->_coreStoreConfig->getConfig($jobConfig['config_path']);
-            } elseif (empty($cronExpr) && isset($jobConfig['schedule'])) {
-                $cronExpr = $jobConfig['schedule'];
+                $cronExpression = $this->getConfigSchedule($jobConfig) ? : null;
             }
 
-            if (!$cronExpr) {
+            if (!$cronExpression) {
+                if (isset($jobConfig['schedule'])) {
+                    $cronExpression = $jobConfig['schedule'];
+                }
+            }
+
+            if (!$cronExpression) {
                 continue;
             }
 
-            $currentTime = time();
-            $timeAhead = $currentTime + $scheduleAheadFor;
-            $schedule->setJobCode($jobCode)->setCronExpr($cronExpr)->setStatus(Schedule::STATUS_PENDING);
-
-            for ($time = $currentTime; $time < $timeAhead; $time += self::SECONDS_IN_MINUTE) {
-                $ts = strftime('%Y-%m-%d %H:%M:00', $time);
-                if (!empty($exists[$jobCode . '/' . $ts])) {
-                    // already scheduled
-                    continue;
-                }
-                if (!$schedule->trySchedule($time)) {
-                    // time does not match cron expression
-                    continue;
-                }
-                $schedule->unsScheduleId()->save();
-            }
+            $timeInterval = $this->getScheduleTimeInterval($groupId);
+            $this->saveSchedule($jobCode, $cronExpression, $timeInterval, $exists);
         }
         return $this;
     }
@@ -355,8 +334,9 @@ class Observer
     {
         // check if history cleanup is needed
         $lastCleanup = (int)$this->_cache->load(self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT);
-        $historyCleanUp = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_CLEANUP_EVERY
+        $historyCleanUp = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_CLEANUP_EVERY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
         if ($lastCleanup > time() - $historyCleanUp * self::SECONDS_IN_MINUTE) {
             return $this;
@@ -370,11 +350,13 @@ class Observer
             array('in' => array(Schedule::STATUS_SUCCESS, Schedule::STATUS_MISSED, Schedule::STATUS_ERROR))
         )->load();
 
-        $historySuccess = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_SUCCESS
+        $historySuccess = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_SUCCESS,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
-        $historyFailure = (int)$this->_coreStoreConfig->getConfig(
-            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_FAILURE
+        $historyFailure = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_HISTORY_FAILURE,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
         $historyLifetimes = array(
             Schedule::STATUS_SUCCESS => $historySuccess * self::SECONDS_IN_MINUTE,
@@ -394,5 +376,78 @@ class Observer
         $this->_cache->save(time(), self::CACHE_KEY_LAST_HISTORY_CLEANUP_AT, array('crontab'), null);
 
         return $this;
+    }
+
+    /**
+     * @param array $jobConfig
+     * @return mixed
+     */
+    protected function getConfigSchedule($jobConfig)
+    {
+        $cronExpr = $this->_scopeConfig->getValue(
+            $jobConfig['config_path'],
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        return $cronExpr;
+    }
+
+    /**
+     * @param string $jobCode
+     * @param string $cronExpression
+     * @param int $timeInterval
+     * @param array $exists
+     * @return void
+     */
+    protected function saveSchedule($jobCode, $cronExpression, $timeInterval, $exists)
+    {
+        $currentTime = time();
+        $timeAhead = $currentTime + $timeInterval;
+        for ($time = $currentTime; $time < $timeAhead; $time += self::SECONDS_IN_MINUTE) {
+            $ts = strftime('%Y-%m-%d %H:%M:00', $time);
+            if (!empty($exists[$jobCode . '/' . $ts])) {
+                // already scheduled
+                continue;
+            }
+
+            $schedule = $this->generateSchedule($jobCode, $cronExpression, $time);
+            if ($schedule->trySchedule()) {
+                // time matches cron expression
+                $schedule->save();
+            }
+        }
+    }
+
+    /**
+     * @param string $jobCode
+     * @param string $cronExpression
+     * @param int $time
+     * @return Schedule
+     */
+    protected function generateSchedule($jobCode, $cronExpression, $time)
+    {
+        $schedule = $this->_scheduleFactory->create()
+            ->setCronExpr($cronExpression)
+            ->setJobCode($jobCode)
+            ->setStatus(Schedule::STATUS_PENDING)
+            ->setCreatedAt(strftime('%Y-%m-%d %H:%M:%S', time()))
+            ->setScheduledAt(strftime('%Y-%m-%d %H:%M', $time));
+
+        return $schedule;
+    }
+
+    /**
+     * @param string $groupId
+     * @return int
+     */
+    protected function getScheduleTimeInterval($groupId)
+    {
+        $scheduleAheadFor = (int)$this->_scopeConfig->getValue(
+            'system/cron/' . $groupId . '/' . self::XML_PATH_SCHEDULE_AHEAD_FOR,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+        $scheduleAheadFor = $scheduleAheadFor * self::SECONDS_IN_MINUTE;
+
+        return $scheduleAheadFor;
     }
 }

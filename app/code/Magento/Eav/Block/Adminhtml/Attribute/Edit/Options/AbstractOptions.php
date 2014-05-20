@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,13 +25,11 @@
 /**
  * Attribute add/edit form options tab
  *
- * @category   Magento
- * @package    Magento_Eav
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Eav\Block\Adminhtml\Attribute\Edit\Options;
 
-abstract class AbstractOptions extends \Magento\View\Element\AbstractBlock
+abstract class AbstractOptions extends \Magento\Framework\View\Element\AbstractBlock
 {
     /**
      * Preparing layout, adding buttons

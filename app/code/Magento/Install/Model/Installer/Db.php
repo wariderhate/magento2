@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Install
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -39,7 +37,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
     protected $_dbResource;
 
     /**
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
@@ -59,13 +57,13 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
 
     /**
      * @param \Magento\Install\Model\Installer $installer
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\Install\Model\Installer\Db\Factory $dbFactory
      * @param array $dbConfig
      */
     public function __construct(
         \Magento\Install\Model\Installer $installer,
-        \Magento\Logger $logger,
+        \Magento\Framework\Logger $logger,
         \Magento\Install\Model\Installer\Db\Factory $dbFactory,
         array $dbConfig
     ) {
@@ -81,7 +79,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
      *
      * @param array $data
      * @return array
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function checkDbConnectionData($data)
     {
@@ -101,7 +99,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
                 }
             }
             if (!empty($absenteeExtensions)) {
-                throw new \Magento\Model\Exception(
+                throw new \Magento\Framework\Model\Exception(
                     __('PHP Extensions "%1" must be loaded.', implode(',', $absenteeExtensions))
                 );
             }
@@ -113,7 +111,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
 
             // check DB server version
             if (version_compare($version, $requiredVersion) == -1) {
-                throw new \Magento\Model\Exception(
+                throw new \Magento\Framework\Model\Exception(
                     __(
                         'The database server version doesn\'t match system requirements (required: %1, actual: %2).',
                         $requiredVersion,
@@ -124,16 +122,16 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
 
             // check InnoDB support
             if (!$resource->supportEngine()) {
-                throw new \Magento\Model\Exception(__('Database server does not support the InnoDB storage engine.'));
+                throw new \Magento\Framework\Model\Exception(__('Database server does not support the InnoDB storage engine.'));
             }
 
             // TODO: check user roles
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $this->_logger->logException($e);
-            throw new \Magento\Model\Exception(__($e->getMessage()));
+            throw new \Magento\Framework\Model\Exception(__($e->getMessage()));
         } catch (\Exception $e) {
             $this->_logger->logException($e);
-            throw new \Magento\Model\Exception(__('Something went wrong while connecting to the database.'));
+            throw new \Magento\Framework\Model\Exception(__('Something went wrong while connecting to the database.'));
         }
 
         return $data;
@@ -148,7 +146,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
     protected function _getCheckedData($data)
     {
         if (!isset($data['db_name']) || empty($data['db_name'])) {
-            throw new \Magento\Model\Exception(__('The Database Name field cannot be empty.'));
+            throw new \Magento\Framework\Model\Exception(__('The Database Name field cannot be empty.'));
         }
         //make all table prefix to lower letter
         if ($data['db_prefix'] != '') {
@@ -157,7 +155,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
         //check table prefix
         if ($data['db_prefix'] != '') {
             if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $data['db_prefix'])) {
-                throw new \Magento\Model\Exception(
+                throw new \Magento\Framework\Model\Exception(
                     __(
                         'The table prefix should contain only letters (a-z), numbers (0-9) or underscores (_); the first character should be a letter.'
                     )
@@ -187,7 +185,7 @@ class Db extends \Magento\Install\Model\Installer\AbstractInstaller
      * Retrieve the database resource
      *
      * @return \Magento\Install\Model\Installer\Db\AbstractDb
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _getDbResource()
     {

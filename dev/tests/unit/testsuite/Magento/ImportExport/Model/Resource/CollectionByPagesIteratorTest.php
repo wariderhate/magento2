@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_ImportExport
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -58,16 +55,16 @@ class CollectionByPagesIteratorTest extends \PHPUnit_Framework_TestCase
         /** @var $callbackMock \PHPUnit_Framework_MockObject_MockObject */
         $callbackMock = $this->getMock('stdClass', array('callback'));
 
-        $fetchStrategy = $this->getMockForAbstractClass('Magento\Data\Collection\Db\FetchStrategyInterface');
+        $fetchStrategy = $this->getMockForAbstractClass('Magento\Framework\Data\Collection\Db\FetchStrategyInterface');
 
         $select = $this->getMock('Zend_Db_Select', array(), array(), '', false);
 
         $entityFactory = $this->getMock('Magento\Core\Model\EntityFactory', array(), array(), '', false);
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
 
-        /** @var $collectionMock \Magento\Data\Collection\Db|PHPUnit_Framework_MockObject_MockObject */
+        /** @var $collectionMock \Magento\Framework\Data\Collection\Db|PHPUnit_Framework_MockObject_MockObject */
         $collectionMock = $this->getMock(
-            'Magento\Data\Collection\Db',
+            'Magento\Framework\Data\Collection\Db',
             array('clear', 'setPageSize', 'setCurPage', 'count', 'getLastPageNumber', 'getSelect'),
             array($entityFactory, $logger, $fetchStrategy)
         );
@@ -93,7 +90,7 @@ class CollectionByPagesIteratorTest extends \PHPUnit_Framework_TestCase
         for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
             for ($rowNumber = 1; $rowNumber <= $pageSize; $rowNumber++) {
                 $itemId = ($pageNumber - 1) * $pageSize + $rowNumber;
-                $item = new \Magento\Object(array('id' => $itemId));
+                $item = new \Magento\Framework\Object(array('id' => $itemId));
                 $collectionMock->addItem($item);
 
                 $callbackMock->expects($this->at($itemId - 1))->method('callback')->with($item);

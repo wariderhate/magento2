@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -37,20 +35,20 @@ class Layer
     /**
      * Store config instance
      *
-     * @var \Magento\Core\Model\Store\ConfigInterface
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_storeConfig;
+    protected $_scopeConfig;
 
     /**
      * @param \Magento\CatalogInventory\Model\Stock\Status $stockStatus
-     * @param \Magento\Core\Model\Store\ConfigInterface $storeConfig
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         \Magento\CatalogInventory\Model\Stock\Status $stockStatus,
-        \Magento\Core\Model\Store\ConfigInterface $storeConfig
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
         $this->_stockStatus = $stockStatus;
-        $this->_storeConfig = $storeConfig;
+        $this->_scopeConfig = $scopeConfig;
     }
 
     /**
@@ -79,6 +77,6 @@ class Layer
      */
     protected function _isEnabledShowOutOfStock()
     {
-        return $this->_storeConfig->getConfigFlag('cataloginventory/options/show_out_of_stock');
+        return $this->_scopeConfig->isSetFlag('cataloginventory/options/show_out_of_stock', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 }

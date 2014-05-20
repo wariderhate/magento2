@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Resource\Product\Indexer\Eav;
 /**
  * Catalog Product Eav Decimal Attributes Indexer resource model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Decimal extends AbstractEav
@@ -71,7 +67,7 @@ class Decimal extends AbstractEav
             array('pdd' => $this->getTable('catalog_product_entity_decimal')),
             array('entity_id', 'attribute_id')
         )->join(
-            array('cs' => $this->getTable('core_store')),
+            array('cs' => $this->getTable('store')),
             '',
             array('store_id')
         )->joinLeft(
@@ -80,10 +76,10 @@ class Decimal extends AbstractEav
             array('value' => $productValueExpression)
         )->where(
             'pdd.store_id=?',
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
         )->where(
             'cs.store_id!=?',
-            \Magento\Core\Model\Store::DEFAULT_STORE_ID
+            \Magento\Store\Model\Store::DEFAULT_STORE_ID
         )->where(
             'pdd.attribute_id IN(?)',
             $attrIds

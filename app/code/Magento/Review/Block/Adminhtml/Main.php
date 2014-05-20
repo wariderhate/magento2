@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Review
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +32,7 @@ class Main extends \Magento\Backend\Block\Widget\Grid\Container
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
@@ -54,14 +52,14 @@ class Main extends \Magento\Backend\Block\Widget\Grid\Container
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerAccount
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Customer\Service\V1\CustomerAccountServiceInterface $customerAccount,
         \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\Registry $registry,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_coreRegistry = $registry;

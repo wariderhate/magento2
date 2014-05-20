@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Tools
- * @package     unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -46,7 +44,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function getAdapterDataProvider()
     {
-        return array(array('Magento\Db\Adapter\Pdo\Mysql'), array(''), array(null));
+        return array(array('Magento\Framework\DB\Adapter\Pdo\Mysql'), array(''), array(null));
     }
 
     /**
@@ -55,15 +53,15 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAdapter($adapterType)
     {
-        $adapterMock = $this->getMock('Magento\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
+        $adapterMock = $this->getMock('Magento\Framework\DB\Adapter\Pdo\Mysql', array(), array(), '', false);
 
-        $objectManager = $this->getMock('Magento\ObjectManager');
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager');
         $objectManager->expects(
             $this->any()
         )->method(
             'create'
         )->with(
-            $this->equalTo('Magento\Db\Adapter\Pdo\Mysql')
+            $this->equalTo('Magento\Framework\DB\Adapter\Pdo\Mysql')
         )->will(
             $this->returnValue($adapterMock)
         );
@@ -79,10 +77,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAdapterWithInvalidType()
     {
-        $adapterType = 'Magento\Object';
+        $adapterType = 'Magento\Framework\Object';
         $adapterMock = $this->getMock($adapterType, array(), array(), '', false);
 
-        $objectManager = $this->getMock('Magento\ObjectManager');
+        $objectManager = $this->getMock('Magento\Framework\ObjectManager');
         $objectManager->expects(
             $this->once()
         )->method(

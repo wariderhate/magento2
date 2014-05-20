@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Review
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Review\Block\Adminhtml\Grid\Renderer;
 /**
  * Adminhtml review grid item renderer for item type
  *
- * @category   Magento
- * @package    Magento_Review
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Type extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
@@ -37,15 +33,15 @@ class Type extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
     /**
      * Render review type
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function render(\Magento\Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         if ($row->getCustomerId()) {
             return __('Customer');
         }
-        if ($row->getStoreId() == \Magento\Core\Model\Store::DEFAULT_STORE_ID) {
+        if ($row->getStoreId() == \Magento\Store\Model\Store::DEFAULT_STORE_ID) {
             return __('Administrator');
         }
         return __('Guest');

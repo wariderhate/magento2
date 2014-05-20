@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Widget
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -40,7 +37,7 @@ class EditTest extends \PHPUnit_Framework_TestCase
         $type = 'Magento\Catalog\Block\Product\Widget\NewWidget';
         $code = 'catalog_product_newwidget';
         $theme = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\DesignInterface'
+            'Magento\Framework\View\DesignInterface'
         )->setDefaultDesignTheme()->getDesignTheme();
 
         /** @var $widgetInstance \Magento\Widget\Model\Widget\Instance */
@@ -50,16 +47,16 @@ class EditTest extends \PHPUnit_Framework_TestCase
         $widgetInstance->setType($type)->setCode($code)->setThemeId($theme->getId())->save();
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $objectManager->get('Magento\Registry')->register('current_widget_instance', $widgetInstance);
+        $objectManager->get('Magento\Framework\Registry')->register('current_widget_instance', $widgetInstance);
 
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\App\RequestInterface'
+            'Magento\Framework\App\RequestInterface'
         )->setParam(
             'instance_id',
             $widgetInstance->getId()
         );
         $block = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         )->createBlock(
             'Magento\Widget\Block\Adminhtml\Widget\Instance\Edit',
             'widget'

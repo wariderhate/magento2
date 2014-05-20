@@ -21,14 +21,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Tools
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 require __DIR__ . '/../../../../../app/bootstrap.php';
-\Magento\Autoload\IncludePath::addIncludePath(__DIR__ . '/../../../');
+(new \Magento\Framework\Autoload\IncludePath())->addIncludePath(__DIR__ . '/../../../');
 
 /**
  * Command line usage help
@@ -65,8 +63,8 @@ if (isset($options['help'])) {
 $logger->log('Deploying...', \Zend_Log::INFO);
 try {
 
-    $objectManagerFactory = new \Magento\App\ObjectManagerFactory();
-    $objectManager = $objectManagerFactory->create(BP, $_SERVER);
+    $objectManagerFactory = new \Magento\Framework\App\ObjectManagerFactory();
+    $objectManager = $objectManagerFactory->create(BP, $_SERVER, false);
 
     $config = $objectManager->create(
         'Magento\Tools\View\Generator\Config',
@@ -75,7 +73,7 @@ try {
     $themes = $objectManager->create('Magento\Core\Model\Theme\Collection');
     $themes->setItemObjectClass('Magento\Tools\View\Generator\ThemeLight');
     $themes->addDefaultPattern('*');
-    $fallbackFactory = $objectManager->create('Magento\View\Design\Fallback\Factory');
+    $fallbackFactory = $objectManager->create('Magento\Framework\View\Design\Fallback\Factory');
     $generator = $objectManager->create(
         'Magento\Tools\View\Generator\CopyRule',
         array('themes' => $themes, 'fallbackRule' => $fallbackFactory->createViewFileRule())
@@ -88,7 +86,7 @@ try {
             'configPermitted' => __DIR__ . '/config/permitted.php',
             'configForbidden' => __DIR__ . '/config/forbidden.php',
             'isDryRun' => $config->isDryRun(),
-            'preProcessor' => $objectManager->create('Magento\View\Asset\PreProcessor\Composite')
+            'preProcessor' => $objectManager->create('Magento\Framework\View\Asset\PreProcessor\Composite')
         )
     );
     $deployment->run($copyRules);

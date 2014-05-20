@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Reports
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,7 +28,7 @@ namespace Magento\Reports\Block\Product;
  *
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Viewed extends \Magento\Reports\Block\Product\AbstractProduct implements \Magento\View\Block\IdentityInterface
+class Viewed extends \Magento\Reports\Block\Product\AbstractProduct implements \Magento\Framework\View\Block\IdentityInterface
 {
     const XML_PATH_RECENTLY_VIEWED_COUNT = 'catalog/recently_products/viewed_count';
 
@@ -51,7 +49,7 @@ class Viewed extends \Magento\Reports\Block\Product\AbstractProduct implements \
         if ($this->hasData('page_size')) {
             return $this->getData('page_size');
         }
-        return $this->_storeConfig->getConfig(self::XML_PATH_RECENTLY_VIEWED_COUNT);
+        return $this->_scopeConfig->getValue(self::XML_PATH_RECENTLY_VIEWED_COUNT, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**

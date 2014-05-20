@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,7 +33,7 @@ class TypeTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $objectHelper = new \Magento\TestFramework\Helper\ObjectManager($this);
-        $eventManager = $this->getMock('Magento\Event\ManagerInterface', array(), array(), '', false);
+        $eventManager = $this->getMock('Magento\Framework\Event\ManagerInterface', array(), array(), '', false);
         $downloadableFile = $this->getMockBuilder(
             'Magento\Downloadable\Helper\File'
         )->disableOriginalConstructor()->getMock();
@@ -44,9 +41,11 @@ class TypeTest extends \PHPUnit_Framework_TestCase
         $fileStorageDb = $this->getMockBuilder(
             'Magento\Core\Helper\File\Storage\Database'
         )->disableOriginalConstructor()->getMock();
-        $filesystem = $this->getMockBuilder('Magento\App\Filesystem')->disableOriginalConstructor()->getMock();
-        $coreRegistry = $this->getMock('Magento\Registry', array(), array(), '', false);
-        $logger = $this->getMock('Magento\Logger', array(), array(), '', false);
+        $filesystem = $this->getMockBuilder('Magento\Framework\App\Filesystem')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $coreRegistry = $this->getMock('Magento\Framework\Registry', array(), array(), '', false);
+        $logger = $this->getMock('Magento\Framework\Logger', array(), array(), '', false);
         $productFactoryMock = $this->getMock('Magento\Catalog\Model\ProductFactory', array(), array(), '', false);
         $sampleResFactory = $this->getMock(
             'Magento\Downloadable\Model\Resource\SampleFactory',

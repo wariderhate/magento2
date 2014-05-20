@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,13 +25,11 @@
 /**
  * Widget to display catalog link
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Widget;
 
-class Link extends \Magento\View\Element\Html\Link implements \Magento\Widget\Block\BlockInterface
+class Link extends \Magento\Framework\View\Element\Html\Link implements \Magento\Widget\Block\BlockInterface
 {
     /**
      * Entity model name which must be used to retrieve entity specific data.
@@ -58,18 +54,18 @@ class Link extends \Magento\View\Element\Html\Link implements \Magento\Widget\Bl
     /**
      * Url rewrite
      *
-     * @var \Magento\Core\Model\Resource\Url\Rewrite
+     * @var \Magento\UrlRewrite\Model\Resource\UrlRewrite
      */
     protected $_urlRewrite;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\Core\Model\Resource\Url\Rewrite $urlRewrite
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\UrlRewrite\Model\Resource\UrlRewrite $urlRewrite
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\Core\Model\Resource\Url\Rewrite $urlRewrite,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\UrlRewrite\Model\Resource\UrlRewrite $urlRewrite,
         array $data = array()
     ) {
         $this->_urlRewrite = $urlRewrite;
@@ -92,7 +88,7 @@ class Link extends \Magento\View\Element\Html\Link implements \Magento\Widget\Bl
                 $store = $this->_storeManager->getStore();
             }
 
-            /* @var $store \Magento\Core\Model\Store */
+            /* @var $store \Magento\Store\Model\Store */
             $href = "";
             if ($this->getData('id_path')) {
                 $href = $this->_urlRewrite->getRequestPathByIdPath($this->getData('id_path'), $store);

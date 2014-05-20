@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Paypal\Block\Adminhtml\System\Config\Fieldset;
 
-use Magento\Data\Form\Element\AbstractElement;
+use Magento\Framework\Data\Form\Element\AbstractElement;
 
 /**
  * Fieldset renderer which expanded by default
@@ -35,13 +33,13 @@ class Expanded extends \Magento\Backend\Block\System\Config\Form\Fieldset
     /**
      * @param \Magento\Backend\Block\Context $context
      * @param \Magento\Backend\Model\Auth\Session $authSession
-     * @param \Magento\Core\Helper\Js $jsHelper
+     * @param \Magento\Framework\View\Helper\Js $jsHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
         \Magento\Backend\Model\Auth\Session $authSession,
-        \Magento\Core\Helper\Js $jsHelper,
+        \Magento\Framework\View\Helper\Js $jsHelper,
         array $data = array()
     ) {
         parent::__construct($context, $authSession, $jsHelper, $data);

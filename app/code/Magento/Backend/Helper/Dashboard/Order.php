@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,23 +34,32 @@ class Order extends \Magento\Backend\Helper\Dashboard\AbstractDashboard
     protected $_orderCollection;
 
     /**
-     * @param \Magento\App\Helper\Context $context
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\State $appState
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\App\State $appState
+     * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
      * @param \Magento\Reports\Model\Resource\Order\Collection $orderCollection
      * @param bool $dbCompatibleMode
      */
     public function __construct(
-        \Magento\App\Helper\Context $context,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\State $appState,
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\App\State $appState,
+        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
         \Magento\Reports\Model\Resource\Order\Collection $orderCollection,
         $dbCompatibleMode = true
     ) {
         $this->_orderCollection = $orderCollection;
-        parent::__construct($context, $coreStoreConfig, $storeManager, $appState, $dbCompatibleMode);
+        parent::__construct(
+            $context,
+            $scopeConfig,
+            $storeManager,
+            $appState,
+            $priceCurrency,
+            $dbCompatibleMode
+        );
     }
 
     /**
@@ -75,12 +82,9 @@ class Order extends \Magento\Backend\Helper\Dashboard\AbstractDashboard
         } elseif (!$this->_collection->isLive()) {
             $this->_collection->addFieldToFilter(
                 'store_id',
-                array('eq' => $this->_storeManager->getStore(\Magento\Core\Model\Store::ADMIN_CODE)->getId())
+                array('eq' => $this->_storeManager->getStore(\Magento\Store\Model\Store::ADMIN_CODE)->getId())
             );
         }
-
-
-
         $this->_collection->load();
     }
 }

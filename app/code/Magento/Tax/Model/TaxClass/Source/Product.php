@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Tax
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -109,7 +107,7 @@ class Product extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array('unsigned' => true, 'default' => null, 'extra' => null);
 
-        $column['type'] = \Magento\DB\Ddl\Table::TYPE_INTEGER;
+        $column['type'] = \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER;
         $column['nullable'] = true;
         $column['comment'] = $attributeCode . ' tax column';
 
@@ -120,7 +118,7 @@ class Product extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
      * Retrieve Select for update attribute value in flat table
      *
      * @param   int $store
-     * @return  \Magento\DB\Select|null
+     * @return  \Magento\Framework\DB\Select|null
      */
     public function getFlatUpdateSelect($store)
     {

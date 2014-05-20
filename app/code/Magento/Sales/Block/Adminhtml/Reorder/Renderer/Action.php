@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Reorder\Renderer;
 /**
  * Adminhtml alert queue grid block action item renderer
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
@@ -63,10 +59,10 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Abstract
     }
 
     /**
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function render(\Magento\Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         $this->_actions = array();
         if ($this->_salesReorder->canReorder($row)) {
@@ -105,7 +101,7 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Abstract
     protected function _actionsToHtml(array $actions = array())
     {
         $html = array();
-        $attributesObject = new \Magento\Object();
+        $attributesObject = new \Magento\Framework\Object();
 
         if (empty($actions)) {
             $actions = $this->_actions;
@@ -115,7 +111,7 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Abstract
             $attributesObject->setData($action['@']);
             $html[] = '<a ' . $attributesObject->serialize() . '>' . $action['#'] . '</a>';
         }
-        return implode($html, '<span class="separator">|</span>');
+        return implode($html, '');
     }
 
     /**

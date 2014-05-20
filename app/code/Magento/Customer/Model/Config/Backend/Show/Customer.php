@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -30,39 +28,41 @@ use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 /**
  * Customer Show Customer Model
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Customer extends \Magento\Core\Model\Config\Value
+class Customer extends \Magento\Framework\App\Config\Value
 {
     /**
      * @var \Magento\Eav\Model\Config
      */
     protected $_eavConfig;
 
+    /** @var \Magento\Store\Model\StoreManagerInterface */
+    protected $storeManager;
+
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\ConfigInterface $config
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Eav\Model\Config $eavConfig
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\ConfigInterface $config,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Config\ScopeConfigInterface $config,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Eav\Model\Config $eavConfig,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_eavConfig = $eavConfig;
-        parent::__construct($context, $registry, $storeManager, $config, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $resource, $resourceCollection, $data);
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -109,7 +109,7 @@ class Customer extends \Magento\Core\Model\Config\Value
         }
 
         if ($this->getScope() == 'websites') {
-            $website = $this->_storeManager->getWebsite($this->getWebsiteCode());
+            $website = $this->storeManager->getWebsite($this->getScopeCode());
             $dataFieldPrefix = 'scope_';
         } else {
             $website = null;
@@ -132,14 +132,14 @@ class Customer extends \Magento\Core\Model\Config\Value
     /**
      * Processing object after delete data
      *
-     * @return \Magento\Model\AbstractModel
+     * @return \Magento\Framework\Model\AbstractModel
      */
     protected function _afterDelete()
     {
         $result = parent::_afterDelete();
 
         if ($this->getScope() == 'websites') {
-            $website = $this->_storeManager->getWebsite($this->getWebsiteCode());
+            $website = $this->storeManager->getWebsite($this->getScopeCode());
             foreach ($this->_getAttributeObjects() as $attributeObject) {
                 $attributeObject->setWebsite($website);
                 $attributeObject->load($attributeObject->getId());

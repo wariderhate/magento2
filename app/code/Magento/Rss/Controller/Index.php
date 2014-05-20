@@ -18,21 +18,19 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Rss\Controller;
 
-use Magento\App\Action\NotFoundException;
+use Magento\Framework\App\Action\NotFoundException;
 
-class Index extends \Magento\App\Action\Action
+class Index extends \Magento\Framework\App\Action\Action
 {
     /**
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_storeConfig;
+    protected $_scopeConfig;
 
     /**
      * @var \Magento\Rss\Helper\WishlistRss
@@ -45,18 +43,18 @@ class Index extends \Magento\App\Action\Action
     protected $_customerSession;
 
     /**
-     * @param \Magento\App\Action\Context $context
-     * @param \Magento\Core\Model\Store\Config $storeConfig
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Rss\Helper\WishlistRss $wishlistHelper
      * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
-        \Magento\App\Action\Context $context,
-        \Magento\Core\Model\Store\Config $storeConfig,
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Rss\Helper\WishlistRss $wishlistHelper,
         \Magento\Customer\Model\Session $customerSession
     ) {
-        $this->_storeConfig = $storeConfig;
+        $this->_scopeConfig = $scopeConfig;
         $this->_wishlistHelper = $wishlistHelper;
         $this->_customerSession = $customerSession;
         parent::__construct($context);
@@ -70,7 +68,7 @@ class Index extends \Magento\App\Action\Action
      */
     public function indexAction()
     {
-        if ($this->_storeConfig->getConfig('rss/config/active')) {
+        if ($this->_scopeConfig->getValue('rss/config/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             $this->_view->loadLayout();
             $this->_view->renderLayout();
         } else {
@@ -107,11 +105,11 @@ class Index extends \Magento\App\Action\Action
      */
     public function wishlistAction()
     {
-        if ($this->_storeConfig->getConfig('rss/wishlist/active')) {
+        if ($this->_scopeConfig->getValue('rss/wishlist/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
             $wishlist = $this->_wishlistHelper->getWishlist();
             if ($wishlist && ($wishlist->getVisibility()
-                || $this->_customerSession->authenticate($this)
-                    && $wishlist->getCustomerId() == $this->_wishlistHelper->getCustomer()->getId())
+                || $this->_objectManager->get('Magento\Customer\Model\Session')->authenticate($this)
+                && $wishlist->getCustomerId() == $this->_wishlistHelper->getCustomer()->getId())
             ) {
                 $this->getResponse()->setHeader('Content-Type', 'text/xml; charset=UTF-8');
                 $this->_view->loadLayout(false);

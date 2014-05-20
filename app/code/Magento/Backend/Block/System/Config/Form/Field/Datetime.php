@@ -18,15 +18,13 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Backend\Block\System\Config\Form\Field;
 
-use Magento\Data\Form\Element\AbstractElement;
-use Magento\View\Element\Template;
+use Magento\Framework\Data\Form\Element\AbstractElement;
+use Magento\Framework\View\Element\Template;
 
 /**
  * Backend system config datetime field renderer
@@ -40,7 +38,7 @@ class Datetime extends \Magento\Backend\Block\System\Config\Form\Field
     protected function _getElementHtml(AbstractElement $element)
     {
         $format = $this->_localeDate->getDateTimeFormat(
-            \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM
+            \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM
         );
         return $this->_localeDate->date(intval($element->getValue()))->toString($format);
     }

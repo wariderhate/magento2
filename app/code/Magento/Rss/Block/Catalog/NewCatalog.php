@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Rss
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -46,7 +44,7 @@ class NewCatalog extends \Magento\Rss\Block\Catalog\AbstractCatalog
     protected $_visibility;
 
     /**
-     * @var \Magento\Model\Resource\Iterator
+     * @var \Magento\Framework\Model\Resource\Iterator
      */
     protected $_resourceIterator;
 
@@ -56,24 +54,24 @@ class NewCatalog extends \Magento\Rss\Block\Catalog\AbstractCatalog
     protected $_imageHelper;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
-     * @param \Magento\App\Http\Context $httpContext
+     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param \Magento\Catalog\Helper\Data $catalogData
      * @param \Magento\Rss\Model\RssFactory $rssFactory
      * @param \Magento\Catalog\Model\ProductFactory $productFactory
      * @param \Magento\Catalog\Model\Product\Visibility $visibility
-     * @param \Magento\Model\Resource\Iterator $resourceIterator
+     * @param \Magento\Framework\Model\Resource\Iterator $resourceIterator
      * @param \Magento\Catalog\Helper\Image $imageHelper
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
-        \Magento\App\Http\Context $httpContext,
+        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Catalog\Helper\Data $catalogData,
         \Magento\Rss\Model\RssFactory $rssFactory,
         \Magento\Catalog\Model\ProductFactory $productFactory,
         \Magento\Catalog\Model\Product\Visibility $visibility,
-        \Magento\Model\Resource\Iterator $resourceIterator,
+        \Magento\Framework\Model\Resource\Iterator $resourceIterator,
         \Magento\Catalog\Helper\Image $imageHelper,
         array $data = array()
     ) {
@@ -94,7 +92,11 @@ class NewCatalog extends \Magento\Rss\Block\Catalog\AbstractCatalog
         $storeModel = $this->_storeManager->getStore($storeId);
         $newUrl = $this->_urlBuilder->getUrl('rss/catalog/new/store_id/' . $storeId);
         $title = __('New Products from %1', $storeModel->getFrontendName());
-        $lang = $storeModel->getConfig('general/locale/code');
+        $lang = $this->_scopeConfig->getValue(
+            'general/locale/code',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $storeModel
+        );
 
         /** @var $rssObj \Magento\Rss\Model\Rss */
         $rssObj = $this->_rssFactory->create();
@@ -113,13 +115,13 @@ class NewCatalog extends \Magento\Rss\Block\Catalog\AbstractCatalog
         $todayStartOfDayDate = $this->_localeDate->date()->setTime(
             '00:00:00'
         )->toString(
-            \Magento\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
+            \Magento\Framework\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
         );
 
         $todayEndOfDayDate = $this->_localeDate->date()->setTime(
             '23:59:59'
         )->toString(
-            \Magento\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
+            \Magento\Framework\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
         );
 
         /** @var $products \Magento\Catalog\Model\Resource\Product\Collection */
@@ -220,7 +222,7 @@ class NewCatalog extends \Magento\Rss\Block\Catalog\AbstractCatalog
             $product->getDescription();
 
         if ($allowedPriceInRss) {
-            $description .= $this->getPriceHtml($product, true);
+            $description .= $this->renderPriceHtml($product, true);
         }
 
         $description .= '</td>' . '</tr></table>';

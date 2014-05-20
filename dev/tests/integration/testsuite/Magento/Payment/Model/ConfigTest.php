@@ -20,9 +20,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Payment
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,11 +35,11 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        /** @var $cache \Magento\App\Cache */
-        $cache = $objectManager->create('Magento\App\Cache');
+        /** @var $cache \Magento\Framework\App\Cache */
+        $cache = $objectManager->create('Magento\Framework\App\Cache');
         $cache->clean();
         $fileResolverMock = $this->getMockBuilder(
-            'Magento\Config\FileResolverInterface'
+            'Magento\Framework\Config\FileResolverInterface'
         )->disableOriginalConstructor()->getMock();
         $fileList = array(
             file_get_contents(__DIR__ . '/_files/payment.xml'),

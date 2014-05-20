@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Model\Resource\Report;
 /**
  * Shipping report resource model
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Shipping extends AbstractReport
@@ -130,7 +126,7 @@ class Shipping extends AbstractReport
 
             $columns = array(
                 'period' => 'period',
-                'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+                'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
                 'order_status' => 'order_status',
                 'shipping_description' => 'shipping_description',
                 'orders_count' => new \Zend_Db_Expr('SUM(orders_count)'),
@@ -138,7 +134,7 @@ class Shipping extends AbstractReport
                 'total_shipping_actual' => new \Zend_Db_Expr('SUM(total_shipping_actual)')
             );
 
-            $select->from($table, $columns)->where('store_id != ?', \Magento\Core\Model\Store::DEFAULT_STORE_ID);
+            $select->from($table, $columns)->where('store_id != ?', \Magento\Store\Model\Store::DEFAULT_STORE_ID);
 
             if ($subSelect !== null) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));
@@ -252,7 +248,7 @@ class Shipping extends AbstractReport
 
             $columns = array(
                 'period' => 'period',
-                'store_id' => new \Zend_Db_Expr(\Magento\Core\Model\Store::DEFAULT_STORE_ID),
+                'store_id' => new \Zend_Db_Expr(\Magento\Store\Model\Store::DEFAULT_STORE_ID),
                 'order_status' => 'order_status',
                 'shipping_description' => 'shipping_description',
                 'orders_count' => new \Zend_Db_Expr('SUM(orders_count)'),
@@ -260,7 +256,7 @@ class Shipping extends AbstractReport
                 'total_shipping_actual' => new \Zend_Db_Expr('SUM(total_shipping_actual)')
             );
 
-            $select->from($table, $columns)->where('store_id != ?', \Magento\Core\Model\Store::DEFAULT_STORE_ID);
+            $select->from($table, $columns)->where('store_id != ?', \Magento\Store\Model\Store::DEFAULT_STORE_ID);
 
             if ($subSelect !== null) {
                 $select->where($this->_makeConditionFromDateRangeSelect($subSelect, 'period'));

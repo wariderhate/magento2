@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -32,7 +30,7 @@ namespace Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element;
  * @method \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element\FontPicker setOptions(array $options)
  * @method \Magento\DesignEditor\Block\Adminhtml\Editor\Form\Element\FontPicker setCssClass($class)
  */
-class FontPicker extends \Magento\Data\Form\Element\Select
+class FontPicker extends \Magento\Framework\Data\Form\Element\Select
 {
     /**
      * Control type

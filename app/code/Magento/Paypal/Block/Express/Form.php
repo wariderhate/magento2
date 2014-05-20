@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -45,24 +43,24 @@ class Form extends \Magento\Paypal\Block\Standard\Form
     protected $_paypalData;
 
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
      */
     protected $currentCustomer;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Paypal\Model\ConfigFactory $paypalConfigFactory
-     * @param \Magento\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param \Magento\Paypal\Helper\Data $paypalData
-     * @param \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Paypal\Model\ConfigFactory $paypalConfigFactory,
-        \Magento\Locale\ResolverInterface $localeResolver,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver,
         \Magento\Paypal\Helper\Data $paypalData,
-        \Magento\Customer\Service\V1\CustomerCurrentService $currentCustomer,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = array()
     ) {
         $this->_paypalData = $paypalData;

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Model\Resource\Order;
 /**
  * Flat sales order collection
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Collection extends \Magento\Sales\Model\Resource\Collection\AbstractCollection
@@ -49,27 +45,27 @@ class Collection extends \Magento\Sales\Model\Resource\Collection\AbstractCollec
     protected $_eventObject = 'order_collection';
 
     /**
-     * @var \Magento\DB\Helper
+     * @var \Magento\Framework\DB\Helper
      */
     protected $_coreResourceHelper;
 
     /**
      * @param \Magento\Core\Model\EntityFactory $entityFactory
-     * @param \Magento\Logger $logger
-     * @param \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Event\ManagerInterface $eventManager
-     * @param \Magento\DB\Helper $coreResourceHelper
+     * @param \Magento\Framework\Logger $logger
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\DB\Helper $coreResourceHelper
      * @param \Zend_Db_Adapter_Abstract $connection
-     * @param \Magento\Model\Resource\Db\AbstractDb $resource
+     * @param \Magento\Framework\Model\Resource\Db\AbstractDb $resource
      */
     public function __construct(
         \Magento\Core\Model\EntityFactory $entityFactory,
-        \Magento\Logger $logger,
-        \Magento\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Event\ManagerInterface $eventManager,
-        \Magento\DB\Helper $coreResourceHelper,
+        \Magento\Framework\Logger $logger,
+        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
+        \Magento\Framework\DB\Helper $coreResourceHelper,
         $connection = null,
-        \Magento\Model\Resource\Db\AbstractDb $resource = null
+        \Magento\Framework\Model\Resource\Db\AbstractDb $resource = null
     ) {
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
         $this->_coreResourceHelper = $coreResourceHelper;
@@ -114,11 +110,11 @@ class Collection extends \Magento\Sales\Model\Resource\Collection\AbstractCollec
     /**
      * Minimize usual count select
      *
-     * @return \Magento\DB\Select
+     * @return \Magento\Framework\DB\Select
      */
     public function getSelectCountSql()
     {
-        /* @var $countSelect \Magento\DB\Select */
+        /* @var $countSelect \Magento\Framework\DB\Select */
         $countSelect = parent::getSelectCountSql();
         $countSelect->resetJoinLeft();
         return $countSelect;

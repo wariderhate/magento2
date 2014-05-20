@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -66,7 +64,13 @@ $installer->createCategory()->setStoreId(
     true
 )->save();
 
-$installer->setConfigData(\Magento\Catalog\Helper\Category::XML_PATH_CATEGORY_ROOT_ID, $category->getId());
+$data = array(
+    'scope' => 'default',
+    'scope_id' => 0,
+    'path' => \Magento\Catalog\Helper\Category::XML_PATH_CATEGORY_ROOT_ID,
+    'value' => $category->getId()
+);
+$installer->getConnection()->insertOnDuplicate($installer->getTable('core_config_data'), $data, array('value'));
 
 $installer->addAttributeGroup(\Magento\Catalog\Model\Product::ENTITY, 'Default', 'Design', 6);
 

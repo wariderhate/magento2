@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,26 +26,24 @@ namespace Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Main\Renderer;
 /**
  * Renderer for specific checkbox that is used on Rule Information tab in Shopping cart price rules
  *
- * @category   Magento
- * @package    Magento_Adminhtml
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Checkbox extends \Magento\Backend\Block\AbstractBlock implements
-    \Magento\Data\Form\Element\Renderer\RendererInterface
+    \Magento\Framework\Data\Form\Element\Renderer\RendererInterface
 {
     /**
-     * @var \Magento\Data\Form\Element\Factory
+     * @var \Magento\Framework\Data\Form\Element\Factory
      */
     protected $_elementFactory;
 
     /**
      * @param \Magento\Backend\Block\Context $context
-     * @param \Magento\Data\Form\Element\Factory $elementFactory
+     * @param \Magento\Framework\Data\Form\Element\Factory $elementFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
-        \Magento\Data\Form\Element\Factory $elementFactory,
+        \Magento\Framework\Data\Form\Element\Factory $elementFactory,
         array $data = array()
     ) {
         $this->_elementFactory = $elementFactory;
@@ -57,12 +53,12 @@ class Checkbox extends \Magento\Backend\Block\AbstractBlock implements
     /**
      * Checkbox render function
      *
-     * @param \Magento\Data\Form\Element\AbstractElement $element
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element
      * @return string
      */
-    public function render(\Magento\Data\Form\Element\AbstractElement $element)
+    public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        /** @var \Magento\Data\Form\Element\Checkbox $checkbox */
+        /** @var \Magento\Framework\Data\Form\Element\Checkbox $checkbox */
         $checkbox = $this->_elementFactory->create('checkbox', array('data' => $element->getData()));
         $checkbox->setForm($element->getForm());
 

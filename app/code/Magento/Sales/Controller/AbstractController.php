@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Cms
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,20 +26,20 @@ namespace Magento\Sales\Controller;
 /**
  * Sales Controller
  */
-abstract class AbstractController extends \Magento\App\Action\Action
+abstract class AbstractController extends \Magento\Framework\App\Action\Action
 {
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @param \Magento\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\App\Action\Context $context, \Magento\Registry $coreRegistry)
+    public function __construct(\Magento\Framework\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -174,7 +172,7 @@ abstract class AbstractController extends \Magento\App\Action\Action
         foreach ($items as $item) {
             try {
                 $cart->addOrderItem($item);
-            } catch (\Magento\Model\Exception $e) {
+            } catch (\Magento\Framework\Model\Exception $e) {
                 if ($this->_objectManager->get('Magento\Checkout\Model\Session')->getUseNotice(true)) {
                     $this->messageManager->addNotice($e->getMessage());
                 } else {

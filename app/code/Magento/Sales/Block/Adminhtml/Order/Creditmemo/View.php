@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Block\Adminhtml\Order\Creditmemo;
 /**
  * Adminhtml creditmemo view
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class View extends \Magento\Backend\Block\Widget\Form\Container
@@ -37,18 +33,18 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry = null;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Registry $registry
+     * @param \Magento\Framework\Registry $registry
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Registry $registry,
+        \Magento\Framework\Registry $registry,
         array $data = array()
     ) {
         $this->_coreRegistry = $registry;
@@ -92,6 +88,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'send_notification',
                 array(
                     'label' => __('Send Email'),
+                    'class' => 'send-email',
                     'onclick' => 'confirmSetLocation(\'' . __(
                         'Are you sure you want to send a Credit memo email to customer?'
                     ) . '\', \'' . $this->getEmailUrl() . '\')'
@@ -104,7 +101,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'refund',
                 array(
                     'label' => __('Refund'),
-                    'class' => 'save',
+                    'class' => 'refund',
                     'onclick' => 'setLocation(\'' . $this->getRefundUrl() . '\')'
                 )
             );
@@ -115,7 +112,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'void',
                 array(
                     'label' => __('Void'),
-                    'class' => 'save',
+                    'class' => 'void',
                     'onclick' => 'setLocation(\'' . $this->getVoidUrl() . '\')'
                 )
             );
@@ -126,7 +123,7 @@ class View extends \Magento\Backend\Block\Widget\Form\Container
                 'print',
                 array(
                     'label' => __('Print'),
-                    'class' => 'save',
+                    'class' => 'print',
                     'onclick' => 'setLocation(\'' . $this->getPrintUrl() . '\')'
                 )
             );

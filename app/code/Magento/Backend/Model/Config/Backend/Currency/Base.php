@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -36,12 +34,12 @@ class Base extends AbstractCurrency
      * Check base currency is available in installed currencies
      *
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     protected function _afterSave()
     {
         if (!in_array($this->getValue(), $this->_getInstalledCurrencies())) {
-            throw new \Magento\Model\Exception(__('Sorry, we haven\'t installed the base currency you selected.'));
+            throw new \Magento\Framework\Model\Exception(__('Sorry, we haven\'t installed the base currency you selected.'));
         }
         return $this;
     }

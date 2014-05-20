@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,43 +29,43 @@ namespace Magento\Sales\Model\Order\Pdf;
 class Shipment extends AbstractPdf
 {
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @var \Magento\Locale\ResolverInterface
+     * @var \Magento\Framework\Locale\ResolverInterface
      */
     protected $_localeResolver;
 
     /**
      * @param \Magento\Payment\Helper\Data $paymentData
-     * @param \Magento\Stdlib\String $string
-     * @param \Magento\Core\Model\Store\ConfigInterface $coreStoreConfig
-     * @param \Magento\App\Filesystem $filesystem
+     * @param \Magento\Framework\Stdlib\String $string
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\App\Filesystem $filesystem
      * @param Config $pdfConfig
      * @param \Magento\Sales\Model\Order\Pdf\Total\Factory $pdfTotalFactory
      * @param \Magento\Sales\Model\Order\Pdf\ItemsFactory $pdfItemsFactory
-     * @param \Magento\Stdlib\DateTime\TimezoneInterface $localeDate
-     * @param \Magento\Translate\Inline\StateInterface $inlineTranslation
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Locale\ResolverInterface $localeResolver
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param array $data
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         \Magento\Payment\Helper\Data $paymentData,
-        \Magento\Stdlib\String $string,
-        \Magento\Core\Model\Store\ConfigInterface $coreStoreConfig,
-        \Magento\App\Filesystem $filesystem,
+        \Magento\Framework\Stdlib\String $string,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\App\Filesystem $filesystem,
         Config $pdfConfig,
         \Magento\Sales\Model\Order\Pdf\Total\Factory $pdfTotalFactory,
         \Magento\Sales\Model\Order\Pdf\ItemsFactory $pdfItemsFactory,
-        \Magento\Stdlib\DateTime\TimezoneInterface $localeDate,
-        \Magento\Translate\Inline\StateInterface $inlineTranslation,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Locale\ResolverInterface $localeResolver,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
+        \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Locale\ResolverInterface $localeResolver,
         array $data = array()
     ) {
         $this->_storeManager = $storeManager;
@@ -75,7 +73,7 @@ class Shipment extends AbstractPdf
         parent::__construct(
             $paymentData,
             $string,
-            $coreStoreConfig,
+            $scopeConfig,
             $filesystem,
             $pdfConfig,
             $pdfTotalFactory,
@@ -147,8 +145,9 @@ class Shipment extends AbstractPdf
             $this->insertOrder(
                 $page,
                 $shipment,
-                $this->_coreStoreConfig->getConfigFlag(
+                $this->_scopeConfig->isSetFlag(
                     self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID,
+                    \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
                     $order->getStoreId()
                 )
             );

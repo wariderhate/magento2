@@ -18,14 +18,12 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Index
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Index\Model;
 
-use Magento\Event\ManagerInterface;
+use Magento\Framework\Event\ManagerInterface;
 use Magento\Index\Model\Resource\Process as ResourceProcess;
 use Magento\Index\Model\Resource\Process\Collection;
 
@@ -183,13 +181,13 @@ class Indexer
     /**
      * Create new event log and register event in all processes
      *
-     * @param   \Magento\Object $entity
+     * @param   \Magento\Framework\Object $entity
      * @param   string $entityType
      * @param   string $eventType
      * @param   bool $doSave
      * @return  Event
      */
-    public function logEvent(\Magento\Object $entity, $entityType, $eventType, $doSave = true)
+    public function logEvent(\Magento\Framework\Object $entity, $entityType, $eventType, $doSave = true)
     {
         $event = $this->_indexEventFactory->create()->setEntity(
             $entityType
@@ -212,13 +210,13 @@ class Indexer
      * Create new event log and register event in all processes.
      * Initiate events indexing procedure.
      *
-     * @param   \Magento\Object $entity
+     * @param   \Magento\Framework\Object $entity
      * @param   string $entityType
      * @param   string $eventType
      * @return  $this
      * @throws \Exception
      */
-    public function processEntityAction(\Magento\Object $entity, $entityType, $eventType)
+    public function processEntityAction(\Magento\Framework\Object $entity, $entityType, $eventType)
     {
         $event = $this->logEvent($entity, $entityType, $eventType, false);
         /**

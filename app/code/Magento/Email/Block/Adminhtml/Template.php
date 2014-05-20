@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Email
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Adminhtml system templates page content block
  *
- * @category   Magento
- * @package    Magento_Email
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Email\Block\Adminhtml;
@@ -45,17 +41,17 @@ class Template extends \Magento\Backend\Block\Template
     /**
      * Create add button and grid blocks
      *
-     * @return \Magento\View\Element\AbstractBlock
+     * @return \Magento\Framework\View\Element\AbstractBlock
      */
     protected function _prepareLayout()
     {
-        $this->addChild(
+        $this->getToolbar()->addChild(
             'add_button',
             'Magento\Backend\Block\Widget\Button',
             array(
                 'label' => __('Add New Template'),
                 'onclick' => "window.location='" . $this->getCreateUrl() . "'",
-                'class' => 'add'
+                'class' => 'add primary add-template'
             )
         );
 

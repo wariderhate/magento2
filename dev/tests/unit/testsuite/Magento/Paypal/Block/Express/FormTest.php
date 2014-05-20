@@ -36,7 +36,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     protected $_paypalConfig;
 
     /**
-     * @var \Magento\Customer\Service\V1\CustomerCurrentService|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $currentCustomer;
 
@@ -54,19 +54,26 @@ class FormTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnSelf());
         $paypalConfigFactory = $this->getMock('Magento\Paypal\Model\ConfigFactory', ['create'], [], '', false);
         $paypalConfigFactory->expects($this->once())->method('create')->will($this->returnValue($this->_paypalConfig));
-        $mark = $this->getMock('Magento\View\Element\Template', array(), array(), '', false);
+        $mark = $this->getMock('Magento\Framework\View\Element\Template', array(), array(), '', false);
         $mark->expects($this->once())->method('setTemplate')->will($this->returnSelf());
         $mark->expects($this->any())->method('__call')->will($this->returnSelf());
-        $layout = $this->getMockForAbstractClass('Magento\View\LayoutInterface');
+        $layout = $this->getMockForAbstractClass('Magento\Framework\View\LayoutInterface');
         $layout->expects($this->once())
             ->method('createBlock')
-            ->with('Magento\View\Element\Template')
+            ->with('Magento\Framework\View\Element\Template')
             ->will($this->returnValue($mark));
-        $this->currentCustomer = $this->getMockBuilder('\Magento\Customer\Service\V1\CustomerCurrentService')
+        $this->currentCustomer = $this->getMockBuilder('\Magento\Customer\Helper\Session\CurrentCustomer')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $localeResolver = $this->getMock('Magento\Locale\ResolverInterface', array(), array(), '', false, false);
+        $localeResolver = $this->getMock(
+            'Magento\Framework\Locale\ResolverInterface',
+            array(),
+            array(),
+            '',
+            false,
+            false
+        );
         $helper = new \Magento\TestFramework\Helper\ObjectManager($this);
         $this->_model = $helper->getObject(
             'Magento\Paypal\Block\Express\Form',

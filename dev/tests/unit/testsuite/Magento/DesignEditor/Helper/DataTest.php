@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_DesignEditor
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -50,7 +47,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->_context = $this->getMock('Magento\App\Helper\Context', array(), array(), '', false);
+        $this->_context = $this->getMock('Magento\Framework\App\Helper\Context', array(), array(), '', false);
     }
 
     protected function tearDown()
@@ -73,7 +70,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     public function testIsVdeRequest($path, $expected)
     {
         $this->_model = new \Magento\DesignEditor\Helper\Data($this->_context, self::TEST_FRONT_NAME);
-        $requestMock = $this->getMock('Magento\App\Request\Http', array(), array(), '', false);
+        $requestMock = $this->getMock('Magento\Framework\App\Request\Http', array(), array(), '', false);
         $requestMock->expects($this->once())->method('getOriginalPathInfo')->will($this->returnValue($path));
         $this->assertEquals($expected, $this->_model->isVdeRequest($requestMock));
     }

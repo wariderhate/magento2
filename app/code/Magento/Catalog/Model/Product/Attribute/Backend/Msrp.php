@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Product\Attribute\Backend;
 /**
  * Product attribute for `Apply MAP` enable/disable option
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Msrp extends \Magento\Catalog\Model\Product\Attribute\Backend\Boolean
@@ -44,10 +40,10 @@ class Msrp extends \Magento\Catalog\Model\Product\Attribute\Backend\Boolean
     /**
      * Constructor
      *
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\Logger $logger
      * @param \Magento\Catalog\Helper\Data $catalogData
      */
-    public function __construct(\Magento\Logger $logger, \Magento\Catalog\Helper\Data $catalogData)
+    public function __construct(\Magento\Framework\Logger $logger, \Magento\Catalog\Helper\Data $catalogData)
     {
         $this->_catalogData = $catalogData;
         parent::__construct($logger);

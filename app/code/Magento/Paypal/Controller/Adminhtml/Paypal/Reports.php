@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Paypal
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,7 +31,7 @@ class Reports extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
 
@@ -48,23 +46,23 @@ class Reports extends \Magento\Backend\App\Action
     protected $_settlementFactory;
 
     /**
-     * @var \Magento\Logger
+     * @var \Magento\Framework\Logger
      */
     protected $_logger;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Paypal\Model\Report\Settlement\RowFactory $rowFactory
      * @param \Magento\Paypal\Model\Report\SettlementFactory $settlementFactory
-     * @param \Magento\Logger $logger
+     * @param \Magento\Framework\Logger $logger
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Registry $coreRegistry,
+        \Magento\Framework\Registry $coreRegistry,
         \Magento\Paypal\Model\Report\Settlement\RowFactory $rowFactory,
         \Magento\Paypal\Model\Report\SettlementFactory $settlementFactory,
-        \Magento\Logger $logger
+        \Magento\Framework\Logger $logger
     ) {
         $this->_coreRegistry = $coreRegistry;
         $this->_rowFactory = $rowFactory;
@@ -124,7 +122,7 @@ class Reports extends \Magento\Backend\App\Action
      * Forced fetch reports action
      *
      * @return void
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function fetchAction()
     {
@@ -133,7 +131,7 @@ class Reports extends \Magento\Backend\App\Action
             /* @var $reports \Magento\Paypal\Model\Report\Settlement */
             $credentials = $reports->getSftpCredentials();
             if (empty($credentials)) {
-                throw new \Magento\Model\Exception(__('We found nothing to fetch because of an empty configuration.'));
+                throw new \Magento\Framework\Model\Exception(__('We found nothing to fetch because of an empty configuration.'));
             }
             foreach ($credentials as $config) {
                 try {
@@ -155,12 +153,12 @@ class Reports extends \Magento\Backend\App\Action
                     $this->_logger->logException($e);
                 }
             }
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
             $this->_logger->logException($e);
         }
-        $this->_redirect('adminhtml/*/index');
+        $this->_redirect('*/*/index');
     }
 
     /**

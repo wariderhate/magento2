@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -50,7 +47,9 @@ class DesignTest extends \PHPUnit_Framework_TestCase
     public function testApplyCustomDesign($theme)
     {
         $this->_model->applyCustomDesign($theme);
-        $design = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\View\DesignInterface');
+        $design = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
+            'Magento\Framework\View\DesignInterface'
+        );
         $this->assertEquals('package', $design->getDesignTheme()->getPackageCode());
         $this->assertEquals('theme', $design->getDesignTheme()->getThemeCode());
     }
@@ -61,7 +60,7 @@ class DesignTest extends \PHPUnit_Framework_TestCase
     public function getThemeModel()
     {
         $theme = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\View\Design\ThemeInterface'
+            'Magento\Framework\View\Design\ThemeInterface'
         );
         $theme->setData($this->_getThemeData());
         return array(array($theme));

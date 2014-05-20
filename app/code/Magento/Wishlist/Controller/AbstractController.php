@@ -18,19 +18,17 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Wishlist
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Wishlist\Controller;
 
-use Magento\App\Action\Context;
+use Magento\Framework\App\Action\Context;
 
 /**
  * Wishlist Abstract Front Controller Action
  */
-abstract class AbstractController extends \Magento\App\Action\Action
+abstract class AbstractController extends \Magento\Framework\App\Action\Action
 {
     /**
      * Filter to convert localized values to internal ones
@@ -45,12 +43,22 @@ abstract class AbstractController extends \Magento\App\Action\Action
     protected $_formKeyValidator;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $_customerSession;
+
+    /**
      * @param Context $context
      * @param \Magento\Core\App\Action\FormKeyValidator $formKeyValidator
+     * @param \Magento\Customer\Model\Session $customerSession
      */
-    public function __construct(Context $context, \Magento\Core\App\Action\FormKeyValidator $formKeyValidator)
-    {
+    public function __construct(
+        Context $context,
+        \Magento\Core\App\Action\FormKeyValidator $formKeyValidator,
+        \Magento\Customer\Model\Session $customerSession
+    ) {
         $this->_formKeyValidator = $formKeyValidator;
+        $this->_customerSession = $customerSession;
         parent::__construct($context);
     }
 
@@ -64,7 +72,7 @@ abstract class AbstractController extends \Magento\App\Action\Action
     {
         if (!$this->_localFilter) {
             $this->_localFilter = new \Zend_Filter_LocalizedToNormalized(
-                array('locale' => $this->_objectManager->get('Magento\Locale\ResolverInterface')->getLocaleCode())
+                array('locale' => $this->_objectManager->get('Magento\Framework\Locale\ResolverInterface')->getLocaleCode())
             );
         }
         $qty = $this->_localFilter->filter((double)$qty);
@@ -88,17 +96,12 @@ abstract class AbstractController extends \Magento\App\Action\Action
      */
     public function allcartAction()
     {
-        if (!$this->_formKeyValidator->validate($this->getRequest())) {
-            $this->_forward('noroute');
-            return;
-        }
-
         $wishlist = $this->_getWishlist();
         if (!$wishlist) {
             $this->_forward('noroute');
             return;
         }
-        $isOwner = $wishlist->isOwner($this->_objectManager->get('Magento\Customer\Model\Session')->getCustomerId());
+        $isOwner = $wishlist->isOwner($this->_customerSession->getCustomerId());
 
         $messages = array();
         $addedItems = array();
@@ -127,7 +130,7 @@ abstract class AbstractController extends \Magento\App\Action\Action
                 if ($item->addToCart($cart, $isOwner)) {
                     $addedItems[] = $item->getProduct();
                 }
-            } catch (\Magento\Model\Exception $e) {
+            } catch (\Magento\Framework\Model\Exception $e) {
                 if ($e->getCode() == \Magento\Wishlist\Model\Item::EXCEPTION_CODE_NOT_SALABLE) {
                     $notSalable[] = $item;
                 } elseif ($e->getCode() == \Magento\Wishlist\Model\Item::EXCEPTION_CODE_HAS_REQUIRED_OPTIONS) {
@@ -141,7 +144,7 @@ abstract class AbstractController extends \Magento\App\Action\Action
                     $cart->getQuote()->deleteItem($cartItem);
                 }
             } catch (\Exception $e) {
-                $this->_objectManager->get('Magento\Logger')->logException($e);
+                $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
                 $messages[] = __('We cannot add this item to your shopping cart.');
             }
         }
@@ -150,7 +153,7 @@ abstract class AbstractController extends \Magento\App\Action\Action
             $indexUrl = $this->_objectManager->get('Magento\Wishlist\Helper\Data')->getListUrl($wishlist->getId());
         } else {
             $indexUrl = $this->_objectManager->create(
-                'Magento\UrlInterface'
+                'Magento\Framework\UrlInterface'
             )->getUrl(
                 'wishlist/shared',
                 array('code' => $wishlist->getSharingCode())

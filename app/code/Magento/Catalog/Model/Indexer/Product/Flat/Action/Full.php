@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,7 +26,6 @@ namespace Magento\Catalog\Model\Indexer\Product\Flat\Action;
 /**
  * Class Full reindex action
  *
- * @package Magento\Catalog\Model\Indexer\Product\Flat\Action
  */
 class Full extends \Magento\Catalog\Model\Indexer\Product\Flat\AbstractAction
 {
@@ -38,7 +35,7 @@ class Full extends \Magento\Catalog\Model\Indexer\Product\Flat\AbstractAction
      * @param null|array $ids
      *
      * @return \Magento\Catalog\Model\Indexer\Product\Flat\Action\Full
-     * @throws \Magento\Exception
+     * @throws \Magento\Framework\Exception
      * @throws \Exception
      */
     public function execute($ids = null)
@@ -48,7 +45,7 @@ class Full extends \Magento\Catalog\Model\Indexer\Product\Flat\AbstractAction
                 $this->_reindex($store->getId());
             }
         } catch (\Exception $e) {
-            throw new \Magento\Model\Exception($e->getMessage(), $e->getCode(), $e);
+            throw new \Magento\Framework\Model\Exception($e->getMessage(), $e->getCode(), $e);
         }
         return $this;
     }

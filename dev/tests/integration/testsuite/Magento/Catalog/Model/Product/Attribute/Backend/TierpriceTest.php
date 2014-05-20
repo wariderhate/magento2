@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -55,7 +52,7 @@ class TierpriceTest extends \PHPUnit_Framework_TestCase
 
     public function testValidate()
     {
-        $product = new \Magento\Object();
+        $product = new \Magento\Framework\Object();
         $product->setTierPrice(
             array(
                 array('website_id' => 0, 'cust_group' => 1, 'price_qty' => 2, 'price' => 8),
@@ -66,11 +63,11 @@ class TierpriceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      */
     public function testValidateDuplicate()
     {
-        $product = new \Magento\Object();
+        $product = new \Magento\Framework\Object();
         $product->setTierPrice(
             array(
                 array('website_id' => 0, 'cust_group' => 1, 'price_qty' => 2, 'price' => 8),
@@ -82,11 +79,11 @@ class TierpriceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      */
     public function testValidateDuplicateWebsite()
     {
-        $product = new \Magento\Object();
+        $product = new \Magento\Framework\Object();
         $product->setTierPrice(
             array(
                 array('website_id' => 0, 'cust_group' => 1, 'price_qty' => 2, 'price' => 8),
@@ -162,12 +159,12 @@ class TierpriceTest extends \PHPUnit_Framework_TestCase
     public function testAfterSaveEmpty()
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->setCurrentStore(
             \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-                'Magento\Core\Model\StoreManagerInterface'
+                'Magento\Store\Model\StoreManagerInterface'
             )->getStore(
-                \Magento\Core\Model\Store::DEFAULT_STORE_ID
+                \Magento\Store\Model\Store::DEFAULT_STORE_ID
             )
         );
         /** @var $product \Magento\Catalog\Model\Product */

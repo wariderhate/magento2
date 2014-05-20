@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -38,7 +36,7 @@ use Magento\Catalog\Model\Product;
  * @method int getStoreId()
  * @method \Magento\Catalog\Model\Product\Compare\Item setStoreId(int $value)
  */
-class Item extends \Magento\Model\AbstractModel implements \Magento\Object\IdentityInterface
+class Item extends \Magento\Framework\Model\AbstractModel implements \Magento\Framework\Object\IdentityInterface
 {
     /**
      * Model cache tag
@@ -85,30 +83,30 @@ class Item extends \Magento\Model\AbstractModel implements \Magento\Object\Ident
     /**
      * Store manager
      *
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Log\Model\Visitor $logVisitor
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Catalog\Helper\Product\Compare $catalogProductCompare
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Log\Model\Visitor $logVisitor,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Catalog\Helper\Product\Compare $catalogProductCompare,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
         $this->_storeManager = $storeManager;
@@ -225,10 +223,10 @@ class Item extends \Magento\Model\AbstractModel implements \Magento\Object\Ident
     /**
      * Customer logout bind process
      *
-     * @param \Magento\Event\Observer $observer
+     * @param \Magento\Framework\Event\Observer $observer
      * @return $this
      */
-    public function bindCustomerLogout(\Magento\Event\Observer $observer = null)
+    public function bindCustomerLogout(\Magento\Framework\Event\Observer $observer = null)
     {
         $this->_getResource()->purgeVisitorByCustomer($this);
 

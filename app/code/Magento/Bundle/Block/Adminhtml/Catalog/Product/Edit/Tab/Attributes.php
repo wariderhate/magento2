@@ -18,21 +18,15 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Bundle
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Bundle product attributes tab
- *
- * @category    Magento
- * @package     Magento_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 namespace Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab;
 
+/**
+ * Bundle product attributes tab
+ */
 class Attributes extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attributes
 {
     /**
@@ -44,13 +38,23 @@ class Attributes extends \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Attri
     {
         parent::_prepareForm();
 
-        $special_price = $this->getForm()->getElement('special_price');
-        if ($special_price) {
-            $special_price->setRenderer(
+        $specialPrice = $this->getForm()->getElement('special_price');
+        if ($specialPrice) {
+            $specialPrice->setRenderer(
                 $this->getLayout()->createBlock(
                     'Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Attributes\Special'
                 )->setDisableChild(
                     false
+                )
+            );
+            $specialPrice->addClass(
+                implode(
+                    ' ',
+                    [
+                        'validate-greater-than-zero',
+                        'validate-number-range',
+                        'number-range-0.00-100.00'
+                    ]
                 )
             );
         }

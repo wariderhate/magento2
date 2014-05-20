@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Category chooser for Wysiwyg CMS widget
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Category\Widget;
@@ -83,10 +79,10 @@ class Chooser extends \Magento\Catalog\Block\Adminhtml\Category\Tree
     /**
      * Prepare chooser element HTML
      *
-     * @param \Magento\Data\Form\Element\AbstractElement $element Form Element
-     * @return \Magento\Data\Form\Element\AbstractElement
+     * @param \Magento\Framework\Data\Form\Element\AbstractElement $element Form Element
+     * @return \Magento\Framework\Data\Form\Element\AbstractElement
      */
-    public function prepareElementHtml(\Magento\Data\Form\Element\AbstractElement $element)
+    public function prepareElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
         $uniqId = $this->mathRandom->getUniqueHash($element->getId());
         $sourceUrl = $this->getUrl(
@@ -164,7 +160,7 @@ class Chooser extends \Magento\Catalog\Block\Adminhtml\Category\Tree
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param \Magento\Data\Tree\Node|array $node
+     * @param \Magento\Framework\Data\Tree\Node|array $node
      * @param int $level
      * @return string
      */

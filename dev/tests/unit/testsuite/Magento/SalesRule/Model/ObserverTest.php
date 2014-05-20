@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_SalesRule
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -56,8 +53,8 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
      */
     public function testSalesOrderAfterPlaceWithoutDiscount()
     {
-        $event = new \Magento\Event();
-        $observer = new \Magento\Event\Observer(array('event' => $event));
+        $event = new \Magento\Framework\Event();
+        $observer = new \Magento\Framework\Event\Observer(array('event' => $event));
         /** @var $mockOrder \Magento\Sales\Model\Order|\PHPUnit_Framework_MockObject_MockObject */
         $mockOrder = $this->getMock(
             'Magento\Sales\Model\Order',
@@ -76,8 +73,8 @@ class ObserverTest extends \PHPUnit_Framework_TestCase
      */
     public function testSalesOrderAfterPlaceWithDiscount()
     {
-        $event = new \Magento\Event();
-        $observer = new \Magento\Event\Observer(array('event' => $event));
+        $event = new \Magento\Framework\Event();
+        $observer = new \Magento\Framework\Event\Observer(array('event' => $event));
         /** @var $mockOrder \Magento\Sales\Model\Order|\PHPUnit_Framework_MockObject_MockObject */
         $mockOrder = $this->getMock('Magento\Sales\Model\Order', array('__wakeup'), array(), '', false);
         $event->setData('order', $mockOrder);

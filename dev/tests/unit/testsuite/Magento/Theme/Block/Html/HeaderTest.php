@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -33,13 +30,13 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLogoSrc()
     {
-        $filesystem = $this->getMock('\Magento\App\Filesystem', array(), array(), '', false);
-        $mediaDirectory = $this->getMock('\Magento\Filesystem\Directory\Read', array(), array(), '', false);
-        $storeConfig = $this->getMock('Magento\Core\Model\Store\Config', array('getConfig'), array(), '', false);
+        $filesystem = $this->getMock('\Magento\Framework\App\Filesystem', array(), array(), '', false);
+        $mediaDirectory = $this->getMock('\Magento\Framework\Filesystem\Directory\Read', array(), array(), '', false);
+        $scopeConfig = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');
 
-        $urlBuilder = $this->getMock('Magento\UrlInterface');
+        $urlBuilder = $this->getMock('Magento\Framework\UrlInterface');
 
-        $storeConfig->expects($this->once())->method('getConfig')->will($this->returnValue('default/image.gif'));
+        $scopeConfig->expects($this->once())->method('getValue')->will($this->returnValue('default/image.gif'));
         $urlBuilder->expects(
             $this->once()
         )->method(
@@ -63,7 +60,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
         $objectManager = new \Magento\TestFramework\Helper\ObjectManager($this);
 
         $arguments = array(
-            'storeConfig' => $storeConfig,
+            'scopeConfig' => $scopeConfig,
             'urlBuilder' => $urlBuilder,
             'fileStorageHelper' => $helper,
             'filesystem' => $filesystem

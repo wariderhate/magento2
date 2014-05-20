@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Checkout
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -31,11 +29,9 @@ use Magento\Multishipping\Model\Checkout\Type\Multishipping;
 /**
  * Multishipping checkout state model
  *
- * @category   Magento
- * @package    Magento_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class State extends \Magento\Object
+class State extends \Magento\Framework\Object
 {
     const STEP_SELECT_ADDRESSES = 'multishipping_addresses';
 
@@ -78,11 +74,11 @@ class State extends \Magento\Object
         $this->_multishipping = $multishipping;
         parent::__construct();
         $this->_steps = array(
-            self::STEP_SELECT_ADDRESSES => new \Magento\Object(array('label' => __('Select Addresses'))),
-            self::STEP_SHIPPING => new \Magento\Object(array('label' => __('Shipping Information'))),
-            self::STEP_BILLING => new \Magento\Object(array('label' => __('Billing Information'))),
-            self::STEP_OVERVIEW => new \Magento\Object(array('label' => __('Place Order'))),
-            self::STEP_SUCCESS => new \Magento\Object(array('label' => __('Order Success')))
+            self::STEP_SELECT_ADDRESSES => new \Magento\Framework\Object(array('label' => __('Select Addresses'))),
+            self::STEP_SHIPPING => new \Magento\Framework\Object(array('label' => __('Shipping Information'))),
+            self::STEP_BILLING => new \Magento\Framework\Object(array('label' => __('Billing Information'))),
+            self::STEP_OVERVIEW => new \Magento\Framework\Object(array('label' => __('Place Order'))),
+            self::STEP_SUCCESS => new \Magento\Framework\Object(array('label' => __('Order Success')))
         );
 
         foreach ($this->_steps as $step) {

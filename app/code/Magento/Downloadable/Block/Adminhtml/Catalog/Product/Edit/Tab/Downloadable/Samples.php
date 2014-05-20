@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Downloadable\Block\Adminhtml\Catalog\Product\Edit\Tab\Download
 /**
  * Adminhtml catalog product downloadable items tab links section
  *
- * @category    Magento
- * @package     Magento_Downloadable
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Samples extends \Magento\Backend\Block\Widget
@@ -37,7 +33,7 @@ class Samples extends \Magento\Backend\Block\Widget
     /**
      * Block config data
      *
-     * @var \Magento\Object
+     * @var \Magento\Framework\Object
      */
     protected $_config;
 
@@ -63,7 +59,7 @@ class Samples extends \Magento\Backend\Block\Widget
     /**
      * Core registry
      *
-     * @var \Magento\Registry
+     * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
 
@@ -78,26 +74,26 @@ class Samples extends \Magento\Backend\Block\Widget
     protected $_urlFactory;
 
     /**
-     * @var \Magento\Json\EncoderInterface
+     * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $_jsonEncoder;
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Json\EncoderInterface $jsonEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      * @param \Magento\Core\Helper\File\Storage\Database $coreFileStorageDatabase
      * @param \Magento\Downloadable\Helper\File $downloadableFile
-     * @param \Magento\Registry $coreRegistry
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Downloadable\Model\Sample $sampleModel
      * @param \Magento\Backend\Model\UrlFactory $urlFactory
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
-        \Magento\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\Core\Helper\File\Storage\Database $coreFileStorageDatabase,
         \Magento\Downloadable\Helper\File $downloadableFile,
-        \Magento\Registry $coreRegistry,
+        \Magento\Framework\Registry $coreRegistry,
         \Magento\Downloadable\Model\Sample $sampleModel,
         \Magento\Backend\Model\UrlFactory $urlFactory,
         array $data = array()
@@ -195,7 +191,7 @@ class Samples extends \Magento\Backend\Block\Widget
             if ($this->getProduct() && $item->getStoreTitle()) {
                 $tmpSampleItem['store_title'] = $item->getStoreTitle();
             }
-            $samplesArr[] = new \Magento\Object($tmpSampleItem);
+            $samplesArr[] = new \Magento\Framework\Object($tmpSampleItem);
         }
 
         return $samplesArr;
@@ -218,10 +214,11 @@ class Samples extends \Magento\Backend\Block\Widget
      */
     public function getSamplesTitle()
     {
-        return $this->getProduct()->getId() &&
-            $this->getProduct()->getTypeId() ==
-            'downloadable' ? $this->getProduct()->getSamplesTitle() : $this->_storeConfig->getConfig(
-                \Magento\Downloadable\Model\Sample::XML_PATH_SAMPLES_TITLE
+        return $this->getProduct()->getId()
+        && $this->getProduct()->getTypeId() == 'downloadable' ? $this->getProduct()->getSamplesTitle() :
+            $this->_scopeConfig->getValue(
+                \Magento\Downloadable\Model\Sample::XML_PATH_SAMPLES_TITLE,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
     }
 
@@ -278,12 +275,12 @@ class Samples extends \Magento\Backend\Block\Widget
     /**
      * Retrieve config object
      *
-     * @return \Magento\Object
+     * @return \Magento\Framework\Object
      */
     public function getConfig()
     {
         if (is_null($this->_config)) {
-            $this->_config = new \Magento\Object();
+            $this->_config = new \Magento\Framework\Object();
         }
 
         return $this->_config;

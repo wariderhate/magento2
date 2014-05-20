@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Catalog\Model\Resource\Product\Indexer;
 /**
  * Catalog Product Eav Indexer Resource Model
  *
- * @category    Magento
- * @package     Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Eav extends AbstractIndexer
@@ -56,13 +52,13 @@ class Eav extends AbstractIndexer
     protected $_eavDecimalFactory;
 
     /**
-     * @param \Magento\App\Resource $resource
+     * @param \Magento\Framework\App\Resource $resource
      * @param \Magento\Eav\Model\Config $eavConfig
      * @param \Magento\Catalog\Model\Resource\Product\Indexer\Eav\DecimalFactory $eavDecimalFactory
      * @param \Magento\Catalog\Model\Resource\Product\Indexer\Eav\SourceFactory $eavSourceFactory
      */
     public function __construct(
-        \Magento\App\Resource $resource,
+        \Magento\Framework\App\Resource $resource,
         \Magento\Eav\Model\Config $eavConfig,
         \Magento\Catalog\Model\Resource\Product\Indexer\Eav\DecimalFactory $eavDecimalFactory,
         \Magento\Catalog\Model\Resource\Product\Indexer\Eav\SourceFactory $eavSourceFactory
@@ -104,13 +100,13 @@ class Eav extends AbstractIndexer
      *
      * @param string $type
      * @return \Magento\Catalog\Model\Resource\Product\Indexer\Eav\AbstractEav
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function getIndexer($type)
     {
         $indexers = $this->getIndexers();
         if (!isset($indexers[$type])) {
-            throw new \Magento\Model\Exception(__('We found an unknown EAV indexer type "%1".', $type));
+            throw new \Magento\Framework\Model\Exception(__('We found an unknown EAV indexer type "%1".', $type));
         }
         return $indexers[$type];
     }

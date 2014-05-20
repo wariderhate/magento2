@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,11 @@ namespace Magento\Sales\Block\Reorder;
 
 /**
  * Sales order view block
+ *
+ * @method Sidebar setOrders(\Magento\Sales\Model\Resource\Order\Collection $ordersCollection)
+ * @method \Magento\Sales\Model\Resource\Order\Collection|null getOrders()
  */
-class Sidebar extends \Magento\View\Element\Template implements \Magento\View\Block\IdentityInterface
+class Sidebar extends \Magento\Framework\View\Element\Template implements \Magento\Framework\View\Block\IdentityInterface
 {
     /**
      * @var string
@@ -51,24 +52,24 @@ class Sidebar extends \Magento\View\Element\Template implements \Magento\View\Bl
     protected $_customerSession;
 
     /**
-     * @var \Magento\App\Http\Context
+     * @var \Magento\Framework\App\Http\Context
      */
     protected $httpContext;
 
     /**
-     * @param \Magento\View\Element\Template\Context $context
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Sales\Model\Resource\Order\CollectionFactory $orderCollectionFactory
      * @param \Magento\Sales\Model\Order\Config $orderConfig
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\App\Http\Context $httpContext
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param array $data
      */
     public function __construct(
-        \Magento\View\Element\Template\Context $context,
+        \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Sales\Model\Resource\Order\CollectionFactory $orderCollectionFactory,
         \Magento\Sales\Model\Order\Config $orderConfig,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\App\Http\Context $httpContext,
+        \Magento\Framework\App\Http\Context $httpContext,
         array $data = array()
     ) {
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -99,11 +100,9 @@ class Sidebar extends \Magento\View\Element\Template implements \Magento\View\Bl
      */
     public function initOrders()
     {
-        $customerId = $this->getCustomerId() ? $this
-            ->getCustomerId() : $this
-            ->_customerSession
-            ->getCustomer()
-            ->getId();
+        $customerId = $this->getCustomerId()
+            ? $this->getCustomerId()
+            : $this->_customerSession->getCustomerId();
 
         $orders = $this->_orderCollectionFactory->create()->addAttributeToFilter(
             'customer_id',

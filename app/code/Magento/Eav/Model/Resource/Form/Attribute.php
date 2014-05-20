@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Eav
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,13 +26,11 @@
 /**
  * EAV Form Attribute Resource Model
  *
- * @category    Magento
- * @package     Magento_Eav
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Eav\Model\Resource\Form;
 
-abstract class Attribute extends \Magento\Model\Resource\Db\AbstractDb
+abstract class Attribute extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Return form attribute IDs by form code

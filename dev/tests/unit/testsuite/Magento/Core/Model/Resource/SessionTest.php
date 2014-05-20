@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Core
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -61,7 +58,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     /**
      * Model under test
      *
-     * @var \Magento\Session\SaveHandler\DbTable
+     * @var \Magento\Framework\Session\SaveHandler\DbTable
      */
     protected $_model;
 
@@ -103,7 +100,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     protected function _prepareResourceMock($connection)
     {
         $resource = $this->getMock(
-            'Magento\App\Resource',
+            'Magento\Framework\App\Resource',
             array('getTableName', 'getConnection'),
             array(),
             '',
@@ -113,7 +110,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $resource->expects($this->once())->method('getTableName')->will($this->returnValue(self::SESSION_TABLE));
         $resource->expects($this->once())->method('getConnection')->will($this->returnValue($connection));
 
-        $this->_model = new \Magento\Session\SaveHandler\DbTable($resource);
+        $this->_model = new \Magento\Framework\Session\SaveHandler\DbTable($resource);
     }
 
     /**
@@ -124,7 +121,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     protected function _prepareMockForRead($isDataEncoded)
     {
         $connection = $this->getMock(
-            'Magento\DB\Adapter\Pdo\Mysql',
+            'Magento\Framework\DB\Adapter\Pdo\Mysql',
             array('select', 'from', 'where', 'fetchOne', 'isTableExists'),
             array(),
             '',
@@ -202,7 +199,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
     protected function _prepareMockForWrite($sessionExists)
     {
         $connection = $this->getMock(
-            'Magento\DB\Adapter\Pdo\Mysql',
+            'Magento\Framework\DB\Adapter\Pdo\Mysql',
             array('select', 'from', 'where', 'fetchOne', 'update', 'insert', 'isTableExists'),
             array(),
             '',

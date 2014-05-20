@@ -26,14 +26,13 @@ namespace Magento\TestFramework\Helper;
 /**
  * Class Categories Helper
  *
- * @package Magento\TestFramework\Helper
  */
 class Categories
 {
     /**
      * Object manager
      *
-     * @var \Magento\ObjectManager\ObjectManager
+     * @var \Magento\Framework\ObjectManager\ObjectManager
      */
     protected $_objectManager = null;
 
@@ -58,7 +57,7 @@ class Categories
     {
 
         $rootCategoryId = $this->getObjectManager()->create(
-            'Magento\Core\Model\StoreManager'
+            'Magento\Store\Model\StoreManager'
         )->getDefaultStoreView()->getRootCategoryId();
 
         /** @var $category \Magento\Catalog\Model\Category */
@@ -99,12 +98,12 @@ class Categories
     /**
      * Get object manager
      *
-     * @return \Magento\ObjectManager\ObjectManager|null
+     * @return \Magento\Framework\ObjectManager\ObjectManager|null
      */
     protected function getObjectManager()
     {
         if (!$this->_objectManager) {
-            $locatorFactory = new \Magento\App\ObjectManagerFactory();
+            $locatorFactory = new \Magento\Framework\App\ObjectManagerFactory();
             $this->_objectManager = $locatorFactory->create(BP, $_SERVER);
         }
         return $this->_objectManager;

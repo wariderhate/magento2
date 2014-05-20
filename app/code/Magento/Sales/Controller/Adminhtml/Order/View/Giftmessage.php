@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@ namespace Magento\Sales\Controller\Adminhtml\Order\View;
 /**
  * Adminhtml sales order view gift messages controller
  *
- * @category   Magento
- * @package    Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Giftmessage extends \Magento\Backend\App\Action
@@ -43,7 +39,7 @@ class Giftmessage extends \Magento\Backend\App\Action
             $this->_getGiftmessageSaveModel()->setGiftmessages(
                 $this->getRequest()->getParam('giftmessage')
             )->saveAllInOrder();
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
             $this->messageManager->addError(__('Something went wrong while saving the gift message.'));

@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Log
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,36 +26,36 @@ namespace Magento\Log\Model\Resource;
 /**
  * Visitor log resource
  */
-class Visitor extends \Magento\Model\Resource\Db\AbstractDb
+class Visitor extends \Magento\Framework\Model\Resource\Db\AbstractDb
 {
     /**
      * Magento string lib
      *
-     * @var \Magento\Stdlib\String
+     * @var \Magento\Framework\Stdlib\String
      */
     protected $string;
 
     /**
-     * @var \Magento\Stdlib\DateTime\DateTime
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
     protected $_date;
 
     /**
-     * @var \Magento\Core\Model\StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * @param \Magento\App\Resource $resource
-     * @param \Magento\Stdlib\DateTime\DateTime $date
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Stdlib\String $string
+     * @param \Magento\Framework\App\Resource $resource
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Stdlib\String $string
      */
     public function __construct(
-        \Magento\App\Resource $resource,
-        \Magento\Stdlib\DateTime\DateTime $date,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\Stdlib\String $string
+        \Magento\Framework\App\Resource $resource,
+        \Magento\Framework\Stdlib\DateTime\DateTime $date,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Stdlib\String $string
     ) {
         $this->_date = $date;
         $this->_storeManager = $storeManager;
@@ -78,10 +76,10 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Prepare data for save
      *
-     * @param \Magento\Model\AbstractModel $visitor
+     * @param \Magento\Framework\Model\AbstractModel $visitor
      * @return array
      */
-    protected function _prepareDataForSave(\Magento\Model\AbstractModel $visitor)
+    protected function _prepareDataForSave(\Magento\Framework\Model\AbstractModel $visitor)
     {
         return array(
             'session_id' => $visitor->getSessionId(),
@@ -101,7 +99,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     protected function _saveUrlInfo($visitor)
     {
         $adapter = $this->_getWriteAdapter();
-        $data = new \Magento\Object(
+        $data = new \Magento\Framework\Object(
             array(
                 'url' => $this->string->substr($visitor->getUrl(), 0, 250),
                 'referer' => $this->string->substr($visitor->getHttpReferer(), 0, 250)
@@ -119,10 +117,10 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Save url info before save
      *
-     * @param \Magento\Model\AbstractModel $visitor
+     * @param \Magento\Framework\Model\AbstractModel $visitor
      * @return $this
      */
-    protected function _beforeSave(\Magento\Model\AbstractModel $visitor)
+    protected function _beforeSave(\Magento\Framework\Model\AbstractModel $visitor)
     {
         if (!$visitor->getIsNewVisitor()) {
             $this->_saveUrlInfo($visitor);
@@ -133,10 +131,10 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Actions after save
      *
-     * @param \Magento\Model\AbstractModel $visitor
+     * @param \Magento\Framework\Model\AbstractModel $visitor
      * @return $this
      */
-    protected function _afterSave(\Magento\Model\AbstractModel $visitor)
+    protected function _afterSave(\Magento\Framework\Model\AbstractModel $visitor)
     {
         if ($visitor->getIsNewVisitor()) {
             $this->_saveVisitorInfo($visitor);
@@ -156,10 +154,10 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     /**
      * Perform actions after object load
      *
-     * @param \Magento\Model\AbstractModel|\Magento\Object $object
-     * @return \Magento\Model\Resource\Db\AbstractDb
+     * @param \Magento\Framework\Model\AbstractModel|\Magento\Framework\Object $object
+     * @return \Magento\Framework\Model\Resource\Db\AbstractDb
      */
-    protected function _afterLoad(\Magento\Model\AbstractModel $object)
+    protected function _afterLoad(\Magento\Framework\Model\AbstractModel $object)
     {
         parent::_afterLoad($object);
         // Add information about quote to visitor
@@ -200,7 +198,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
         $language = $this->string->cleanString($visitor->getHttpAcceptLanguage());
         $language = $this->string->substr($language, 0, 255);
 
-        $data = new \Magento\Object(
+        $data = new \Magento\Framework\Object(
             array(
                 'visitor_id' => $visitor->getId(),
                 'http_referer' => $referer,
@@ -228,7 +226,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
      */
     protected function _saveVisitorUrl($visitor)
     {
-        $data = new \Magento\Object(
+        $data = new \Magento\Framework\Object(
             array(
                 'url_id' => $visitor->getLastUrlId(),
                 'visitor_id' => $visitor->getId(),
@@ -252,7 +250,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
         $adapter = $this->_getWriteAdapter();
 
         if ($visitor->getDoCustomerLogin()) {
-            $data = new \Magento\Object(
+            $data = new \Magento\Framework\Object(
                 array(
                     'visitor_id' => $visitor->getVisitorId(),
                     'customer_id' => $visitor->getCustomerId(),
@@ -268,7 +266,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
         }
 
         if ($visitor->getDoCustomerLogout() && ($logId = $visitor->getCustomerLogId())) {
-            $data = new \Magento\Object(
+            $data = new \Magento\Framework\Object(
                 array(
                     'logout_at' => $this->_date->gmtDate(),
                     'store_id' => (int)$this->_storeManager->getStore()->getId()
@@ -299,7 +297,7 @@ class Visitor extends \Magento\Model\Resource\Db\AbstractDb
     {
         $adapter = $this->_getWriteAdapter();
         if ($visitor->getDoQuoteCreate()) {
-            $data = new \Magento\Object(
+            $data = new \Magento\Framework\Object(
                 array(
                     'quote_id' => (int)$visitor->getQuoteId(),
                     'visitor_id' => (int)$visitor->getId(),

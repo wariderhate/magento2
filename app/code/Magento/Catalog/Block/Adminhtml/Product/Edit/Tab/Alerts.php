@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Adminhtml
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,8 +26,6 @@
 /**
  * Product alerts tab
  *
- * @category   Magento
- * @package    Magento_Catalog
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Catalog\Block\Adminhtml\Product\Edit\Tab;
@@ -49,8 +45,8 @@ class Alerts extends \Magento\Backend\Block\Widget\Tab
         $accordion = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Accordion')->setId('productAlerts');
         /* @var $accordion \Magento\Backend\Block\Widget\Accordion */
 
-        $alertPriceAllow = $this->_storeConfig->getConfig('catalog/productalert/allow_price');
-        $alertStockAllow = $this->_storeConfig->getConfig('catalog/productalert/allow_stock');
+        $alertPriceAllow = $this->_scopeConfig->getValue('catalog/productalert/allow_price', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $alertStockAllow = $this->_scopeConfig->getValue('catalog/productalert/allow_stock', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
         if ($alertPriceAllow) {
             $accordion->addItem(
@@ -97,8 +93,8 @@ class Alerts extends \Magento\Backend\Block\Widget\Tab
      */
     public function canShowTab()
     {
-        $alertPriceAllow = $this->_storeConfig->getConfig('catalog/productalert/allow_price');
-        $alertStockAllow = $this->_storeConfig->getConfig('catalog/productalert/allow_stock');
+        $alertPriceAllow = $this->_scopeConfig->getValue('catalog/productalert/allow_price', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $alertStockAllow = $this->_scopeConfig->getValue('catalog/productalert/allow_stock', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return ($alertPriceAllow || $alertStockAllow) && parent::canShowTab();
     }
 }

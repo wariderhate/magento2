@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,25 +26,23 @@ namespace Magento\Backend\Block\Widget\Grid\Column\Renderer;
 /**
  * Grid column widget for rendering action grid cells
  *
- * @category   Magento
- * @package    Magento_Backend
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Text
 {
     /**
-     * @var \Magento\Json\EncoderInterface
+     * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $_jsonEncoder;
 
     /**
      * @param \Magento\Backend\Block\Context $context
-     * @param \Magento\Json\EncoderInterface $jsonEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Context $context,
-        \Magento\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         array $data = array()
     ) {
         $this->_jsonEncoder = $jsonEncoder;
@@ -56,10 +52,10 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Text
     /**
      * Renders column
      *
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    public function render(\Magento\Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         $actions = $this->getColumn()->getActions();
         if (empty($actions) || !is_array($actions)) {
@@ -91,12 +87,12 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Text
      * Render single action as dropdown option html
      *
      * @param array $action
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    protected function _toOptionHtml($action, \Magento\Object $row)
+    protected function _toOptionHtml($action, \Magento\Framework\Object $row)
     {
-        $actionAttributes = new \Magento\Object();
+        $actionAttributes = new \Magento\Framework\Object();
 
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
@@ -110,12 +106,12 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Text
      * Render single action as link html
      *
      * @param array $action
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return string
      */
-    protected function _toLinkHtml($action, \Magento\Object $row)
+    protected function _toLinkHtml($action, \Magento\Framework\Object $row)
     {
-        $actionAttributes = new \Magento\Object();
+        $actionAttributes = new \Magento\Framework\Object();
 
         $actionCaption = '';
         $this->_transformActionData($action, $actionCaption, $row);
@@ -136,10 +132,10 @@ class Action extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\Text
      *
      * @param array &$action
      * @param string &$actionCaption
-     * @param \Magento\Object $row
+     * @param \Magento\Framework\Object $row
      * @return $this
      */
-    protected function _transformActionData(&$action, &$actionCaption, \Magento\Object $row)
+    protected function _transformActionData(&$action, &$actionCaption, \Magento\Framework\Object $row)
     {
         foreach ($action as $attribute => $value) {
             if (isset($action[$attribute]) && !is_array($action[$attribute])) {

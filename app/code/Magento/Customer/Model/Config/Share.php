@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Customer
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -28,11 +26,9 @@ namespace Magento\Customer\Model\Config;
 /**
  * Customer sharing config model
  *
- * @category   Magento
- * @package    Magento_Customer
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Share extends \Magento\Core\Model\Config\Value implements \Magento\Option\ArrayInterface
+class Share extends \Magento\Framework\App\Config\Value implements \Magento\Framework\Option\ArrayInterface
 {
     /**
      * Xml config path to customers sharing scope value
@@ -49,44 +45,38 @@ class Share extends \Magento\Core\Model\Config\Value implements \Magento\Option\
     const SHARE_WEBSITE = 1;
 
     /**
-     * Core store config
-     *
-     * @var \Magento\Core\Model\Store\Config
-     */
-    protected $_coreStoreConfig;
-
-    /**
      * @var \Magento\Customer\Model\Resource\Customer
      */
     protected $_customerResource;
 
+    /** @var  \Magento\Store\Model\StoreManagerInterface */
+    protected $_storeManager;
+
     /**
      * Constructor
      *
-     * @param \Magento\Model\Context $context
-     * @param \Magento\Registry $registry
-     * @param \Magento\Core\Model\StoreManagerInterface $storeManager
-     * @param \Magento\App\ConfigInterface $config
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $config
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Magento\Customer\Model\Resource\Customer $customerResource
-     * @param \Magento\Model\Resource\AbstractResource $resource
-     * @param \Magento\Data\Collection\Db $resourceCollection
+     * @param \Magento\Framework\Model\Resource\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\Db $resourceCollection
      * @param array $data
      */
     public function __construct(
-        \Magento\Model\Context $context,
-        \Magento\Registry $registry,
-        \Magento\Core\Model\StoreManagerInterface $storeManager,
-        \Magento\App\ConfigInterface $config,
-        \Magento\Core\Model\Store\Config $coreStoreConfig,
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        \Magento\Framework\App\Config\ScopeConfigInterface $config,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Customer\Model\Resource\Customer $customerResource,
-        \Magento\Model\Resource\AbstractResource $resource = null,
-        \Magento\Data\Collection\Db $resourceCollection = null,
+        \Magento\Framework\Model\Resource\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\Db $resourceCollection = null,
         array $data = array()
     ) {
-        $this->_coreStoreConfig = $coreStoreConfig;
+        $this->_storeManager = $storeManager;
         $this->_customerResource = $customerResource;
-        parent::__construct($context, $registry, $storeManager, $config, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $resource, $resourceCollection, $data);
     }
 
     /**
@@ -106,7 +96,10 @@ class Share extends \Magento\Core\Model\Config\Value implements \Magento\Option\
      */
     public function isWebsiteScope()
     {
-        return $this->_coreStoreConfig->getConfig(self::XML_PATH_CUSTOMER_ACCOUNT_SHARE) == self::SHARE_WEBSITE;
+        return $this->_config->getValue(
+            self::XML_PATH_CUSTOMER_ACCOUNT_SHARE,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        ) == self::SHARE_WEBSITE;
     }
 
     /**
@@ -123,7 +116,7 @@ class Share extends \Magento\Core\Model\Config\Value implements \Magento\Option\
      * Check for email duplicates before saving customers sharing options
      *
      * @return $this
-     * @throws \Magento\Model\Exception
+     * @throws \Magento\Framework\Model\Exception
      */
     public function _beforeSave()
     {
@@ -131,7 +124,7 @@ class Share extends \Magento\Core\Model\Config\Value implements \Magento\Option\
         if ($value == self::SHARE_GLOBAL) {
             if ($this->_customerResource->findEmailDuplicates()) {
                 //@codingStandardsIgnoreStart
-                throw new \Magento\Model\Exception(
+                throw new \Magento\Framework\Model\Exception(
                     __(
                         'Cannot share customer accounts globally because some customer accounts with the same emails exist on multiple websites and cannot be merged.'
                     )

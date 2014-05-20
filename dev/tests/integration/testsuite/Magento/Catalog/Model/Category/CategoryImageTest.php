@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@
  */
 namespace Magento\Catalog\Model\Category;
 
-use Magento\Catalog\Model\Category\CategoryImageTest\StubZendLogWriterStreamTest as StubZendLogWriterStreamTest;
+use Magento\Catalog\Model\Category\CategoryImageTest\StubZendLogWriterStreamTest;
 
 class CategoryImageTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,12 +47,12 @@ class CategoryImageTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_oldLogActive = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->getStore()->getConfig(
             'dev/log/active'
         );
         $this->_oldExceptionFile = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
+            'Magento\Store\Model\StoreManagerInterface'
         )->getStore()->getConfig(
             'dev/log/exception_file'
         );
@@ -64,19 +61,23 @@ class CategoryImageTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
-        )->getStore()->setConfig(
+            'Magento\Framework\App\Config\MutableScopeConfigInterface'
+        )->setValue(
             'dev/log/active',
-            $this->_oldLogActive
+            $this->_oldLogActive,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+
         $this->_oldLogActive = null;
 
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Core\Model\StoreManagerInterface'
-        )->getStore()->setConfig(
+            'Magento\Framework\App\Config\MutableScopeConfigInterface'
+        )->setValue(
             'dev/log/exception_file',
-            $this->_oldExceptionFile
+            $this->_oldExceptionFile,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
+
         $this->_oldExceptionFile = null;
 
         $this->_oldWriterModel = null;
@@ -93,7 +94,7 @@ class CategoryImageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that there is no exception '$_FILES array is empty' in \Magento\File\Uploader::_setUploadFileId()
+     * Test that there is no exception '$_FILES array is empty' in \Magento\Framework\File\Uploader::_setUploadFileId()
      * if category image was not set
      *
      */
@@ -105,7 +106,8 @@ class CategoryImageTest extends \PHPUnit_Framework_TestCase
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
         /** @var $category \Magento\Catalog\Model\Category */
-        $category = $objectManager->get('Magento\Registry')->registry('_fixture/Magento\Catalog\Model\Category');
+        $category = $objectManager->get('Magento\Framework\Registry')
+            ->registry('_fixture/Magento\Catalog\Model\Category');
         $this->assertNotEmpty($category->getId());
 
         foreach (StubZendLogWriterStreamTest::$exceptions as $exception) {

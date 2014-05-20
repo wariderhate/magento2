@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
- * @subpackage  unit_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -34,7 +31,7 @@ class OrdersUpdaterTest extends \PHPUnit_Framework_TestCase
     protected $_model;
 
     /**
-     * @var \Magento\Registry|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\Registry|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $_registry;
 
@@ -45,7 +42,7 @@ class OrdersUpdaterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->_registry = $this->getMock('Magento\Registry', array(), array(), '', false);
+        $this->_registry = $this->getMock('Magento\Framework\Registry', array(), array(), '', false);
         $this->_agreementResource = $this->getMock(
             '\Magento\Paypal\Model\Resource\Billing\Agreement',
             array(),

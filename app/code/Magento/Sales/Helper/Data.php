@@ -18,20 +18,16 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Sales
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 namespace Magento\Sales\Helper;
 
-use Magento\Core\Model\Store;
+use Magento\Store\Model\Store;
 
 /**
  * Sales module base helper
  *
- * @category    Magento
- * @package     Magento_Sales
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Data extends \Magento\Core\Helper\Data
@@ -65,7 +61,11 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendNewOrderConfirmationEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(\Magento\Sales\Model\Order::XML_PATH_EMAIL_ENABLED, $store);
+        return $this->_scopeConfig->isSetFlag(
+            \Magento\Sales\Model\Order::XML_PATH_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
     }
 
     /**
@@ -87,8 +87,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendOrderCommentEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order::XML_PATH_UPDATE_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -101,8 +102,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendNewShipmentEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Shipment::XML_PATH_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -115,8 +117,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendShipmentCommentEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Shipment::XML_PATH_UPDATE_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -129,8 +132,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendNewInvoiceEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Invoice::XML_PATH_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -143,8 +147,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendInvoiceCommentEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Invoice::XML_PATH_UPDATE_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -157,8 +162,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendNewCreditmemoEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Creditmemo::XML_PATH_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }
@@ -171,8 +177,9 @@ class Data extends \Magento\Core\Helper\Data
      */
     public function canSendCreditmemoCommentEmail($store = null)
     {
-        return $this->_coreStoreConfig->getConfigFlag(
+        return $this->_scopeConfig->isSetFlag(
             \Magento\Sales\Model\Order\Creditmemo::XML_PATH_UPDATE_EMAIL_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
     }

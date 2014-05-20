@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogInventory
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,29 +27,32 @@
  */
 namespace Magento\CatalogInventory\Helper;
 
-use Magento\Core\Model\Store;
+use Magento\Store\Model\Store;
+use Magento\Customer\Service\V1\CustomerGroupServiceInterface as CustomerGroupService;
 
 class Minsaleqty
 {
     /**
      * Core store config
      *
-     * @var \Magento\Core\Model\Store\Config
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_coreStoreConfig;
+    protected $_scopeConfig;
 
     /**
-     * @var \Magento\Math\Random
+     * @var \Magento\Framework\Math\Random
      */
     protected $mathRandom;
 
     /**
-     * @param \Magento\Core\Model\Store\Config $coreStoreConfig
-     * @param \Magento\Math\Random $mathRandom
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+     * @param \Magento\Framework\Math\Random $mathRandom
      */
-    public function __construct(\Magento\Core\Model\Store\Config $coreStoreConfig, \Magento\Math\Random $mathRandom)
-    {
-        $this->_coreStoreConfig = $coreStoreConfig;
+    public function __construct(
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Framework\Math\Random $mathRandom
+    ) {
+        $this->_scopeConfig = $scopeConfig;
         $this->mathRandom = $mathRandom;
     }
 
@@ -84,8 +85,8 @@ class Minsaleqty
                     $data[$groupId] = $this->_fixQty($qty);
                 }
             }
-            if (count($data) == 1 && array_key_exists(\Magento\Customer\Model\Group::CUST_GROUP_ALL, $data)) {
-                return (string)$data[\Magento\Customer\Model\Group::CUST_GROUP_ALL];
+            if (count($data) == 1 && array_key_exists(CustomerGroupService::CUST_GROUP_ALL, $data)) {
+                return (string)$data[CustomerGroupService::CUST_GROUP_ALL];
             }
             return serialize($data);
         } else {
@@ -102,7 +103,7 @@ class Minsaleqty
     protected function _unserializeValue($value)
     {
         if (is_numeric($value)) {
-            return array(\Magento\Customer\Model\Group::CUST_GROUP_ALL => $this->_fixQty($value));
+            return array(CustomerGroupService::CUST_GROUP_ALL => $this->_fixQty($value));
         } elseif (is_string($value) && !empty($value)) {
             return unserialize($value);
         } else {
@@ -194,8 +195,9 @@ class Minsaleqty
      */
     public function getConfigValue($customerGroupId, $store = null)
     {
-        $value = $this->_coreStoreConfig->getConfig(
+        $value = $this->_scopeConfig->getValue(
             \Magento\CatalogInventory\Model\Stock\Item::XML_PATH_MIN_SALE_QTY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
         $value = $this->_unserializeValue($value);
@@ -207,7 +209,7 @@ class Minsaleqty
             if ($groupId == $customerGroupId) {
                 $result = $qty;
                 break;
-            } else if ($groupId == \Magento\Customer\Model\Group::CUST_GROUP_ALL) {
+            } else if ($groupId == CustomerGroupService::CUST_GROUP_ALL) {
                 $result = $qty;
             }
         }

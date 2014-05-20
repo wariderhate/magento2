@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Theme
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,22 +27,22 @@
  */
 namespace Magento\Theme\Controller\Adminhtml\System\Design\Wysiwyg;
 
-use Magento\App\ResponseInterface;
+use Magento\Framework\App\ResponseInterface;
 
 class Files extends \Magento\Backend\App\Action
 {
     /**
-     * @var \Magento\App\Response\Http\FileFactory
+     * @var \Magento\Framework\App\Response\Http\FileFactory
      */
     protected $_fileFactory;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\App\Response\Http\FileFactory $fileFactory
+     * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\App\Response\Http\FileFactory $fileFactory
+        \Magento\Framework\App\Response\Http\FileFactory $fileFactory
     ) {
         $this->_fileFactory = $fileFactory;
         parent::__construct($context);
@@ -77,7 +75,7 @@ class Files extends \Magento\Backend\App\Action
                 )
             );
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->getResponse()->setBody($this->_objectManager->get('Magento\Core\Helper\Data')->jsonEncode(array()));
         }
     }
@@ -93,11 +91,11 @@ class Files extends \Magento\Backend\App\Action
         try {
             $path = $this->_getSession()->getStoragePath();
             $result = $this->_getStorage()->createFolder($name, $path);
-        } catch (\Magento\Model\Exception $e) {
+        } catch (\Magento\Framework\Model\Exception $e) {
             $result = array('error' => true, 'message' => $e->getMessage());
         } catch (\Exception $e) {
             $result = array('error' => true, 'message' => __('Sorry, there was an unknown error.'));
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
         }
         $this->getResponse()->setBody($this->_objectManager->get('Magento\Core\Helper\Data')->jsonEncode($result));
     }
@@ -169,10 +167,10 @@ class Files extends \Magento\Backend\App\Action
             return $this->_fileFactory->create(
                 $file,
                 array('type' => 'filename', 'value' => $helper->getThumbnailPath($file)),
-                \Magento\App\Filesystem::MEDIA_DIR
+                \Magento\Framework\App\Filesystem::MEDIA_DIR
             );
         } catch (\Exception $e) {
-            $this->_objectManager->get('Magento\Logger')->logException($e);
+            $this->_objectManager->get('Magento\Framework\Logger')->logException($e);
             $this->_redirect('core/index/notfound');
         }
     }

@@ -18,7 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    design
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -30,17 +29,14 @@
 <?php else:  ?>
     <div data-block="minicart" class="minicart wrapper">
 <?php endif; ?>
-<?php $_cartQty = $this->getSummaryCount() ?>
+<?php $_cartQty = (float) $this->getSummaryCount() ?>
 <?php if (!$this->getIsLinkMode() || !$this->getIsNeedToDisplaySideBar()): ?>
-    <a <?php if ($this->getIsNeedToDisplaySideBar()): ?>data-toggle="dropdown"<?php endif ?> class="action showcart" href="<?php echo $this->getUrl('checkout/cart'); ?>">
+    <a class="action showcart" href="<?php echo $this->getUrl('checkout/cart'); ?>">
         <span class="text"><?php echo __('My Cart'); ?></span>
         <span class="counter qty<?php echo ($_cartQty > 0) ? '' : ' empty'; ?>"><?php echo ($_cartQty == 1) ? __('1 item') : __('%1 items',$_cartQty) ?></span>
     </a>
     <?php if ($this->getIsNeedToDisplaySideBar()): ?>
-        <div data-target="dropdown" class="block active minicart<?php echo ($_cartQty > 0) ? '' : ' empty'; ?>">
-            <button title="<?php echo __('Close'); ?>" type="button" class="action close" data-toggle="dropdown">
-                <span><?php echo __('Close'); ?></span>
-            </button>
+        <div class="block minicart<?php echo ($_cartQty > 0) ? '' : ' empty'; ?>" <?php if ($this->getIsNeedToDisplaySideBar()): ?> data-mage-init='{"dropdownDialog":{"appendTo":"[data-block=minicart]", "triggerTarget":".showcart", "timeout": "2000", "triggerClass":"active", "parentClass":"active"}}'<?php endif ?>>
             <div class="title">
                 <strong>
                     <span class="text"><?php echo __('My Cart'); ?></span>
@@ -98,7 +94,11 @@
                         <div class="primary">
                             <?php if ($isPossibleOnepageCheckout): ?>
                                 <?php echo $this->getChildHtml('extra_actions') ?>
-                                <button id="top-cart-btn-checkout" type="button" class="action checkout" title="<?php echo __('Checkout') ?>">
+                                <button
+                                    id="top-cart-btn-checkout"
+                                    type="button"
+                                    class="action checkout primary"
+                                    title="<?php echo __('Checkout') ?>">
                                     <span><?php echo __('Checkout') ?></span>
                                 </button>
                             <?php endif; ?>
@@ -116,14 +116,12 @@
 <?php endif; ?>
 <script type="text/javascript">
     (function($) {
-        head.js("<?php echo $this->getViewFileUrl('Magento_Checkout::js/sidebar.js') ?>", function() {
-                $('[data-block="minicart"]').sidebar({
-                    checkoutUrl: '<?php echo $this->getCheckoutUrl();?>',
-                    checkoutButton: '#top-cart-btn-checkout',
-                    removeButton: '#mini-cart a.action.delete',
-                    confirmMessage: '<?php echo __('Are you sure you would like to remove this item from the shopping cart?') ?>'
-                });
-            });
+        $('[data-block="minicart"]').mage('sidebar', {
+            checkoutUrl: '<?php echo $this->getCheckoutUrl();?>',
+            checkoutButton: '#top-cart-btn-checkout',
+            removeButton: '#mini-cart a.action.delete',
+            confirmMessage: '<?php echo __('Are you sure you would like to remove this item from the shopping cart?') ?>'
+        });
     })(jQuery);
 </script>
 <?php if ($this->getInList()): ?>

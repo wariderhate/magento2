@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Catalog
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -49,13 +46,13 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      * Retrieve loaded url rewrite
      *
      * @param string $idPath
-     * @return \Magento\Core\Model\Url\Rewrite
+     * @return \Magento\UrlRewrite\Model\UrlRewrite
      */
     protected function _loadRewrite($idPath)
     {
-        /** @var $rewrite \Magento\Core\Model\Url\Rewrite */
+        /** @var $rewrite \Magento\UrlRewrite\Model\UrlRewrite */
         $rewrite = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Core\Model\Url\Rewrite'
+            'Magento\UrlRewrite\Model\UrlRewrite'
         );
         $rewrite->loadByIdPath($idPath);
         return $rewrite;
@@ -83,7 +80,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     {
         $root = $this->_model->getStoreRootCategory(1);
         $this->assertNotEmpty($root);
-        $this->assertInstanceOf('Magento\Object', $root);
+        $this->assertInstanceOf('Magento\Framework\Object', $root);
         $this->assertEquals(2, $root->getId());
         $this->assertEquals(1, $root->getParentId());
     }
@@ -173,10 +170,10 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testGetProductRequestPath()
     {
-        $product = new \Magento\Object();
+        $product = new \Magento\Framework\Object();
         $product->setName('test product')->setId(uniqid());
 
-        $category = new \Magento\Object();
+        $category = new \Magento\Framework\Object();
         $category->setName('test category')->setId(uniqid())->setLevel(2)->setUrlPath('test/category');
 
         $this->assertEquals(
@@ -186,7 +183,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Model\Exception
+     * @expectedException \Magento\Framework\Model\Exception
      */
     public function testGeneratePathDefault()
     {
@@ -195,10 +192,10 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function generatePathDataProvider()
     {
-        $product = new \Magento\Object();
+        $product = new \Magento\Framework\Object();
         $product->setName('test product')->setId(111);
 
-        $category = new \Magento\Object();
+        $category = new \Magento\Framework\Object();
         $category->setName('test category')->setId(999)->setLevel(2)->setUrlPath('test/category')->setParentId(3);
 
         return array(

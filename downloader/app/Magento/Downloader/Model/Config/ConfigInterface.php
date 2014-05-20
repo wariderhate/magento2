@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Connect
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -27,8 +25,6 @@
 /**
  * Class config
  *
- * @category   Magento
- * @package    Magento_Connect
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 namespace Magento\Downloader\Model\Config;
@@ -38,7 +34,7 @@ interface ConfigInterface
     /**
      * Set data for Settings View
      *
-     * @param \Magento\Connect\Config $config
+     * @param \Magento\Framework\Connect\Config $config
      * @param \Magento\Downloader\View $view
      * @return null
      */
@@ -65,7 +61,7 @@ interface ConfigInterface
     /**
      * Set config data from POST
      *
-     * @param \Magento\Connect\Config $config Config object
+     * @param \Magento\Framework\Connect\Config $config Config object
      * @param array $post post data
      * @return boolean
      */

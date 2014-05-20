@@ -18,8 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_Backend
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -63,7 +61,7 @@ class Date extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
             if (is_null(self::$_format)) {
                 try {
                     self::$_format = $this->_localeDate->getDateFormat(
-                        \Magento\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM
+                        \Magento\Framework\Stdlib\DateTime\TimezoneInterface::FORMAT_TYPE_MEDIUM
                     );
                 } catch (\Exception $e) {
                     $this->_logger->logException($e);
@@ -77,10 +75,10 @@ class Date extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
     /**
      * Renders grid column
      *
-     * @param   \Magento\Object $row
+     * @param   \Magento\Framework\Object $row
      * @return  string
      */
-    public function render(\Magento\Object $row)
+    public function render(\Magento\Framework\Object $row)
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {
             $format = $this->_getFormat();
@@ -88,7 +86,7 @@ class Date extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
                 if ($this->getColumn()->getGmtoffset()) {
                     $data = $this->_localeDate->date(
                         $data,
-                        \Magento\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
+                        \Magento\Framework\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
                     )->toString(
                         $format
                     );
@@ -99,7 +97,7 @@ class Date extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRe
                 if ($this->getColumn()->getTimezone()) {
                     $data = $this->_localeDate->date(
                         $data,
-                        \Magento\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
+                        \Magento\Framework\Stdlib\DateTime::DATETIME_INTERNAL_FORMAT
                     )->toString(
                         $format
                     );

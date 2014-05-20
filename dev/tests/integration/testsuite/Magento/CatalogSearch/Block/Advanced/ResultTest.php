@@ -18,9 +18,6 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category    Magento
- * @package     Magento_CatalogSearch
- * @subpackage  integration_tests
  * @copyright   Copyright (c) 2014 X.commerce, Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -29,7 +26,7 @@ namespace Magento\CatalogSearch\Block\Advanced;
 class ResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magento\View\LayoutInterface
+     * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout;
 
@@ -41,7 +38,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_layout = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\View\LayoutInterface'
+            'Magento\Framework\View\LayoutInterface'
         );
         $this->_block = $this->_layout->createBlock('Magento\CatalogSearch\Block\Advanced\Result', 'block');
     }
@@ -70,7 +67,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get('Magento\Catalog\Model\Layer\Search')
             ->setCurrentCategory($category);
 
-        $childBlock = $this->_layout->addBlock('Magento\View\Element\Text', 'search_result_list', 'block');
+        $childBlock = $this->_layout->addBlock('Magento\Framework\View\Element\Text', 'search_result_list', 'block');
 
         $expectedOptions = array('option1' => 'Label Option 1', 'option3' => 'Label Option 2');
         $this->assertNotEquals($expectedOptions, $childBlock->getAvailableOrders());
@@ -83,8 +80,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetListModes()
     {
-        /** @var $childBlock \Magento\View\Element\Text */
-        $childBlock = $this->_layout->addBlock('Magento\View\Element\Text', 'search_result_list', 'block');
+        /** @var $childBlock \Magento\Framework\View\Element\Text */
+        $childBlock = $this->_layout->addBlock('Magento\Framework\View\Element\Text', 'search_result_list', 'block');
         $this->assertEmpty($childBlock->getModes());
         $this->_block->setListModes();
         $this->assertNotEmpty($childBlock->getModes());
@@ -92,8 +89,8 @@ class ResultTest extends \PHPUnit_Framework_TestCase
 
     public function testSetListCollection()
     {
-        /** @var $childBlock \Magento\View\Element\Text */
-        $childBlock = $this->_layout->addBlock('Magento\View\Element\Text', 'search_result_list', 'block');
+        /** @var $childBlock \Magento\Framework\View\Element\Text */
+        $childBlock = $this->_layout->addBlock('Magento\Framework\View\Element\Text', 'search_result_list', 'block');
         $this->assertEmpty($childBlock->getCollection());
         $this->_block->setListCollection();
         $this->assertInstanceOf(
